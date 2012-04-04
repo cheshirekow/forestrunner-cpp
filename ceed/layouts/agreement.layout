@@ -1,0 +1,29 @@
+<GUILayout>
+    <Window Name="RootWindow" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window Name="RootWindow/FrameWindow" Type="GlossySerpent/FrameWindow">
+            <Property Name="UnifiedAreaRect" Value="{{0,88},{0,45},{0,554},{0,420}}" />
+            <Property Name="Text" Value="Disclaimer" />
+            <Window Name="RootWindow/FrameWindow/MultiLineEditbox2" Type="GlossySerpent/MultiLineEditbox">
+                <Property Name="UnifiedAreaRect" Value="{{0,7},{0,4},{0,449},{0,297}}" />
+                <Property Name="Text">This game was created to research human reactions to high velocity motion through a complex environment (such as a forest).  It was designed with the Aerospace Robotics and Embedded Systems Laboratory at the Massachusetts Institute of Technology.
+
+The game records the final time and settings for each run to a central server, but no personal information is recorded, and no link between the player and the data collected exists - participation is completely anonymous.
+
+Participation is VOLUNTARY.  Subjects may decline to answer any or all questions at any time.  Subjects may decline further participation, at any time, without adverse consequences.  Confidentiality and/or anonymity are assured.
+
+You must agree to these terms to play to the game.
+                
+</Property>
+            </Window>
+            <Window Name="RootWindow/FrameWindow/AcceptButton" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,90},{0,304},{0,214},{0,335}}" />
+                <Property Name="Text" Value="Accept" />
+            </Window>
+            <Window Name="RootWindow/FrameWindow/RejectButton" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,221},{0,303},{0,339},{0,334}}" />
+                <Property Name="Text" Value="Reject" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
