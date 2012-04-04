@@ -23,7 +23,8 @@ set(LIBS ${LIBS}
  
 add_executable( tutorial7 
                     BasicTutorial7.cpp
-                    ../TutorialFramework/BaseApplication.cpp)
+                    ../TutorialFramework/BaseApplication.cpp
+                    )
                     
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg 
                 ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg COPYONLY)

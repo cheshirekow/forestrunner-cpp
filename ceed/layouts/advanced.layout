@@ -1,0 +1,21 @@
+<GUILayout>
+    <Window Name="Advanced" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window Name="Advanced/Panel" Type="GlossySerpent/SimplePanel">
+            <Property Name="UnifiedAreaRect" Value="{{0,50},{0,50},{1,-50},{1,-50}}" />
+            <Window Name="Advanced/Panel/Titlebar" Type="GlossySerpent/Titlebar">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{0,30}}" />
+                <Property Name="Text" Value="Advanced Settings" />
+                <Property Name="AlwaysOnTop" Value="True" />
+            </Window>
+            <Window Name="Advanced/Panel/btn_save" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,300},{0,300},{1,-135},{0,330}}" />
+                <Property Name="Text" Value="Save" />
+            </Window>
+            <Window Name="Advanced/Panel/btn_back" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,405},{0,300},{1,-30},{0,330}}" />
+                <Property Name="Text" Value="Back" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

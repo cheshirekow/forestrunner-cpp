@@ -1,0 +1,6 @@
+changes.txt
+*~
+.cproject
+.project
+.settings/*
+ceed/

@@ -1,0 +1,7 @@
+<Imageset AutoScaled="false" Imagefile="ForestRunner.png" Name="ForestRunner" NativeHorzRes="800" NativeVertRes="600">
+    <Image Height="200" Name="Num/One" Width="200" XPos="0" YPos="0" />
+    <Image Height="200" Name="Num/Two" Width="200" XPos="200" YPos="0" />
+    <Image Height="200" Name="Num/Three" Width="200" XPos="400" YPos="0" />
+    <Image Height="145" Name="Crash" Width="381" XPos="12" YPos="227" />
+    <Image Height="84" Name="Logo" Width="450" XPos="2" YPos="427" />
+</Imageset>

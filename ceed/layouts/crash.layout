@@ -1,0 +1,16 @@
+<GUILayout>
+    <Window Name="Crash" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window Name="Crash/img_theImage" Type="DefaultWindow">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-370},{1,-270}}" />
+            <Property Name="VerticalAlignment" Value="Centre" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+        </Window>
+        <Window Name="Crash/StaticText" Type="GlossySerpent/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-470},{1,-443}}" />
+            <Property Name="Text" Value="Crash" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+    </Window>
+</GUILayout>

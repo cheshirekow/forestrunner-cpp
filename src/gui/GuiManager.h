@@ -1,0 +1,35 @@
+/*
+ *  \file   GuiManager.h
+ *
+ *  \date   Apr 4, 2012
+ *  \author Josh Bialkowski (jbialk@mit.edu)
+ *  \brief  
+ */
+
+#ifndef GUIMANAGER_H_
+#define GUIMANAGER_H_
+
+#include "Transition.h"
+#include "Screen.h"
+#include <string>
+#include <map>
+
+class GuiManager
+{
+    public:
+        typedef std::map<std::string,Screen*>   ScreenMap_t;
+
+    private:
+        Transition*     m_activeTransition;
+        Screen*         m_activeScreen;
+        ScreenMap_t     m_screenMap;
+
+    public:
+        GuiManager();
+        virtual ~GuiManager();
+
+        void requestChange(const std::string& pageKey);
+        void transitionFinished();
+};
+
+#endif /* GUIMANAGER_H_ */

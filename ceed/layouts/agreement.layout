@@ -1,11 +1,10 @@
 <GUILayout>
-    <Window Name="RootWindow" Type="DefaultWindow">
+    <Window Name="Agreement" Type="DefaultWindow">
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="RootWindow/FrameWindow" Type="GlossySerpent/FrameWindow">
+        <Window Name="Agreement/Panel" Type="GlossySerpent/SimplePanel">
             <Property Name="UnifiedAreaRect" Value="{{0,88},{0,45},{0,554},{0,420}}" />
-            <Property Name="Text" Value="Disclaimer" />
-            <Window Name="RootWindow/FrameWindow/MultiLineEditbox2" Type="GlossySerpent/MultiLineEditbox">
-                <Property Name="UnifiedAreaRect" Value="{{0,7},{0,4},{0,449},{0,297}}" />
+            <Window Name="Agreement/Panel/MultiLineEditbox2" Type="GlossySerpent/MultiLineEditbox">
+                <Property Name="UnifiedAreaRect" Value="{{0,15},{0,40},{0,457},{0,323}}" />
                 <Property Name="Text">This game was created to research human reactions to high velocity motion through a complex environment (such as a forest).  It was designed with the Aerospace Robotics and Embedded Systems Laboratory at the Massachusetts Institute of Technology.
 
 The game records the final time and settings for each run to a central server, but no personal information is recorded, and no link between the player and the data collected exists - participation is completely anonymous.
@@ -16,13 +15,18 @@ You must agree to these terms to play to the game.
                 
 </Property>
             </Window>
-            <Window Name="RootWindow/FrameWindow/AcceptButton" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,90},{0,304},{0,214},{0,335}}" />
+            <Window Name="Agreement/Panel/btn_accept" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,110},{0,330},{0,234},{0,361}}" />
                 <Property Name="Text" Value="Accept" />
             </Window>
-            <Window Name="RootWindow/FrameWindow/RejectButton" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,221},{0,303},{0,339},{0,334}}" />
+            <Window Name="Agreement/Panel/btn_reject" Type="GlossySerpent/Button">
+                <Property Name="UnifiedAreaRect" Value="{{0,240},{0,330},{0,358},{0,361}}" />
                 <Property Name="Text" Value="Reject" />
+            </Window>
+            <Window Name="Agreement/Panel/Titlebar" Type="GlossySerpent/Titlebar">
+                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,465},{0,30}}" />
+                <Property Name="Text" Value="Agreement" />
+                <Property Name="AlwaysOnTop" Value="True" />
             </Window>
         </Window>
     </Window>
