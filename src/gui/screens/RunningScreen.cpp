@@ -21,3 +21,8 @@ RunningScreen::~RunningScreen()
     // TODO Auto-generated destructor stub
 }
 
+void RunningScreen::exec()
+{
+    m_sig_transition.emit("crash");
+}
+

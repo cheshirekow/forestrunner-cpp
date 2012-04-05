@@ -16,6 +16,8 @@
 #include "screens/AdvancedScreen.h"
 #include "screens/CountdownScreen.h"
 #include "screens/RunningScreen.h"
+#include "screens/CrashScreen.h"
+#include "screens/HighScoreScreen.h"
 
 GuiManager::GuiManager():
     m_activeTransition(0),
@@ -30,6 +32,8 @@ GuiManager::GuiManager():
     m_screenMap["countdown2"] = new CountdownScreen(2);
     m_screenMap["countdown1"] = new CountdownScreen(1);
     m_screenMap["running"]    = new RunningScreen();
+    m_screenMap["crash"]      = new CrashScreen();
+    m_screenMap["highscore"]  = new HighScoreScreen();
 
     // register the change request for each one of them
     ScreenMap_t::iterator iPair;

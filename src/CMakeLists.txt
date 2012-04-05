@@ -36,6 +36,8 @@ add_executable( forestrunner
                     gui/screens/AdvancedScreen.cpp
                     gui/screens/CountdownScreen.cpp
                     gui/screens/RunningScreen.cpp
+                    gui/screens/CrashScreen.cpp
+                    gui/screens/HighScoreScreen.cpp
                     )
                     
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg 

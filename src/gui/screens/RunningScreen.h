@@ -17,6 +17,7 @@ class RunningScreen :
     public:
         RunningScreen();
         virtual ~RunningScreen();
+        virtual void exec();
 };
 
 #endif /* RUNNINGSCREEN_H_ */
