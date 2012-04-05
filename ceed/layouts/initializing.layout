@@ -1,6 +1,8 @@
 <GUILayout>
     <Window Name="Init" Type="DefaultWindow">
         <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Property Name="VerticalAlignment" Value="Centre" />
+        <Property Name="HorizontalAlignment" Value="Centre" />
         <Window Name="Init/StaticText" Type="GlossySerpent/StaticText">
             <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-460},{1,-450}}" />
             <Property Name="Text" Value="Initializing..." />

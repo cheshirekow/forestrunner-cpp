@@ -16,8 +16,7 @@ AgreementScreen::AgreementScreen()
     m_anim_exit  = "FlyOut";
 
     CEGUI::Window* btn;
-    btn = m_root->getChildRecursive(
-                        "Agreement/Panel/btn_accept");
+    btn = m_root->getChildRecursive("Agreement/Panel/btn_accept");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &AgreementScreen::onAccept,
@@ -35,7 +34,3 @@ bool AgreementScreen::onAccept(const CEGUI::EventArgs &e)
     return true;
 }
 
-void AgreementScreen::exec()
-{
-    return;
-}

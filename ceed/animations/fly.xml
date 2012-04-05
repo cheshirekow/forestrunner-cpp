@@ -13,5 +13,12 @@
             <KeyFrame position="0.5" value="{0,480}" progression="quadratic accelerating" />
         </Affector>
     </AnimationDefinition>
+    
+    <AnimationDefinition name="FakeProgress" duration="1.0" replayMode="once">
+        <Affector property="CurrentProgress" interpolator="float">
+            <KeyFrame position="0" value="0.0" />
+            <KeyFrame position="1.0" value="1.0" />
+        </Affector>
+    </AnimationDefinition>
 </Animations>
 

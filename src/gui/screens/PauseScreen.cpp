@@ -61,9 +61,5 @@ bool PauseScreen::onAdvanced(const CEGUI::EventArgs &e)
     return true;
 }
 
-void PauseScreen::exec()
-{
-    return;
-}
 
 

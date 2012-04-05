@@ -7,6 +7,7 @@
  */
 
 #include "InitScreen.h"
+#include <iostream>
 
 InitScreen::InitScreen()
 {
@@ -14,6 +15,8 @@ InitScreen::InitScreen()
     m_root = wmgr.loadWindowLayout("initializing.layout");
     m_anim_enter = "FlyIn";
     m_anim_exit  = "FlyOut";
+
+    m_pb_progress = m_root->getChildRecursive("Init/pb_progress");
 }
 
 InitScreen::~InitScreen()
@@ -23,5 +26,31 @@ InitScreen::~InitScreen()
 
 void InitScreen::exec()
 {
-    m_sig_transition.emit("paused");
+    CEGUI::AnimationManager& mgr = CEGUI::AnimationManager::getSingleton();
+    CEGUI::AnimationInstance* anim = mgr.instantiateAnimation("FakeProgress");
+    anim->setTargetWindow(m_pb_progress);
+    anim->setEventReceiver(this);
+    anim->start();
 }
+
+void InitScreen::fireEvent (const CEGUI::String &name,
+                                    CEGUI::EventArgs &args,
+                                    const CEGUI::String &eventNamespace)
+{
+    std::cout << "progress animation event fired" << std::endl;
+    if( eventNamespace != CEGUI::AnimationInstance::EventNamespace )
+        return;
+
+    if( name == CEGUI::AnimationInstance::EventAnimationEnded )
+    {
+        CEGUI::AnimationEventArgs& animArgs =
+                static_cast<CEGUI::AnimationEventArgs&>(args);
+        CEGUI::AnimationManager& mgr =
+                CEGUI::AnimationManager::getSingleton();
+
+        std::cout << "progress animation complete" << std::endl;
+        mgr.destroyAnimationInstance(animArgs.instance);
+        m_sig_transition.emit("paused");
+    }
+}
+

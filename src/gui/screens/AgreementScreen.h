@@ -19,10 +19,6 @@ class AgreementScreen :
         virtual ~AgreementScreen();
 
         bool onAccept(const CEGUI::EventArgs &e);
-
-        virtual void exec();
-
-
 };
 
 #endif /* AGREEMENTPAGE_H_ */

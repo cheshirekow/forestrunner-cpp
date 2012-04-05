@@ -21,8 +21,6 @@ class PauseScreen :
         bool onResume(const CEGUI::EventArgs &e);
         bool onNewGame(const CEGUI::EventArgs &e);
         bool onAdvanced(const CEGUI::EventArgs &e);
-
-        virtual void exec();
 };
 
 #endif /* PAUSESCREEN_H_ */

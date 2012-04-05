@@ -22,7 +22,7 @@ Transition::Transition(CEGUI::Window* win_from,
 
     if(win_from)
     {
-        std::cout << "adding exit animation" + anim_exit << std::endl;
+        std::cout << "adding exit animation " + anim_exit << std::endl;
         m_anim_exit  = mgr.instantiateAnimation(anim_exit);
         m_anim_exit->setTargetWindow(win_from);
         m_anim_exit->setEventReceiver(this);
@@ -32,7 +32,7 @@ Transition::Transition(CEGUI::Window* win_from,
 
     if(win_to)
     {
-        std::cout << "adding entrance animation" + anim_enter << std::endl;
+        std::cout << "adding entrance animation " + anim_enter << std::endl;
         m_anim_enter = mgr.instantiateAnimation(anim_enter);
         m_anim_enter->setTargetWindow(win_to);
         m_anim_enter->setEventReceiver(this);
@@ -78,6 +78,10 @@ void Transition::fireEvent (const CEGUI::String &name,
         {
             std::cout << "   the exit is finished" << std::endl;
             CEGUI::System::getSingleton().setGUISheet(m_win_to);
+
+            // there seems to be a bug in CEGUI where the sheet isn't displayed
+            // unless there's a mouse input here... so we'll fake one
+            CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton);
             m_anim_enter->start();
         }
         else

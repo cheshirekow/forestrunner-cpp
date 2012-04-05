@@ -40,3 +40,8 @@ Screen::TransSignal_t& Screen::sig_transition()
 {
     return m_sig_transition;
 }
+
+void Screen::exec()
+{
+    return;
+}

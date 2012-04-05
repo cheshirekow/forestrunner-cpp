@@ -33,7 +33,7 @@ class Screen
         const CEGUI::String&    get_anim_enter();
         TransSignal_t&          sig_transition();
 
-        virtual void        exec()=0;
+        virtual void        exec();
 };
 
 #endif /* PAGE_H_ */

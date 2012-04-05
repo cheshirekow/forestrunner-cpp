@@ -10,6 +10,7 @@
 #include "screens/AgreementScreen.h"
 #include "screens/PauseScreen.h"
 #include "screens/InitScreen.h"
+#include <iostream>
 
 GuiManager::GuiManager():
     m_activeTransition(0),
@@ -46,6 +47,7 @@ void GuiManager::requestChange(const std::string& pageKey)
     {
         CEGUI::Window* win_from, *win_to;
 
+        std::cout << "requested change to page " << pageKey << std::endl;
         assert( m_screenMap[pageKey] );
         m_activeTransition = new Transition(
                     m_activeScreen ? m_activeScreen->get_root() : 0,
@@ -63,4 +65,5 @@ void GuiManager::transitionFinished()
 {
     delete m_activeTransition;
     m_activeTransition = 0;
+    m_activeScreen->exec();
 }
