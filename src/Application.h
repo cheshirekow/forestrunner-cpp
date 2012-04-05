@@ -14,6 +14,29 @@ protected:
     CEGUI::OgreRenderer* mRenderer;
     GuiManager*          m_guiManager;
 
+    Ogre::SceneNode*    m_patchRoot;
+    Ogre::SceneNode*    m_patchRotate;
+
+     float   m_density;
+     float   m_xAccel;
+     float   m_xSpeedMax;
+     float   m_xSpeed;
+     float   m_ySpeed;
+     float   m_radius;
+     float   m_xPos;
+     float   m_yPos;
+     float   m_patchWidth;
+     float   m_patchHeight;
+     float   m_acSide;
+     float   m_acRadius;
+     float   m_acTrans;
+     float   m_score;
+     int     m_patchDimX;
+     int     m_patchDimY;
+
+     bool   m_leftDown;
+     bool   m_rightDown;
+
     virtual void createScene(void);
 
     virtual void createCamera(void);
@@ -31,6 +54,5 @@ protected:
     virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
     virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
-    bool onAcceptButton(const CEGUI::EventArgs &e);
-    bool onRejectButton(const CEGUI::EventArgs &e);
+    void updateSpeed(Ogre::Real tpf);
 };
