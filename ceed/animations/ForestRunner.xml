@@ -20,5 +20,23 @@
             <KeyFrame position="1.0" value="1.0" />
         </Affector>
     </AnimationDefinition>
+    
+    <AnimationDefinition name="PulseIn" duration="0.5" replayMode="once">
+        <Affector property="Alpha" interpolator="float">
+            <KeyFrame position="0" value="0" />
+            <KeyFrame position="0.5" value="1" progression="quadratic accelerating" />
+        </Affector>
+    </AnimationDefinition>
+    
+    <AnimationDefinition name="PulseOut" duration="0.1" replayMode="once">
+        <Affector property="Alpha" interpolator="float">
+            <KeyFrame position="0" value="1" />
+            <KeyFrame position="0.1" value="0" />
+        </Affector>
+    </AnimationDefinition>
+    
+    <AnimationDefinition name="None" duration="0" replayMode="once">
+    
+    </AnimationDefinition>
 </Animations>
 

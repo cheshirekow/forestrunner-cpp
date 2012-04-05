@@ -56,7 +56,7 @@ void Application::createScene(void)
     CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
     CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-    CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("fly.xml");
+    CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
 
     m_guiManager = new GuiManager();
 }

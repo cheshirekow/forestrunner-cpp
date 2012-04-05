@@ -78,10 +78,11 @@ void Transition::fireEvent (const CEGUI::String &name,
         {
             std::cout << "   the exit is finished" << std::endl;
             CEGUI::System::getSingleton().setGUISheet(m_win_to);
-
+            m_win_to->show();
+            m_win_to->activate();
             // there seems to be a bug in CEGUI where the sheet isn't displayed
             // unless there's a mouse input here... so we'll fake one
-            CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton);
+            //CEGUI::System::getSingleton().injectMouseButtonDown(CEGUI::LeftButton);
             m_anim_enter->start();
         }
         else

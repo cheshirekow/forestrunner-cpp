@@ -6,11 +6,16 @@
  *  \brief  
  */
 
+#include <iostream>
+
 #include "GuiManager.h"
+
 #include "screens/AgreementScreen.h"
 #include "screens/PauseScreen.h"
 #include "screens/InitScreen.h"
-#include <iostream>
+#include "screens/AdvancedScreen.h"
+#include "screens/CountdownScreen.h"
+#include "screens/RunningScreen.h"
 
 GuiManager::GuiManager():
     m_activeTransition(0),
@@ -20,6 +25,11 @@ GuiManager::GuiManager():
     m_screenMap["agreement"]  = new AgreementScreen();
     m_screenMap["init"]       = new InitScreen();
     m_screenMap["paused"]     = new PauseScreen();
+    m_screenMap["advanced"]   = new AdvancedScreen();
+    m_screenMap["countdown3"] = new CountdownScreen(3);
+    m_screenMap["countdown2"] = new CountdownScreen(2);
+    m_screenMap["countdown1"] = new CountdownScreen(1);
+    m_screenMap["running"]    = new RunningScreen();
 
     // register the change request for each one of them
     ScreenMap_t::iterator iPair;
