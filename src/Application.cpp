@@ -29,6 +29,8 @@ CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 //-------------------------------------------------------------------------------------
 Application::Application(void)
 {
+    m_gameState = STATE_CRASHED;
+
     m_xAccel    = 10.0f;
     m_xSpeedMax = 6.0f;
     m_xSpeed    = 0.0f;
@@ -83,7 +85,7 @@ void Application::createScene(void)
 
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
 
-    m_guiManager = new GuiManager();
+    m_guiManager = new GuiManager(this);
 
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
@@ -239,7 +241,8 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
 
-    updateSpeed(evt.timeSinceLastFrame);
+    if(m_gameState == STATE_RUNNING)
+        updateSpeed(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
@@ -367,6 +370,16 @@ void Application::updateSpeed(Ogre::Real tpf)
     m_patchRotate->setOrientation(q);
 }
 
+
+Application::GameState Application::getState()
+{
+    return m_gameState;
+}
+
+void Application::setState(GameState state)
+{
+    m_gameState = state;
+}
 
 
 

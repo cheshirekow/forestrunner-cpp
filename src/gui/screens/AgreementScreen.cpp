@@ -30,7 +30,7 @@ AgreementScreen::~AgreementScreen()
 
 bool AgreementScreen::onAccept(const CEGUI::EventArgs &e)
 {
-    m_sig_transition.emit("init");
+    m_sig_transition.emit("paused");
     return true;
 }
 

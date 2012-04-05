@@ -7,6 +7,7 @@
  */
 
 #include "Screen.h"
+#include "Application.h"
 
 Screen::Screen():
     m_root(0),
@@ -41,7 +42,15 @@ Screen::TransSignal_t& Screen::sig_transition()
     return m_sig_transition;
 }
 
+
+void Screen::set_game(Application* game)
+{
+    m_game = game;
+}
+
 void Screen::exec()
 {
     return;
 }
+
+

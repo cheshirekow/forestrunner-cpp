@@ -13,6 +13,8 @@
 #include <string>
 #include <CEGUI.h>
 
+class Application;
+
 class Screen
 {
     public:
@@ -23,6 +25,7 @@ class Screen
         CEGUI::Window*  m_root;
         CEGUI::String   m_anim_exit;
         CEGUI::String   m_anim_enter;
+        Application*    m_game;
 
     public:
         Screen();
@@ -32,6 +35,7 @@ class Screen
         const CEGUI::String&    get_anim_exit();
         const CEGUI::String&    get_anim_enter();
         TransSignal_t&          sig_transition();
+        void                    set_game(Application* game);
 
         virtual void        exec();
 };

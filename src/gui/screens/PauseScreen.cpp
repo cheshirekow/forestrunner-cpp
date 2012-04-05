@@ -49,7 +49,7 @@ bool PauseScreen::onResume(const CEGUI::EventArgs &e)
 
 bool PauseScreen::onNewGame(const CEGUI::EventArgs &e)
 {
-    m_sig_transition("countdown3");
+    m_sig_transition("init");
     return true;
 }
 

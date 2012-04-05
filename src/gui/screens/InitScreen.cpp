@@ -50,7 +50,7 @@ void InitScreen::fireEvent (const CEGUI::String &name,
 
         std::cout << "progress animation complete" << std::endl;
         mgr.destroyAnimationInstance(animArgs.instance);
-        m_sig_transition.emit("paused");
+        m_sig_transition.emit("countdown3");
     }
 }
 

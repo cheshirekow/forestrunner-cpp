@@ -14,6 +14,8 @@
 #include <string>
 #include <map>
 
+class Application;
+
 class GuiManager
 {
     public:
@@ -25,7 +27,7 @@ class GuiManager
         ScreenMap_t     m_screenMap;
 
     public:
-        GuiManager();
+        GuiManager(Application* game);
         virtual ~GuiManager();
 
         void requestChange(const std::string& pageKey);

@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "GuiManager.h"
+#include "Application.h"
 
 #include "screens/AgreementScreen.h"
 #include "screens/PauseScreen.h"
@@ -19,7 +20,7 @@
 #include "screens/CrashScreen.h"
 #include "screens/HighScoreScreen.h"
 
-GuiManager::GuiManager():
+GuiManager::GuiManager(Application* game):
     m_activeTransition(0),
     m_activeScreen(0)
 {
@@ -42,6 +43,7 @@ GuiManager::GuiManager():
         Screen* screen = iPair->second;
         screen->sig_transition().connect(
                 sigc::mem_fun(*this,&GuiManager::requestChange) );
+        screen->set_game(game);
     }
 
     // set the first screen and transition into it
