@@ -1,0 +1,19 @@
+<GUILayout>
+    <Window Name="Countdown1" Type="DefaultWindow">
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window Name="Countdown1/StaticText" Type="GlossySerpent/StaticText">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-470},{1,-443}}" />
+            <Property Name="Text" Value="Countdown 1" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+        </Window>
+        <Window Name="Countdown1/img_theImage" Type="GlossySerpent/StaticImage">
+            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,200},{0,200}}" />
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="BackgroundEnabled" Value="False" />
+            <Property Name="VerticalAlignment" Value="Centre" />
+            <Property Name="HorizontalAlignment" Value="Centre" />
+            <Property Name="Image" Value="set:ForestRunner image:Num/One" />
+        </Window>
+    </Window>
+</GUILayout>

@@ -25,6 +25,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
 <GUIScheme Name="GlossySerpent">
   <Imageset Name="GlossySerpent" Filename="GlossySerpent.imageset" />
   <Imageset Name="GlossySerpentCursors" Filename="GlossySerpentCursors.imageset" />
+  <Imageset Name="ForestRunner" Filename="ForestRunner.imageset" />
   
   <!-- redefine both DejaVuSans*, DejaVuSerif* to DejaVuSans-HD*, DejaVuSerif-HD* -->
 	<Font Name="DejaVuSans-HD-10" Filename="DejaVuSans-HD-10.font" />
