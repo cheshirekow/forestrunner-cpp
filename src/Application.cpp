@@ -80,20 +80,24 @@ void Application::createScene(void)
     Ogre::Entity* aircraftWF =
         mSceneMgr->createEntity("aircraftWF", "aircraft.mesh");
 
-    Ogre::MaterialPtr customMaterial =
-        Ogre::MaterialManager::getSingleton().create(
-            "BlackWireframe",
-            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    customMaterial->setDiffuse(Ogre::ColourValue(0,0,0));
-    customMaterial->setAmbient(Ogre::ColourValue(0,0,0));
-    customMaterial->getTechnique(0)->getPass(0)->setPolygonMode(Ogre::PM_WIREFRAME);
-
     aircraftWF->setMaterialName("ForestRunner/BlackWireframe");
 
     Ogre::SceneNode* acwfNode =
         mSceneMgr->getRootSceneNode()->createChildSceneNode("AircraftWFNode");
 
     acwfNode->attachObject(aircraftWF);
+    acwfNode->scale(1.05,1.05,1.05);
+
+    Ogre::Entity* aircraftOL =
+        mSceneMgr->createEntity("aircraftOL", "aircraft_outline.mesh");
+
+    aircraftOL->setMaterialName("ForestRunner/Black");
+
+    Ogre::SceneNode* acolNode =
+        mSceneMgr->getRootSceneNode()->createChildSceneNode("AircraftOLNode");
+
+    acolNode->attachObject(aircraftOL);
+    acolNode->scale(1.2,1.2,1.2);
 
 
     // Create a Light and set its position
@@ -117,7 +121,7 @@ void Application::createCamera(void)
     mCamera->lookAt(Ogre::Vector3(0,0,-10));
     mCamera->setNearClipDistance(1);
 
-    mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
+    //mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
 
 
@@ -201,7 +205,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     // this is how we update the camera controller
     // (probably need to get rid of this)
     // once we fix the camera location
-    mCameraMan->frameRenderingQueued(evt);
+    //mCameraMan->frameRenderingQueued(evt);
 
     return true;
 }
@@ -217,7 +221,7 @@ bool Application::keyPressed( const OIS::KeyEvent &arg )
     CEGUI::System &sys = CEGUI::System::getSingleton();
     sys.injectKeyDown(arg.key);
     sys.injectChar(arg.text);
-    mCameraMan->injectKeyDown(arg);
+    //mCameraMan->injectKeyDown(arg);
     return true;
 }
 
@@ -230,7 +234,7 @@ bool Application::keyReleased( const OIS::KeyEvent &arg )
     //return BaseApplication::keyReleased(arg);
 
     CEGUI::System::getSingleton().injectKeyUp(arg.key);
-    mCameraMan->injectKeyUp(arg);
+    //mCameraMan->injectKeyUp(arg);
     return true;
 }
 
