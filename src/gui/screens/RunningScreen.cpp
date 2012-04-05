@@ -23,6 +23,6 @@ RunningScreen::~RunningScreen()
 
 void RunningScreen::exec()
 {
-    m_sig_transition.emit("crash");
+    //m_sig_transition.emit("crash");
 }
 

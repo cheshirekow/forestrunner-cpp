@@ -26,6 +26,7 @@ set(LIBS ${LIBS}
  
 add_executable( forestrunner 
                     Application.cpp
+                    AircraftMesh.cpp
                     TutorialFramework/BaseApplication.cpp
                     gui/GuiManager.cpp
                     gui/Screen.cpp

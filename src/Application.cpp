@@ -1,6 +1,7 @@
 #include "Application.h"
 #include <cassert>
 #include <sigc++/sigc++.h>
+#include <OGRE/SdkTrays.h>
 
 
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
@@ -59,6 +60,64 @@ void Application::createScene(void)
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
 
     m_guiManager = new GuiManager();
+
+    // Set the scene's ambient light
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+
+    // Create an Entity
+    //Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
+    Ogre::Entity* aircraft =
+        mSceneMgr->createEntity("aircraft", "aircraft.mesh");
+
+    aircraft->setMaterialName("ForestRunner/Gray");
+
+    // Create a SceneNode and attach the Entity to it
+    Ogre::SceneNode* acNode =
+        mSceneMgr->getRootSceneNode()->createChildSceneNode("AircraftNode");
+
+    acNode->attachObject(aircraft);
+
+    Ogre::Entity* aircraftWF =
+        mSceneMgr->createEntity("aircraftWF", "aircraft.mesh");
+
+    Ogre::MaterialPtr customMaterial =
+        Ogre::MaterialManager::getSingleton().create(
+            "BlackWireframe",
+            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    customMaterial->setDiffuse(Ogre::ColourValue(0,0,0));
+    customMaterial->setAmbient(Ogre::ColourValue(0,0,0));
+    customMaterial->getTechnique(0)->getPass(0)->setPolygonMode(Ogre::PM_WIREFRAME);
+
+    aircraftWF->setMaterialName("ForestRunner/BlackWireframe");
+
+    Ogre::SceneNode* acwfNode =
+        mSceneMgr->getRootSceneNode()->createChildSceneNode("AircraftWFNode");
+
+    acwfNode->attachObject(aircraftWF);
+
+
+    // Create a Light and set its position
+    Ogre::Light* light = mSceneMgr->createLight("MainLight");
+    light->setPosition(20.0f, 80.0f, 50.0f);
+}
+
+
+
+
+//-------------------------------------------------------------------------------------
+void Application::createCamera(void)
+{
+    // Create the camera
+    mCamera = mSceneMgr->createCamera("PlayerCam");
+
+    // Position it at 500 in Z direction
+    mCamera->setPosition(Ogre::Vector3(0,10,20));
+
+    // Look back along -Z
+    mCamera->lookAt(Ogre::Vector3(0,0,-10));
+    mCamera->setNearClipDistance(1);
+
+    mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
 
 
@@ -107,6 +166,21 @@ void Application::createFrameListener(void)
 
 
 //-------------------------------------------------------------------------------------
+void Application::createViewports(void)
+{
+    // Create one viewport, entire window
+    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+    vp->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
+
+    // Alter the camera aspect ratio to match the viewport
+    mCamera->setAspectRatio(
+        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+}
+
+
+
+
+//-------------------------------------------------------------------------------------
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     //return BaseApplication::frameRenderingQueued(evt);
@@ -124,6 +198,11 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
 
+    // this is how we update the camera controller
+    // (probably need to get rid of this)
+    // once we fix the camera location
+    mCameraMan->frameRenderingQueued(evt);
+
     return true;
 }
 
@@ -138,6 +217,7 @@ bool Application::keyPressed( const OIS::KeyEvent &arg )
     CEGUI::System &sys = CEGUI::System::getSingleton();
     sys.injectKeyDown(arg.key);
     sys.injectChar(arg.text);
+    mCameraMan->injectKeyDown(arg);
     return true;
 }
 
@@ -150,6 +230,7 @@ bool Application::keyReleased( const OIS::KeyEvent &arg )
     //return BaseApplication::keyReleased(arg);
 
     CEGUI::System::getSingleton().injectKeyUp(arg.key);
+    mCameraMan->injectKeyUp(arg);
     return true;
 }
 
@@ -166,6 +247,7 @@ bool Application::mouseMoved( const OIS::MouseEvent &arg )
     // Scroll wheel.
     if (arg.state.Z.rel)
         sys.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
+    //mCameraMan->injectMouseMove(arg);
     return true;
 }
 
@@ -178,6 +260,7 @@ bool Application::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
     //return BaseApplication::mousePressed(arg, id);
 
     CEGUI::System::getSingleton().injectMouseButtonDown(convertButton(id));
+    //mCameraMan->injectMouseDown(arg,id);
     return true;
 }
 
@@ -190,6 +273,7 @@ bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
     //return BaseApplication::mouseReleased(arg, id);
 
     CEGUI::System::getSingleton().injectMouseButtonUp(convertButton(id));
+    //mCameraMan->injectMouseUp(arg,id);
     return true;
 }
 
