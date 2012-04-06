@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "MeshBuilder.h"
+#include "game/KeyboardGame.h"
+
 #include <cassert>
 #include <cmath>
 #include <sigc++/sigc++.h>
@@ -29,29 +31,7 @@ CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 //-------------------------------------------------------------------------------------
 Application::Application(void)
 {
-    m_gameState = STATE_CRASHED;
 
-    m_xAccel    = 10.0f;
-    m_xSpeedMax = 6.0f;
-    m_xSpeed    = 0.0f;
-    m_ySpeed    = 3.0f;
-    m_density   = 20.0f;
-    m_radius    = 0.1f;
-
-    m_xPos      = 0;
-    m_yPos      = 0;
-    m_patchWidth    = 5.1f; //20.1f;
-    m_patchHeight   = 8.1f; //20.1f;
-
-    m_patchDimX = 5;
-    m_patchDimY = 8; //4;
-
-    m_acSide    = 0.3f;
-    m_acRadius  = (m_acSide/2.0f) * (float)std::tan(M_PI/6.0);
-    m_acTrans   = (float)( m_acSide*std::sin(M_PI/3) ) - m_acRadius;
-
-    m_leftDown  = false;
-    m_rightDown = false;
 }
 
 
@@ -60,6 +40,7 @@ Application::Application(void)
 //-------------------------------------------------------------------------------------
 Application::~Application(void)
 {
+
 }
 
 
@@ -143,6 +124,10 @@ void Application::createScene(void)
     gridNode->translate(-(numX*sideLen)/2.0f,0,2*sideLen);
 
     gridNode->attachObject(grid);
+
+    m_game = new KeyboardGame();
+    m_game->m_patchRoot     = m_patchRoot;
+    m_game->m_patchRotate   = m_patchRotate;
 
 }
 
@@ -241,8 +226,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
 
-    if(m_gameState == STATE_RUNNING)
-        updateSpeed(evt.timeSinceLastFrame);
+    m_game->update(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
@@ -261,15 +245,13 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 //-------------------------------------------------------------------------------------
 bool Application::keyPressed( const OIS::KeyEvent &arg )
 {
-    //return BaseApplication::keyPressed(arg);
-    if( arg.key == OIS::KC_LEFT )
-        m_leftDown = true;
-    if( arg.key == OIS::KC_RIGHT )
-        m_rightDown = true;
+    //return BaseApplication::keyReleased(arg);
 
     CEGUI::System &sys = CEGUI::System::getSingleton();
     sys.injectKeyDown(arg.key);
     sys.injectChar(arg.text);
+    m_game->keyPressed(arg);
+
     //mCameraMan->injectKeyDown(arg);
     return true;
 }
@@ -281,13 +263,11 @@ bool Application::keyPressed( const OIS::KeyEvent &arg )
 bool Application::keyReleased( const OIS::KeyEvent &arg )
 {
     //return BaseApplication::keyReleased(arg);
-    if( arg.key == OIS::KC_LEFT )
-        m_leftDown = false;
-    if( arg.key == OIS::KC_RIGHT )
-        m_rightDown = false;
 
     CEGUI::System::getSingleton().injectKeyUp(arg.key);
+    m_game->keyReleased(arg);
     //mCameraMan->injectKeyUp(arg);
+
     return true;
 }
 
@@ -335,51 +315,6 @@ bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 }
 
 
-
-
-
-void Application::updateSpeed(Ogre::Real tpf)
-{
-    // update the xspeed if necessary
-    if(m_leftDown || m_rightDown)
-    {
-        if(m_leftDown)
-            m_xSpeed -= m_xAccel*tpf;
-        if(m_rightDown)
-            m_xSpeed += m_xAccel*tpf;
-    }
-    else
-    {
-        float sign  = m_xSpeed >= 0 ? 1 : -1;
-        m_xSpeed -= sign*m_xAccel*tpf;
-        float sign2 = m_xSpeed >= 0 ? 1 : -1;
-
-        // avoid overshoot
-        if( sign != sign2 )
-            m_xSpeed = 0;
-    }
-
-    m_xSpeed = std::min(m_xSpeed, m_xSpeedMax);
-    m_xSpeed = std::max(m_xSpeed, -m_xSpeedMax);
-
-    // on a PC, we rotate the scene according to xspeed
-    // on android, we do the opposite
-    Ogre::Real   aReal = (float)(M_PI / 9.0f) * m_xSpeed / m_xSpeedMax;
-    Ogre::Radian angle(aReal);
-    Ogre::Quaternion q(angle, Ogre::Vector3(0.0f,0.0f,1.0f) );
-    m_patchRotate->setOrientation(q);
-}
-
-
-Application::GameState Application::getState()
-{
-    return m_gameState;
-}
-
-void Application::setState(GameState state)
-{
-    m_gameState = state;
-}
 
 
 

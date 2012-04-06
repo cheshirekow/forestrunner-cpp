@@ -2,21 +2,17 @@
 
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
-#include "gui/GuiManager.h"
 
-class Application : public BaseApplication
+#include "gui/GuiManager.h"
+#include "game/Game.h"
+
+class Application :
+    public BaseApplication
 {
+
 public:
     Application(void);
     virtual ~Application(void);
-
-    enum GameState
-    {
-        STATE_INITIALIZING,
-        STATE_RUNNING,
-        STATE_PAUSED,
-        STATE_CRASHED,
-    };
 
 protected:
     CEGUI::OgreRenderer* mRenderer;
@@ -25,27 +21,7 @@ protected:
     Ogre::SceneNode*    m_patchRoot;
     Ogre::SceneNode*    m_patchRotate;
 
-    GameState   m_gameState;
-
-    float   m_density;
-    float   m_xAccel;
-    float   m_xSpeedMax;
-    float   m_xSpeed;
-    float   m_ySpeed;
-    float   m_radius;
-    float   m_xPos;
-    float   m_yPos;
-    float   m_patchWidth;
-    float   m_patchHeight;
-    float   m_acSide;
-    float   m_acRadius;
-    float   m_acTrans;
-    float   m_score;
-    int     m_patchDimX;
-    int     m_patchDimY;
-
-    bool   m_leftDown;
-    bool   m_rightDown;
+    Game*               m_game;
 
     virtual void createScene(void);
 
@@ -64,7 +40,4 @@ protected:
     virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
     virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
-    void updateSpeed(Ogre::Real tpf);
-    GameState getState();
-    void setState(GameState state);
 };

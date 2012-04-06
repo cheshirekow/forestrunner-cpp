@@ -28,6 +28,8 @@ add_executable( forestrunner
                     Application.cpp
                     MeshBuilder.cpp
                     TutorialFramework/BaseApplication.cpp
+                    game/Game.cpp
+                    game/KeyboardGame.cpp
                     gui/GuiManager.cpp
                     gui/Screen.cpp
                     gui/Transition.cpp
