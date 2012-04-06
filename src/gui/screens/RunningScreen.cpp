@@ -7,6 +7,7 @@
  */
 
 #include "gui/screens/RunningScreen.h"
+#include <game/Game.h>
 
 RunningScreen::RunningScreen()
 {
@@ -18,11 +19,25 @@ RunningScreen::RunningScreen()
 
 RunningScreen::~RunningScreen()
 {
-    // TODO Auto-generated destructor stub
+
+}
+
+void RunningScreen::set_game(Game* game)
+{
+    Screen::set_game(game);
+    game->sig_stateChanged().connect(
+            sigc::mem_fun(*this,&RunningScreen::onGameStateChanged) );
 }
 
 void RunningScreen::exec()
 {
-    //m_sig_transition.emit("crash");
+    m_game->setState(GS_RUNNING);
 }
 
+void RunningScreen::onGameStateChanged(GameState state)
+{
+    if(state == GS_CRASHED)
+    {
+        m_sig_transition.emit("crash");
+    }
+}

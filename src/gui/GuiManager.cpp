@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "GuiManager.h"
-#include "Application.h"
+#include "game/Game.h"
 
 #include "screens/AgreementScreen.h"
 #include "screens/PauseScreen.h"
@@ -20,7 +20,7 @@
 #include "screens/CrashScreen.h"
 #include "screens/HighScoreScreen.h"
 
-GuiManager::GuiManager(Application* game):
+GuiManager::GuiManager(Game* game):
     m_activeTransition(0),
     m_activeScreen(0)
 {

@@ -40,6 +40,16 @@ Game::~Game()
 
 }
 
+GameState Game::getState()
+{
+    return m_gameState;
+}
+
+void Game::setState(GameState state)
+{
+    m_gameState = state;
+}
+
 bool Game::keyPressed( const OIS::KeyEvent &arg )
 {
     return true;
@@ -69,4 +79,17 @@ void Game::update( Ogre::Real tpf )
         m_yPos -= m_patchHeight;
 
     m_patchRoot->setPosition(m_xPos,0,m_yPos);
+}
+
+
+sigc::signal<void,GameState>& Game::sig_stateChanged()
+{
+    return m_sig_stateChanged;
+}
+
+
+void Game::internal_setState(GameState state)
+{
+    m_gameState = state;
+    m_sig_stateChanged.emit(state);
 }

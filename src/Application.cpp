@@ -66,8 +66,6 @@ void Application::createScene(void)
 
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
 
-    m_guiManager = new GuiManager(this);
-
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
 
@@ -106,7 +104,6 @@ void Application::createScene(void)
     acolNode->attachObject(aircraftOL);
     acolNode->scale(1.2,1.2,1.2);
 
-
     m_patchRotate =
         mSceneMgr->getRootSceneNode()->createChildSceneNode("patchRotate");
     m_patchRoot = m_patchRotate->createChildSceneNode("patchRoot");
@@ -128,6 +125,8 @@ void Application::createScene(void)
     m_game = new KeyboardGame();
     m_game->m_patchRoot     = m_patchRoot;
     m_game->m_patchRotate   = m_patchRotate;
+
+    m_guiManager = new GuiManager(m_game);
 
 }
 

@@ -12,6 +12,7 @@
 #include "GameState.h"
 #include <OgreMath.h>
 #include <OISKeyboard.h>
+#include <sigc++/sigc++.h>
 
 class Game
 {
@@ -35,6 +36,8 @@ class Game
         int     m_patchDimX;
         int     m_patchDimY;
 
+        sigc::signal<void,GameState> m_sig_stateChanged;
+
     public:
         Ogre::SceneNode*    m_patchRoot;
         Ogre::SceneNode*    m_patchRotate;
@@ -43,11 +46,19 @@ class Game
         Game();
         virtual ~Game();
 
+        GameState getState();
+        void setState(GameState state);
+
         virtual bool keyPressed( const OIS::KeyEvent &arg );
         virtual bool keyReleased( const OIS::KeyEvent &arg );
 
         virtual void update( Ogre::Real tpf );
         virtual void updateSpeed( Ogre::Real tpf )=0;
+
+        sigc::signal<void,GameState>& sig_stateChanged();
+
+    protected:
+        void internal_setState(GameState state);
 };
 
 #endif /* GAME_H_ */
