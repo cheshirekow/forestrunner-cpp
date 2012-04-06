@@ -153,7 +153,8 @@ void Game::initRun()
     {
         for(int j=0; j < m_patchDimY; j++)
         {
-            ForestPatch*     patch = m_patches[k++];
+            k = (i*m_patchDimY) + j;
+            ForestPatch*     patch = m_patches[k];
             Ogre::SceneNode* node = patch->getRoot();
             node->setPosition(
                     (i-m_patchDimX/2.0f)*m_patchWidth,
@@ -162,6 +163,8 @@ void Game::initRun()
             patch->generateLayout(m_density);
         }
     }
+
+    m_patchRotate->setOrientation(Ogre::Quaternion::IDENTITY);
 }
 
 void Game::createScene(Ogre::SceneManager* sceneMgr,
@@ -336,6 +339,20 @@ void Game::update( Ogre::Real tpf )
     }
 
     m_patchRoot->setPosition(m_xPos,0,m_yPos);
+
+    bool collision = false;
+    for( int i=0; i < m_patchDimX && !collision; i++)
+    {
+        for(int j=0; j < 2 && !collision; j++)
+        {
+            int k = ( i*m_patchDimY + j );
+            collision = m_patches[k]->collision(m_xPos, m_yPos,
+                                                m_radius + m_acRadius);
+        }
+    }
+
+    if(collision)
+        internal_setState(GS_CRASHED);
 }
 
 

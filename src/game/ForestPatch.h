@@ -16,6 +16,7 @@ class ForestPatch
 {
     private:
         int     m_maxNodes;
+        int     m_nTrees;
         int     m_id;
         float   m_width;
         float   m_height;
@@ -39,6 +40,7 @@ class ForestPatch
         void generateLayout(float density);
 
         Ogre::SceneNode* getRoot();
+        bool collision(float x, float y, float r);
 
         static int getPoisson(float lambda);
 };

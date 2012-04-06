@@ -6,7 +6,8 @@
  *  \brief  
  */
 
-#include "gui/screens/HighScoreScreen.h"
+#include "HighScoreScreen.h"
+#include "game/Game.h"
 
 HighScoreScreen::HighScoreScreen()
 {
@@ -36,6 +37,7 @@ HighScoreScreen::~HighScoreScreen()
 
 bool HighScoreScreen::onAgain(const CEGUI::EventArgs &e)
 {
+    m_game->initRun();
     m_sig_transition.emit("countdown3");
 }
 

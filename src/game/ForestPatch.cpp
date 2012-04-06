@@ -24,6 +24,7 @@ ForestPatch::ForestPatch(Ogre::SceneManager* sceneMgr,
                             float height,
                             int maxNodes):
     m_maxNodes(maxNodes),
+    m_nTrees(0),
     m_id(id),
     m_width(width),
     m_height(height)
@@ -69,6 +70,7 @@ void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
 void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 {
     m_patchNode->removeAllChildren();
+    m_nTrees = 0;
 
     for(int i=0; i < m_maxNodes; i++)
     {
@@ -93,8 +95,8 @@ void ForestPatch::generateLayout(float density)
 {
     m_patchNode->removeAllChildren();
 
-    int nTrees = getPoisson(density);
-    for(int i=0; i < nTrees; i++)
+    m_nTrees = getPoisson(density);
+    for(int i=0; i < m_nTrees; i++)
     {
         Ogre::SceneNode* child = m_cylinderNodes[i];
         m_patchNode->addChild(child);
@@ -108,6 +110,23 @@ void ForestPatch::generateLayout(float density)
 Ogre::SceneNode* ForestPatch::getRoot()
 {
     return m_patchNode;
+}
+
+bool ForestPatch::collision(float x, float y, float r)
+{
+    float r2    = r*r;
+
+    for(int i=0; i < m_nTrees; i++)
+    {
+        Ogre::Vector3 t = m_cylinderNodes[i]->convertWorldToLocalPosition(Ogre::Vector3::ZERO);
+        //System.out.println("   " + t);
+        float d2  = t.x*t.x + t.z*t.z;
+
+        if(d2 < r2)
+            return true;
+    }
+
+    return false;
 }
 
 int ForestPatch::getPoisson(float lambda)
