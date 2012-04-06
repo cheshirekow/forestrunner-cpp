@@ -28,6 +28,12 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
                             bool  cap=true,
                             bool  invert=false);
 
+void create_cylinder_wire( Ogre::SceneManager* sceneMgr,
+                            const Ogre::String& meshName,
+                            float radius,
+                            float height,
+                            int   radialSamples);
+
 }
 
 #endif /* MESHBUILDER_H_ */

@@ -157,23 +157,78 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
                 for(int k=0; k < 2; k++)
                     i[k] = iOffset[h] + ( (r+k) % radialSamples );
 
+                int h2 = invert ? (h+1) % 2 : h;
+
                 // create triangle between two vertices and the the center
                 // of the circle
-                if(invert)
+                if(h2 > 0)
                 {
-                    obj->index(i[0]);
-                    obj->index(i[1]);
                     obj->index(j);
+                    obj->index(i[1]);
+                    obj->index(i[0]);
                 }
                 else
                 {
-                    obj->index(j);
-                    obj->index(i[1]);
                     obj->index(i[0]);
+                    obj->index(i[1]);
+                    obj->index(j);
                 }
             }
         }
 
+    }
+
+    obj->end();
+
+    MeshPtr mesh = obj->convertToMesh(meshName);
+
+    sceneMgr->destroyManualObject(obj);
+}
+
+
+
+
+
+
+void create_cylinder_wire( Ogre::SceneManager* sceneMgr,
+                        const Ogre::String& meshName,
+                            float radius,
+                            float height,
+                            int   radialSamples)
+{
+    using namespace Ogre;
+
+    ManualObject* obj=  sceneMgr->createManualObject("cylinder");
+
+    obj->begin("ForestRunner/BlackWireframe",
+                    Ogre::RenderOperation::OT_LINE_LIST);
+
+
+    for(int iHeight=0; iHeight < 2; iHeight++)
+    {
+        float h = iHeight*height;
+
+        for(int iAngle=0; iAngle < radialSamples; iAngle++)
+        {
+            float a = iAngle*2*M_PI/radialSamples;
+            float x = radius * std::cos(a);
+            float y = radius * std::sin(a);
+            obj->position(x,    h,      y);
+        }
+    }
+
+    // for each horizontal layer except the last
+    for(int h=0; h < 2; h++)
+    {
+        // for each radial vertex except the last
+        for(int r=0; r < radialSamples; r++)
+        {
+            for(int k=0; k < 2; k++)
+            {
+                int i = (  h   *radialSamples)   + ( (r+k) % radialSamples );
+                obj->index(i);
+            }
+        }
     }
 
     obj->end();

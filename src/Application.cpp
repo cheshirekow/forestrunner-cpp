@@ -126,13 +126,40 @@ void Application::createScene(void)
 
     Ogre::Entity* cylinder =
             mSceneMgr->createEntity("cylinder", "ForestRunnerCylinder");
-    grid->setMaterialName("ForestRunner/BlackWireframe");
+    cylinder->setMaterialName("ForestRunner/Yellow");
 
     Ogre::SceneNode* cylinderNode =
         m_patchRoot->createChildSceneNode("CylinderNode");
     cylinderNode->translate(0,0,-10.0f);
 
     cylinderNode->attachObject(cylinder);
+
+    meshbuilder::create_cylinder_wire(mSceneMgr,"ForestRunnerCylinderWF",3.0f,5.0f,20);
+
+    Ogre::Entity* cylinderWF =
+            mSceneMgr->createEntity("cylinderWF", "ForestRunnerCylinderWF");
+    cylinderWF->setMaterialName("ForestRunner/BlackWireframe");
+
+    Ogre::SceneNode* cylinderNodeWF =
+        m_patchRoot->createChildSceneNode("CylinderNodeWF");
+    cylinderNodeWF->translate(0,0,-10.0f);
+
+    cylinderNodeWF->attachObject(cylinderWF);
+
+
+    meshbuilder::create_cylinder(mSceneMgr,"ForestRunnerCylinderOL",3.5f,5.5f,4,20,true,true);
+
+    Ogre::Entity* cylinderOL =
+            mSceneMgr->createEntity("cylinderOL", "ForestRunnerCylinderOL");
+    cylinderOL->setMaterialName("ForestRunner/Black");
+
+    Ogre::SceneNode* cylinderNodeOL =
+        m_patchRoot->createChildSceneNode("CylinderNodeOL");
+    cylinderNodeOL->translate(0,-0.25,-10.0f);
+
+    cylinderNodeOL->attachObject(cylinderOL);
+
+
 
     m_game = new KeyboardGame();
     m_game->m_patchRoot     = m_patchRoot;

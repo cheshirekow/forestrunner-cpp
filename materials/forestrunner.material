@@ -27,6 +27,48 @@ material ForestRunner/Black
     }
   }
   
+  
+material ForestRunner/Red
+  {
+    technique
+    {
+      pass
+      {
+        ambient 1.0 0.0 0.0
+        diffuse 1.0 0.0 0.0
+        specular 1.0 1.0 1.0
+      } 
+    }
+  }
+  
+material ForestRunner/Yellow
+  {
+    technique
+    {
+      pass
+      {
+        ambient 1.0 1.0 0.0
+        diffuse 1.0 1.0 0.0
+        specular 1.0 1.0 1.0
+      } 
+    }
+  }
+  
+material ForestRunner/Orange
+  {
+    technique
+    {
+      pass
+      {
+        ambient 1.0 0.5 0.0
+        diffuse 1.0 0.5 0.0
+        specular 1.01.0 1.0
+      } 
+    }
+  }
+  
+  
+  
 material ForestRunner/BlackWireframe
 {
     technique
