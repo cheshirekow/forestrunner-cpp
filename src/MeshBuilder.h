@@ -19,6 +19,13 @@ void create_grid( Ogre::SceneManager* sceneMgr,
                         const Ogre::String& meshName,
                             float sideLen, int numX, int numY);
 
+void create_cylinder( Ogre::SceneManager* sceneMgr,
+                        const Ogre::String& meshName,
+                            float radius,
+                            float height,
+                            float axisSamples,
+                            float radialSamples );
+
 }
 
 #endif /* MESHBUILDER_H_ */

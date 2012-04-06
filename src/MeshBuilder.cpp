@@ -55,7 +55,50 @@ void create_grid( Ogre::SceneManager* sceneMgr,
 }
 
 
+void create_cylinder( Ogre::SceneManager* sceneMgr,
+                        const Ogre::String& meshName,
+                            float radius,
+                            float height,
+                            float axisSamples,
+                            float radialSamples )
+{
+    using namespace Ogre;
 
+    ManualObject* obj=  sceneMgr->createManualObject("cylinder");
+
+    obj->begin("ForestRunner/BlackWireframe",
+                    Ogre::RenderOperation::OT_TRIANGLE_LIST);
+
+    obj->position(0,0,0);
+    for(int iHeight=0; iHeight < axisSamples; iHeight++)
+    {
+        float h = iHeight*height/axisSamples;
+
+        for(int iAngle=0; iAngle < radialSamples; iAngle++)
+        {
+            float a = iAngle*2*M_PI/radialSamples;
+            float x = radius * std::cos(a);
+            float y = radius * std::sin(a);
+            obj->position(x,    0,      y);
+        }
+    }
+    obj->position(0,height,0);
+
+    // close up the bottom
+    for(int iHeight=0; iHeight < axisSamples-1; iHeight++)
+    {
+        obj->index(0);
+        obj->index(iHeight+1);
+        obj->index(iHeight+2);
+    }
+
+
+    obj->end();
+
+    MeshPtr mesh = obj->convertToMesh(meshName);
+
+    sceneMgr->destroyManualObject(obj);
+}
 
 
 
