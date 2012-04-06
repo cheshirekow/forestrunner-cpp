@@ -68,6 +68,13 @@ void InitCycle::step()
             break;
         }
 
+        case INIT_RUN:
+        {
+            sig_initRun.emit();
+            outer++;
+            break;
+        }
+
         case DONE:
         {
             sig_done.emit();

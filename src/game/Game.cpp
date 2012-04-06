@@ -32,8 +32,8 @@ Game::Game()
 
     m_xPos      = 0;
     m_yPos      = 0;
-    m_patchWidth    = 10.1f; //20.1f;
-    m_patchHeight   = 10.1f; //20.1f;
+    m_patchWidth    = 20.1f; //20.1f;
+    m_patchHeight   = 20.1f; //20.1f;
 
     m_patchDimX = 5;
     m_patchDimY = 8; //4;
@@ -54,6 +54,8 @@ Game::Game()
             sigc::mem_fun(*this,&Game::createCylinderMeshes) );
     m_init.sig_initPatch.connect(
             sigc::mem_fun(*this,&Game::initPatch) );
+    m_init.sig_initRun.connect(
+            sigc::mem_fun(*this,&Game::initRun ) );
     m_init.sig_done.connect(
             sigc::mem_fun(*this,&Game::initFinished) );
     m_init.sig_progress.connect(

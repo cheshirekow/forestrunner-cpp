@@ -21,6 +21,7 @@ struct InitCycle
             FREE_MESHES,
             CREATE_MESHES,
             INIT_PATCHES,
+            INIT_RUN,
             DONE,
             NUM_STEPS
         };
@@ -34,6 +35,7 @@ struct InitCycle
         sigc::signal<void,int> sig_initPatch;
         sigc::signal<void>     sig_freeMeshes;
         sigc::signal<void>     sig_createMeshes;
+        sigc::signal<void>     sig_initRun;
         sigc::signal<void>     sig_done;
         sigc::signal<void,float>    sig_progress;
 

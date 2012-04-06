@@ -67,9 +67,6 @@ void Application::createScene(void)
 
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
 
-    // Set the scene's ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-
     // Create an Entity
     //Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
     Ogre::Entity* aircraft =
@@ -123,9 +120,8 @@ void Application::createScene(void)
 
     gridNode->attachObject(grid);
 
-    // Create a Light and set its position
-    Ogre::Light* light = mSceneMgr->createLight("MainLight");
-    light->setPosition(20.0f, 80.0f, 50.0f);
+    // Set the scene's ambient light
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
     m_game = new KeyboardGame();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);

@@ -49,7 +49,5 @@ CountdownScreen::~CountdownScreen()
 
 void CountdownScreen::exec()
 {
-    if(m_which==3)
-        m_game->initRun();
     m_sig_transition.emit(m_next);
 }
