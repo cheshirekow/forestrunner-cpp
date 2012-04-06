@@ -30,6 +30,8 @@ add_executable( forestrunner
                     TutorialFramework/BaseApplication.cpp
                     game/Game.cpp
                     game/KeyboardGame.cpp
+                    game/ForestPatch.cpp
+                    game/InitCycle.cpp
                     gui/GuiManager.cpp
                     gui/Screen.cpp
                     gui/Transition.cpp

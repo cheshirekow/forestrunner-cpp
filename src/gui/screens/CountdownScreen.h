@@ -14,6 +14,7 @@
 class CountdownScreen :
     public Screen
 {
+    int         m_which;
     std::string m_next;
 
     public:

@@ -68,13 +68,19 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
 
     ManualObject* obj=  sceneMgr->createManualObject("cylinder");
 
-    obj->begin("ForestRunner/BlackWireframe",
+    if(invert)
+        obj->begin("ForestRunner/Black",
+                    Ogre::RenderOperation::OT_TRIANGLE_LIST);
+    else
+        obj->begin("ForestRunner/BlackWireframe",
                     Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
 
     for(int iHeight=0; iHeight < axisSamples; iHeight++)
     {
         float h = iHeight*height/(axisSamples-1);
+        if(invert)
+            h -= 0.1f;
 
         for(int iAngle=0; iAngle < radialSamples; iAngle++)
         {

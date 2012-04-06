@@ -1,13 +1,14 @@
 #include "Application.h"
 #include "MeshBuilder.h"
 #include "game/KeyboardGame.h"
+#include "game/ForestPatch.h"
 
 #include <cassert>
 #include <cmath>
 #include <sigc++/sigc++.h>
 
-#include <OGRE/SdkTrays.h>
 #include <OgreMath.h>
+
 
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 {
@@ -122,52 +123,12 @@ void Application::createScene(void)
 
     gridNode->attachObject(grid);
 
-    meshbuilder::create_cylinder(mSceneMgr,"ForestRunnerCylinder",3.0f,5.0f,4,20);
-
-    Ogre::Entity* cylinder =
-            mSceneMgr->createEntity("cylinder", "ForestRunnerCylinder");
-    cylinder->setMaterialName("ForestRunner/Yellow");
-
-    Ogre::SceneNode* cylinderNode =
-        m_patchRoot->createChildSceneNode("CylinderNode");
-    cylinderNode->translate(0,0,-10.0f);
-
-    cylinderNode->attachObject(cylinder);
-
-    meshbuilder::create_cylinder_wire(mSceneMgr,"ForestRunnerCylinderWF",3.0f,5.0f,20);
-
-    Ogre::Entity* cylinderWF =
-            mSceneMgr->createEntity("cylinderWF", "ForestRunnerCylinderWF");
-    cylinderWF->setMaterialName("ForestRunner/BlackWireframe");
-
-    Ogre::SceneNode* cylinderNodeWF =
-        m_patchRoot->createChildSceneNode("CylinderNodeWF");
-    cylinderNodeWF->translate(0,0,-10.0f);
-
-    cylinderNodeWF->attachObject(cylinderWF);
-
-
-    meshbuilder::create_cylinder(mSceneMgr,"ForestRunnerCylinderOL",3.5f,5.5f,4,20,true,true);
-
-    Ogre::Entity* cylinderOL =
-            mSceneMgr->createEntity("cylinderOL", "ForestRunnerCylinderOL");
-    cylinderOL->setMaterialName("ForestRunner/Black");
-
-    Ogre::SceneNode* cylinderNodeOL =
-        m_patchRoot->createChildSceneNode("CylinderNodeOL");
-    cylinderNodeOL->translate(0,-0.25,-10.0f);
-
-    cylinderNodeOL->attachObject(cylinderOL);
-
     // Create a Light and set its position
     Ogre::Light* light = mSceneMgr->createLight("MainLight");
     light->setPosition(20.0f, 80.0f, 50.0f);
 
-
-
     m_game = new KeyboardGame();
-    m_game->m_patchRoot     = m_patchRoot;
-    m_game->m_patchRotate   = m_patchRotate;
+    m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
 
     m_guiManager = new GuiManager(m_game);
 
