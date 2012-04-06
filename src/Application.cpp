@@ -122,6 +122,18 @@ void Application::createScene(void)
 
     gridNode->attachObject(grid);
 
+    meshbuilder::create_cylinder(mSceneMgr,"ForestRunnerCylinder",3.0f,5.0f,4,20);
+
+    Ogre::Entity* cylinder =
+            mSceneMgr->createEntity("cylinder", "ForestRunnerCylinder");
+    grid->setMaterialName("ForestRunner/BlackWireframe");
+
+    Ogre::SceneNode* cylinderNode =
+        m_patchRoot->createChildSceneNode("CylinderNode");
+    cylinderNode->translate(0,0,-10.0f);
+
+    cylinderNode->attachObject(cylinder);
+
     m_game = new KeyboardGame();
     m_game->m_patchRoot     = m_patchRoot;
     m_game->m_patchRotate   = m_patchRotate;

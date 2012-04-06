@@ -23,8 +23,10 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
                         const Ogre::String& meshName,
                             float radius,
                             float height,
-                            float axisSamples,
-                            float radialSamples );
+                            int   axisSamples,
+                            int   radialSamples,
+                            bool  cap=true,
+                            bool  invert=false);
 
 }
 

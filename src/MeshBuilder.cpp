@@ -59,8 +59,10 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
                         const Ogre::String& meshName,
                             float radius,
                             float height,
-                            float axisSamples,
-                            float radialSamples )
+                            int   axisSamples,
+                            int   radialSamples,
+                            bool  cap,
+                            bool  invert)
 {
     using namespace Ogre;
 
@@ -69,29 +71,110 @@ void create_cylinder( Ogre::SceneManager* sceneMgr,
     obj->begin("ForestRunner/BlackWireframe",
                     Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-    obj->position(0,0,0);
+
     for(int iHeight=0; iHeight < axisSamples; iHeight++)
     {
-        float h = iHeight*height/axisSamples;
+        float h = iHeight*height/(axisSamples-1);
 
         for(int iAngle=0; iAngle < radialSamples; iAngle++)
         {
             float a = iAngle*2*M_PI/radialSamples;
             float x = radius * std::cos(a);
             float y = radius * std::sin(a);
-            obj->position(x,    0,      y);
+            obj->position(x,    h,      y);
         }
     }
-    obj->position(0,height,0);
 
-    // close up the bottom
-    for(int iHeight=0; iHeight < axisSamples-1; iHeight++)
+    if(cap)
     {
-        obj->index(0);
-        obj->index(iHeight+1);
-        obj->index(iHeight+2);
+        obj->position(0,0,0);
+        obj->position(0,height,0);
     }
 
+    // for each horizontal layer except the last
+    for(int h=0; h < axisSamples-1; h++)
+    {
+        // for each radial vertex except the last
+        for(int r=0; r < radialSamples; r++)
+        {
+            int i[2];
+            int j[2];
+
+            for(int k=0; k < 2; k++)
+            {
+                i[k] = (  h   *radialSamples)   + ( (r+k) % radialSamples );
+                j[k] = ( (h+1)*radialSamples)   + ( (r+k) % radialSamples );
+            }
+
+
+
+            if(invert)
+            {
+                // create triangle with two bottom verteces and one
+                // top vertex
+                obj->index(i[0]);
+                obj->index(i[1]);
+                obj->index(j[0]);
+
+                // create triangle with one bottom vertex and two
+                // top vertices
+                obj->index(j[1]);
+                obj->index(j[0]);
+                obj->index(i[1]);
+            }
+
+            else
+            {
+                obj->index(j[0]);
+                obj->index(i[1]);
+                obj->index(i[0]);
+
+                obj->index(i[1]);
+                obj->index(j[0]);
+                obj->index(j[1]);
+            }
+
+        }
+    }
+
+    // close up the bottom
+    if( cap )
+    {
+        int iCaps       =  axisSamples*radialSamples;
+        int iOffset[2];
+
+        iOffset[0] = 0;
+        iOffset[1] = (axisSamples-1)*radialSamples;
+
+        for(int h=0; h < 2; h++)
+        {
+            int j = iCaps + h;
+
+            for(int r=0; r < radialSamples; r++)
+            {
+                int i[2];
+
+                for(int k=0; k < 2; k++)
+                    i[k] = iOffset[h] + ( (r+k) % radialSamples );
+
+                // create triangle between two vertices and the the center
+                // of the circle
+                if(invert)
+                {
+                    obj->index(i[0]);
+                    obj->index(i[1]);
+                    obj->index(j);
+                }
+                else
+                {
+                    obj->index(j);
+                    obj->index(i[1]);
+                    obj->index(i[0]);
+                }
+            }
+        }
+
+    }
 
     obj->end();
 
