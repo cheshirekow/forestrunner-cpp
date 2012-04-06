@@ -91,6 +91,8 @@ void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 
 void ForestPatch::generateLayout(float density)
 {
+    m_patchNode->removeAllChildren();
+
     int nTrees = getPoisson(density);
     for(int i=0; i < nTrees; i++)
     {

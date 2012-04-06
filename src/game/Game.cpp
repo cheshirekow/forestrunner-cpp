@@ -20,10 +20,10 @@ Game::Game()
 {
     m_gameState = GS_CRASHED;
 
-    m_xAccel    = 10.0f;
-    m_xSpeedMax = 6.0f;
+    m_xAccel    = 50.0f;
+    m_xSpeedMax = 20.0f;
     m_xSpeed    = 0.0f;
-    m_ySpeed    = 3.0f;
+    m_ySpeed    = 20.0f;
     m_density   = 5.0f;
 
     m_radius    = 0.5f;
@@ -246,12 +246,94 @@ void Game::update( Ogre::Real tpf )
     m_xPos -= m_xSpeed*tpf;
 
     if(m_xPos > m_patchWidth)
+    {
         m_xPos -= m_patchWidth;
+
+        int k1,k2;
+        for(int j=0; j < m_patchDimY; j++)
+        {
+            k1 = (m_patchDimX-1)*m_patchDimY + j;
+            ForestPatch* temp = m_patches[k1];
+            for(int i=m_patchDimX-1; i > 0; i--)
+            {
+                k1 = ( i   *m_patchDimY + j);
+                k2 = ((i-1)*m_patchDimY + j);
+                ForestPatch* patch = m_patches[k1] = m_patches[k2];
+                Ogre::SceneNode* node = patch->getRoot();
+                node->setPosition(
+                        (i-m_patchDimX/2.0f)*m_patchWidth,
+                        0.0f,
+                        -j*m_patchHeight );
+            }
+
+            m_patches[j] = temp;
+            Ogre::SceneNode* node = temp->getRoot();
+            node->setPosition(
+                        (-m_patchDimX/2.0f)*m_patchWidth,
+                        0.0f,
+                        -j*m_patchHeight );
+        }
+    }
+
     if(m_xPos < -m_patchWidth)
+    {
         m_xPos += m_patchWidth;
 
+        int k1,k2;
+        for(int j=0; j < m_patchDimY; j++)
+        {
+            ForestPatch* temp = m_patches[j];
+            for(int i=0; i < m_patchDimX-1; i++)
+            {
+                k1 = ( i   *m_patchDimY + j);
+                k2 = ((i+1)*m_patchDimY + j);
+
+                m_patches[k1] = m_patches[k2];
+                Ogre::SceneNode* node = m_patches[k1]->getRoot();
+                node->setPosition(
+                        (i-m_patchDimX/2.0f)*m_patchWidth,
+                        0.0f,
+                        -j*m_patchHeight );
+            }
+
+            k2 = ((m_patchDimX-1)*m_patchDimY + j);
+            m_patches[k2] = temp;
+            Ogre::SceneNode* node = temp->getRoot();
+            node->setPosition(
+                    (m_patchDimX/2.0f-1)*m_patchWidth,
+                    0.0f,
+                    -j*m_patchHeight );
+        }
+    }
+
     if(m_yPos > m_patchHeight)
+    {
         m_yPos -= m_patchHeight;
+
+        int k=0;
+        for(int i=0; i < m_patchDimX; i++)
+        {
+            ForestPatch* temp = m_patches[i*m_patchDimY];
+            for(int j=0; j < m_patchDimY-1; j++)
+            {
+                k = i*m_patchDimY + j;
+                ForestPatch*patch       = m_patches[k] = m_patches[k+1];
+                Ogre::SceneNode* node   = patch->getRoot();
+                node->setPosition(
+                        (i-m_patchDimX/2.0f)*m_patchWidth,
+                        0.0f,
+                        -j*m_patchHeight );
+            }
+
+            m_patches[k+1] = temp;
+            Ogre::SceneNode* node   = temp->getRoot();
+                node->setPosition(
+                        (i-m_patchDimX/2.0f)*m_patchWidth,
+                        0.0f,
+                        -(m_patchDimY-1)*m_patchHeight );
+            temp->generateLayout(m_density);
+        }
+    }
 
     m_patchRoot->setPosition(m_xPos,0,m_yPos);
 }
