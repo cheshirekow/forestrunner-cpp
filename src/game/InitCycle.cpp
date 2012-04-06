@@ -34,51 +34,51 @@ void InitCycle::step()
     {
         case CLEAR_PATCHES:
         {
-            sig_clearPatch.emit(iPatch);
             if(++iPatch >= nPatches)
             {
                 iPatch = 0;
                 outer++;
             }
+            sig_clearPatch.emit(iPatch);
             break;
         }
 
         case FREE_MESHES:
         {
-            sig_freeMeshes.emit();
             outer++;
+            sig_freeMeshes.emit();
             break;
         }
 
         case CREATE_MESHES:
         {
-            sig_createMeshes.emit();
             outer++;
+            sig_createMeshes.emit();
             break;
         }
 
         case INIT_PATCHES:
         {
-            sig_initPatch.emit(iPatch);
             if(++iPatch >= nPatches)
             {
                 iPatch=0;
                 outer++;
             }
+            sig_initPatch.emit(iPatch);
             break;
         }
 
         case INIT_RUN:
         {
-            sig_initRun.emit();
             outer++;
+            sig_initRun.emit();
             break;
         }
 
         case DONE:
         {
-            sig_done.emit();
             outer++;
+            sig_done.emit();
             break;
         }
 

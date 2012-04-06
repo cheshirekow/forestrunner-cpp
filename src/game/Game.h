@@ -77,6 +77,10 @@ class Game
         void initFinished();
         void initProgress(float progress);
 
+        void setSpeed(int i);
+        void setDensity(int i);
+        void setRadius(int i);
+
         void initRun();
 
         void createScene(Ogre::SceneManager* sceneMgr,

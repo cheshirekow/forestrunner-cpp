@@ -79,6 +79,13 @@ void Game::destroyCylinderMeshes()
     meshMgr.remove("Cylinder");
     meshMgr.remove("CylinderFrame");
     meshMgr.remove("CylinderOutline");
+
+    for( int i=0; i < m_coloredEntities.size(); i++)
+        m_sceneMgr->destroyEntity(m_coloredEntities[i]);
+    m_sceneMgr->destroyEntity(m_cylinderFrameEntity);
+    m_sceneMgr->destroyEntity(m_cylinderOutlineEntity);
+
+    m_coloredEntities.clear();
 }
 
 void Game::createCylinderMeshes()
@@ -133,12 +140,28 @@ void Game::initPatch(int i)
 
 void Game::initFinished()
 {
+    m_init.reset();
     internal_setState(GS_COUNTDOWN);
 }
 
 void Game::initProgress(float progress)
 {
     m_sig_progressChanged.emit(progress);
+}
+
+void Game::setSpeed(int i)
+{
+    m_ySpeed    = 20.0f + i*5.0f;
+}
+
+void Game::setDensity(int i)
+{
+    m_density   = 3.0f + i*2.0f;;
+}
+
+void Game::setRadius(int i)
+{
+    m_radius    = 0.5f + i*0.3f;
 }
 
 void Game::initRun()
@@ -201,10 +224,6 @@ GameState Game::getState()
 void Game::setState(GameState state)
 {
     m_gameState = state;
-
-    if(state == GS_INIT)
-        m_init.reset();
-
 }
 
 

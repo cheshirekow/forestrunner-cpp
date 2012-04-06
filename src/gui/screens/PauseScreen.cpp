@@ -7,6 +7,7 @@
  */
 
 #include "PauseScreen.h"
+#include "game/Game.h"
 
 PauseScreen::PauseScreen()
 {
@@ -33,11 +34,52 @@ PauseScreen::PauseScreen()
                         CEGUI::Event::Subscriber(
                                 &PauseScreen::onAdvanced,
                                 this) );
+
+    m_sb_speed   = m_root->getChildRecursive("Pause/Panel/sb_speed");
+    m_sb_radius  = m_root->getChildRecursive("Pause/Panel/sb_radius");
+    m_sb_density = m_root->getChildRecursive("Pause/Panel/sb_density");
+
+    m_sb_speed->subscribeEvent(
+            CEGUI::Scrollbar::EventScrollPositionChanged,
+            CEGUI::Event::Subscriber(
+                    &PauseScreen::onSlider,
+                    this) );
+
+    m_sb_radius->subscribeEvent(
+            CEGUI::Scrollbar::EventScrollPositionChanged,
+            CEGUI::Event::Subscriber(
+                    &PauseScreen::onSlider,
+                    this) );
+
+    m_sb_density->subscribeEvent(
+            CEGUI::Scrollbar::EventScrollPositionChanged,
+            CEGUI::Event::Subscriber(
+                    &PauseScreen::onSlider,
+                    this) );
 }
 
 PauseScreen::~PauseScreen()
 {
 
+}
+
+bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
+{
+    const CEGUI::WindowEventArgs& args =
+            static_cast<const CEGUI::WindowEventArgs&>(e);
+    CEGUI::Scrollbar* sb = static_cast<CEGUI::Scrollbar*>(args.window);
+
+    int rounded = (int)std::floor(sb->getScrollPosition() + 0.5);
+    sb->setScrollPosition( (float)rounded );
+
+    if(args.window == m_sb_speed)
+        m_game->setSpeed(rounded);
+    if(args.window == m_sb_radius)
+        m_game->setRadius(rounded);
+    if(args.window == m_sb_density)
+        m_game->setDensity(rounded);
+
+    return true;
 }
 
 bool PauseScreen::onResume(const CEGUI::EventArgs &e)
