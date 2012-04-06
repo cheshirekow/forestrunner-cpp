@@ -144,6 +144,7 @@ void Game::initRun()
     m_xSpeed    = 0.0f;
     m_xPos      = 0;
     m_yPos      = 0;
+    m_score     = 0;
 
     int k=0;
     for(int i=0; i < m_patchDimX; i++)
