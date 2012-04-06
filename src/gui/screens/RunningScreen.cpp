@@ -7,7 +7,9 @@
  */
 
 #include "gui/screens/RunningScreen.h"
+
 #include <game/Game.h>
+#include <cstring>
 
 RunningScreen::RunningScreen()
 {
@@ -15,6 +17,8 @@ RunningScreen::RunningScreen()
     m_root = wmgr.loadWindowLayout("running.layout");
     m_anim_enter = "None";
     m_anim_exit  = "None";
+
+    m_txt_score = m_root->getChildRecursive("Run/txt_score");
 }
 
 RunningScreen::~RunningScreen()
@@ -27,6 +31,8 @@ void RunningScreen::set_game(Game* game)
     Screen::set_game(game);
     game->sig_stateChanged().connect(
             sigc::mem_fun(*this,&RunningScreen::onGameStateChanged) );
+    game->sig_scoreChanged().connect(
+            sigc::mem_fun(*this,&RunningScreen::onScoreChanged) );
 }
 
 void RunningScreen::exec()
@@ -37,7 +43,11 @@ void RunningScreen::exec()
 void RunningScreen::onGameStateChanged(GameState state)
 {
     if(state == GS_CRASHED)
-    {
         m_sig_transition.emit("crash");
-    }
+}
+
+void RunningScreen::onScoreChanged(float score)
+{
+    snprintf(m_cstr,20,"Score: %4.2f",score);
+    m_txt_score->setProperty("Text",m_cstr);
 }

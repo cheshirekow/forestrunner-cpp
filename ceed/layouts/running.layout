@@ -6,6 +6,7 @@
             <Property Name="Text" Value="Score: 00.00" />
             <Property Name="FrameEnabled" Value="False" />
             <Property Name="BackgroundEnabled" Value="False" />
+            <Property Name="TextColours" Value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000"/>
         </Window>
     </Window>
 </GUILayout>

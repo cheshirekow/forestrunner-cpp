@@ -48,6 +48,7 @@ GameState Game::getState()
 void Game::setState(GameState state)
 {
     m_gameState = state;
+
 }
 
 bool Game::keyPressed( const OIS::KeyEvent &arg )
@@ -65,6 +66,8 @@ void Game::update( Ogre::Real tpf )
     if(m_gameState != GS_RUNNING)
         return;
 
+    m_score += tpf;
+    m_sig_scoreChanged.emit(m_score);
     updateSpeed(tpf);
 
     m_yPos += m_ySpeed*tpf;
@@ -85,6 +88,11 @@ void Game::update( Ogre::Real tpf )
 sigc::signal<void,GameState>& Game::sig_stateChanged()
 {
     return m_sig_stateChanged;
+}
+
+sigc::signal<void,float>& Game::sig_scoreChanged()
+{
+    return m_sig_scoreChanged;
 }
 
 

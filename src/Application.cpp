@@ -159,6 +159,10 @@ void Application::createScene(void)
 
     cylinderNodeOL->attachObject(cylinderOL);
 
+    // Create a Light and set its position
+    Ogre::Light* light = mSceneMgr->createLight("MainLight");
+    light->setPosition(20.0f, 80.0f, 50.0f);
+
 
 
     m_game = new KeyboardGame();

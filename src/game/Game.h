@@ -36,7 +36,11 @@ class Game
         int     m_patchDimX;
         int     m_patchDimY;
 
+        int     m_init_i;
+        int     m_init_j;
+
         sigc::signal<void,GameState> m_sig_stateChanged;
+        sigc::signal<void,float>    m_sig_scoreChanged;
 
     public:
         Ogre::SceneNode*    m_patchRoot;
@@ -56,6 +60,7 @@ class Game
         virtual void updateSpeed( Ogre::Real tpf )=0;
 
         sigc::signal<void,GameState>& sig_stateChanged();
+        sigc::signal<void,float>& sig_scoreChanged();
 
     protected:
         void internal_setState(GameState state);

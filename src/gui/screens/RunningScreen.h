@@ -15,6 +15,10 @@
 class RunningScreen :
     public Screen
 {
+    private:
+        CEGUI::Window*  m_txt_score;
+        char            m_cstr[20];
+
     public:
         RunningScreen();
         virtual ~RunningScreen();
@@ -23,6 +27,7 @@ class RunningScreen :
         virtual void exec();
 
         void onGameStateChanged(GameState state);
+        void onScoreChanged(float score);
 };
 
 #endif /* RUNNINGSCREEN_H_ */
