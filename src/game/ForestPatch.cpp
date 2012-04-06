@@ -95,7 +95,7 @@ void ForestPatch::generateLayout(float density)
 {
     m_patchNode->removeAllChildren();
 
-    m_nTrees = getPoisson(density);
+    m_nTrees = std::min( getPoisson(density), m_maxNodes );
     for(int i=0; i < m_nTrees; i++)
     {
         Ogre::SceneNode* child = m_cylinderNodes[i];
