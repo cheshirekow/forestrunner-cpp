@@ -108,7 +108,7 @@ void Application::createScene(void)
 
     float sideLen   = 5.0f;
     int   numX      = 40;
-    int   numY      = 30;
+    int   numY      = 40;
     meshbuilder::create_grid(mSceneMgr,"ForestRunnerGrid",sideLen,numX,numY);
     Ogre::Entity* grid =
             mSceneMgr->createEntity("grid", "ForestRunnerGrid");
@@ -145,7 +145,7 @@ void Application::createCamera(void)
     // Look back along -Z
     mCamera->lookAt(Ogre::Vector3(0,0,-10));
     mCamera->setNearClipDistance(1);
-    mCamera->setFarClipDistance(1000);
+    mCamera->setFarClipDistance(180);
 
     //mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }

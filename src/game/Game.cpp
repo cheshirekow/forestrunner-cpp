@@ -32,8 +32,8 @@ Game::Game()
 
     m_xPos      = 0;
     m_yPos      = 0;
-    m_patchWidth    = 20.1f; //20.1f;
-    m_patchHeight   = 20.1f; //20.1f;
+    m_patchWidth    = 30.1f; //20.1f;
+    m_patchHeight   = 30.1f; //20.1f;
 
     m_patchDimX = 5;
     m_patchDimY = 8; //4;
@@ -188,6 +188,7 @@ void Game::initRun()
     }
 
     m_patchRotate->setOrientation(Ogre::Quaternion::IDENTITY);
+    m_patchRoot->setPosition(m_xPos,0,m_yPos);
 }
 
 void Game::createScene(Ogre::SceneManager* sceneMgr,
