@@ -41,6 +41,7 @@ class Game
 
         sigc::signal<void,GameState> m_sig_stateChanged;
         sigc::signal<void,float>    m_sig_scoreChanged;
+        sigc::signal<void,float>    m_sig_progressChanged;
 
     public:
         Ogre::SceneNode*    m_patchRoot;
@@ -56,11 +57,13 @@ class Game
         virtual bool keyPressed( const OIS::KeyEvent &arg );
         virtual bool keyReleased( const OIS::KeyEvent &arg );
 
+                void stepInit();
         virtual void update( Ogre::Real tpf );
         virtual void updateSpeed( Ogre::Real tpf )=0;
 
         sigc::signal<void,GameState>& sig_stateChanged();
         sigc::signal<void,float>& sig_scoreChanged();
+        sigc::signal<void,float>& sig_progressChanged();
 
     protected:
         void internal_setState(GameState state);

@@ -49,6 +49,12 @@ void Game::setState(GameState state)
 {
     m_gameState = state;
 
+    if(state == GS_INIT)
+    {
+        m_init_i = 0;
+        m_init_j = 0;
+    }
+
 }
 
 bool Game::keyPressed( const OIS::KeyEvent &arg )
@@ -61,8 +67,28 @@ bool Game::keyReleased( const OIS::KeyEvent &arg )
     return true;
 }
 
+void Game::stepInit()
+{
+    // m_patch[m_init_i][m_init_j]->rebuild();
+
+    if( ++m_init_j > m_patchDimY )
+    {
+        m_init_j=0;
+        if( ++m_init_i > m_patchDimX )
+            internal_setState(GS_COUNTDOWN);
+    }
+
+    m_sig_progressChanged.emit(
+        (m_init_i*m_patchDimY + m_init_j) /
+            ((float)(m_patchDimX * m_patchDimY))
+        );
+}
+
 void Game::update( Ogre::Real tpf )
 {
+    if(m_gameState == GS_INIT)
+        stepInit();
+
     if(m_gameState != GS_RUNNING)
         return;
 
@@ -93,6 +119,11 @@ sigc::signal<void,GameState>& Game::sig_stateChanged()
 sigc::signal<void,float>& Game::sig_scoreChanged()
 {
     return m_sig_scoreChanged;
+}
+
+sigc::signal<void,float>& Game::sig_progressChanged()
+{
+    return m_sig_progressChanged;
 }
 
 

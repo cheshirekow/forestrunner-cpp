@@ -7,7 +7,11 @@
  */
 
 #include "InitScreen.h"
+#include "game/Game.h"
 #include <iostream>
+#include <cstring>
+#include "game/GameState.h"
+
 
 InitScreen::InitScreen()
 {
@@ -24,13 +28,40 @@ InitScreen::~InitScreen()
 
 }
 
+
+void InitScreen::set_game(Game* game)
+{
+    Screen::set_game(game);
+
+    game->sig_progressChanged().connect(
+            sigc::mem_fun(*this,&InitScreen::onProgress) );
+    game->sig_stateChanged().connect(
+            sigc::mem_fun(*this,&InitScreen::onStateChanged) );
+}
+
 void InitScreen::exec()
 {
+    /*
     CEGUI::AnimationManager& mgr = CEGUI::AnimationManager::getSingleton();
     CEGUI::AnimationInstance* anim = mgr.instantiateAnimation("FakeProgress");
     anim->setTargetWindow(m_pb_progress);
     anim->setEventReceiver(this);
     anim->start();
+    */
+
+    m_game->setState(GS_INIT);
+}
+
+void InitScreen::onProgress(float progress)
+{
+    snprintf(m_cstr,6,"%4.2f",progress);
+    m_pb_progress->setProperty("CurrentProgress",m_cstr);
+}
+
+void InitScreen::onStateChanged(GameState state)
+{
+    if(state == GS_COUNTDOWN)
+        m_sig_transition.emit("countdown3");
 }
 
 void InitScreen::fireEvent (const CEGUI::String &name,

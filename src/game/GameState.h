@@ -12,6 +12,7 @@
 enum GameState
 {
     GS_INIT,
+    GS_COUNTDOWN,
     GS_RUNNING,
     GS_PAUSED,
     GS_CRASHED
