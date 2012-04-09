@@ -9,6 +9,10 @@
 
 #include <OgreMath.h>
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <MacUtils.h>
+#endif
+
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 {
     switch (buttonID)
@@ -46,11 +50,11 @@ Application::Application(void):
     mKeyboard(0)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    m_ResourcePath = macBundlePath() + "/Contents/Resources/";
+    m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
 #elif defined(OGRE_IS_IOS)
-    m_ResourcePath = macBundlePath() + "/";
+    m_ResourcePath = Ogre::macBundlePath() + "/";
 #else
-    m_ResourcePath = "";
+    m_ResourcePath = "./";
 #endif
 }
 
@@ -351,12 +355,22 @@ void Application::go(void)
 //-------------------------------------------------------------------------------------
 bool Application::setup(void)
 {
-    mRoot = new Ogre::Root(mPluginsCfg);
-
     new Ogre::LogManager();
 
     m_pLog = Ogre::LogManager::getSingleton().createLog("OgreLogfile.log", true, true, false);
     m_pLog->setDebugOutputEnabled(true);
+
+    Ogre::String pluginsPath;
+    // only use plugins.cfg if not static
+#ifndef OGRE_STATIC_LIB
+    pluginsPath = m_ResourcePath + mPluginsCfg;
+#endif
+
+    mRoot = new Ogre::Root(pluginsPath,m_ResourcePath + "ogre.cfg");
+
+#ifdef OGRE_STATIC_LIB
+    m_StaticPluginLoader.load();
+#endif
 
     setupResources();
 
