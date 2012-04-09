@@ -3,14 +3,14 @@ find_package(CEGUI COMPONENTS OGRE REQUIRED)
 find_package(SigC++ REQUIRED)
 
 if(FORESTRUNNER_DESKTOP)
-    message("Configuring for DESKTOP build\n------------------------\n");
+    message(status "Configuring for DESKTOP build\n------------------------\n")
     find_package(OGRE COMPONENTS RenderSystem_GL REQUIRED)
     include_directories( ${OGRE_RenderSystem_GL_INCLUDE_DIR} )
     set(LIBS ${LIBS} ${OGRE_RenderSystem_GL_LIBRARY} )
 endif(FORESTRUNNER_DESKTOP)
 
 if(FORESTRUNNER_IOS)
-    message("Configuring for iOS build\n------------------------\n");
+    message(status "Configuring for iOS build\n------------------------\n")
     find_package(OGRE COMPONENTS RenderSystem_GLES REQUIRED)
     include_directories( ${OGRE_RenderSystem_GLES_INCLUDE_DIR} )
     set(LIBS ${LIBS} ${OGRE_RenderSystem_GLES_LIBRARY} )
