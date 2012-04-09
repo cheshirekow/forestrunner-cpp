@@ -316,19 +316,3 @@ bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 
 
-
-int main(int argc, char *argv[])
-{
-    // Create application object
-    Application app;
-
-    try
-    {
-        app.go();
-    } catch( Ogre::Exception& e ) {
-        std::cerr << "An exception has occured: " <<
-            e.getFullDescription().c_str() << std::endl;
-    }
-
-    return 0;
-}
