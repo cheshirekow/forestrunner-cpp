@@ -1,13 +1,8 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include "BaseApplication.h"
-
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
-
-#include "gui/GuiManager.h"
-#include "game/Game.h"
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>
@@ -23,6 +18,12 @@
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OISMultiTouch.h>
+
+#include <SdkTrays.h>
+#include <SdkCameraMan.h>
+
+#include "gui/GuiManager.h"
+#include "game/Game.h"
 
 
 #ifdef OGRE_STATIC_LIB
