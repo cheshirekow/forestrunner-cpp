@@ -70,9 +70,17 @@
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
 #ifdef OGRE_IS_IOS
-class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, OIS::MultiTouchListener, OgreBites::SdkTrayListener
+class OgreFramework :
+    public Ogre::Singleton<OgreFramework>,
+    OIS::KeyListener,
+    OIS::MultiTouchListener,
+    OgreBites::SdkTrayListener
 #else
-class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, OIS::MouseListener, OgreBites::SdkTrayListener
+class OgreFramework :
+    public Ogre::Singleton<OgreFramework>,
+    OIS::KeyListener,
+    OIS::MouseListener,
+    OgreBites::SdkTrayListener
 #endif
 {
 public:
@@ -80,9 +88,13 @@ public:
 	~OgreFramework();
     
 #ifdef OGRE_IS_IOS
-    bool initOgre(Ogre::String wndTitle, OIS::KeyListener *pKeyListener = 0, OIS::MultiTouchListener *pMouseListener = 0);
+    bool initOgre(Ogre::String wndTitle,
+                    OIS::KeyListener *pKeyListener = 0,
+                    OIS::MultiTouchListener *pMouseListener = 0);
 #else
-	bool initOgre(Ogre::String wndTitle, OIS::KeyListener *pKeyListener = 0, OIS::MouseListener *pMouseListener = 0);
+	bool initOgre(Ogre::String wndTitle,
+	                OIS::KeyListener *pKeyListener = 0,
+	                OIS::MouseListener *pMouseListener = 0);
 #endif
 	void updateOgre(double timeSinceLastFrame);
 	void moveCamera();

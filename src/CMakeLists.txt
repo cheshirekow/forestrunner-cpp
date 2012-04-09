@@ -1,5 +1,3 @@
-add_subdirectory(BasicTutorial7)
-
 find_package(OIS REQUIRED)
 find_package(OGRE COMPONENTS RenderSystem_GL REQUIRED)
 find_package(CEGUI COMPONENTS OGRE REQUIRED)
@@ -27,7 +25,6 @@ set(LIBS ${LIBS}
 add_library( forestrunner 
                     Application.cpp
                     MeshBuilder.cpp
-                    TutorialFramework/BaseApplication.cpp
                     game/Game.cpp
                     game/KeyboardGame.cpp
                     game/ForestPatch.cpp

@@ -11,7 +11,8 @@ DemoApp::DemoApp()
 DemoApp::~DemoApp()
 {
 #ifdef USE_RTSHADER_SYSTEM
-    mShaderGenerator->removeSceneManager(OgreFramework::getSingletonPtr()->m_pSceneMgr);
+    mShaderGenerator->removeSceneManager(
+                    OgreFramework::getSingletonPtr()->m_pSceneMgr);
     
     finalizeRTShaderSystem();
 #endif
@@ -35,7 +36,8 @@ bool DemoApp::initializeRTShaderSystem(Ogre::SceneManager* sceneMgr)
         mShaderGenerator->addSceneManager(sceneMgr);
         
         // Setup core libraries and shader cache path.
-        Ogre::StringVector groupVector = Ogre::ResourceGroupManager::getSingleton().getResourceGroups();
+        Ogre::StringVector groupVector =
+                Ogre::ResourceGroupManager::getSingleton().getResourceGroups();
         Ogre::StringVector::iterator itGroup = groupVector.begin();
         Ogre::StringVector::iterator itGroupEnd = groupVector.end();
         Ogre::String shaderCoreLibsPath;
@@ -43,9 +45,12 @@ bool DemoApp::initializeRTShaderSystem(Ogre::SceneManager* sceneMgr)
         
         for (; itGroup != itGroupEnd; ++itGroup)
         {
-            Ogre::ResourceGroupManager::LocationList resLocationsList = Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(*itGroup);
-            Ogre::ResourceGroupManager::LocationList::iterator it = resLocationsList.begin();
-            Ogre::ResourceGroupManager::LocationList::iterator itEnd = resLocationsList.end();
+            Ogre::ResourceGroupManager::LocationList resLocationsList =
+                    Ogre::ResourceGroupManager::getSingleton().getResourceLocationList(*itGroup);
+            Ogre::ResourceGroupManager::LocationList::iterator it =
+                    resLocationsList.begin();
+            Ogre::ResourceGroupManager::LocationList::iterator itEnd =
+                    resLocationsList.end();
             bool coreLibsFound = false;
             
             // Try to find the location of the core shader lib functions and use it
@@ -71,7 +76,8 @@ bool DemoApp::initializeRTShaderSystem(Ogre::SceneManager* sceneMgr)
             return false;			
         
         // Create and register the material manager listener.
-        mMaterialMgrListener = new ShaderGeneratorTechniqueResolverListener(mShaderGenerator);				
+        mMaterialMgrListener =
+                new ShaderGeneratorTechniqueResolverListener(mShaderGenerator);
         Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
     }
     
@@ -84,12 +90,14 @@ bool DemoApp::initializeRTShaderSystem(Ogre::SceneManager* sceneMgr)
 void DemoApp::finalizeRTShaderSystem()
 {
     // Restore default scheme.
-    Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
+    Ogre::MaterialManager::getSingleton().setActiveScheme(
+                                Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
     
     // Unregister the material manager listener.
     if (mMaterialMgrListener != NULL)
     {			
-        Ogre::MaterialManager::getSingleton().removeListener(mMaterialMgrListener);
+        Ogre::MaterialManager::getSingleton().removeListener(
+                                mMaterialMgrListener);
         delete mMaterialMgrListener;
         mMaterialMgrListener = NULL;
     }
@@ -115,31 +123,46 @@ void DemoApp::startDemo()
 	
 #ifdef USE_RTSHADER_SYSTEM
     initializeRTShaderSystem(OgreFramework::getSingletonPtr()->m_pSceneMgr);
-    Ogre::MaterialPtr baseWhite = Ogre::MaterialManager::getSingleton().getByName("BaseWhite", Ogre::ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);				
+    Ogre::MaterialPtr baseWhite =
+            Ogre::MaterialManager::getSingleton().getByName(
+                    "BaseWhite",
+                    Ogre::ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+
     baseWhite->setLightingEnabled(false);
     mShaderGenerator->createShaderBasedTechnique(
-                                                 "BaseWhite", 
-                                                 Ogre::MaterialManager::DEFAULT_SCHEME_NAME, 
-                                                 Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);	
-    mShaderGenerator->validateMaterial(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME, 
-                                       "BaseWhite");
+                    "BaseWhite",
+                    Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+                    Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+
+    mShaderGenerator->validateMaterial(
+                    Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME,
+                    "BaseWhite");
+
     baseWhite->getTechnique(0)->getPass(0)->setVertexProgram(
-                                                             baseWhite->getTechnique(1)->getPass(0)->getVertexProgram()->getName());
+         baseWhite->getTechnique(1)->getPass(0)->getVertexProgram()->getName());
+
     baseWhite->getTechnique(0)->getPass(0)->setFragmentProgram(
-                                                               baseWhite->getTechnique(1)->getPass(0)->getFragmentProgram()->getName());
+       baseWhite->getTechnique(1)->getPass(0)->getFragmentProgram()->getName());
     
     // creates shaders for base material BaseWhiteNoLighting using the RTSS
     mShaderGenerator->createShaderBasedTechnique(
-                                                 "BaseWhiteNoLighting", 
-                                                 Ogre::MaterialManager::DEFAULT_SCHEME_NAME, 
-                                                 Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);	
-    mShaderGenerator->validateMaterial(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME, 
-                                       "BaseWhiteNoLighting");
-    Ogre::MaterialPtr baseWhiteNoLighting = Ogre::MaterialManager::getSingleton().getByName("BaseWhiteNoLighting", Ogre::ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+                    "BaseWhiteNoLighting",
+                    Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+                    Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);
+
+    mShaderGenerator->validateMaterial(
+                    Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME,
+                   "BaseWhiteNoLighting");
+
+    Ogre::MaterialPtr baseWhiteNoLighting =
+            Ogre::MaterialManager::getSingleton().getByName(
+                    "BaseWhiteNoLighting",
+                    Ogre::ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
+
     baseWhiteNoLighting->getTechnique(0)->getPass(0)->setVertexProgram(
-                                                                       baseWhiteNoLighting->getTechnique(1)->getPass(0)->getVertexProgram()->getName());
+            baseWhiteNoLighting->getTechnique(1)->getPass(0)->getVertexProgram()->getName());
     baseWhiteNoLighting->getTechnique(0)->getPass(0)->setFragmentProgram(
-                                                                         baseWhiteNoLighting->getTechnique(1)->getPass(0)->getFragmentProgram()->getName());
+            baseWhiteNoLighting->getTechnique(1)->getPass(0)->getFragmentProgram()->getName());
 #endif
     
 	setupDemoScene();

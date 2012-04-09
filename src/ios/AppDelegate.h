@@ -4,7 +4,7 @@
 #include "OgrePlatform.h"
 
 #if !defined(OGRE_IS_IOS)
-#  error This header is for use with iOS only
+#  error "This header is for use with iOS only"
 #endif
 
 #ifdef __OBJC__
@@ -17,7 +17,9 @@
 // sometimes cause input lag.
 #define USE_CADISPLAYLINK 1
 
-
+// this is how a class is defined in objective c
+// the class name is AppDelegate, it is a sublass of NSObject and
+// it implements the UIApplicationDegree Protocol (interface)
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
     NSTimer *mTimer;
@@ -34,15 +36,22 @@
     BOOL mDisplayLinkSupported;
 }
 
+// this is how member methods are declared. the minus sign indicates that they
+// are instance members. a plus sign would indicate a class member (static
+// method)
 - (void)go;
 - (void)renderOneFrame:(id)sender;
 
+// declared properties are a convenience notation used to replace the
+// declaration and (optionally) implementation of accessor methods
 @property (retain) NSTimer *mTimer;
 @property (nonatomic) double mLastFrameTime;
 @property (nonatomic) double mStartTime;
 
+// this marks the end of the declaration
 @end
 
+// this marks the beginning of the implementation
 @implementation AppDelegate
 
 @synthesize mTimer;
