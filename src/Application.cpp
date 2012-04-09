@@ -40,6 +40,7 @@ Application::Application(void):
     mCamera(0),
     mSceneMgr(0),
     mWindow(0),
+    mViewport(0),
     mResourcesCfg(Ogre::StringUtil::BLANK),
     mPluginsCfg(Ogre::StringUtil::BLANK),
     mCameraMan(0),
@@ -71,6 +72,10 @@ Application::~Application(void)
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
     windowClosed(mWindow);
+
+#ifdef OGRE_STATIC_LIB
+    m_StaticPluginLoader.unload();
+#endif
 
     delete mRoot;
 }
@@ -233,21 +238,33 @@ void Application::createFrameListener(void)
     windowHndStr << windowHnd;
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
+
+#if defined(OGRE_IS_IOS) || (OGRE_PLATFORM == OGRE_PLATFORM_APPLE) || OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+#else
     pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
     pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
     pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
     pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
+#endif
 
 
     mInputManager = OIS::InputManager::createInputSystem( pl );
 
+
+#ifdef OGRE_IS_IOS
+    mTouch = static_cast<OIS::MultiTouch*>(
+                mInputManager->createInputObject(OIS::OISMultiTouch, true));
+    mTouch->setEventCallback(this);
+#else
     mKeyboard = static_cast<OIS::Keyboard*>(
                 mInputManager->createInputObject( OIS::OISKeyboard, true ));
+    mKeyboard->setEventCallback(this);
+
     mMouse = static_cast<OIS::Mouse*>(
                 mInputManager->createInputObject( OIS::OISMouse, true ));
-
     mMouse->setEventCallback(this);
-    mKeyboard->setEventCallback(this);
+#endif
 
     //Set initial mouse clipping size
     windowResized(mWindow);
@@ -272,12 +289,13 @@ void Application::destroyScene(void)
 void Application::createViewports(void)
 {
     // Create one viewport, entire window
-    Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-    vp->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
+    mViewport = mWindow->addViewport(mCamera);
+    mViewport->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
 
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(
-        Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+        Ogre::Real(mViewport->getActualWidth()) /
+            Ogre::Real(mViewport->getActualHeight()));
 }
 
 
@@ -289,7 +307,7 @@ void Application::setupResources(void)
 {
     // Load resource paths from config file
     Ogre::ConfigFile cf;
-    cf.load(mResourcesCfg);
+    cf.load(m_ResourcePath + mResourcesCfg);
 
     // Go through all sections & settings in the file
     Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -304,6 +322,13 @@ void Application::setupResources(void)
         {
             typeName = i->first;
             archName = i->second;
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || defined(OGRE_IS_IOS)
+            // OS X does not set the working directory relative to the app,
+            // In order to make things portable on OS X we need to provide
+            // the loading with it's own bundle path location
+            if (!Ogre::StringUtil::startsWith(archName, "/", false)) // only adjust relative dirs
+                archName = Ogre::String(m_ResourcePath + archName);
+#endif
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
                 archName, typeName, secName);
         }
@@ -413,8 +438,12 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
         return false;
 
     //Need to capture/update each device
-    mKeyboard->capture();
-    mMouse->capture();
+    if(mKeyboard)
+        mKeyboard->capture();
+    if(mMouse)
+        mMouse->capture();
+    if(mTouch)
+        mTouch->capture();
 
     m_game->update(evt.timeSinceLastFrame);
 
@@ -537,6 +566,7 @@ bool Application::touchCancelled( const OIS::MultiTouchEvent &arg )
 //Adjust mouse clipping area
 void Application::windowResized(Ogre::RenderWindow* rw)
 {
+#ifndef OGRE_IS_IOS
     unsigned int width, height, depth;
     int left, top;
     rw->getMetrics(width, height, depth, left, top);
@@ -544,6 +574,7 @@ void Application::windowResized(Ogre::RenderWindow* rw)
     const OIS::MouseState &ms = mMouse->getMouseState();
     ms.width = width;
     ms.height = height;
+#endif
 }
 
 //Unattach OIS before window shutdown (very important under Linux)
@@ -554,8 +585,12 @@ void Application::windowClosed(Ogre::RenderWindow* rw)
     {
         if( mInputManager )
         {
-            mInputManager->destroyInputObject( mMouse );
-            mInputManager->destroyInputObject( mKeyboard );
+            if(mMouse)
+                mInputManager->destroyInputObject( mMouse );
+            if(mKeyboard)
+                mInputManager->destroyInputObject( mKeyboard );
+            if(mTouch)
+                mInputManager->destroyInputObject( mTouch );
 
             OIS::InputManager::destroyInputSystem(mInputManager);
             mInputManager = 0;

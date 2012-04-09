@@ -54,16 +54,17 @@ add_library( forestrunner
                     )
                     
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg 
-                ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg COPYONLY)
+                ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg )
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources.cfg 
-                ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg COPYONLY)
+                ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg )
                 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ogre.cfg 
                 ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg COPYONLY)
                 
+if(FORESTRUNNER_DESKTOP)
 add_executable( forestrunner_exe
                     main.cpp )
 
 target_link_libraries( forestrunner_exe forestrunner ${LIBS})
-
+endif(FORESTRUNNER_DESKTOP)
