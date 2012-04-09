@@ -9,7 +9,6 @@
 
 #include <OgreMath.h>
 
-
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 {
     switch (buttonID)
@@ -43,9 +42,16 @@ Application::Application(void):
     mShutDown(false),
     mInputManager(0),
     mMouse(0),
+    mTouch(0),
     mKeyboard(0)
 {
-
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+    m_ResourcePath = macBundlePath() + "/Contents/Resources/";
+#elif defined(OGRE_IS_IOS)
+    m_ResourcePath = macBundlePath() + "/";
+#else
+    m_ResourcePath = "";
+#endif
 }
 
 
@@ -346,6 +352,11 @@ void Application::go(void)
 bool Application::setup(void)
 {
     mRoot = new Ogre::Root(mPluginsCfg);
+
+    new Ogre::LogManager();
+
+    m_pLog = Ogre::LogManager::getSingleton().createLog("OgreLogfile.log", true, true, false);
+    m_pLog->setDebugOutputEnabled(true);
 
     setupResources();
 
