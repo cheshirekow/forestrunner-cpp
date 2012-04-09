@@ -1,14 +1,24 @@
 find_package(OIS REQUIRED)
-find_package(OGRE COMPONENTS RenderSystem_GL REQUIRED)
 find_package(CEGUI COMPONENTS OGRE REQUIRED)
 find_package(SigC++ REQUIRED)
+
+if(FORESTRUNNER_DESKTOP)
+find_package(OGRE COMPONENTS RenderSystem_GL REQUIRED)
+include_directories( ${OGRE_RenderSystem_GL_INCLUDE_DIR} )
+set(LIBS ${LIBS} ${OGRE_RenderSystem_GL_LIBRARY} )
+endif(FORESTRUNNER_DESKTOP)
+
+if(FORESTRUNNER_IOS)
+find_package(OGRE COMPONENTS RenderSystem_GLES REQUIRED)
+include_directories( ${OGRE_RenderSystem_GLES_INCLUDE_DIR} )
+set(LIBS ${LIBS} ${OGRE_RenderSystem_GLES_LIBRARY} )
+endif(FORESTRUNNER_IOS)
                                                                     
 include_directories( 
     ${CMAKE_CURRENT_SOURCE_DIR}/TutorialFramework
     ${CMAKE_CURRENT_SOURCE_DIR}/
     ${OIS_INCLUDE_DIRS}
     ${OGRE_INCLUDE_DIRS} 
-    ${OGRE_RenderSystem_GL_INCLUDE_DIRS}
     ${CEGUI_INCLUDE_DIR}
     ${SigC++_INCLUDE_DIRS}
     )
@@ -17,7 +27,6 @@ include_directories(
 set(LIBS ${LIBS} 
     ${OIS_LIBRARIES}
     ${OGRE_LIBRARIES}
-    ${OGRE_RenderSystem_GL__LIBRARIES}
     ${CEGUI_LIBRARY}
     ${SigC++_LIBRARIES} 
     )
