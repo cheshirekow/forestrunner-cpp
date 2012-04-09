@@ -4,3 +4,5 @@ changes.txt
 .project
 .settings/*
 ceed/
+.DS_Store
+build/
