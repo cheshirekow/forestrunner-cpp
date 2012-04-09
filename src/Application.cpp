@@ -10,7 +10,9 @@
 #include <OgreMath.h>
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-#include <MacUtils.h>
+    #include <MacUtils.h>
+#elif defined(OGRE_IS_IOS)
+    #include <MacUtils.h>
 #endif
 
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
