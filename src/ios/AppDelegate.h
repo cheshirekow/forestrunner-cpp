@@ -1,10 +1,10 @@
 #ifndef __AppDelegate_H__
 #define __AppDelegate_H__
 
-#include "OgrePlatform.h"
+#include "Application.h"
 
 #if !defined(OGRE_IS_IOS)
-#  error "This header is for use with iOS only"
+#  error This header is for use with iOS only
 #endif
 
 #ifdef __OBJC__
@@ -17,96 +17,117 @@
 // sometimes cause input lag.
 #define USE_CADISPLAYLINK 1
 
-// this is how a class is defined in objective c
-// the class name is AppDelegate, it is a sublass of NSObject and
-// it implements the UIApplicationDegree Protocol (interface)
+
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
     NSTimer *mTimer;
-    DemoApp demo;
+    Application app;
     
-    // Use of the CADisplayLink class is the preferred method for controlling your animation timing.
-    // CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
-    // The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
-    // isn't available.
-    id mDisplayLink;
-    NSDate *mDate;
-    double mLastFrameTime;
-    double mStartTime;
-    BOOL mDisplayLinkSupported;
+    // Use of the CADisplayLink class is the preferred method for controlling 
+    // your animation timing. CADisplayLink will link to the main display and 
+    // fire every vsync when added to a given run-loop. The NSTimer class is 
+    // used only as fallback when running on a pre 3.1 device where 
+    // CADisplayLink isn't available.
+    id      mDisplayLink;
+    NSDate* mDate;
+    double  mLastFrameTime;
+    double  mStartTime;
+    BOOL    mDisplayLinkSupported;
 }
 
-// this is how member methods are declared. the minus sign indicates that they
-// are instance members. a plus sign would indicate a class member (static
-// method)
 - (void)go;
 - (void)renderOneFrame:(id)sender;
 
-// declared properties are a convenience notation used to replace the
-// declaration and (optionally) implementation of accessor methods
 @property (retain) NSTimer *mTimer;
 @property (nonatomic) double mLastFrameTime;
 @property (nonatomic) double mStartTime;
 
-// this marks the end of the declaration
 @end
 
-// this marks the beginning of the implementation
+
+
+
 @implementation AppDelegate
 
 @synthesize mTimer;
-@dynamic mLastFrameTime;
-@dynamic mStartTime;
+@dynamic    mLastFrameTime;
+@dynamic    mStartTime;
+
+
+
+
 
 - (double)mLastFrameTime
 {
     return mLastFrameTime;
 }
 
+
+
+
+
 - (void)setLastFrameTime:(double)frameInterval
 {
-    // Frame interval defines how many display frames must pass between each time the
-    // display link fires. The display link will only fire 30 times a second when the
-    // frame internal is two on a display that refreshes 60 times a second. The default
-    // frame interval setting of one will fire 60 times a second when the display refreshes
-    // at 60 times a second. A frame interval setting of less than one results in undefined
-    // behavior.
+    // Frame interval defines how many display frames must pass between each 
+    // time the display link fires. The display link will only fire 30 times a 
+    // second when the frame internal is two on a display that refreshes 60 
+    // times a second. The default frame interval setting of one will fire 60 
+    // times a second when the display refreshes at 60 times a second. A frame 
+    // interval setting of less than one results in undefined behavior.
     if (frameInterval >= 1)
     {
         mLastFrameTime = frameInterval;
     }
 }
 
-- (void)go {
+
+
+
+
+- (void)go 
+{
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    mLastFrameTime = 1;
-    mStartTime = 0;
-    mTimer = nil;
+    mLastFrameTime  = 1;
+    mStartTime      = 0;
+    mTimer          = nil;
     
-    try {
-        demo.startDemo();
+    try 
+    {
+        // this should be init functions, jusy copy app.setup up to the
+        // part where the root starts rendering
+        app.startApp();
         
+        // push into app.startApp()
         Ogre::Root::getSingleton().getRenderSystem()->_initRenderTargets();
         
-        // Clear event times
+        // push into app.startApp()
 		Ogre::Root::getSingleton().clearEventTimes();
-    } catch( Ogre::Exception& e ) {
+    } 
+    
+    catch( Ogre::Exception& e ) 
+    {
         std::cerr << "An exception has occurred: " <<
         e.getFullDescription().c_str() << std::endl;
     }
     
     if (mDisplayLinkSupported)
     {
-        // CADisplayLink is API new to iPhone SDK 3.1. Compiling against earlier versions will result in a warning, but can be dismissed
-        // if the system version runtime check for CADisplayLink exists in -initWithCoder:. The runtime check ensures this code will
-        // not be called in system versions earlier than 3.1.
-        mDate = [[NSDate alloc] init];
-        mLastFrameTime = -[mDate timeIntervalSinceNow];
+        // CADisplayLink is API new to iPhone SDK 3.1. Compiling against 
+        // earlier versions will result in a warning, but can be dismissed if 
+        // the system version runtime check for CADisplayLink exists in 
+        // -initWithCoder:. The runtime check ensures this code will not be 
+        // called in system versions earlier than 3.1.
+        mDate           = [[NSDate alloc] init];
+        mLastFrameTime  = -[mDate timeIntervalSinceNow];
         
-        mDisplayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(renderOneFrame:)];
+        mDisplayLink = [NSClassFromString(@"CADisplayLink") 
+                displayLinkWithTarget:self selector:@selector(renderOneFrame:)];
+        
         [mDisplayLink setFrameInterval:mLastFrameTime];
-        [mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        
+        [mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] 
+                            forMode:NSDefaultRunLoopMode];
     }
     else
     {
@@ -119,27 +140,36 @@
     [pool release];
 }
 
+
+
+
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application
 {
     // Hide the status bar
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    mDisplayLinkSupported = FALSE;
-    mLastFrameTime = 1;
-    mStartTime = 0;
-    mTimer = nil;
+    mDisplayLinkSupported   = FALSE;
+    mLastFrameTime          = 1;
+    mStartTime              = 0;
+    mTimer                  = nil;
 
-    // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
-    // class is used as fallback when it isn't available.
+    // A system version of 3.1 or greater is required to use CADisplayLink. 
+    // The NSTimer class is used as fallback when it isn't available.
 #if USE_CADISPLAYLINK
-    NSString *reqSysVer = @"3.1";
-    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
+    NSString *reqSysVer     = @"3.1";
+    NSString *currSysVer    = [[UIDevice currentDevice] systemVersion];
+    if ([currSysVer compare:reqSysVer 
+                    options:NSNumericSearch] != NSOrderedAscending)
         mDisplayLinkSupported = TRUE;
 #endif
 
     [self go];
 }
+
+
+
+
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
@@ -158,8 +188,13 @@
         [mTimer invalidate];
         mTimer = nil;
     }
-    [[UIApplication sharedApplication] performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
+    [[UIApplication sharedApplication] 
+        performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
+
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -168,16 +203,27 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+
+
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 }
 
+
+
+
+
 - (void)renderOneFrame:(id)sender
 {
-    if(!OgreFramework::getSingletonPtr()->isOgreToBeShutDown() &&
-       Ogre::Root::getSingletonPtr() && Ogre::Root::getSingleton().isInitialised())
+    // push all of this stuff into app.step()
+    /*
+    if( Ogre::Root::getSingletonPtr() && 
+            Ogre::Root::getSingleton().isInitialised())
     {
-		if(OgreFramework::getSingletonPtr()->m_pRenderWnd->isActive())
+        
+		if(OgreFamework::getSingletonPtr()->m_pRenderWnd->isActive())
 		{
 			mStartTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU();
             
@@ -189,9 +235,9 @@
 			mLastFrameTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU() - mStartTime;
 		}
     }
-    else
+     */
+    if( !app.step() )
     {
-		
 	    if (mDisplayLinkSupported)
 	    {
 	        [mDate release];
@@ -205,9 +251,15 @@
 	        [mTimer invalidate];
 	        mTimer = nil;
 	    }
-        [[UIApplication sharedApplication] performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
+        [[UIApplication sharedApplication] 
+            performSelector:@selector(terminate:) 
+            withObject:nil 
+            afterDelay:0.0];
     }
 }
+
+
+
 
 - (void)dealloc {
     if(mTimer)
