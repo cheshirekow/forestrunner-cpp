@@ -24,8 +24,13 @@ void create_grid( Ogre::SceneManager* sceneMgr,
 
     ManualObject* obj=  sceneMgr->createManualObject("grid");
 
+#ifdef OGRE_IS_IOS
+    obj->begin("ForestRunner/BlackWireframe",
+                    Ogre::RenderOperation::OT_POINT_LIST);
+#else
     obj->begin("ForestRunner/BlackWireframe",
                     Ogre::RenderOperation::OT_LINE_LIST);
+#endif
 
     // this is the length of a single grid line
     float verticalLength    = sideLen*(numY);
