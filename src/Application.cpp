@@ -2,6 +2,7 @@
 #include "MeshBuilder.h"
 #include "game/KeyboardGame.h"
 #include "game/ForestPatch.h"
+#include "game/CEGUIDummyLogger.h"
 
 #include <cassert>
 #include <cmath>
@@ -401,6 +402,10 @@ bool Application::ios_init()
 {
     mResourcesCfg   = "resources.cfg";
     mPluginsCfg     = "plugins.cfg";
+
+    // instantiate the dummy logger so that it gets set as the singleton
+    // for cegui
+    CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
 
     if (!setup())
         return false;

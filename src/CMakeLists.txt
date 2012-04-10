@@ -41,6 +41,7 @@ add_library( forestrunner
                     game/KeyboardGame.cpp
                     game/ForestPatch.cpp
                     game/InitCycle.cpp
+                    game/CEGUIDummyLogger.cpp
                     gui/GuiManager.cpp
                     gui/Screen.cpp
                     gui/Transition.cpp
