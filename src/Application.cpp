@@ -432,25 +432,48 @@ bool Application::setup(void)
 
     setupResources();
 
+    m_pLog->logMessage("setup: Finished setting up resources about to show config");
+
     bool carryOn = configure();
     if (!carryOn) return false;
 
+    m_pLog->logMessage("setup: Finished showing config");
+
     chooseSceneManager();
+
+    m_pLog->logMessage("setup: Finished setting up scene manager");
+
     createCamera();
+
+    m_pLog->logMessage("setup: Finished setting up camera");
+
     createViewports();
+
+    m_pLog->logMessage("setup: Finished setting up viewports");
 
     // Set default mipmap level (NB some APIs ignore this)
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
+    m_pLog->logMessage("setup: Finished setting default mip maps");
+
     // Create any resource listeners (for loading screens)
     createResourceListener();
+
+    m_pLog->logMessage("setup: Finished setting up resource listeners");
+
     // Load resources
     loadResources();
+
+    m_pLog->logMessage("setup: Finished loading resources");
 
     // Create the scene
     createScene();
 
+    m_pLog->logMessage("setup: Finished creating the scene");
+
     createFrameListener();
+
+    m_pLog->logMessage("setup: Finished creating frame listener, returning");
 
     return true;
 };
