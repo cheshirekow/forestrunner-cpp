@@ -50,7 +50,8 @@ Application::Application(void):
     mInputManager(0),
     mMouse(0),
     mTouch(0),
-    mKeyboard(0)
+    mKeyboard(0),
+    m_iosTimer(0)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
@@ -358,6 +359,36 @@ void Application::loadResources(void)
 }
 
 
+
+bool Application::ios_init()
+{
+    mResourcesCfg   = "resources.cfg";
+    mPluginsCfg     = "plugins.cfg";
+
+    if (!setup())
+        return false;
+
+#ifdef OGRE_IS_IOS
+    m_iosTimer = OGRE_NEW Ogre::Timer();
+    m_iosTimer->reset();
+#endif
+
+    mRoot->clearEventTimes();
+
+    return true;
+}
+
+void Application::ios_cleanup()
+{
+    // clean up
+    destroyScene();
+}
+
+
+bool Application::ios_step()
+{
+    return mRoot->renderOneFrame();
+}
 
 
 //-------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
     NSTimer *mTimer;
-    Application app;
+    Application mApp;
     
     // Use of the CADisplayLink class is the preferred method for controlling 
     // your animation timing. CADisplayLink will link to the main display and 
@@ -96,13 +96,7 @@
     {
         // this should be init functions, jusy copy app.setup up to the
         // part where the root starts rendering
-        app.startApp();
-        
-        // push into app.startApp()
-        Ogre::Root::getSingleton().getRenderSystem()->_initRenderTargets();
-        
-        // push into app.startApp()
-		Ogre::Root::getSingleton().clearEventTimes();
+        mApp.ios_init();
     } 
     
     catch( Ogre::Exception& e ) 
@@ -236,8 +230,9 @@
 		}
     }
      */
-    if( !app.step() )
+    if( !mApp.step() )
     {
+        mApp.ios_cleanup();
 	    if (mDisplayLinkSupported)
 	    {
 	        [mDate release];

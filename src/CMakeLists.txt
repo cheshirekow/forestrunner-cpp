@@ -53,6 +53,12 @@ add_library( forestrunner
                     gui/screens/HighScoreScreen.cpp
                     )
                     
+install(TARGETS forestrunner
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)
+                    
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg 
                 ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg )
 

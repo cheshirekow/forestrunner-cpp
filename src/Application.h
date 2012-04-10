@@ -108,12 +108,18 @@ protected:
 
     Ogre::SceneNode*    m_patchRoot;
     Ogre::SceneNode*    m_patchRotate;
+    Ogre::Timer*        m_iosTimer;
 
     Game*               m_game;
 
 #ifdef OGRE_STATIC_LIB
     Ogre::StaticPluginLoader    m_StaticPluginLoader;
 #endif
+
+    // interface for ios
+    bool ios_init();
+    void ios_cleanup();
+    bool ios_step();
 
     virtual bool setup();
     virtual bool configure(void);
