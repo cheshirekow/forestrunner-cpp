@@ -132,6 +132,11 @@ void Application::createScene(void)
         m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
         throw e;
     }
+    catch( const std::exception& e )
+    {
+        m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
+        throw e;
+    }
 
     m_pLog->logMessage("createScene: setting cegui defaults");
 
