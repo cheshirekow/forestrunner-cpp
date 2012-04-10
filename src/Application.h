@@ -131,6 +131,7 @@ protected:
     virtual void chooseSceneManager(void);
     virtual void createCamera(void);
     virtual void createFrameListener(void);
+    virtual void createCEGUI(void);
     virtual void createScene(void);
     virtual void destroyScene(void);
     virtual void createViewports(void);

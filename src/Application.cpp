@@ -119,22 +119,15 @@ void Application::chooseSceneManager(void)
 
 
 
-
-
-//-------------------------------------------------------------------------------------
-void Application::createScene(void)
+void Application::createCEGUI(void)
 {
     m_pLog->logMessage("createScene: About to bootstrap cegui");
     try
     {
         mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+        mRenderer->setDefaultRootRenderTarget(*mWindow);
     }
     catch( const CEGUI::Exception& e )
-    {
-        m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
-        throw e;
-    }
-    catch( const std::exception& e )
     {
         m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
         throw e;
@@ -162,6 +155,15 @@ void Application::createScene(void)
     m_pLog->logMessage("createScene: loading animations");
 
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
+}
+
+
+
+
+
+//-------------------------------------------------------------------------------------
+void Application::createScene(void)
+{
 
     m_pLog->logMessage("createScene: loading aircraft");
 
@@ -223,8 +225,6 @@ void Application::createScene(void)
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
-    try
-    {
     m_pLog->logMessage("createScene: creating game");
 
     m_game = new KeyboardGame();
@@ -233,12 +233,6 @@ void Application::createScene(void)
     m_pLog->logMessage("createScene: creating gui manager");
 
     m_guiManager = new GuiManager(m_game);
-    }
-    catch( const std::exception& e )
-    {
-        m_pLog->logMessage(Ogre::String("Caught exception: ") + e.what() );
-        throw e;
-    }
 
 }
 
@@ -475,7 +469,7 @@ bool Application::setup(void)
     pluginsPath = m_ResourcePath + mPluginsCfg;
 #endif
 
-    mRoot = new Ogre::Root(pluginsPath,/*m_ResourcePath*/ Ogre::macBundlePath() + "/ogre.cfg");
+    mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
 
 #ifdef OGRE_STATIC_LIB
     m_StaticPluginLoader.load();
@@ -516,6 +510,9 @@ bool Application::setup(void)
     loadResources();
 
     m_pLog->logMessage("setup: Finished loading resources");
+
+    // initialize cegui
+    createCEGUI();
 
     // Create the scene
     createScene();
