@@ -122,7 +122,18 @@ void Application::chooseSceneManager(void)
 //-------------------------------------------------------------------------------------
 void Application::createScene(void)
 {
-    mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+    m_pLog->logMessage("createScene: About to bootstrap cegui");
+    try
+    {
+        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+    }
+    catch( const CEGUI::Exception& e )
+    {
+        m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
+        throw e;
+    }
+
+    m_pLog->logMessage("createScene: setting cegui defaults");
 
     CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
@@ -131,13 +142,21 @@ void Application::createScene(void)
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
     CEGUI::AnimationManager::setDefaultResourceGroup("Animations");
 
+    m_pLog->logMessage("createScene: creating schemes");
+
     CEGUI::SchemeManager::getSingleton().create("GlossySerpent.scheme");
     CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
+
+    m_pLog->logMessage("createScene: setting default font and mouse");
 
     CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
     CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
+    m_pLog->logMessage("createScene: loading animations");
+
     CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
+
+    m_pLog->logMessage("createScene: loading aircraft");
 
     // Create an Entity
     //Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
@@ -178,6 +197,8 @@ void Application::createScene(void)
         mSceneMgr->getRootSceneNode()->createChildSceneNode("patchRotate");
     m_patchRoot = m_patchRotate->createChildSceneNode("patchRoot");
 
+    m_pLog->logMessage("createScene: creating crid");
+
     float sideLen   = 5.0f;
     int   numX      = 40;
     int   numY      = 40;
@@ -195,10 +216,21 @@ void Application::createScene(void)
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
+    try
+    {
+    m_pLog->logMessage("createScene: creating game");
+
     m_game = new KeyboardGame();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
 
+    m_pLog->logMessage("createScene: creating gui manager");
+
     m_guiManager = new GuiManager(m_game);
+    }
+    catch( const std::exception& e )
+    {
+        m_pLog->logMessage(Ogre::String("Caught exception: ") + e.what() );
+    }
 
 }
 
