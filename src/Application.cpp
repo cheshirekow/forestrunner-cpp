@@ -426,12 +426,14 @@ void Application::ios_cleanup()
 bool Application::ios_step()
 {
     std::cerr << "Application::ios_step : here" << std::endl;
+    /*
     std::cerr << "   viewport: [" 
                 << mViewport->getActualLeft() << ", "
                 << mViewport->getActualTop() << "] ["
                 << mViewport->getActualWidth() << ", "
                 << mViewport->getActualHeight() << "]" << std::endl;
-    
+    */
+    mRenderer->setDefaultRootRenderTarget(*mWindow);
     return mRoot->renderOneFrame();
 }
 

@@ -32,11 +32,15 @@ void create_grid( Ogre::SceneManager* sceneMgr,
     float horizontalLength  = sideLen*(numX);
 
     // first create all the vertical lines
+    int idx = 0;
     for(int ix=0; ix < numX+1; ix++)
     {
         float x = ix*sideLen;
         obj->position(x, 0, 0);
         obj->position(x, 0, -verticalLength);
+
+        obj->index(idx++);
+        obj->index(idx++);
     }
 
     // then the horizontal
@@ -45,6 +49,9 @@ void create_grid( Ogre::SceneManager* sceneMgr,
         float y = iy*sideLen;
         obj->position(0,                0, -y);
         obj->position(horizontalLength, 0, -y);
+
+        obj->index(idx++);
+        obj->index(idx++);
     }
 
     obj->end();
