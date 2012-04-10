@@ -95,6 +95,7 @@ bool Application::configure(void)
     {
         // If returned true, user clicked OK so initialise
         // Here we choose to let the system create a default rendering window by passing 'true'
+        std::cerr << "showConfigDialog() returned true" << std::endl;
         mWindow = mRoot->initialise(true, "Forest Runner");
 
         return true;
@@ -236,6 +237,7 @@ void Application::createScene(void)
     catch( const std::exception& e )
     {
         m_pLog->logMessage(Ogre::String("Caught exception: ") + e.what() );
+        throw e;
     }
 
 }
@@ -429,6 +431,13 @@ void Application::ios_cleanup()
 
 bool Application::ios_step()
 {
+    std::cerr << "Application::ios_step : here" << std::endl;
+    std::cerr << "   viewport: [" 
+                << mViewport->getActualLeft() << ", "
+                << mViewport->getActualTop() << "] ["
+                << mViewport->getActualWidth() << ", "
+                << mViewport->getActualHeight() << "]" << std::endl;
+    
     return mRoot->renderOneFrame();
 }
 
@@ -466,7 +475,7 @@ bool Application::setup(void)
     pluginsPath = m_ResourcePath + mPluginsCfg;
 #endif
 
-    mRoot = new Ogre::Root(pluginsPath,m_ResourcePath + "ogre.cfg");
+    mRoot = new Ogre::Root(pluginsPath,/*m_ResourcePath*/ Ogre::macBundlePath() + "/ogre.cfg");
 
 #ifdef OGRE_STATIC_LIB
     m_StaticPluginLoader.load();
@@ -526,12 +535,16 @@ bool Application::setup(void)
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     //return Application::frameRenderingQueued(evt);
+    
+    std::cerr << "Application::frameRenderingQueued : here" << std::endl;
 
     if(mWindow->isClosed())
         return false;
 
     if(mShutDown)
         return false;
+    
+    std::cerr << "Application::frameRenderingQueued : updating input" << std::endl;
 
     //Need to capture/update each device
     if(mKeyboard)
@@ -541,8 +554,10 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mTouch)
         mTouch->capture();
 
+    std::cerr << "Application::frameRenderingQueued : updating game with tpf: " << evt.timeSinceLastFrame << std::endl;
     m_game->update(evt.timeSinceLastFrame);
 
+    std::cerr << "Application::frameRenderingQueued : injecting cegui time pulse" << std::endl;
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
 
@@ -633,12 +648,23 @@ bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 bool Application::touchMoved( const OIS::MultiTouchEvent &arg )
 {
+    mTouchMouseState.X = arg.state.X;
+    mTouchMouseState.Y = arg.state.Y;
+    
+    OIS::MouseEvent evt(0,mTouchMouseState);
+    mouseMoved(evt );
     return true;
 }
 
 
 bool Application::touchPressed( const OIS::MultiTouchEvent &arg )
 {
+    mTouchMouseState.buttons = 0x01;
+    mTouchMouseState.X       = arg.state.X;
+    mTouchMouseState.Y       = arg.state.Y;
+    
+    OIS::MouseEvent evt(0,mTouchMouseState);
+    mousePressed(evt, OIS::MB_Left);
     return true;
 }
 
@@ -646,6 +672,12 @@ bool Application::touchPressed( const OIS::MultiTouchEvent &arg )
 
 bool Application::touchReleased( const OIS::MultiTouchEvent &arg )
 {
+    mTouchMouseState.buttons = 0x0;
+    mTouchMouseState.X       = arg.state.X;
+    mTouchMouseState.Y       = arg.state.Y;
+    
+    OIS::MouseEvent evt(0,mTouchMouseState);
+    mouseReleased(evt, OIS::MB_Left);
     return true;
 }
 
@@ -662,15 +694,27 @@ bool Application::touchCancelled( const OIS::MultiTouchEvent &arg )
 //Adjust mouse clipping area
 void Application::windowResized(Ogre::RenderWindow* rw)
 {
-#ifndef OGRE_IS_IOS
     unsigned int width, height, depth;
     int left, top;
     rw->getMetrics(width, height, depth, left, top);
+    
+    if(mCamera && mViewport)
+    {
+        // Alter the camera aspect ratio to match the viewport
+        mCamera->setAspectRatio(
+            Ogre::Real(mViewport->getActualWidth()) /
+            Ogre::Real(mViewport->getActualHeight()));
+    }
 
-    const OIS::MouseState &ms = mMouse->getMouseState();
-    ms.width = width;
-    ms.height = height;
-#endif
+    if(mMouse)
+    {
+        const OIS::MouseState &ms = mMouse->getMouseState();
+        ms.width = width;
+        ms.height = height;
+    }
+    
+    mTouchMouseState.width   = width;
+    mTouchMouseState.height = height;
 }
 
 //Unattach OIS before window shutdown (very important under Linux)

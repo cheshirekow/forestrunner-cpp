@@ -38,9 +38,13 @@ Transition::Transition(CEGUI::Window* win_from,
         m_anim_enter = 0;
 
     if(m_anim_exit)
+    {
+        std::cerr << "Transition::c'tor : starting exit animation" << std::endl;
         m_anim_exit->start();
+    }
     else
     {
+        std::cerr << "Transition::c'tor : starting entrance animation" << std::endl;
         CEGUI::System::getSingleton().setGUISheet(m_win_to);
         m_anim_enter->start();
     }
@@ -49,10 +53,12 @@ Transition::Transition(CEGUI::Window* win_from,
 Transition::~Transition()
 {
     CEGUI::AnimationManager& mgr = CEGUI::AnimationManager::getSingleton();
+    /*
     if(m_anim_exit)
         mgr.destroyAnimationInstance(m_anim_exit);
     if(m_anim_enter)
         mgr.destroyAnimationInstance(m_anim_enter);
+     */
 }
 
 
@@ -63,12 +69,13 @@ void Transition::fireEvent (const CEGUI::String &name,
     if( eventNamespace != CEGUI::AnimationInstance::EventNamespace )
         return;
 
-    if( name == CEGUI::AnimationInstance::EventAnimationEnded )
+    if( name == CEGUI::AnimationInstance::EventAnimationEnded)
     {
         CEGUI::AnimationEventArgs& animArgs =
                 static_cast<CEGUI::AnimationEventArgs&>(args);
         if( animArgs.instance == m_anim_exit )
         {
+            std::cerr << "Transition::fireEvent : exit animation finished" << std::endl;
             CEGUI::System::getSingleton().setGUISheet(m_win_to);
             m_win_to->show();
             m_win_to->activate();
@@ -78,7 +85,10 @@ void Transition::fireEvent (const CEGUI::String &name,
             m_anim_enter->start();
         }
         else
+        {
+            std::cerr << "Transition::fireEvent : entrance animation finished" << std::endl;
             m_sig_finished.emit();
+        }
     }
 }
 

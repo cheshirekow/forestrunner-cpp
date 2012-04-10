@@ -8,6 +8,7 @@
 
 #include "Screen.h"
 #include "game/Game.h"
+#include <iostream>
 
 Screen::Screen():
     m_root(0),
@@ -50,6 +51,7 @@ void Screen::set_game(Game* game)
 
 void Screen::exec()
 {
+    std::cerr << "Screen::exec : doing nothing" << std::endl;
     return;
 }
 

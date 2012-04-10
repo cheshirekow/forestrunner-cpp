@@ -102,6 +102,9 @@ protected:
     OIS::Mouse*         mMouse;
     OIS::MultiTouch*    mTouch;
     OIS::Keyboard*      mKeyboard;
+    
+    //OIS Fake Mouse for touch translation
+    OIS::MouseState     mTouchMouseState;
 
     CEGUI::OgreRenderer* mRenderer;
     GuiManager*          m_guiManager;

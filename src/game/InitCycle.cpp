@@ -8,6 +8,7 @@
 
 
 #include "InitCycle.h"
+#include <iostream>
 
 InitCycle::InitCycle():
         outer(CREATE_MESHES),
@@ -30,10 +31,12 @@ void InitCycle::reset()
 
 void InitCycle::step()
 {
+    std::cerr << "InitCycle::step : stepping through\n   ";
     switch(outer)
     {
         case CLEAR_PATCHES:
         {
+            std::cerr << "CLEAR_PATCHES" << std::endl;
             if(++iPatch >= nPatches)
             {
                 iPatch = 0;
@@ -45,6 +48,7 @@ void InitCycle::step()
 
         case FREE_MESHES:
         {
+            std::cerr << "FREE_MESHES" << std::endl;
             outer++;
             sig_freeMeshes.emit();
             break;
@@ -52,6 +56,7 @@ void InitCycle::step()
 
         case CREATE_MESHES:
         {
+            std::cerr << "CREATE_MESHES" << std::endl;
             outer++;
             sig_createMeshes.emit();
             break;
@@ -59,6 +64,7 @@ void InitCycle::step()
 
         case INIT_PATCHES:
         {
+            std::cerr << "INIT_PATCHES" << std::endl;
             if(++iPatch >= nPatches)
             {
                 iPatch=0;
@@ -70,6 +76,7 @@ void InitCycle::step()
 
         case INIT_RUN:
         {
+            std::cerr << "INIT_RUN" << std::endl;
             outer++;
             sig_initRun.emit();
             break;
@@ -77,6 +84,7 @@ void InitCycle::step()
 
         case DONE:
         {
+            std::cerr << "DONE" << std::endl;
             outer++;
             sig_done.emit();
             break;
