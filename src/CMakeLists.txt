@@ -34,6 +34,7 @@ set(LIBS ${LIBS}
     )
  
 add_library( forestrunner 
+                    IOSApplication.cpp
                     Application.cpp
                     MeshBuilder.cpp
                     game/Game.cpp

@@ -116,11 +116,13 @@ protected:
     Ogre::StaticPluginLoader    m_StaticPluginLoader;
 #endif
 
+public:
     // interface for ios
     bool ios_init();
     void ios_cleanup();
     bool ios_step();
 
+protected:
     virtual bool setup();
     virtual bool configure(void);
     virtual void chooseSceneManager(void);
