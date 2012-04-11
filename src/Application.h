@@ -113,6 +113,12 @@ protected:
     Ogre::SceneNode*    m_patchRotate;
     Ogre::Timer*        m_iosTimer;
 
+    Ogre::Overlay*              m_hudOverlay;
+    Ogre::OverlayContainer*     m_hudContainer;
+    Ogre::TexturePtr            m_hudTex;
+    //Ogre::Rectangle2D*          m_miniScreen;
+    //Ogre::SceneNode*            m_miniScreenNode;
+
     Game*               m_game;
 
 #ifdef OGRE_STATIC_LIB
@@ -131,6 +137,7 @@ protected:
     virtual void chooseSceneManager(void);
     virtual void createCamera(void);
     virtual void createFrameListener(void);
+    virtual void createHUD(void);
     virtual void createCEGUI(void);
     virtual void createScene(void);
     virtual void destroyScene(void);

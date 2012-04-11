@@ -118,14 +118,87 @@ void Application::chooseSceneManager(void)
 }
 
 
+void Application::createHUD(void)
+{
+    // create texture
+    m_hudTex = Ogre::TextureManager::getSingleton().createManual(
+                    "hudTex",
+                    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+                    Ogre::TEX_TYPE_2D,
+                    mWindow->getWidth(),
+                    mWindow->getHeight(),
+                    0,
+                    Ogre::PF_R8G8B8A8,
+                    Ogre::TU_RENDERTARGET);
+
+    Ogre::RenderTexture *renderTexture =
+            m_hudTex->getBuffer()->getRenderTarget();
+
+    renderTexture->addViewport(0);
+    renderTexture->getViewport(0)->setClearEveryFrame(true);
+    renderTexture->getViewport(0)->setBackgroundColour(
+                                    Ogre::ColourValue(1.0f,1.0f,1.0f,0.0f));
+    renderTexture->getViewport(0)->setOverlaysEnabled(false);
+    //renderTexture->setAutoUpdated(true);
+
+    // create billboard and scene nodes
+
+
+    //implement a miniscreen
+    /*
+    m_miniScreen = new Ogre::Rectangle2D(true);
+    m_miniScreen->setCorners(0.5, -0.5, 1.0, -1.0);
+    m_miniScreen->setBoundingBox(
+            Ogre::AxisAlignedBox(-100000.0 * Ogre::Vector3::UNIT_SCALE,
+                                    100000.0 * Ogre::Vector3::UNIT_SCALE));
+    m_miniScreenNode =
+            mSceneMgr->getRootSceneNode()->createChildSceneNode("MiniScreenNode");
+    m_miniScreenNode->attachObject(m_miniScreen);
+    */
+
+    // create material
+    Ogre::MaterialPtr renderMaterial =
+            Ogre::MaterialManager::getSingleton().create(
+                    "hudMat",
+                    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+    Ogre::Technique* matTechnique = renderMaterial->createTechnique();
+    matTechnique->createPass();
+    renderMaterial->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+    renderMaterial->getTechnique(0)->getPass(0)->createTextureUnitState("hudTex");
+    renderMaterial->getTechnique(0)->getPass(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+
+    //m_miniScreen->setMaterial("hudMat");
+
+    // create an overlay
+    m_hudContainer = static_cast<Ogre::OverlayContainer*>(
+            Ogre::OverlayManager::getSingleton().createOverlayElement(
+                    "Panel","HudOverlayPanel"));
+
+    m_hudContainer->setMetricsMode(Ogre::GMM_PIXELS);
+    m_hudContainer->setPosition(0, 0);
+    m_hudContainer->setDimensions(  mWindow->getWidth(),
+                                    mWindow->getHeight() );
+    // Give overlay a texture
+    m_hudContainer->setMaterialName("hudMat");
+
+
+    m_hudOverlay = Ogre::OverlayManager::getSingleton().create("HUD");
+    m_hudOverlay->add2D(m_hudContainer);
+    m_hudOverlay->show();
+}
+
+
 
 void Application::createCEGUI(void)
 {
     m_pLog->logMessage("createScene: About to bootstrap cegui");
     try
     {
-        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
-        mRenderer->setDefaultRootRenderTarget(*mWindow);
+        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(
+                            *m_hudTex->getBuffer()->getRenderTarget() );
+        mRenderer->setFrameControlExecutionEnabled(false);
+        //mRenderer->setDefaultRootRenderTarget(*mWindow);
     }
     catch( const CEGUI::Exception& e )
     {
@@ -224,6 +297,10 @@ void Application::createScene(void)
 
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
+
+    // initialize CEGUI
+    createHUD();
+    createCEGUI();
 
     m_pLog->logMessage("createScene: creating game");
 
@@ -513,9 +590,6 @@ bool Application::setup(void)
 
     m_pLog->logMessage("setup: Finished loading resources");
 
-    // initialize cegui
-    createCEGUI();
-
     // Create the scene
     createScene();
 
@@ -534,7 +608,17 @@ bool Application::setup(void)
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     //return Application::frameRenderingQueued(evt);
-    
+
+    // apparently clears the viewport after its drawn, not before
+    Ogre::RenderTexture *renderTexture =
+            m_hudTex->getBuffer()->getRenderTarget();
+    renderTexture->getViewport(0)->clear(
+            Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
+            Ogre::ColourValue::ZERO,
+            0.0);
+
+    CEGUI::System::getSingleton().renderGUI();
+
     std::cerr << "Application::frameRenderingQueued : here" << std::endl;
 
     if(mWindow->isClosed())
