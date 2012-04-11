@@ -1,0 +1,10 @@
+# Define plugin folder
+PluginFolder=${OGRE_PLUGIN_DIR_REL}
+
+# Define plugins
+Plugin=RenderSystem_GL_d
+Plugin=Plugin_ParticleFX_d
+Plugin=Plugin_BSPSceneManager_d
+Plugin=Plugin_PCZSceneManager_d
+Plugin=Plugin_OctreeZone_d
+Plugin=Plugin_OctreeSceneManager_d

@@ -35,7 +35,7 @@ set(LIBS ${LIBS}
  
 add_library( forestrunner 
                     IOSApplication.cpp
-                    Application.cpp
+                    ${CMAKE_CURRENT_BINARY_DIR}/Application.cpp
                     MeshBuilder.cpp
                     game/Game.cpp
                     game/KeyboardGame.cpp
@@ -60,14 +60,17 @@ install(TARGETS forestrunner
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
 )
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
+                ${CMAKE_CURRENT_BINARY_DIR}/Application.cpp )
                     
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg.in 
                 ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources.cfg 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources.cfg.in 
                 ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg )
                 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ogre.cfg 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ogre.cfg.in 
                 ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg COPYONLY)
                 
 if(FORESTRUNNER_DESKTOP)
@@ -75,4 +78,18 @@ add_executable( forestrunner_exe
                     main.cpp )
 
 target_link_libraries( forestrunner_exe forestrunner ${LIBS})
+install(TARGETS forestrunner_exe
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)
+
+install(DIRECTORY ../ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+install(DIRECTORY ../materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+install(DIRECTORY ../meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
+                ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
+                ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg
+         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+
 endif(FORESTRUNNER_DESKTOP)

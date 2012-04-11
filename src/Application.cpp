@@ -59,7 +59,7 @@ Application::Application(void):
 #elif defined(OGRE_IS_IOS)
     m_ResourcePath = Ogre::macBundlePath() + "/";
 #else
-    m_ResourcePath = "./";
+    m_ResourcePath = "${CMAKE_INSTALL_PREFIX}/share/forestrunner/";
 #endif
 }
 
