@@ -258,20 +258,16 @@ bool Game::keyReleased( const OIS::KeyEvent &arg )
 
 void Game::update( Ogre::Real tpf )
 {
-    std::cerr << "Game::update : update started" << std::endl;
-    
     
     if(m_gameState == GS_INIT)
         m_init.step();
 
-    if(m_gameState != GS_RUNNING)
-        std::cerr << "Game::update : not running, update done" << std::endl;
+    //if(m_gameState != GS_RUNNING)
+    //    std::cerr << "Game::update : not running, update done" << std::endl;
     
     if(m_gameState != GS_RUNNING)
         return;
 
-    std::cerr << "Game::update : updating score" << std::endl;
-    
     m_score += tpf;
     m_sig_scoreChanged.emit(m_score);
     updateSpeed(tpf);
@@ -279,8 +275,6 @@ void Game::update( Ogre::Real tpf )
     m_yPos += m_ySpeed*tpf;
     m_xPos -= m_xSpeed*tpf;
     
-    std::cerr << "Game::update : rotating patches x" << std::endl;
-
     if(m_xPos > m_patchWidth)
     {
         m_xPos -= m_patchWidth;
@@ -344,8 +338,6 @@ void Game::update( Ogre::Real tpf )
         }
     }
     
-    std::cerr << "Game::update : rotating patches y" << std::endl;
-
     if(m_yPos > m_patchHeight)
     {
         m_yPos -= m_patchHeight;
@@ -377,8 +369,6 @@ void Game::update( Ogre::Real tpf )
 
     m_patchRoot->setPosition(m_xPos,0,m_yPos);
     
-    std::cerr << "Game::update : checking collisions" << std::endl;
-
     bool collision = false;
     for( int i=0; i < m_patchDimX && !collision; i++)
     {
@@ -390,12 +380,9 @@ void Game::update( Ogre::Real tpf )
         }
     }
 
-    std::cerr << "Game::update : changing state if collision = " << collision << std::endl;
-    
     if(collision)
         internal_setState(GS_CRASHED);
     
-    std::cerr << "Game::update : update finished" << std::endl;
 }
 
 

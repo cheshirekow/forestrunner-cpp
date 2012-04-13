@@ -1,4 +1,6 @@
-<GUILayout version="4">
+<GUILayout version="4"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../xml_schemas/GUILayout.xsd">
     <Window name="Advanced" type="DefaultWindow">
         <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
         <Window name="Panel" type="GlossySerpent/SimplePanel">

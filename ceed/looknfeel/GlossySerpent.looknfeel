@@ -1660,7 +1660,6 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Width" ><UnifiedDim scale="0.1" type="Width" /></Dim>
                 <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
             </Area>
-            <Property name="UnifiedMinSize" value="{{0,25},{0,0}}" />
         </Child>
         <ImagerySection name="main">
             <ImageryComponent>
@@ -1839,7 +1838,6 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                 <Dim type="Height" ><UnifiedDim scale="0.1" type="Height" /></Dim>
             </Area>
-            <Property name="UnifiedMinSize" value="{{0,0},{0,25}}" />
         </Child>
         <ImagerySection name="main">
             <ImageryComponent>
@@ -4166,7 +4164,6 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <Property name="EWSizingCursorImage" value="set:GlossySerpentCursors image:MouseEsWeCursor" />
         <Property name="NWSESizingCursorImage" value="set:GlossySerpentCursors image:MouseNwSeCursor" />
         <Property name="NESWSizingCursorImage" value="set:GlossySerpentCursors image:MouseNeSwCursor" />
-        <Property name="UnifiedMinSize" value="{{0.1,0},{0.1,0}}" />
         <Property name="AutoRenderingSurface" value="True" />
         <NamedArea name="ClientWithTitleWithFrame">
             <Area>

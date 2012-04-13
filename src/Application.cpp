@@ -195,10 +195,10 @@ void Application::createCEGUI(void)
     m_pLog->logMessage("createScene: About to bootstrap cegui");
     try
     {
-        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(
-                            *m_hudTex->getBuffer()->getRenderTarget() );
-        mRenderer->setFrameControlExecutionEnabled(false);
-        //mRenderer->setDefaultRootRenderTarget(*mWindow);
+        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
+        //mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(
+        //                    *m_hudTex->getBuffer()->getRenderTarget() );
+        //mRenderer->setFrameControlExecutionEnabled(false);
     }
     catch( const CEGUI::Exception& e )
     {
@@ -208,7 +208,7 @@ void Application::createCEGUI(void)
 
     m_pLog->logMessage("createScene: setting cegui defaults");
 
-    //CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
@@ -510,7 +510,7 @@ bool Application::ios_step()
                 << mViewport->getActualWidth() << ", "
                 << mViewport->getActualHeight() << "]" << std::endl;
     */
-    mRenderer->setDefaultRootRenderTarget(*mWindow);
+    //mRenderer->setDefaultRootRenderTarget(*mWindow);
     return mRoot->renderOneFrame();
 }
 
@@ -610,6 +610,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     //return Application::frameRenderingQueued(evt);
 
     // apparently clears the viewport after its drawn, not before
+    /*
     Ogre::RenderTexture *renderTexture =
             m_hudTex->getBuffer()->getRenderTarget();
     renderTexture->getViewport(0)->clear(
@@ -618,8 +619,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
             0.0);
 
     CEGUI::System::getSingleton().renderAllGUIContexts();
-
-    std::cerr << "Application::frameRenderingQueued : here" << std::endl;
+    */
 
     if(mWindow->isClosed())
         return false;
@@ -627,8 +627,6 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
     
-    std::cerr << "Application::frameRenderingQueued : updating input" << std::endl;
-
     //Need to capture/update each device
     if(mKeyboard)
         mKeyboard->capture();
@@ -637,10 +635,8 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mTouch)
         mTouch->capture();
 
-    std::cerr << "Application::frameRenderingQueued : updating game with tpf: " << evt.timeSinceLastFrame << std::endl;
     m_game->update(evt.timeSinceLastFrame);
 
-    std::cerr << "Application::frameRenderingQueued : injecting cegui time pulse" << std::endl;
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
 

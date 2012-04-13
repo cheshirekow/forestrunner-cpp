@@ -1,4 +1,6 @@
-<GUILayout version="4">
+<GUILayout version="4"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../xml_schemas/GUILayout.xsd">
     <Window name="Countdown1" type="DefaultWindow">
         <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
         <Window name="StaticText" type="GlossySerpent/StaticText">
@@ -13,7 +15,7 @@
             <Property name="BackgroundEnabled" value="False" />
             <Property name="VerticalAlignment" value="Centre" />
             <Property name="HorizontalAlignment" value="Centre" />
-            <Property name="Image" value="set:ForestRunner image:Num/One" />
+            <Property name="Image" value="ForestRunner/Num/One" />
         </Window>
     </Window>
 </GUILayout>

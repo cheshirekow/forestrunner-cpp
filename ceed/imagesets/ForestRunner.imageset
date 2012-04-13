@@ -1,7 +1,8 @@
-<Imageset autoscaled="false" imagefile="ForestRunner.png" name="ForestRunner" nativehorzres="800" nativevertres="600" version="2">
-    <Image height="200" name="Num/One" width="200" xpos="0" ypos="0" />
-    <Image height="200" name="Num/Two" width="200" xpos="200" ypos="0" />
-    <Image height="200" name="Num/Three" width="200" xpos="400" ypos="0" />
-    <Image height="150" name="Crash" width="380" xpos="12" ypos="227" />
-    <Image height="84" name="Logo" width="450" xpos="2" ypos="427" />
+<Imageset autoScaled="false" imagefile="ForestRunner.png" name="ForestRunner" nativeHorzRes="800" nativeVertRes="600" version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="../xml_schemas/Imageset.xsd">
+    <Image height="200" name="Num/One" width="200" xPos="0" yPos="0" />
+    <Image height="200" name="Num/Two" width="200" xPos="200" yPos="0" />
+    <Image height="200" name="Num/Three" width="200" xPos="400" yPos="0" />
+    <Image height="150" name="Crash" width="380" xPos="12" yPos="227" />
+    <Image height="84" name="Logo" width="450" xPos="2" yPos="427" />
 </Imageset>
