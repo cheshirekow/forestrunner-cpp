@@ -1,16 +1,16 @@
-<GUILayout>
-    <Window Name="Pause" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="Pause/Panel" Type="GlossySerpent/SimplePanel">
-            <Property Name="UnifiedAreaRect" Value="{{0,50},{0,50},{1,-50},{1,-50}}" />
-            <Window Name="Pause/Panel/Titlebar" Type="GlossySerpent/Titlebar">
-                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{0,30}}" />
-                <Property Name="Text" Value="ForestRunner Paused" />
-                <Property Name="AlwaysOnTop" Value="True" />
+<GUILayout version="4">
+    <Window name="Pause" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window name="Panel" type="GlossySerpent/SimplePanel">
+            <Property name="Area" value="{{0,50},{0,50},{1,-50},{1,-50}}" />
+            <Window name="Titlebar" type="GlossySerpent/Titlebar">
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{0,30}}" />
+                <Property name="Text" value="ForestRunner Paused" />
+                <Property name="AlwaysOnTop" value="True" />
             </Window>
-            <Window Name="Pause/Panel/MultiLineEditbox" Type="GlossySerpent/MultiLineEditbox">
-                <Property Name="UnifiedAreaRect" Value="{{0,20},{0,50},{0.5,0},{1,-20}}" />
-                <Property Name="Text">Instructions:
+            <Window name="MultiLineEditbox" type="GlossySerpent/MultiLineEditbox">
+                <Property name="Area" value="{{0,20},{0,50},{0.5,0},{1,-20}}" />
+                <Property name="Text">Instructions:
 
 dodge:
    [left] and [right] arrow keys
@@ -18,52 +18,52 @@ dodge:
 pause:
     [space bar]
 </Property>
-                <Property Name="ReadOnly" Value="True" />
+                <Property name="ReadOnly" value="True" />
             </Window>
-            <Window Name="Pause/Panel/StaticText" Type="GlossySerpent/StaticText">
-                <Property Name="UnifiedAreaRect" Value="{{0,279},{0,50},{1,-11},{0,80}}" />
-                <Property Name="Text" Value="Speed:" />
-                <Property Name="FrameEnabled" Value="False" />
-                <Property Name="BackgroundEnabled" Value="False" />
+            <Window name="StaticText" type="GlossySerpent/StaticText">
+                <Property name="Area" value="{{0,279},{0,50},{1,-11},{0,80}}" />
+                <Property name="Text" value="Speed:" />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="BackgroundEnabled" value="False" />
             </Window>
-            <Window Name="Pause/Panel/sb_speed" Type="GlossySerpent/HorizontalScrollbar">
-                <Property Name="UnifiedAreaRect" Value="{{0,280},{0,80},{1,-10},{0,100}}" />
-                <Property Name="PageSize" Value="1" />
-                <Property Name="DocumentSize" Value="10" />
+            <Window name="sb_speed" type="GlossySerpent/HorizontalScrollbar">
+                <Property name="Area" value="{{0,280},{0,80},{1,-10},{0,100}}" />
+                <Property name="PageSize" value="1" />
+                <Property name="DocumentSize" value="10" />
             </Window>
-            <Window Name="Pause/Panel/StaticText1" Type="GlossySerpent/StaticText">
-                <Property Name="UnifiedAreaRect" Value="{{0,279},{0,120},{1,-11},{0,150}}" />
-                <Property Name="Text" Value="Density:   " />
-                <Property Name="FrameEnabled" Value="False" />
-                <Property Name="BackgroundEnabled" Value="False" />
+            <Window name="StaticText1" type="GlossySerpent/StaticText">
+                <Property name="Area" value="{{0,279},{0,120},{1,-11},{0,150}}" />
+                <Property name="Text" value="Density:   " />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="BackgroundEnabled" value="False" />
             </Window>
-            <Window Name="Pause/Panel/sb_density" Type="GlossySerpent/HorizontalScrollbar">
-                <Property Name="UnifiedAreaRect" Value="{{0,280},{0,150},{1,-10},{0,170}}" />
-                <Property Name="PageSize" Value="1" />
-                <Property Name="DocumentSize" Value="10" />
+            <Window name="sb_density" type="GlossySerpent/HorizontalScrollbar">
+                <Property name="Area" value="{{0,280},{0,150},{1,-10},{0,170}}" />
+                <Property name="PageSize" value="1" />
+                <Property name="DocumentSize" value="10" />
             </Window>
-            <Window Name="Pause/Panel/StaticText2" Type="GlossySerpent/StaticText">
-                <Property Name="UnifiedAreaRect" Value="{{0,279},{0,190},{1,-11},{0,220}}" />
-                <Property Name="Text" Value="Radius:   " />
-                <Property Name="FrameEnabled" Value="False" />
-                <Property Name="BackgroundEnabled" Value="False" />
+            <Window name="StaticText2" type="GlossySerpent/StaticText">
+                <Property name="Area" value="{{0,279},{0,190},{1,-11},{0,220}}" />
+                <Property name="Text" value="Radius:   " />
+                <Property name="FrameEnabled" value="False" />
+                <Property name="BackgroundEnabled" value="False" />
             </Window>
-            <Window Name="Pause/Panel/sb_radius" Type="GlossySerpent/HorizontalScrollbar">
-                <Property Name="UnifiedAreaRect" Value="{{0,280},{0,220},{1,-10},{0,240}}" />
-                <Property Name="PageSize" Value="1" />
-                <Property Name="DocumentSize" Value="10" />
+            <Window name="sb_radius" type="GlossySerpent/HorizontalScrollbar">
+                <Property name="Area" value="{{0,280},{0,220},{1,-10},{0,240}}" />
+                <Property name="PageSize" value="1" />
+                <Property name="DocumentSize" value="10" />
             </Window>
-            <Window Name="Pause/Panel/btn_new" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,300},{0,270},{1,-30},{0,300}}" />
-                <Property Name="Text" Value="New Game" />
+            <Window name="btn_new" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,300},{0,270},{1,-30},{0,300}}" />
+                <Property name="Text" value="New Game" />
             </Window>
-            <Window Name="Pause/Panel/btn_advanced" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,300},{0,300},{1,-30},{0,330}}" />
-                <Property Name="Text" Value="Advanced Settings" />
+            <Window name="btn_advanced" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,300},{0,300},{1,-30},{0,330}}" />
+                <Property name="Text" value="Advanced Settings" />
             </Window>
-            <Window Name="Pause/Panel/btn_resume" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,300},{0,330},{1,-30},{0,360}}" />
-                <Property Name="Text" Value="Cancel/Resume" />
+            <Window name="btn_resume" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,300},{0,330},{1,-30},{0,360}}" />
+                <Property name="Text" value="Cancel/Resume" />
             </Window>
         </Window>
     </Window>

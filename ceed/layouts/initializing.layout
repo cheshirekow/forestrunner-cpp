@@ -1,17 +1,17 @@
-<GUILayout>
-    <Window Name="Init" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Property Name="VerticalAlignment" Value="Centre" />
-        <Property Name="HorizontalAlignment" Value="Centre" />
-        <Window Name="Init/StaticText" Type="GlossySerpent/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-460},{1,-450}}" />
-            <Property Name="Text" Value="Initializing..." />
-            <Property Name="VerticalAlignment" Value="Centre" />
-            <Property Name="HorizontalAlignment" Value="Centre" />
+<GUILayout version="4">
+    <Window name="Init" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Property name="VerticalAlignment" value="Centre" />
+        <Property name="HorizontalAlignment" value="Centre" />
+        <Window name="StaticText" type="GlossySerpent/StaticText">
+            <Property name="Area" value="{{0,0},{0,0},{1,-460},{1,-450}}" />
+            <Property name="Text" value="Initializing..." />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="HorizontalAlignment" value="Centre" />
         </Window>
-        <Window Name="Init/pb_progress" Type="GlossySerpent/ProgressBar">
-            <Property Name="UnifiedAreaRect" Value="{{0,160},{0,260},{0,490},{0,310}}" />
-            <Property Name="StepSize" Value="0.01" />
+        <Window name="pb_progress" type="GlossySerpent/ProgressBar">
+            <Property name="Area" value="{{0,160},{0,260},{0,490},{0,310}}" />
+            <Property name="StepSize" value="0.01" />
         </Window>
     </Window>
 </GUILayout>

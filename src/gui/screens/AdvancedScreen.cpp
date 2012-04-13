@@ -11,18 +11,18 @@
 AdvancedScreen::AdvancedScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("advanced.layout");
+    m_root = wmgr.loadLayoutFromFile("advanced.layout");
     m_anim_enter = "FlyIn";
     m_anim_exit  = "FlyOut";
 
     CEGUI::Window* btn;
-    btn = m_root->getChildRecursive("Advanced/Panel/btn_save");
+    btn = m_root->getChild("Panel/btn_save");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &AdvancedScreen::onSave,
                                 this) );
 
-    btn = m_root->getChildRecursive("Advanced/Panel/btn_back");
+    btn = m_root->getChild("Panel/btn_back");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &AdvancedScreen::onBack,

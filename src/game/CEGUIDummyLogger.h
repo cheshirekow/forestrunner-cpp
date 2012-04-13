@@ -9,7 +9,7 @@
 #ifndef CEGUIDUMMYLOGGER_H_
 #define CEGUIDUMMYLOGGER_H_
 
-#include "CEGUILogger.h"
+#include "CEGUI/Logger.h"
 #include <iostream>
 
 namespace CEGUI

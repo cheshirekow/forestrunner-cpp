@@ -45,7 +45,7 @@ Transition::Transition(CEGUI::Window* win_from,
     else
     {
         std::cerr << "Transition::c'tor : starting entrance animation" << std::endl;
-        CEGUI::System::getSingleton().setGUISheet(m_win_to);
+        CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_win_to);
         m_anim_enter->start();
     }
 }
@@ -76,7 +76,7 @@ void Transition::fireEvent (const CEGUI::String &name,
         if( animArgs.instance == m_anim_exit )
         {
             std::cerr << "Transition::fireEvent : exit animation finished" << std::endl;
-            CEGUI::System::getSingleton().setGUISheet(m_win_to);
+            CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(m_win_to);
             m_win_to->show();
             m_win_to->activate();
             // there seems to be a bug in CEGUI where the sheet isn't displayed

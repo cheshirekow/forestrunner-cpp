@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<GUIScheme Name="TaharezLookWidgets">
+<GUIScheme Name="TaharezLookWidgets" version="5">
 	<WindowRendererSet Filename="CEGUIFalagardWRBase" />
 	<FalagardMapping WindowType="TaharezLook/Button"      TargetType="CEGUI/PushButton"  Renderer="Falagard/Button"       LookNFeel="TaharezLook/Button" />
 	<FalagardMapping WindowType="TaharezLook/Checkbox"    TargetType="CEGUI/Checkbox"    Renderer="Falagard/ToggleButton" LookNFeel="TaharezLook/Checkbox" />

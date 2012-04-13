@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<GUIScheme Name="TaharezLookWidgetAliases">
+<GUIScheme Name="TaharezLookWidgetAliases" version="5">
 	<WindowAlias Alias="Taharez AltProgressBar" Target="TaharezLook/AlternateProgressBar" />
 	<WindowAlias Alias="Taharez Button" Target="TaharezLook/Button" />
 	<WindowAlias Alias="Taharez Checkbox" Target="TaharezLook/Checkbox" />

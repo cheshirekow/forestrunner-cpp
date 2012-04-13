@@ -1,19 +1,19 @@
-<GUILayout>
-    <Window Name="Countdown3" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="Countdown3/StaticText" Type="GlossySerpent/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,-470},{1,-443}}" />
-            <Property Name="Text" Value="Countdown 3" />
-            <Property Name="FrameEnabled" Value="False" />
-            <Property Name="BackgroundEnabled" Value="False" />
+<GUILayout version="4">
+    <Window name="Countdown3" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window name="StaticText" type="GlossySerpent/StaticText">
+            <Property name="Area" value="{{0,0},{0,0},{1,-470},{1,-443}}" />
+            <Property name="Text" value="Countdown 3" />
+            <Property name="FrameEnabled" value="False" />
+            <Property name="BackgroundEnabled" value="False" />
         </Window>
-        <Window Name="Countdown3/img_theImage" Type="GlossySerpent/StaticImage">
-            <Property Name="UnifiedAreaRect" Value="{{0,-1},{0,0},{0,200},{0,200}}" />
-            <Property Name="FrameEnabled" Value="False" />
-            <Property Name="BackgroundEnabled" Value="False" />
-            <Property Name="VerticalAlignment" Value="Centre" />
-            <Property Name="HorizontalAlignment" Value="Centre" />
-            <Property Name="Image" Value="set:ForestRunner image:Num/Three" />
+        <Window name="img_theImage" type="GlossySerpent/StaticImage">
+            <Property name="Area" value="{{0,-1},{0,0},{0,200},{0,200}}" />
+            <Property name="FrameEnabled" value="False" />
+            <Property name="BackgroundEnabled" value="False" />
+            <Property name="VerticalAlignment" value="Centre" />
+            <Property name="HorizontalAlignment" value="Centre" />
+            <Property name="Image" value="set:ForestRunner image:Num/Three" />
         </Window>
     </Window>
 </GUILayout>

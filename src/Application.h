@@ -2,7 +2,7 @@
 #define APPLICATION_H
 
 #include <CEGUI.h>
-#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>

@@ -1,7 +1,7 @@
-<Imageset AutoScaled="false" Imagefile="ForestRunner.png" Name="ForestRunner" NativeHorzRes="800" NativeVertRes="600">
-    <Image Height="200" Name="Num/One" Width="200" XPos="0" YPos="0" />
-    <Image Height="200" Name="Num/Two" Width="200" XPos="200" YPos="0" />
-    <Image Height="200" Name="Num/Three" Width="200" XPos="400" YPos="0" />
-    <Image Height="150" Name="Crash" Width="380" XPos="12" YPos="227" />
-    <Image Height="84" Name="Logo" Width="450" XPos="2" YPos="427" />
+<Imageset autoscaled="false" imagefile="ForestRunner.png" name="ForestRunner" nativehorzres="800" nativevertres="600" version="2">
+    <Image height="200" name="Num/One" width="200" xpos="0" ypos="0" />
+    <Image height="200" name="Num/Two" width="200" xpos="200" ypos="0" />
+    <Image height="200" name="Num/Three" width="200" xpos="400" ypos="0" />
+    <Image height="150" name="Crash" width="380" xpos="12" ypos="227" />
+    <Image height="84" name="Logo" width="450" xpos="2" ypos="427" />
 </Imageset>

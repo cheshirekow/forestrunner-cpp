@@ -22,20 +22,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 version:      0.4
 Last change:	$LastChangedDate: 2012-03-17 19:38:54 +0200 (S, 17 mar. 2012) $
 -->
-<Imageset Name="GlossySerpentCursors" Imagefile="GlossySerpentCursors.png" NativeHorzRes="1366" NativeVertRes="768" AutoScaled="false" >
+<Imageset name="GlossySerpentCursors" imagefile="GlossySerpentCursors.png" nativehorzres="1366" nativevertres="768" autoscaled="false"  version="2">
 
   <!-- Mouse Cursors -->
-	<Image Name="MouseArrow" XPos="5" YPos="5" Width="32" Height="32" XOffset="-1" YOffset="-1" />
+	<Image name="MouseArrow" xpos="5" ypos="5" width="32" height="32" xoffset="-1" yoffset="-1" />
 
-	<Image Name="MouseMoveCursor" XPos="50" YPos="5" Width="32" Height="32" XOffset="-16" YOffset="-16" />
+	<Image name="MouseMoveCursor" xpos="50" ypos="5" width="32" height="32" xoffset="-16" yoffset="-16" />
 
-	<Image Name="MouseEsWeCursor" XPos="150" YPos="5" Width="32" Height="32" XOffset="-16" YOffset="-16" />
-	<Image Name="MouseNoSoCursor" XPos="200" YPos="5" Width="32" Height="32" XOffset="-16" YOffset="-16" />
-	<Image Name="MouseNeSwCursor" XPos="250" YPos="5" Width="32" Height="32" XOffset="-16" YOffset="-16" />
-	<Image Name="MouseNwSeCursor" XPos="300" YPos="5" Width="32" Height="32" XOffset="-16" YOffset="-16" />
+	<Image name="MouseEsWeCursor" xpos="150" ypos="5" width="32" height="32" xoffset="-16" yoffset="-16" />
+	<Image name="MouseNoSoCursor" xpos="200" ypos="5" width="32" height="32" xoffset="-16" yoffset="-16" />
+	<Image name="MouseNeSwCursor" xpos="250" ypos="5" width="32" height="32" xoffset="-16" yoffset="-16" />
+	<Image name="MouseNwSeCursor" xpos="300" ypos="5" width="32" height="32" xoffset="-16" yoffset="-16" />
   
   <!-- TODO: set to different content; duplicated at the moment -->
 
-	<Image Name="MouseTextBar" XPos="5" YPos="5" Width="32" Height="32" XOffset="-1" YOffset="-1" />
+	<Image name="MouseTextBar" xpos="5" ypos="5" width="32" height="32" xoffset="-1" yoffset="-1" />
   
 </Imageset>

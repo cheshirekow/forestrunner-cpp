@@ -11,7 +11,7 @@
 CrashScreen::CrashScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("crash.layout");
+    m_root = wmgr.loadLayoutFromFile("crash.layout");
     m_anim_enter = "PulseIn";
     m_anim_exit  = "PulseOut";
 

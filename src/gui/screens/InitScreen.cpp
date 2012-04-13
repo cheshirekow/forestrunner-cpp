@@ -16,11 +16,11 @@
 InitScreen::InitScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("initializing.layout");
+    m_root = wmgr.loadLayoutFromFile("initializing.layout");
     m_anim_enter = "FlyIn";
     m_anim_exit  = "FlyOut";
 
-    m_pb_progress = m_root->getChildRecursive("Init/pb_progress");
+    m_pb_progress = m_root->getChild("pb_progress");
 }
 
 InitScreen::~InitScreen()

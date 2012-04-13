@@ -1,20 +1,20 @@
-<GUILayout>
-    <Window Name="Advanced" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="Advanced/Panel" Type="GlossySerpent/SimplePanel">
-            <Property Name="UnifiedAreaRect" Value="{{0,50},{0,50},{1,-50},{1,-50}}" />
-            <Window Name="Advanced/Panel/Titlebar" Type="GlossySerpent/Titlebar">
-                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{0,30}}" />
-                <Property Name="Text" Value="Advanced Settings" />
-                <Property Name="AlwaysOnTop" Value="True" />
+<GUILayout version="4">
+    <Window name="Advanced" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window name="Panel" type="GlossySerpent/SimplePanel">
+            <Property name="Area" value="{{0,50},{0,50},{1,-50},{1,-50}}" />
+            <Window name="Titlebar" type="GlossySerpent/Titlebar">
+                <Property name="Area" value="{{0,0},{0,0},{1,0},{0,30}}" />
+                <Property name="Text" value="Advanced Settings" />
+                <Property name="AlwaysOnTop" value="True" />
             </Window>
-            <Window Name="Advanced/Panel/btn_save" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,300},{0,300},{1,-135},{0,330}}" />
-                <Property Name="Text" Value="Save" />
+            <Window name="btn_save" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,300},{0,300},{1,-135},{0,330}}" />
+                <Property name="Text" value="Save" />
             </Window>
-            <Window Name="Advanced/Panel/btn_back" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,405},{0,300},{1,-30},{0,330}}" />
-                <Property Name="Text" Value="Back" />
+            <Window name="btn_back" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,405},{0,300},{1,-30},{0,330}}" />
+                <Property name="Text" value="Back" />
             </Window>
         </Window>
     </Window>

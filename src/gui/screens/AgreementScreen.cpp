@@ -11,12 +11,12 @@
 AgreementScreen::AgreementScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("agreement.layout");
+    m_root = wmgr.loadLayoutFromFile("agreement.layout");
     m_anim_enter = "FlyIn";
     m_anim_exit  = "FlyOut";
 
     CEGUI::Window* btn;
-    btn = m_root->getChildRecursive("Agreement/Panel/btn_accept");
+    btn = m_root->getChild("Panel/btn_accept");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &AgreementScreen::onAccept,

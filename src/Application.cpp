@@ -208,7 +208,7 @@ void Application::createCEGUI(void)
 
     m_pLog->logMessage("createScene: setting cegui defaults");
 
-    CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+    //CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
     CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
@@ -217,13 +217,13 @@ void Application::createCEGUI(void)
 
     m_pLog->logMessage("createScene: creating schemes");
 
-    CEGUI::SchemeManager::getSingleton().create("GlossySerpent.scheme");
-    CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("GlossySerpent.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
 
     m_pLog->logMessage("createScene: setting default font and mouse");
 
     CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
-    CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
+    //CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
     m_pLog->logMessage("createScene: loading animations");
 
@@ -617,7 +617,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
             Ogre::ColourValue::ZERO,
             0.0);
 
-    CEGUI::System::getSingleton().renderGUI();
+    CEGUI::System::getSingleton().renderAllGUIContexts();
 
     std::cerr << "Application::frameRenderingQueued : here" << std::endl;
 
@@ -642,7 +642,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     std::cerr << "Application::frameRenderingQueued : injecting cegui time pulse" << std::endl;
     //Need to inject timestamps to CEGUI System.
-    CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
 
     // this is how we update the camera controller
     // (probably need to get rid of this)
@@ -660,8 +660,9 @@ bool Application::keyPressed( const OIS::KeyEvent &arg )
 {
     //return Application::keyReleased(arg);
 
-    CEGUI::System &sys = CEGUI::System::getSingleton();
-    sys.injectKeyDown(arg.key);
+    CEGUI::GUIContext& sys =
+            CEGUI::System::getSingleton().getDefaultGUIContext();
+    sys.injectKeyDown( (CEGUI::Key::Scan)arg.key );
     sys.injectChar(arg.text);
     m_game->keyPressed(arg);
 
@@ -677,7 +678,9 @@ bool Application::keyReleased( const OIS::KeyEvent &arg )
 {
     //return Application::keyReleased(arg);
 
-    CEGUI::System::getSingleton().injectKeyUp(arg.key);
+    CEGUI::GUIContext& sys =
+            CEGUI::System::getSingleton().getDefaultGUIContext();
+    sys.injectKeyUp( (CEGUI::Key::Scan)arg.key );
     m_game->keyReleased(arg);
     //mCameraMan->injectKeyUp(arg);
 
@@ -692,7 +695,8 @@ bool Application::mouseMoved( const OIS::MouseEvent &arg )
 {
     //return Application::mouseMoved(arg);
 
-    CEGUI::System &sys = CEGUI::System::getSingleton();
+    CEGUI::GUIContext& sys =
+            CEGUI::System::getSingleton().getDefaultGUIContext();
     sys.injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
     // Scroll wheel.
     if (arg.state.Z.rel)
@@ -709,7 +713,9 @@ bool Application::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 {
     //return Application::mousePressed(arg, id);
 
-    CEGUI::System::getSingleton().injectMouseButtonDown(convertButton(id));
+    CEGUI::GUIContext& sys =
+            CEGUI::System::getSingleton().getDefaultGUIContext();
+    sys.injectMouseButtonDown(convertButton(id));
     //mCameraMan->injectMouseDown(arg,id);
     return true;
 }
@@ -722,7 +728,9 @@ bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 {
     //return Application::mouseReleased(arg, id);
 
-    CEGUI::System::getSingleton().injectMouseButtonUp(convertButton(id));
+    CEGUI::GUIContext& sys =
+            CEGUI::System::getSingleton().getDefaultGUIContext();
+    sys.injectMouseButtonUp(convertButton(id));
     //mCameraMan->injectMouseUp(arg,id);
     return true;
 }

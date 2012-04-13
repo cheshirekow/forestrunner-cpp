@@ -1,12 +1,12 @@
-<GUILayout>
-    <Window Name="Run" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="Run/txt_score" Type="GlossySerpent/StaticText">
-            <Property Name="UnifiedAreaRect" Value="{{0,515},{0,0},{1,0},{1,-460}}" />
-            <Property Name="Text" Value="Score: 00.00" />
-            <Property Name="FrameEnabled" Value="False" />
-            <Property Name="BackgroundEnabled" Value="False" />
-            <Property Name="TextColours" Value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000"/>
+<GUILayout version="4">
+    <Window name="Run" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window name="txt_score" type="GlossySerpent/StaticText">
+            <Property name="Area" value="{{0,515},{0,0},{1,0},{1,-460}}" />
+            <Property name="Text" value="Score: 00.00" />
+            <Property name="FrameEnabled" value="False" />
+            <Property name="BackgroundEnabled" value="False" />
+            <Property name="TextColours" value="tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000"/>
         </Window>
     </Window>
 </GUILayout>

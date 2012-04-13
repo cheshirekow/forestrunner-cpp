@@ -14,11 +14,11 @@
 RunningScreen::RunningScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("running.layout");
+    m_root = wmgr.loadLayoutFromFile("running.layout");
     m_anim_enter = "None";
     m_anim_exit  = "None";
 
-    m_txt_score = m_root->getChildRecursive("Run/txt_score");
+    m_txt_score = m_root->getChild("txt_score");
 }
 
 RunningScreen::~RunningScreen()

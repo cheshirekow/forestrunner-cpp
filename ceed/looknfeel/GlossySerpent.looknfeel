@@ -22,7 +22,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 version:      0.4
 Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
 -->
-<Falagard>
+<Falagard version="7" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../xml_schemas/Falagard.xsd"> 
     <!--
     ***************************************************
         GlossySerpent/Button32
@@ -30,20 +32,20 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     ***************************************************
     -->
     <WidgetLook name="GlossySerpent/Button32">
-        <PropertyDefinition name="NormalTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
-        <PropertyDefinition name="HoverTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
-        <PropertyDefinition name="PushedTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
-        <PropertyDefinition name="DisabledTextColour" initialValue="FF7F7F7F" redrawOnWrite="true" />
-        <PropertyDefinition name="VertLabelFormatting" initialValue="CentreAligned" />
-        <PropertyDefinition name="HorzLabelFormatting" initialValue="CentreAligned" />
-        <PropertyDefinition name="NormalImage" initialValue="" redrawOnWrite="true" />
-        <PropertyDefinition name="HoverImage" initialValue="" redrawOnWrite="true" />
-        <PropertyDefinition name="PushedImage" initialValue="" redrawOnWrite="true" />
-        <PropertyDefinition name="DisabledImage" initialValue="" redrawOnWrite="true" />
-        <PropertyDefinition name="GlyphImage" initialValue="set:GlossySerpent image:EmptyGlyph24" redrawOnWrite="true" />
-        <PropertyDefinition name="TextUsesGlyph" initialValue="0" redrawOnWrite="true" />
-        <PropertyDefinition name="VertImageFormatting" initialValue="Stretched" redrawOnWrite="true" />
-        <PropertyDefinition name="HorzImageFormatting" initialValue="Stretched" redrawOnWrite="true" />
+        <PropertyDefinition name="NormalTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" type="ColourRect"/>
+        <PropertyDefinition name="HoverTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" type="ColourRect"/>
+        <PropertyDefinition name="PushedTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" type="ColourRect"/>
+        <PropertyDefinition name="DisabledTextColour" initialValue="FF7F7F7F" redrawOnWrite="true" type="ColourRect"/>
+        <PropertyDefinition name="VertLabelFormatting" initialValue="CentreAligned" type="VerticalTextFormatting"/>
+        <PropertyDefinition name="HorzLabelFormatting" initialValue="CentreAligned" type="HorizontalTextFormatting"/>
+        <PropertyDefinition name="NormalImage" initialValue="" redrawOnWrite="true"  type="Image"/>
+        <PropertyDefinition name="HoverImage" initialValue="" redrawOnWrite="true" type="Image"/>
+        <PropertyDefinition name="PushedImage" initialValue="" redrawOnWrite="true" type="Image"/>
+        <PropertyDefinition name="DisabledImage" initialValue="" redrawOnWrite="true" type="Image"/>
+        <PropertyDefinition name="GlyphImage" initialValue="set:GlossySerpent image:EmptyGlyph24" redrawOnWrite="true" type="Image"/>
+        <PropertyDefinition name="TextUsesGlyph" initialValue="0" redrawOnWrite="true" type="float" />
+        <PropertyDefinition name="VertImageFormatting" initialValue="Stretched" redrawOnWrite="true" type="VerticalTextFormatting"/>
+        <PropertyDefinition name="HorzImageFormatting" initialValue="Stretched" redrawOnWrite="true" type="HorizontalTextFormatting"/>
         <ImagerySection name="label">
             <TextComponent>
                 <Area>
@@ -51,7 +53,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         <AbsoluteDim value="0" >
                             <DimOperator op="Add">
                                 <!-- TODO: make use of the TextUsesGlyph property for multiplication-->
-                                <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Width">
+                                <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Width">
                                     <DimOperator op="Multiply">
                                         <PropertyDim name="TextUsesGlyph" />
                                     </DimOperator>
@@ -72,12 +74,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
             <ImageryComponent>
                 <Area>
                     <Dim type="LeftEdge">
-                        <ImageDim imageset="GlossySerpent" image="Button32_4C_UpL" dimension="Width"/>
+                        <ImageDim name="GlossySerpent/Button32_4C_UpL" dimension="Width"/>
                     </Dim>
                     <Dim type="TopEdge">
                         <UnifiedDim scale="0.5" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Height">
+                                <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Height">
                                     <DimOperator op="Divide">
                                         <AbsoluteDim value="2" />
                                     </DimOperator>
@@ -86,10 +88,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         </UnifiedDim>
                     </Dim>
                     <Dim type="Width">
-                        <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Width"/>
+                        <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Width"/>
                     </Dim>
                     <Dim type="Height">
-                        <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Height" />
+                        <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Height" />
                     </Dim>
                 </Area>
                 <ImageProperty name="GlyphImage" />
@@ -106,15 +108,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_UpTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_UpTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_UpBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_UpBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_UpL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_UpT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_UpR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_UpB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_UpM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_UpTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_UpTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_UpBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_UpBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_UpL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_UpT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_UpR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_UpB" />
+                <Image type="Background" name="GlossySerpent/Button32_UpM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -137,15 +139,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_OverTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_OverTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_OverBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_OverBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_OverL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_OverT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_OverR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_OverB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_OverM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_OverTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_OverTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_OverBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_OverBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_OverL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_OverT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_OverR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_OverB" />
+                <Image type="Background" name="GlossySerpent/Button32_OverM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -168,15 +170,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_DownTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_DownTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_DownBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_DownBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_DownL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_DownT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_DownR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_DownB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_DownM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_DownTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_DownTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_DownBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_DownBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_DownL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_DownT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_DownR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_DownB" />
+                <Image type="Background" name="GlossySerpent/Button32_DownM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -270,7 +272,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         <AbsoluteDim value="0" >
                             <DimOperator op="Add">
                                 <!-- TODO: make use of the TextUsesGlyph property for multiplication-->
-                                <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Width">
+                                <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Width">
                                     <DimOperator op="Multiply">
                                         <PropertyDim name="TextUsesGlyph" />
                                     </DimOperator>
@@ -291,12 +293,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
             <ImageryComponent>
                 <Area>
                     <Dim type="LeftEdge">
-                        <ImageDim imageset="GlossySerpent" image="Button32_4C_UpL" dimension="Width"/>
+                        <ImageDim name="GlossySerpent/Button32_4C_UpL" dimension="Width"/>
                     </Dim>
                     <Dim type="TopEdge">
                         <UnifiedDim scale="0.5" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Height">
+                                <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Height">
                                     <DimOperator op="Divide">
                                         <AbsoluteDim value="2" />
                                     </DimOperator>
@@ -305,10 +307,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         </UnifiedDim>
                     </Dim>
                     <Dim type="Width">
-                        <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Width"/>
+                        <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Width"/>
                     </Dim>
                     <Dim type="Height">
-                        <ImageDim imageset="GlossySerpent" image="EmptyGlyph24" dimension="Height" />
+                        <ImageDim name="GlossySerpent/EmptyGlyph24" dimension="Height" />
                     </Dim>
                 </Area>
                 <ImageProperty name="GlyphImage" />
@@ -325,15 +327,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_4C_UpTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_4C_UpTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_4C_UpBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_4C_UpBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_4C_UpL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_4C_UpT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_4C_UpR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_4C_UpB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_4C_UpM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_4C_UpTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_4C_UpTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_4C_UpBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_4C_UpBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_4C_UpL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_4C_UpT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_4C_UpR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_4C_UpB" />
+                <Image type="Background" name="GlossySerpent/Button32_4C_UpM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -356,15 +358,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_4C_OverTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_4C_OverTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_4C_OverBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_4C_OverBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_4C_OverL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_4C_OverT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_4C_OverR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_4C_OverB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_4C_OverM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_4C_OverTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_4C_OverTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_4C_OverBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_4C_OverBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_4C_OverL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_4C_OverT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_4C_OverR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_4C_OverB" />
+                <Image type="Background" name="GlossySerpent/Button32_4C_OverM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -387,15 +389,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Button32_4C_DownTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Button32_4C_DownTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Button32_4C_DownBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Button32_4C_DownBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Button32_4C_DownL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Button32_4C_DownT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Button32_4C_DownR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Button32_4C_DownB" />
-                <Image type="Background" imageset="GlossySerpent" image="Button32_4C_DownM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Button32_4C_DownTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/Button32_4C_DownTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Button32_4C_DownBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Button32_4C_DownBR" />
+                <Image type="LeftEdge" name="GlossySerpent/Button32_4C_DownL" />
+                <Image type="TopEdge" name="GlossySerpent/Button32_4C_DownT" />
+                <Image type="RightEdge" name="GlossySerpent/Button32_4C_DownR" />
+                <Image type="BottomEdge" name="GlossySerpent/Button32_4C_DownB" />
+                <Image type="Background" name="GlossySerpent/Button32_4C_DownM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -502,15 +504,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_UpTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_UpTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_UpBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_UpBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ButtonEmpty32_UpL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ButtonEmpty32_UpT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ButtonEmpty32_UpR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ButtonEmpty32_UpB" />
-                <Image type="Background" imageset="GlossySerpent" image="ButtonEmpty32_UpM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ButtonEmpty32_UpTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/ButtonEmpty32_UpTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ButtonEmpty32_UpBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ButtonEmpty32_UpBR" />
+                <Image type="LeftEdge" name="GlossySerpent/ButtonEmpty32_UpL" />
+                <Image type="TopEdge" name="GlossySerpent/ButtonEmpty32_UpT" />
+                <Image type="RightEdge" name="GlossySerpent/ButtonEmpty32_UpR" />
+                <Image type="BottomEdge" name="GlossySerpent/ButtonEmpty32_UpB" />
+                <Image type="Background" name="GlossySerpent/ButtonEmpty32_UpM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -533,15 +535,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_OverTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_OverTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_OverBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_OverBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ButtonEmpty32_OverL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ButtonEmpty32_OverT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ButtonEmpty32_OverR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ButtonEmpty32_OverB" />
-                <Image type="Background" imageset="GlossySerpent" image="ButtonEmpty32_OverM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ButtonEmpty32_OverTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/ButtonEmpty32_OverTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ButtonEmpty32_OverBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ButtonEmpty32_OverBR" />
+                <Image type="LeftEdge" name="GlossySerpent/ButtonEmpty32_OverL" />
+                <Image type="TopEdge" name="GlossySerpent/ButtonEmpty32_OverT" />
+                <Image type="RightEdge" name="GlossySerpent/ButtonEmpty32_OverR" />
+                <Image type="BottomEdge" name="GlossySerpent/ButtonEmpty32_OverB" />
+                <Image type="Background" name="GlossySerpent/ButtonEmpty32_OverM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -564,15 +566,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_DownTL" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_DownTR" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ButtonEmpty32_DownBL" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ButtonEmpty32_DownBR" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ButtonEmpty32_DownL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ButtonEmpty32_DownT" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ButtonEmpty32_DownR" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ButtonEmpty32_DownB" />
-                <Image type="Background" imageset="GlossySerpent" image="ButtonEmpty32_DownM" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ButtonEmpty32_DownTL" />
+                <Image type="TopRightCorner" name="GlossySerpent/ButtonEmpty32_DownTR" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ButtonEmpty32_DownBL" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ButtonEmpty32_DownBR" />
+                <Image type="LeftEdge" name="GlossySerpent/ButtonEmpty32_DownL" />
+                <Image type="TopEdge" name="GlossySerpent/ButtonEmpty32_DownT" />
+                <Image type="RightEdge" name="GlossySerpent/ButtonEmpty32_DownR" />
+                <Image type="BottomEdge" name="GlossySerpent/ButtonEmpty32_DownB" />
+                <Image type="Background" name="GlossySerpent/ButtonEmpty32_DownM" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -656,15 +658,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TransAnon_WindowTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TransAnon_WindowTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TransAnon_WindowBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TransAnon_WindowBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TransAnon_WindowLeftEdge" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TransAnon_WindowTopEdge" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TransAnon_WindowRightEdge" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TransAnon_WindowBottomEdge" />
-                <Image type="Background" imageset="GlossySerpent" image="TransAnon_WindowMid" />
+                <Image type="TopLeftCorner" name="GlossySerpent/TransAnon_WindowTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/TransAnon_WindowTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/TransAnon_WindowBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TransAnon_WindowBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/TransAnon_WindowLeftEdge" />
+                <Image type="TopEdge" name="GlossySerpent/TransAnon_WindowTopEdge" />
+                <Image type="RightEdge" name="GlossySerpent/TransAnon_WindowRightEdge" />
+                <Image type="BottomEdge" name="GlossySerpent/TransAnon_WindowBottomEdge" />
+                <Image type="Background" name="GlossySerpent/TransAnon_WindowMid" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -713,15 +715,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Anon_WindowTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Anon_WindowTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Anon_WindowBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Anon_WindowBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Anon_WindowLeftEdge" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Anon_WindowTopEdge" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Anon_WindowRightEdge" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Anon_WindowBottomEdge" />
-                <Image type="Background" imageset="GlossySerpent" image="Anon_WindowMid" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Anon_WindowTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/Anon_WindowTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Anon_WindowBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Anon_WindowBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/Anon_WindowLeftEdge" />
+                <Image type="TopEdge" name="GlossySerpent/Anon_WindowTopEdge" />
+                <Image type="RightEdge" name="GlossySerpent/Anon_WindowRightEdge" />
+                <Image type="BottomEdge" name="GlossySerpent/Anon_WindowBottomEdge" />
+                <Image type="Background" name="GlossySerpent/Anon_WindowMid" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -764,19 +766,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <ImagerySection name="image_withframe">
             <ImageryComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                    <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                    <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="StaticRight" dimension="Width" />
+                                <ImageDim name="GlossySerpent/StaticRight" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="BottomEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="StaticBottom" dimension="Height" />
+                                <ImageDim name="GlossySerpent/StaticBottom" dimension="Height" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
@@ -862,38 +864,38 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="StaticTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="StaticTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="StaticBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="StaticBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="StaticLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="StaticRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="StaticTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="StaticBottom" />
+                <Image type="TopLeftCorner" name="GlossySerpent/StaticTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/StaticTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/StaticBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/StaticBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/StaticLeft" />
+                <Image type="RightEdge" name="GlossySerpent/StaticRight" />
+                <Image type="TopEdge" name="GlossySerpent/StaticTop" />
+                <Image type="BottomEdge" name="GlossySerpent/StaticBottom" />
                 <ColourRectProperty name="FrameColours" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="background">
             <ImageryComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                    <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                    <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="StaticRight" dimension="Width" />
+                                <ImageDim name="GlossySerpent/StaticRight" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="BottomEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="StaticBottom" dimension="Height" />
+                                <ImageDim name="GlossySerpent/StaticBottom" dimension="Height" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="StaticBackdrop" />
+                <Image name="GlossySerpent/StaticBackdrop" />
                 <!--<ColourRectProperty name="BackgroundColours" />-->
                 <Colours topLeft="FFFFFFFF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFFFFFFF" />
                 <VertFormat type="Stretched" />
@@ -908,7 +910,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="StaticBackdrop" />
+                <Image name="GlossySerpent/StaticBackdrop" />
                 <!--<ColourRectProperty name="BackgroundColours" />-->
                 <Colours topLeft="FFFFFFFF" topRight="FFFFFFFF" bottomLeft="FFFFFFFF" bottomRight="FFFFFFFF" />
                 <VertFormat type="Stretched" />
@@ -930,19 +932,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <Property name="BackgroundEnabled" value="True" />
         <NamedArea name="WithFrameTextRenderArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="StaticRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/StaticRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="StaticBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/StaticBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -950,12 +952,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="WithFrameTextRenderAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="StaticRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/StaticRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -970,8 +972,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="WithFrameTextRenderAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -982,7 +984,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="StaticBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/StaticBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -990,8 +992,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="WithFrameTextRenderAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="StaticLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="StaticTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/StaticLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/StaticTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -1136,16 +1138,16 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="HeaderBarSplitterNormal" dimension="Width" />
+                                <ImageDim name="GlossySerpent/HeaderBarSplitterNormal" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperNormal" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleNormal" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerNormal" />
-                <!--<Image imageset="GlossySerpent" image="HeaderBarBackdropNormal" />-->
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperNormal" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleNormal" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerNormal" />
+                <!--<Image name="GlossySerpent/HeaderBarBackdropNormal" />-->
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </FrameComponent>
@@ -1158,16 +1160,16 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="HeaderBarSplitterNormal" dimension="Width" />
+                                <ImageDim name="GlossySerpent/HeaderBarSplitterNormal" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperSelected" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleSelected" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerSelected" />
-                <!--<Image imageset="GlossySerpent" image="HeaderBarBackdropHover" />-->
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperSelected" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleSelected" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerSelected" />
+                <!--<Image name="GlossySerpent/HeaderBarBackdropHover" />-->
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </FrameComponent>
@@ -1180,7 +1182,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="HeaderBarSplitterNormal" />
+                <Image name="GlossySerpent/HeaderBarSplitterNormal" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -1193,7 +1195,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="HeaderBarSplitterHover" />
+                <Image name="GlossySerpent/HeaderBarSplitterHover" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="RightAligned" />
             </ImageryComponent>
@@ -1203,10 +1205,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="3" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="3" /></Dim>
-                    <Dim type="Width" ><ImageDim imageset="GlossySerpent" image="HeaderBarSortUp" dimension="Width" /></Dim>
-                    <Dim type="Height" ><ImageDim imageset="GlossySerpent" image="HeaderBarSortUp" dimension="Height" /></Dim>
+                    <Dim type="Width" ><ImageDim name="GlossySerpent/HeaderBarSortUp" dimension="Width" /></Dim>
+                    <Dim type="Height" ><ImageDim name="GlossySerpent/HeaderBarSortUp" dimension="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="HeaderBarSortDown" />
+                <Image name="GlossySerpent/HeaderBarSortDown" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="descend_icon">
@@ -1214,17 +1216,17 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="3" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="3" /></Dim>
-                    <Dim type="Width" ><ImageDim imageset="GlossySerpent" image="HeaderBarSortDown" dimension="Width" /></Dim>
-                    <Dim type="Height" ><ImageDim imageset="GlossySerpent" image="HeaderBarSortDown" dimension="Height" /></Dim>
+                    <Dim type="Width" ><ImageDim name="GlossySerpent/HeaderBarSortDown" dimension="Width" /></Dim>
+                    <Dim type="Height" ><ImageDim name="GlossySerpent/HeaderBarSortDown" dimension="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="HeaderBarSortUp" />
+                <Image name="GlossySerpent/HeaderBarSortUp" />
             </ImageryComponent>
         </ImagerySection>
         <ImagerySection name="label">
             <TextComponent>
                 <Area>
                     <Dim type="LeftEdge" >
-                        <ImageDim imageset="GlossySerpent" image="HeaderBarSortUp" dimension="Width">
+                        <ImageDim name="GlossySerpent/HeaderBarSortUp" dimension="Width">
                             <DimOperator op="Add">
                                 <AbsoluteDim value="5" />
                             </DimOperator>
@@ -1335,12 +1337,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         
         <NamedArea name="ItemRenderingArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiListLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiListLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge" ><WidgetDim widget="__auto_listheader__" dimension="BottomEdge" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiListRight" dimension="Width">
+                            <ImageDim name="GlossySerpent/MultiListRight" dimension="Width">
                             </ImageDim>
                         </DimOperator>
                     </UnifiedDim>
@@ -1348,7 +1350,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiListBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/MultiListBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -1356,12 +1358,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiListLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiListLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge" ><WidgetDim widget="__auto_listheader__" dimension="BottomEdge" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiListRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/MultiListRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -1376,7 +1378,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiListLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiListLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge" ><WidgetDim widget="__auto_listheader__" dimension="BottomEdge" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
@@ -1388,7 +1390,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiListBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/MultiListBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -1396,7 +1398,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiListLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiListLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge" ><WidgetDim widget="__auto_listheader__" dimension="BottomEdge" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
@@ -1491,15 +1493,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="MultiListTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="MultiListTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="MultiListBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="MultiListBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="MultiListLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="MultiListRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="MultiListTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="MultiListBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="MultiListBackdrop" />
+                <Image type="TopLeftCorner" name="GlossySerpent/MultiListTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/MultiListTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/MultiListBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/MultiListBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/MultiListLeft" />
+                <Image type="RightEdge" name="GlossySerpent/MultiListRight" />
+                <Image type="TopEdge" name="GlossySerpent/MultiListTop" />
+                <Image type="BottomEdge" name="GlossySerpent/MultiListBottom" />
+                <Image type="Background" name="GlossySerpent/MultiListBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -1534,15 +1536,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="HorzScrollThumb_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="HorzScrollThumb_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="HorzScrollThumb_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="HorzScrollThumb_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="HorzScrollThumb_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/HorzScrollThumb_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/HorzScrollThumb_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/HorzScrollThumb_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/HorzScrollThumb_HD_T" />
+                <Image type="Background" name="GlossySerpent/HorzScrollThumb_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/HorzScrollThumb_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/HorzScrollThumb_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/HorzScrollThumb_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/HorzScrollThumb_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="hover">
@@ -1553,15 +1555,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_Hover_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/HorzScrollThumb_Hover_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/HorzScrollThumb_Hover_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/HorzScrollThumb_Hover_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/HorzScrollThumb_Hover_HD_T" />
+                <Image type="Background" name="GlossySerpent/HorzScrollThumb_Hover_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/HorzScrollThumb_Hover_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/HorzScrollThumb_Hover_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/HorzScrollThumb_Hover_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/HorzScrollThumb_Hover_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="pushed">
@@ -1572,15 +1574,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="HorzScrollThumb_Click_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/HorzScrollThumb_Click_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/HorzScrollThumb_Click_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/HorzScrollThumb_Click_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/HorzScrollThumb_Click_HD_T" />
+                <Image type="Background" name="GlossySerpent/HorzScrollThumb_Click_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/HorzScrollThumb_Click_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/HorzScrollThumb_Click_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/HorzScrollThumb_Click_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/HorzScrollThumb_Click_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Normal">
@@ -1663,18 +1665,18 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <ImagerySection name="main">
             <ImageryComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MiniHorzScrollLeftNormal" dimension="Width" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MiniHorzScrollLeftNormal" dimension="Width" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="0" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1.0" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="MiniHorzScrollRightNormal" dimension="Width" />
+                                <ImageDim name="GlossySerpent/MiniHorzScrollRightNormal" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="MiniHorzScrollBarSegment" />
+                <Image name="GlossySerpent/MiniHorzScrollBarSegment" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -1713,15 +1715,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="VertScrollThumb_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="VertScrollThumb_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="VertScrollThumb_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="VertScrollThumb_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="VertScrollThumb_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="VertScrollThumb_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="VertScrollThumb_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/VertScrollThumb_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/VertScrollThumb_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/VertScrollThumb_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/VertScrollThumb_HD_T" />
+                <Image type="Background" name="GlossySerpent/VertScrollThumb_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/VertScrollThumb_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/VertScrollThumb_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/VertScrollThumb_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/VertScrollThumb_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="hover">
@@ -1732,15 +1734,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="VertScrollThumb_Hover_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/VertScrollThumb_Hover_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/VertScrollThumb_Hover_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/VertScrollThumb_Hover_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/VertScrollThumb_Hover_HD_T" />
+                <Image type="Background" name="GlossySerpent/VertScrollThumb_Hover_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/VertScrollThumb_Hover_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/VertScrollThumb_Hover_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/VertScrollThumb_Hover_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/VertScrollThumb_Hover_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="pushed">
@@ -1751,15 +1753,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="VertScrollThumb_Click_HD_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/VertScrollThumb_Click_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/VertScrollThumb_Click_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/VertScrollThumb_Click_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/VertScrollThumb_Click_HD_T" />
+                <Image type="Background" name="GlossySerpent/VertScrollThumb_Click_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/VertScrollThumb_Click_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/VertScrollThumb_Click_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/VertScrollThumb_Click_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/VertScrollThumb_Click_HD_BR" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Normal">
@@ -1846,10 +1848,11 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="TopEdge" >
                         <UnifiedDim scale="0.0" type="TopEdge">
                             <DimOperator op="Add">
-                                <ImageDim imageset="GlossySerpent" image="MiniVertScrollUpNormal" dimension="Height" />
-                            </DimOperator>
-                            <DimOperator op="Add">
-                                <AbsoluteDim value="16" />
+                                <ImageDim name="GlossySerpent/MiniVertScrollUpNormal" dimension="Height">
+                                    <DimOperator op="Add">
+		                                <AbsoluteDim value="16" />
+		                            </DimOperator>                                
+                                </ImageDim>
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
@@ -1857,15 +1860,16 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1.0" type="BottomEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="MiniVertScrollDownNormal" dimension="Height" />
-                            </DimOperator>
-                            <DimOperator op="Subtract">
-                                <AbsoluteDim value="16" />
+                                <ImageDim name="GlossySerpent/MiniVertScrollDownNormal" dimension="Height">
+                                    <DimOperator op="Subtract">
+		                                <AbsoluteDim value="16" />
+		                            </DimOperator>
+                                </ImageDim>
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="MiniVertScrollBarSegment" />
+                <Image name="GlossySerpent/MiniVertScrollBarSegment" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="CentreAligned" />
             </ImageryComponent>
@@ -1995,15 +1999,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
             <ImageryComponent>
                 <Area>
                     <Dim type="LeftEdge">
-                        <ImageDim imageset="GlossySerpent" image="MiniButton_Normal_L" dimension="Width"/>
+                        <ImageDim name="GlossySerpent/MiniButton_Normal_L" dimension="Width"/>
                     </Dim>
                     <Dim type="TopEdge">
-                        <ImageDim imageset="GlossySerpent" image="MiniButton_Normal_T" dimension="Height"/>
+                        <ImageDim name="GlossySerpent/MiniButton_Normal_T" dimension="Height"/>
                     </Dim>
                     <Dim type="Width">
                         <UnifiedDim scale="1" type="Width">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="MiniButton_Normal_L" dimension="Width">
+                                <ImageDim name="GlossySerpent/MiniButton_Normal_L" dimension="Width">
                                     <DimOperator op="Multiply">
                                         <AbsoluteDim value="2" />
                                     </DimOperator>
@@ -2014,7 +2018,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Height">
                         <UnifiedDim scale="1" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="MiniButton_Normal_T" dimension="Height">
+                                <ImageDim name="GlossySerpent/MiniButton_Normal_T" dimension="Height">
                                     <DimOperator op="Multiply">
                                         <AbsoluteDim value="2" />
                                     </DimOperator>
@@ -2037,15 +2041,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="MiniButton_Normal_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="MiniButton_Normal_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="MiniButton_Normal_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="MiniButton_Normal_T" />
-                <Image type="Background" imageset="GlossySerpent" image="MiniButton_Normal_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="MiniButton_Normal_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="MiniButton_Normal_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="MiniButton_Normal_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="MiniButton_Normal_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/MiniButton_Normal_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/MiniButton_Normal_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/MiniButton_Normal_BL" />
+                <Image type="TopEdge" name="GlossySerpent/MiniButton_Normal_T" />
+                <Image type="Background" name="GlossySerpent/MiniButton_Normal_M" />
+                <Image type="BottomEdge" name="GlossySerpent/MiniButton_Normal_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/MiniButton_Normal_TR" />
+                <Image type="RightEdge" name="GlossySerpent/MiniButton_Normal_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/MiniButton_Normal_BR" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -2068,15 +2072,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="MiniButton_Hover_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="MiniButton_Hover_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="MiniButton_Hover_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="MiniButton_Hover_T" />
-                <Image type="Background" imageset="GlossySerpent" image="MiniButton_Hover_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="MiniButton_Hover_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="MiniButton_Hover_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="MiniButton_Hover_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="MiniButton_Hover_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/MiniButton_Hover_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/MiniButton_Hover_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/MiniButton_Hover_BL" />
+                <Image type="TopEdge" name="GlossySerpent/MiniButton_Hover_T" />
+                <Image type="Background" name="GlossySerpent/MiniButton_Hover_M" />
+                <Image type="BottomEdge" name="GlossySerpent/MiniButton_Hover_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/MiniButton_Hover_TR" />
+                <Image type="RightEdge" name="GlossySerpent/MiniButton_Hover_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/MiniButton_Hover_BR" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -2099,15 +2103,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="MiniButton_Click_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="MiniButton_Click_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="MiniButton_Click_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="MiniButton_Click_T" />
-                <Image type="Background" imageset="GlossySerpent" image="MiniButton_Click_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="MiniButton_Click_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="MiniButton_Click_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="MiniButton_Click_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="MiniButton_Click_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/MiniButton_Click_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/MiniButton_Click_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/MiniButton_Click_BL" />
+                <Image type="TopEdge" name="GlossySerpent/MiniButton_Click_T" />
+                <Image type="Background" name="GlossySerpent/MiniButton_Click_M" />
+                <Image type="BottomEdge" name="GlossySerpent/MiniButton_Click_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/MiniButton_Click_TR" />
+                <Image type="RightEdge" name="GlossySerpent/MiniButton_Click_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/MiniButton_Click_BR" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
@@ -2170,19 +2174,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
 
         <NamedArea name="ItemRenderingArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ListboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ListboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2190,12 +2194,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ListboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2210,8 +2214,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -2222,7 +2226,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ListboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2230,8 +2234,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -2298,15 +2302,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ListboxTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ListboxTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ListboxBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ListboxBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ListboxLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ListboxRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ListboxTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ListboxBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="ListboxBackdrop" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ListboxTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/ListboxTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ListboxBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ListboxBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/ListboxLeft" />
+                <Image type="RightEdge" name="GlossySerpent/ListboxRight" />
+                <Image type="TopEdge" name="GlossySerpent/ListboxTop" />
+                <Image type="BottomEdge" name="GlossySerpent/ListboxBottom" />
+                <Image type="Background" name="GlossySerpent/ListboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -2333,19 +2337,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     <WidgetLook name="GlossySerpent/ComboDropList">
         <NamedArea name="ItemRenderingArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ComboboxListLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ComboboxListTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ComboboxListRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ComboboxListRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ComboboxListBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ComboboxListBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2353,12 +2357,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ComboboxListLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ComboboxListTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ComboboxListRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ComboboxListRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2373,8 +2377,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ComboboxListLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ComboboxListTop" dimension="Height" /></Dim>
 
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
@@ -2386,7 +2390,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ComboboxListBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ComboboxListBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2394,8 +2398,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderingAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ComboboxListTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ComboboxListLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ComboboxListTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -2438,15 +2442,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ComboboxListTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ComboboxListTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ComboboxListBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ComboboxListBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ComboboxListLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ComboboxListRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ComboboxListTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ComboboxListBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="ComboboxListBackdrop" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ComboboxListTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/ComboboxListTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ComboboxListBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ComboboxListBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/ComboboxListLeft" />
+                <Image type="RightEdge" name="GlossySerpent/ComboboxListRight" />
+                <Image type="TopEdge" name="GlossySerpent/ComboboxListTop" />
+                <Image type="BottomEdge" name="GlossySerpent/ComboboxListBottom" />
+                <Image type="Background" name="GlossySerpent/ComboboxListBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -2492,9 +2496,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1.0" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1.0" type="Height" /></Dim>
                 </Area>
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ComboboxEditLeft" />
-                <Image type="Background" imageset="GlossySerpent" image="ComboboxEditMiddle" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ComboboxEditRight" />
+                <Image type="LeftEdge" name="GlossySerpent/ComboboxEditLeft" />
+                <Image type="Background" name="GlossySerpent/ComboboxEditMiddle" />
+                <Image type="RightEdge" name="GlossySerpent/ComboboxEditRight" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="selection">
@@ -2505,7 +2509,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge" ><UnifiedDim scale="1.0" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="TextSelectionBrush" />
+                <Image name="GlossySerpent/TextSelectionBrush" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -2515,10 +2519,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="0" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="0" /></Dim>
-                    <Dim type="Width" ><ImageDim imageset="GlossySerpent" image="EditBoxCarat" dimension="Width" /></Dim>
+                    <Dim type="Width" ><ImageDim name="GlossySerpent/EditBoxCarat" dimension="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="EditBoxCarat" />
+                <Image name="GlossySerpent/EditBoxCarat" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -2640,21 +2644,21 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         
         <NamedArea name="ItemRenderArea">
             <Area>
-                <Dim type="LeftEdge"><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge"><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge">
-                    <ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" />
+                    <ImageDim name="GlossySerpent/ListboxTop" dimension="Height" />
                 </Dim>
                 <Dim type="RightEdge">
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ListboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="Height">
                     <UnifiedDim scale="1" type="Height">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ListboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2662,12 +2666,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/ListboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2682,8 +2686,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -2694,7 +2698,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="ListboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/ListboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -2702,8 +2706,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ItemRenderAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="ListboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="ListboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/ListboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/ListboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -2772,15 +2776,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ListboxTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ListboxTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ListboxBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ListboxBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ListboxLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ListboxRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ListboxTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ListboxBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="ListboxBackdrop" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ListboxTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/ListboxTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ListboxBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ListboxBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/ListboxLeft" />
+                <Image type="RightEdge" name="GlossySerpent/ListboxRight" />
+                <Image type="TopEdge" name="GlossySerpent/ListboxTop" />
+                <Image type="BottomEdge" name="GlossySerpent/ListboxBottom" />
+                <Image type="Background" name="GlossySerpent/ListboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -2914,7 +2918,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
             <TextComponent>
                 <Area>
                     <Dim type="LeftEdge" >
-                        <ImageDim imageset="GlossySerpent" image="RadioButtonNormal" dimension="Width">
+                        <ImageDim name="GlossySerpent/RadioButtonNormal" dimension="Width">
                             <DimOperator op="Add">
                                 <AbsoluteDim value="3" />
                             </DimOperator>
@@ -2936,7 +2940,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="RadioButtonNormal" />
+                <Image name="GlossySerpent/RadioButtonNormal" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -2949,7 +2953,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="RadioButtonHover" />
+                <Image name="GlossySerpent/RadioButtonHover" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -2962,7 +2966,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="RadioButtonMark" />
+                <Image name="GlossySerpent/RadioButtonMark" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -3043,7 +3047,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
             <TextComponent>
                 <Area>
                     <Dim type="LeftEdge" >
-                        <ImageDim imageset="GlossySerpent" image="CheckboxNormal" dimension="Width">
+                        <ImageDim name="GlossySerpent/CheckboxNormal" dimension="Width">
                             <DimOperator op="Add">
                                 <AbsoluteDim value="3" />
                             </DimOperator>
@@ -3065,7 +3069,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="CheckboxNormal" />
+                <Image name="GlossySerpent/CheckboxNormal" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -3078,7 +3082,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="CheckboxHover" />
+                <Image name="GlossySerpent/CheckboxHover" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -3091,7 +3095,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="CheckboxMark" />
+                <Image name="GlossySerpent/CheckboxMark" />
                 <VertFormat type="CentreAligned" />
                 <HorzFormat type="LeftAligned" />
             </ImageryComponent>
@@ -3186,9 +3190,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="LeftEdge" imageset="GlossySerpent" image="EditBoxLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="EditBoxRight" />
-                <Image type="Background" imageset="GlossySerpent" image="EditBoxMiddle" />
+                <Image type="LeftEdge" name="GlossySerpent/EditBoxLeft" />
+                <Image type="RightEdge" name="GlossySerpent/EditBoxRight" />
+                <Image type="Background" name="GlossySerpent/EditBoxMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="selection">
@@ -3199,7 +3203,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge" ><UnifiedDim scale="1.0" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="TextSelectionBrush" />
+                <Image name="GlossySerpent/TextSelectionBrush" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -3209,10 +3213,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="0" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="0" /></Dim>
-                    <Dim type="Width" ><ImageDim imageset="GlossySerpent" image="EditBoxCarat" dimension="Width" /></Dim>
+                    <Dim type="Width" ><ImageDim name="GlossySerpent/EditBoxCarat" dimension="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="EditBoxCarat" />
+                <Image name="GlossySerpent/EditBoxCarat" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -3265,7 +3269,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <!--<ImageDim imageset="GlossySerpent" image="VertScrollUpNormal" dimension="Width" />-->
+                            <!--<ImageDim name="GlossySerpent/VertScrollUpNormal" dimension="Width" />-->
                             <UnifiedDim scale="1" type="Height">
                                 <DimOperator op="Divide">
                                     <AbsoluteDim value="2" />
@@ -3324,19 +3328,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <Property name="SelectionBrushImage" value="set:GlossySerpent image:MultiLineEditboxSelectionBrush" />
         <NamedArea name="TextArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiLineEditboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/MultiLineEditboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiLineEditboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/MultiLineEditboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -3344,12 +3348,12 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="TextAreaHScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiLineEditboxRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/MultiLineEditboxRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -3364,8 +3368,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="TextAreaVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -3376,7 +3380,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="MultiLineEditboxBottom" dimension="Height" />
+                            <ImageDim name="GlossySerpent/MultiLineEditboxBottom" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -3384,8 +3388,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="TextAreaHVScroll">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="MultiLineEditboxTop" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxTop" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
@@ -3452,15 +3456,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="MultiLineEditboxTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="MultiLineEditboxTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="MultiLineEditboxBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="MultiLineEditboxBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="MultiLineEditboxLeft" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="MultiLineEditboxRight" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="MultiLineEditboxTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="MultiLineEditboxBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="MultiLineEditboxBackdrop" />
+                <Image type="TopLeftCorner" name="GlossySerpent/MultiLineEditboxTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/MultiLineEditboxTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/MultiLineEditboxBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/MultiLineEditboxBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/MultiLineEditboxLeft" />
+                <Image type="RightEdge" name="GlossySerpent/MultiLineEditboxRight" />
+                <Image type="TopEdge" name="GlossySerpent/MultiLineEditboxTop" />
+                <Image type="BottomEdge" name="GlossySerpent/MultiLineEditboxBottom" />
+                <Image type="Background" name="GlossySerpent/MultiLineEditboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="Carat">
@@ -3468,10 +3472,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="0" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="0" /></Dim>
-                    <Dim type="Width" ><ImageDim imageset="GlossySerpent" image="EditBoxCarat" dimension="Width" /></Dim>
+                    <Dim type="Width" ><ImageDim name="GlossySerpent/EditBoxCarat" dimension="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1.0" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="EditBoxCarat" />
+                <Image name="GlossySerpent/EditBoxCarat" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </ImageryComponent>
@@ -3505,19 +3509,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     <WidgetLook name="GlossySerpent/Tooltip">
         <NamedArea name="TextArea">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="TooltipLeftEdge" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="TooltipTopEdge" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/TooltipLeftEdge" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/TooltipTopEdge" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="TooltipRightEdge" dimension="Width" />
+                            <ImageDim name="GlossySerpent/TooltipRightEdge" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="TooltipBottomEdge" dimension="Height" />
+                            <ImageDim name="GlossySerpent/TooltipBottomEdge" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -3531,33 +3535,33 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TooltipTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TooltipTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TooltipBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TooltipBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TooltipLeftEdge" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TooltipRightEdge" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TooltipTopEdge" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TooltipBottomEdge" />
-                <Image type="Background" imageset="GlossySerpent" image="TooltipMiddle" />
+                <Image type="TopLeftCorner" name="GlossySerpent/TooltipTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/TooltipTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/TooltipBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TooltipBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/TooltipLeftEdge" />
+                <Image type="RightEdge" name="GlossySerpent/TooltipRightEdge" />
+                <Image type="TopEdge" name="GlossySerpent/TooltipTopEdge" />
+                <Image type="BottomEdge" name="GlossySerpent/TooltipBottomEdge" />
+                <Image type="Background" name="GlossySerpent/TooltipMiddle" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="label">
             <TextComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="TooltipLeftEdge" dimension="Width" /></Dim>
-                    <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="TooltipTopEdge" dimension="Height" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/TooltipLeftEdge" dimension="Width" /></Dim>
+                    <Dim type="TopEdge" ><ImageDim name="GlossySerpent/TooltipTopEdge" dimension="Height" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="RightEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="TooltipRightEdge" dimension="Width" />
+                                <ImageDim name="GlossySerpent/TooltipRightEdge" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="BottomEdge">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="TooltipBottomEdge" dimension="Height" />
+                                <ImageDim name="GlossySerpent/TooltipBottomEdge" dimension="Height" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
@@ -3614,15 +3618,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabButtonUpperLeftNormal" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperNormal" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabButtonUpperRightNormal" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftNormal" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleNormal" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightNormal" />
-<!--                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftNormal" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightNormal" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerNormal" />-->
+                <Image type="TopLeftCorner" name="GlossySerpent/TabButtonUpperLeftNormal" />
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperNormal" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabButtonUpperRightNormal" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftNormal" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleNormal" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightNormal" />
+<!--                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftNormal" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightNormal" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerNormal" />-->
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_normal">
@@ -3633,15 +3637,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabButtonUpperLeftNormal" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperNormal" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabButtonUpperRightNormal" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftNormal" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleNormal" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightNormal" />
-<!--                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftNormal" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerNormal" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightNormal" />-->
+                <Image type="TopLeftCorner" name="GlossySerpent/TabButtonUpperLeftNormal" />
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperNormal" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabButtonUpperRightNormal" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftNormal" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleNormal" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightNormal" />
+<!--                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftNormal" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerNormal" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightNormal" />-->
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="top_hover">
@@ -3652,15 +3656,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabButtonUpperLeftHovered" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperHovered" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabButtonUpperRightHovered" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftHovered" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleHovered" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightHovered" />
-<!--                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftHovered" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerHovered" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightHovered" />-->
+                <Image type="TopLeftCorner" name="GlossySerpent/TabButtonUpperLeftHovered" />
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperHovered" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabButtonUpperRightHovered" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftHovered" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleHovered" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightHovered" />
+<!--                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftHovered" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerHovered" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightHovered" />-->
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_hover">
@@ -3671,15 +3675,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabButtonUpperLeftHovered" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabButtonUpperRightHovered" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftHovered" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightHovered" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftHovered" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightHovered" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperHovered" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerHovered" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleHovered" />
+                <Image type="TopLeftCorner" name="GlossySerpent/TabButtonUpperLeftHovered" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabButtonUpperRightHovered" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftHovered" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightHovered" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftHovered" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightHovered" />
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperHovered" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerHovered" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleHovered" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="top_selected">
@@ -3690,16 +3694,16 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabButtonUpperLeftSelected" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabButtonUpperSelected" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabButtonUpperRightSelected" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftSelected" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleSelected" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightSelected" />
+                <Image type="TopLeftCorner" name="GlossySerpent/TabButtonUpperLeftSelected" />
+                <Image type="TopEdge" name="GlossySerpent/TabButtonUpperSelected" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabButtonUpperRightSelected" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftSelected" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleSelected" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightSelected" />
                 <!-- todo: make these more transparent? -->
-<!--                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftSelected" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightSelected" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerSelected" />-->
+<!--                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftSelected" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightSelected" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerSelected" />-->
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="bot_selected">
@@ -3710,16 +3714,16 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabButtonLeftSelected" />
-                <Image type="Background" imageset="GlossySerpent" image="TabButtonMiddleSelected" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabButtonRightSelected" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftSelected" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerSelected" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightSelected" />
+                <Image type="LeftEdge" name="GlossySerpent/TabButtonLeftSelected" />
+                <Image type="Background" name="GlossySerpent/TabButtonMiddleSelected" />
+                <Image type="RightEdge" name="GlossySerpent/TabButtonRightSelected" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftSelected" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerSelected" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightSelected" />
                 <!-- todo: make these more transparent? -->
-<!--                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabButtonLowerLeftSelected" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabButtonLowerRightSelected" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabButtonLowerSelected" />-->
+<!--                <Image type="BottomLeftCorner" name="GlossySerpent/TabButtonLowerLeftSelected" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabButtonLowerRightSelected" />
+                <Image type="BottomEdge" name="GlossySerpent/TabButtonLowerSelected" />-->
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="TopNormal">
@@ -3825,7 +3829,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <!-- augustin preda: old code; doesn't seem to take enable top into account for some reason.
                     <Dim type="BottomEdge" >
-                        <ImageDim imageset="GlossySerpent" image="TabContentPaneUpperLeft" dimension="Height">
+                        <ImageDim name="GlossySerpent/TabContentPaneUpperLeft" dimension="Height">
                             <DimOperator op="Multiply">
                                 <PropertyDim name="EnableTop" />
                             </DimOperator>
@@ -3833,7 +3837,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     </Dim>
                     -->
                     <Dim type="Height" >
-                        <ImageDim imageset="GlossySerpent" image="TabContentPaneUpperLeft" dimension="Height">
+                        <ImageDim name="GlossySerpent/TabContentPaneUpperLeft" dimension="Height">
                             <DimOperator op="Add">
                                 <AbsoluteDim value="3" />
                             </DimOperator>
@@ -3841,9 +3845,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     </Dim>
                     
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="TabContentPaneUpperLeft" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="TabContentPaneUpper" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="TabContentPaneUpperRight" />
+                <Image type="TopLeftCorner" name="GlossySerpent/TabContentPaneUpperLeft" />
+                <Image type="TopEdge" name="GlossySerpent/TabContentPaneUpper" />
+                <Image type="TopRightCorner" name="GlossySerpent/TabContentPaneUpperRight" />
             </FrameComponent>
             <FrameComponent>
                 <Area>
@@ -3851,13 +3855,13 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="TopEdge" >
                         <AbsoluteDim value="0" >
                             <DimOperator op="Add">
-                                <ImageDim imageset="GlossySerpent" image="TabContentPaneUpperLeft" dimension="Height"/>
+                                <ImageDim name="GlossySerpent/TabContentPaneUpperLeft" dimension="Height"/>
                             </DimOperator>
                         </AbsoluteDim>
                     </Dim>
                     <!-- augustin preda: old code; doesn't seem to take enable top into account for some reason.
                     <Dim type="TopEdge" >
-                        <ImageDim imageset="GlossySerpent" image="TabContentPaneUpperLeft" dimension="Height">
+                        <ImageDim name="GlossySerpent/TabContentPaneUpperLeft" dimension="Height">
                             <DimOperator op="Multiply">
                                 <PropertyDim name="EnableTop" />
                             </DimOperator>
@@ -3868,7 +3872,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="TabContentPaneLowerLeft" dimension="Height">
+                                <ImageDim name="GlossySerpent/TabContentPaneLowerLeft" dimension="Height">
                                     <DimOperator op="Multiply">
                                         <PropertyDim name="EnableBottom" />
                                     </DimOperator>
@@ -3877,9 +3881,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         </UnifiedDim>
                     </Dim>
                 </Area>
-                <Image type="LeftEdge" imageset="GlossySerpent" image="TabContentPaneLeft" />
-                <Image type="Background" imageset="GlossySerpent" image="TabContentPaneMiddle" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="TabContentPaneRight" />
+                <Image type="LeftEdge" name="GlossySerpent/TabContentPaneLeft" />
+                <Image type="Background" name="GlossySerpent/TabContentPaneMiddle" />
+                <Image type="RightEdge" name="GlossySerpent/TabContentPaneRight" />
             </FrameComponent>
             <FrameComponent>
                 <Area>
@@ -3887,7 +3891,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="TopEdge" >
                         <UnifiedDim scale="1" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="TabContentPaneLowerLeft" dimension="Height">
+                                <ImageDim name="GlossySerpent/TabContentPaneLowerLeft" dimension="Height">
                                     <DimOperator op="Multiply">
                                         <PropertyDim name="EnableBottom" />
                                     </DimOperator>
@@ -3898,9 +3902,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="TabContentPaneLowerLeft" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="TabContentPaneLower" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="TabContentPaneLowerRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/TabContentPaneLowerLeft" />
+                <Image type="BottomEdge" name="GlossySerpent/TabContentPaneLower" />
+                <Image type="BottomRightCorner" name="GlossySerpent/TabContentPaneLowerRight" />
             </FrameComponent>
         </ImagerySection>
         <StateImagery name="Enabled">
@@ -3950,9 +3954,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     ***************************************************
     -->
     <WidgetLook name="GlossySerpent/TabControl">
+        <PropertyDefinition name="TCScrollLRatio" initialValue="0.1" redrawOnWrite="true" layoutOnWrite="true" /> <!-- The ratio is height / width -->
         <Property name="TabButtonType" value="GlossySerpent/TabButton" />
         <Property name="TabTextPadding" value="{0,6}" />
-        <PropertyDefinition name="TCScrollLRatio" initialValue="0.1" redrawOnWrite="true" layoutOnWrite="true" /> <!-- The ratio is height / width -->
         <Child type="GlossySerpent/TabContentPane" nameSuffix="__auto_TabPane__">
             <Area>
                 <Dim type="LeftEdge"><AbsoluteDim value="0" /></Dim>
@@ -4072,8 +4076,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     -->
     <WidgetLook name="GlossySerpent/Titlebar">
         <PropertyDefinition name="CaptionColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
-        <Property name="NonClient" value="True" />
         <PropertyDefinition name="TabImage" initialValue="" redrawOnWrite="true" />
+        <Property name="NonClient" value="True" />
         <ImagerySection name="main">
             <FrameComponent>
                 <Area>
@@ -4082,15 +4086,15 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="RightEdge"><UnifiedDim scale="1" type="RightEdge" /></Dim>
                     <Dim type="BottomEdge"><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="Titlebar_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="Titlebar_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="Titlebar_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="Titlebar_T" />
-                <Image type="Background" imageset="GlossySerpent" image="Titlebar_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="Titlebar_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="Titlebar_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="Titlebar_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="Titlebar_BR" />
+                <Image type="TopLeftCorner" name="GlossySerpent/Titlebar_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/Titlebar_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/Titlebar_BL" />
+                <Image type="TopEdge" name="GlossySerpent/Titlebar_T" />
+                <Image type="Background" name="GlossySerpent/Titlebar_M" />
+                <Image type="BottomEdge" name="GlossySerpent/Titlebar_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/Titlebar_TR" />
+                <Image type="RightEdge" name="GlossySerpent/Titlebar_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/Titlebar_BR" />
             </FrameComponent>
             <!-- allow over-definition via a single image -->
             <ImageryComponent>
@@ -4108,7 +4112,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <ImagerySection name="caption">
             <TextComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="NewTitlebarLeft" dimension="Width" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/NewTitlebarLeft" dimension="Width" /></Dim>
                     <Dim type="TopEdge" ><AbsoluteDim value="0" /></Dim>
                     <Dim type="Width" >
                         <UnifiedDim scale="1" offset="-10" type="Width">
@@ -4166,19 +4170,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <Property name="AutoRenderingSurface" value="True" />
         <NamedArea name="ClientWithTitleWithFrame">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopLeft" dimension="Width" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/WindowTopLeft" dimension="Width" /></Dim>
                 <Dim type="TopEdge" ><WidgetDim widget="__auto_titlebar__" dimension="BottomEdge" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="WindowTopRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/WindowTopRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="WindowBottomEdge" dimension="Height" />
+                            <ImageDim name="GlossySerpent/WindowBottomEdge" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -4194,19 +4198,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         </NamedArea>
         <NamedArea name="ClientNoTitleWithFrame">
             <Area>
-                <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopLeft" dimension="Width" /></Dim>
-                <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopEdge" dimension="Height" /></Dim>
+                <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/WindowTopLeft" dimension="Width" /></Dim>
+                <Dim type="TopEdge" ><ImageDim name="GlossySerpent/WindowTopEdge" dimension="Height" /></Dim>
                 <Dim type="RightEdge" >
                     <UnifiedDim scale="1" type="RightEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="WindowTopRight" dimension="Width" />
+                            <ImageDim name="GlossySerpent/WindowTopRight" dimension="Width" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="BottomEdge" >
                     <UnifiedDim scale="1" type="BottomEdge">
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="WindowBottomEdge" dimension="Height" />
+                            <ImageDim name="GlossySerpent/WindowBottomEdge" dimension="Height" />
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
@@ -4238,19 +4242,19 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         <DimOperator op="Subtract">
                             <PropertyDim name="TitlebarHeight" >
                                 <DimOperator op="Subtract">
-                                    <ImageDim imageset="GlossySerpent" image="Titlebar_L" dimension="Width" />
+                                    <ImageDim name="GlossySerpent/Titlebar_L" dimension="Width" />
                                 </DimOperator>
                             </PropertyDim>
                         </DimOperator>
                     </UnifiedDim>
                 </Dim>
                 <Dim type="TopEdge" >
-                    <ImageDim imageset="GlossySerpent" image="Titlebar_T" dimension="Height" />
+                    <ImageDim name="GlossySerpent/Titlebar_T" dimension="Height" />
                 </Dim>
                 <Dim type="Width" >
                     <PropertyDim name="TitlebarHeight" >
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="Titlebar_R" dimension="Width">
+                            <ImageDim name="GlossySerpent/Titlebar_R" dimension="Width">
                                 <DimOperator op="Multiply">
                                     <AbsoluteDim value="2" />
                                 </DimOperator>
@@ -4261,7 +4265,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" >
                     <PropertyDim name="TitlebarHeight" >
                         <DimOperator op="Subtract">
-                            <ImageDim imageset="GlossySerpent" image="Titlebar_T" dimension="Height">
+                            <ImageDim name="GlossySerpent/Titlebar_T" dimension="Height">
                                 <DimOperator op="Multiply">
                                     <AbsoluteDim value="2" />
                                 </DimOperator>
@@ -4282,32 +4286,32 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="WindowBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="WindowBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="WindowLeftEdge" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="WindowRightEdge" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="WindowBottomEdge" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/WindowBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/WindowBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/WindowLeftEdge" />
+                <Image type="RightEdge" name="GlossySerpent/WindowRightEdge" />
+                <Image type="BottomEdge" name="GlossySerpent/WindowBottomEdge" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopLeft" dimension="Width" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/WindowTopLeft" dimension="Width" /></Dim>
                     <Dim type="TopEdge" ><WidgetDim widget="__auto_titlebar__" dimension="BottomEdge" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="Width">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="WindowTopRight" dimension="Width" />
+                                <ImageDim name="GlossySerpent/WindowTopRight" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="WindowBottomEdge" dimension="Height" />
+                                <ImageDim name="GlossySerpent/WindowBottomEdge" dimension="Height" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="WindowMid" />
+                <Image name="GlossySerpent/WindowMid" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -4321,34 +4325,34 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="WindowTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="WindowTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="WindowBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="WindowBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="WindowLeftEdge" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="WindowRightEdge" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="WindowBottomEdge" />
+                <Image type="TopLeftCorner" name="GlossySerpent/WindowTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/WindowTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/WindowBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/WindowBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/WindowLeftEdge" />
+                <Image type="RightEdge" name="GlossySerpent/WindowRightEdge" />
+                <Image type="BottomEdge" name="GlossySerpent/WindowBottomEdge" />
             </FrameComponent>
             <ImageryComponent>
                 <Area>
-                    <Dim type="LeftEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopLeft" dimension="Width" /></Dim>
-                    <Dim type="TopEdge" ><ImageDim imageset="GlossySerpent" image="WindowTopEdge" dimension="Width" /></Dim>
+                    <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/WindowTopLeft" dimension="Width" /></Dim>
+                    <Dim type="TopEdge" ><ImageDim name="GlossySerpent/WindowTopEdge" dimension="Width" /></Dim>
                     <Dim type="RightEdge" >
                         <UnifiedDim scale="1" type="Width">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="WindowTopRight" dimension="Width" />
+                                <ImageDim name="GlossySerpent/WindowTopRight" dimension="Width" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                     <Dim type="BottomEdge" >
                         <UnifiedDim scale="1" type="Height">
                             <DimOperator op="Subtract">
-                                <ImageDim imageset="GlossySerpent" image="WindowBottomEdge" dimension="Height" />
+                                <ImageDim name="GlossySerpent/WindowBottomEdge" dimension="Height" />
                             </DimOperator>
                         </UnifiedDim>
                     </Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="WindowMid" />
+                <Image name="GlossySerpent/WindowMid" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -4362,7 +4366,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="BottomEdge" ><UnifiedDim scale="1" type="BottomEdge" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="WindowMid" />
+                <Image name="GlossySerpent/WindowMid" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -4376,7 +4380,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="WindowMid" />
+                <Image name="GlossySerpent/WindowMid" />
                 <ColourProperty name="ClientAreaColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
@@ -4528,14 +4532,14 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         <UnifiedDim scale="1" offset="0" type="BottomEdge" />
                     </Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="StaticTopLeft" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="StaticTopRight" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="StaticBottomLeft" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="StaticBottomRight" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="StaticLeft" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="StaticTop" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="StaticRight" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="StaticBottom" />
+                <Image type="TopLeftCorner" name="GlossySerpent/StaticTopLeft" />
+                <Image type="TopRightCorner" name="GlossySerpent/StaticTopRight" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/StaticBottomLeft" />
+                <Image type="BottomRightCorner" name="GlossySerpent/StaticBottomRight" />
+                <Image type="LeftEdge" name="GlossySerpent/StaticLeft" />
+                <Image type="TopEdge" name="GlossySerpent/StaticTop" />
+                <Image type="RightEdge" name="GlossySerpent/StaticRight" />
+                <Image type="BottomEdge" name="GlossySerpent/StaticBottom" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
             </FrameComponent>
@@ -4564,17 +4568,17 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                         </FontDim>
                     </Dim>
                 </Area>
-                <!--<Image imageset="GlossySerpent" image="StaticBackdrop" />-->
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="StaticTopLeft" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="StaticLeft" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="StaticBottomLeft" />
+                <!--<Image name="GlossySerpent/StaticBackdrop" />-->
+                <Image type="TopLeftCorner" name="GlossySerpent/StaticTopLeft" />
+                <Image type="LeftEdge" name="GlossySerpent/StaticLeft" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/StaticBottomLeft" />
 
-                <Image type="TopEdge" imageset="GlossySerpent" image="StaticTop" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="StaticBottom" />
-                <Image type="Background" imageset="GlossySerpent" image="StaticBackdrop" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="StaticTopRight" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="StaticBottomRight" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="StaticRight" />
+                <Image type="TopEdge" name="GlossySerpent/StaticTop" />
+                <Image type="BottomEdge" name="GlossySerpent/StaticBottom" />
+                <Image type="Background" name="GlossySerpent/StaticBackdrop" />
+                <Image type="TopRightCorner" name="GlossySerpent/StaticTopRight" />
+                <Image type="BottomRightCorner" name="GlossySerpent/StaticBottomRight" />
+                <Image type="RightEdge" name="GlossySerpent/StaticRight" />
                 
                 <!--<ColourRectProperty name="BackgroundTextColours" />-->
                 <VertFormat type="Stretched" />
@@ -4627,17 +4631,17 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image type="TopLeftCorner" imageset="GlossySerpent" image="ProgressBar_HD_TL" />
-                <Image type="LeftEdge" imageset="GlossySerpent" image="ProgressBar_HD_L" />
-                <Image type="BottomLeftCorner" imageset="GlossySerpent" image="ProgressBar_HD_BL" />
-                <Image type="TopEdge" imageset="GlossySerpent" image="ProgressBar_HD_T" />
-                <Image type="Background" imageset="GlossySerpent" image="ProgressBar_HD_M" />
-                <Image type="BottomEdge" imageset="GlossySerpent" image="ProgressBar_HD_B" />
-                <Image type="TopRightCorner" imageset="GlossySerpent" image="ProgressBar_HD_TR" />
-                <Image type="RightEdge" imageset="GlossySerpent" image="ProgressBar_HD_R" />
-                <Image type="BottomRightCorner" imageset="GlossySerpent" image="ProgressBar_HD_BR" />
-                <HorzFormat type="Stretched" />
+                <Image type="TopLeftCorner" name="GlossySerpent/ProgressBar_HD_TL" />
+                <Image type="LeftEdge" name="GlossySerpent/ProgressBar_HD_L" />
+                <Image type="BottomLeftCorner" name="GlossySerpent/ProgressBar_HD_BL" />
+                <Image type="TopEdge" name="GlossySerpent/ProgressBar_HD_T" />
+                <Image type="Background" name="GlossySerpent/ProgressBar_HD_M" />
+                <Image type="BottomEdge" name="GlossySerpent/ProgressBar_HD_B" />
+                <Image type="TopRightCorner" name="GlossySerpent/ProgressBar_HD_TR" />
+                <Image type="RightEdge" name="GlossySerpent/ProgressBar_HD_R" />
+                <Image type="BottomRightCorner" name="GlossySerpent/ProgressBar_HD_BR" />
                 <VertFormat type="Stretched" />
+                <HorzFormat type="Stretched" />
             </FrameComponent>
         </ImagerySection>
         <ImagerySection name="progress_lights" >
@@ -4656,11 +4660,11 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                     </Dim>
                     <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
                 </Area>
-                <Image imageset="GlossySerpent" image="ProgressBarGraySegment" />
-                <VertFormat type="Stretched" />
-                <HorzFormatProperty name="BarSegmentMode" />
-                <HorzFormat type="Stretched" />
+                <Image name="GlossySerpent/ProgressBarGraySegment" />
                 <ColourProperty name="BarFillColour" />
+                <VertFormat type="Stretched" />
+                <HorzFormat type="Stretched" />
+                <HorzFormatProperty name="BarSegmentMode" />
                 <!-- the used image was initially designed to also support tiled mode, but looks nicer stretched -->
                 <!--<HorzFormat type="Tiled" />--> 
             </ImageryComponent>

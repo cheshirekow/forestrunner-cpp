@@ -19,17 +19,17 @@ CountdownScreen::CountdownScreen(int which):
     switch(which)
     {
         case 3:
-            m_root = wmgr.loadWindowLayout("countdown3.layout");
+            m_root = wmgr.loadLayoutFromFile("countdown3.layout");
             m_next = "countdown2";
             break;
 
         case 2:
-            m_root = wmgr.loadWindowLayout("countdown2.layout");
+            m_root = wmgr.loadLayoutFromFile("countdown2.layout");
             m_next = "countdown1";
             break;
 
         case 1:
-            m_root = wmgr.loadWindowLayout("countdown1.layout");
+            m_root = wmgr.loadLayoutFromFile("countdown1.layout");
             m_next = "running";
             break;
 

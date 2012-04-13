@@ -1,26 +1,26 @@
-<GUILayout>
-    <Window Name="HighScore" Type="DefaultWindow">
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,640},{0,480}}" />
-        <Window Name="HighScore/Panel" Type="GlossySerpent/SimplePanel">
-            <Property Name="UnifiedAreaRect" Value="{{0,15},{0,15},{1,-15},{1,-15}}" />
-            <Window Name="HighScore/Panel/Titlebar" Type="GlossySerpent/Titlebar">
-                <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{0,610},{0,30}}" />
-                <Property Name="Text" Value="High Score" />
-                <Property Name="AlwaysOnTop" Value="True" />
+<GUILayout version="4">
+    <Window name="HighScore" type="DefaultWindow">
+        <Property name="Area" value="{{0,0},{0,0},{0,640},{0,480}}" />
+        <Window name="Panel" type="GlossySerpent/SimplePanel">
+            <Property name="Area" value="{{0,15},{0,15},{1,-15},{1,-15}}" />
+            <Window name="Titlebar" type="GlossySerpent/Titlebar">
+                <Property name="Area" value="{{0,0},{0,0},{0,610},{0,30}}" />
+                <Property name="Text" value="High Score" />
+                <Property name="AlwaysOnTop" value="True" />
             </Window>
-            <Window Name="HighScore/Panel/lb_user" Type="GlossySerpent/Listbox">
-                <Property Name="UnifiedAreaRect" Value="{{0,15},{0,45},{0,295},{0,385}}" />
+            <Window name="lb_user" type="GlossySerpent/Listbox">
+                <Property name="Area" value="{{0,15},{0,45},{0,295},{0,385}}" />
             </Window>
-            <Window Name="HighScore/Panel/lb_global" Type="GlossySerpent/Listbox">
-                <Property Name="UnifiedAreaRect" Value="{{0,315},{0,45},{0,595},{0,385}}" />
+            <Window name="lb_global" type="GlossySerpent/Listbox">
+                <Property name="Area" value="{{0,315},{0,45},{0,595},{0,385}}" />
             </Window>
-            <Window Name="HighScore/Panel/btn_again" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,155},{0,405},{0,305},{0,430}}" />
-                <Property Name="Text" Value="Play Again" />
+            <Window name="btn_again" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,155},{0,405},{0,305},{0,430}}" />
+                <Property name="Text" value="Play Again" />
             </Window>
-            <Window Name="HighScore/Panel/btn_difficulty" Type="GlossySerpent/Button">
-                <Property Name="UnifiedAreaRect" Value="{{0,305},{0,405},{0,455},{0,430}}" />
-                <Property Name="Text" Value="Change Difficulty" />
+            <Window name="btn_difficulty" type="GlossySerpent/Button">
+                <Property name="Area" value="{{0,305},{0,405},{0,455},{0,430}}" />
+                <Property name="Text" value="Change Difficulty" />
             </Window>
         </Window>
     </Window>

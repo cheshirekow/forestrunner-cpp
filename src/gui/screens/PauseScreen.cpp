@@ -12,32 +12,32 @@
 PauseScreen::PauseScreen()
 {
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
-    m_root = wmgr.loadWindowLayout("paused.layout");
+    m_root = wmgr.loadLayoutFromFile("paused.layout");
     m_anim_enter = "FlyIn";
     m_anim_exit  = "FlyOut";
 
     CEGUI::Window* btn;
-    btn = m_root->getChildRecursive("Pause/Panel/btn_new");
+    btn = m_root->getChild("Panel/btn_new");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &PauseScreen::onNewGame,
                                 this) );
 
-    btn = m_root->getChildRecursive("Pause/Panel/btn_resume");
+    btn = m_root->getChild("Panel/btn_resume");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &PauseScreen::onResume,
                                 this) );
 
-    btn = m_root->getChildRecursive("Pause/Panel/btn_advanced");
+    btn = m_root->getChild("Panel/btn_advanced");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &PauseScreen::onAdvanced,
                                 this) );
 
-    m_sb_speed   = m_root->getChildRecursive("Pause/Panel/sb_speed");
-    m_sb_radius  = m_root->getChildRecursive("Pause/Panel/sb_radius");
-    m_sb_density = m_root->getChildRecursive("Pause/Panel/sb_density");
+    m_sb_speed   = m_root->getChild("Panel/sb_speed");
+    m_sb_radius  = m_root->getChild("Panel/sb_radius");
+    m_sb_density = m_root->getChild("Panel/sb_density");
 
     m_sb_speed->subscribeEvent(
             CEGUI::Scrollbar::EventScrollPositionChanged,
