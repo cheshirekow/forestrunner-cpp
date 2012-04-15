@@ -1,8 +1,9 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <CEGUI/RendererModules/OpenGL/Renderer.h>
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>
@@ -106,7 +107,8 @@ protected:
     //OIS Fake Mouse for touch translation
     OIS::MouseState     mTouchMouseState;
 
-    CEGUI::OgreRenderer* mRenderer;
+    CEGUI::OgreRenderer*    mRenderer;
+    CEGUI::OpenGLRenderer*  mOpenGLRenderer;
     GuiManager*          m_guiManager;
 
     Ogre::SceneNode*    m_patchRoot;

@@ -11,7 +11,7 @@
 
 #include <sigc++/sigc++.h>
 #include <string>
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 
 class Game;
 

@@ -42,7 +42,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <PropertyDefinition name="HoverImage" initialValue="" redrawOnWrite="true" type="Image"/>
         <PropertyDefinition name="PushedImage" initialValue="" redrawOnWrite="true" type="Image"/>
         <PropertyDefinition name="DisabledImage" initialValue="" redrawOnWrite="true" type="Image"/>
-        <PropertyDefinition name="GlyphImage" initialValue="set:GlossySerpent image:EmptyGlyph24" redrawOnWrite="true" type="Image"/>
+        <PropertyDefinition name="GlyphImage" initialValue="GlossySerpent/EmptyGlyph24" redrawOnWrite="true" type="Image"/>
         <PropertyDefinition name="TextUsesGlyph" initialValue="0" redrawOnWrite="true" type="float" />
         <PropertyDefinition name="VertImageFormatting" initialValue="Stretched" redrawOnWrite="true" type="VerticalTextFormatting"/>
         <PropertyDefinition name="HorzImageFormatting" initialValue="Stretched" redrawOnWrite="true" type="HorizontalTextFormatting"/>
@@ -260,7 +260,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <PropertyDefinition name="HoverImage" initialValue="" redrawOnWrite="true" />
         <PropertyDefinition name="PushedImage" initialValue="" redrawOnWrite="true" />
         <PropertyDefinition name="DisabledImage" initialValue="" redrawOnWrite="true" />
-        <PropertyDefinition name="GlyphImage" initialValue="set:GlossySerpent image:EmptyGlyph24" redrawOnWrite="true" />
+        <PropertyDefinition name="GlyphImage" initialValue="GlossySerpent/EmptyGlyph24" redrawOnWrite="true" />
         <PropertyDefinition name="TextUsesGlyph" initialValue="0" redrawOnWrite="true" />
         <PropertyDefinition name="VertImageFormatting" initialValue="Stretched" redrawOnWrite="true" />
         <PropertyDefinition name="HorzImageFormatting" initialValue="Stretched" redrawOnWrite="true" />
@@ -1127,8 +1127,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     ***************************************************
     -->
     <WidgetLook name="GlossySerpent/ListHeaderSegment">
-        <Property name="SizingCursorImage" value="set:GlossySerpentCursors image:MouseEsWeCursor" />
-        <Property name="MovingCursorImage" value="set:GlossySerpentCursors image:MouseMoveCursor" />
+        <Property name="SizingCursorImage" value="GlossySerpentCursors/MouseEsWeCursor" />
+        <Property name="MovingCursorImage" value="GlossySerpentCursors/MouseMoveCursor" />
         <Property name="MouseInputPropagationEnabled" value="True" />
         <ImagerySection name="segment_normal">
             <FrameComponent>
@@ -1642,7 +1642,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
             </Area>
             <HorzAlignment type="RightAligned" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowRight" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowRight" />
         </Child>
         <Child  type="GlossySerpent/GlyphButton" nameSuffix="__auto_decbtn__">
             <Area>
@@ -1651,7 +1651,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Width" ><UnifiedDim scale="1" type="Height" /></Dim>
                 <Dim type="Height" ><UnifiedDim scale="1" type="Height" /></Dim>
             </Area>
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowLeft" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowLeft" />
         </Child>
         <Child  type="GlossySerpent/HorizontalScrollbarThumb" nameSuffix="__auto_thumb__">
             <Area>
@@ -1820,7 +1820,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" ><UnifiedDim scale="1" type="Width" /></Dim>
             </Area>
             <VertAlignment type="BottomAligned" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowDown" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowDown" />
         </Child>
         <Child  type="GlossySerpent/GlyphButton" nameSuffix="__auto_decbtn__">
             <Area>
@@ -1829,7 +1829,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Width" ><UnifiedDim scale="1" type="Width" /></Dim>
                 <Dim type="Height" ><UnifiedDim scale="1" type="Width" /></Dim>
             </Area>
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowUp" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowUp" />
         </Child>
         <Child  type="GlossySerpent/VerticalScrollbarThumb" nameSuffix="__auto_thumb__">
             <Area>
@@ -2477,7 +2477,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <PropertyDefinition name="ActiveSelectionColour" initialValue="FF607FFF" redrawOnWrite="true" />
         <PropertyDefinition name="InactiveSelectionColour" initialValue="FF808080" redrawOnWrite="true" />
         <!-- Use the default mouse cursor -->
-        <!--<Property name="MouseCursorImage" value="set:GlossySerpentCursors image:MouseTextBar" />-->
+        <!--<Property name="MouseCursorImage" value="GlossySerpentCursors/MouseTextBar" />-->
         <NamedArea name="TextArea">
             <Area>
                 <Dim type="LeftEdge" ><AbsoluteDim value="5" /></Dim>
@@ -2620,9 +2620,9 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" ><WidgetDim widget="__auto_editbox__" dimension="Height" /></Dim>
             </Area>
             <HorzAlignment type="RightAligned" />
-            <Property name="NormalImage" value="set:GlossySerpent image:ComboboxListButtonNormal" />
-            <Property name="HoverImage" value="set:GlossySerpent image:ComboboxListButtonHover" />
-            <Property name="PushedImage" value="set:GlossySerpent image:ComboboxListButtonClick" />
+            <Property name="NormalImage" value="GlossySerpent/ComboboxListButtonNormal" />
+            <Property name="HoverImage" value="GlossySerpent/ComboboxListButtonHover" />
+            <Property name="PushedImage" value="GlossySerpent/ComboboxListButtonClick" />
         </Child>
         <StateImagery name="Enabled" />
         <StateImagery name="Disabled" />
@@ -2809,7 +2809,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     <WidgetLook name="GlossySerpent/ListboxItem">
         <PropertyDefinition name="TextColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
         <PropertyDefinition name="SelectedTextColour" initialValue="FFFFFFFF" redrawOnWrite="true" />
-        <PropertyDefinition name="SelectionBrush" initialValue="set:GlossySerpent image:ListboxSelectionBrush" redrawOnWrite="true" />
+        <PropertyDefinition name="SelectionBrush" initialValue="GlossySerpent/ListboxSelectionBrush" redrawOnWrite="true" />
         <PropertyDefinition name="SelectionColour" initialValue="FFFF9A90" redrawOnWrite="true" />
         <Property name="Selectable" value="True" />
         <NamedArea name="ContentSize">
@@ -3171,7 +3171,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <PropertyDefinition name="ActiveSelectionColour" initialValue="FFFF8080" redrawOnWrite="true" />
         <PropertyDefinition name="InactiveSelectionColour" initialValue="FFA05050" redrawOnWrite="true" />
         <!-- Use the default mouse cursor -->
-        <!--<Property name="MouseCursorImage" value="set:GlossySerpentCursors image:MouseTextBar" />-->
+        <!--<Property name="MouseCursorImage" value="GlossySerpentCursors/MouseTextBar" />-->
         <NamedArea name="TextArea">
             <Area>
                 <Dim type="LeftEdge" ><AbsoluteDim value="5" /></Dim>
@@ -3288,7 +3288,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" ><UnifiedDim scale="0.5" type="Height" /></Dim>
             </Area>
             <HorzAlignment type="RightAligned" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowUp" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowUp" />
         </Child>
         
         <Child  type="GlossySerpent/GlyphButton" nameSuffix="__auto_decbtn__">
@@ -3299,7 +3299,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Dim type="Height" ><UnifiedDim scale="0.5" type="Height" /></Dim>
             </Area>
             <HorzAlignment type="RightAligned" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowDown" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowDown" />
         </Child>
         <StateImagery name="Enabled" />
         <StateImagery name="Disabled" />
@@ -3322,8 +3322,8 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <!-- The size of the scrollbar + buttons -->
         <PropertyDefinition name="ScrollBarPreferredSize" initialValue="20" redrawOnWrite="true" layoutOnWrite="false" />
 
-        <Property name="MouseCursorImage" value="set:GlossySerpentCursors image:MouseTextBar" />
-        <Property name="SelectionBrushImage" value="set:GlossySerpent image:MultiLineEditboxSelectionBrush" />
+        <Property name="MouseCursorImage" value="GlossySerpentCursors/MouseTextBar" />
+        <Property name="SelectionBrushImage" value="GlossySerpent/MultiLineEditboxSelectionBrush" />
         <NamedArea name="TextArea">
             <Area>
                 <Dim type="LeftEdge" ><ImageDim name="GlossySerpent/MultiLineEditboxLeft" dimension="Width" /></Dim>
@@ -3465,7 +3465,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <Image type="Background" name="GlossySerpent/MultiLineEditboxBackdrop" />
             </FrameComponent>
         </ImagerySection>
-        <ImagerySection name="Carat">
+        <ImagerySection name="Caret">
             <ImageryComponent>
                 <Area>
                     <Dim type="LeftEdge" ><AbsoluteDim value="0" /></Dim>
@@ -4031,7 +4031,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 </Dim>
             </Area>
             <Property name="AlwaysOnTop" value="True" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowLeft" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowLeft" />
         </Child>
         <Child type="GlossySerpent/GlyphButton" nameSuffix="__auto_TabPane__ScrollRight">
             <Area>
@@ -4059,7 +4059,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 </Dim>
             </Area>
             <Property name="AlwaysOnTop" value="True" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphArrowRight" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphArrowRight" />
         </Child>
         <StateImagery name="Enabled" />
         <StateImagery name="Disabled" />
@@ -4160,10 +4160,10 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
         <PropertyDefinition name="TitlebarHeight" initialValue="32" redrawOnWrite="true" />
         <PropertyLinkDefinition name="CaptionColour" widget="__auto_titlebar__" targetProperty="CaptionColour" initialValue="FFFFFFFF" />
         <PropertyLinkDefinition name="TitlebarFont" widget="__auto_titlebar__" targetProperty="Font" />
-        <Property name="NSSizingCursorImage" value="set:GlossySerpentCursors image:MouseNoSoCursor" />
-        <Property name="EWSizingCursorImage" value="set:GlossySerpentCursors image:MouseEsWeCursor" />
-        <Property name="NWSESizingCursorImage" value="set:GlossySerpentCursors image:MouseNwSeCursor" />
-        <Property name="NESWSizingCursorImage" value="set:GlossySerpentCursors image:MouseNeSwCursor" />
+        <Property name="NSSizingCursorImage" value="GlossySerpentCursors/MouseNoSoCursor" />
+        <Property name="EWSizingCursorImage" value="GlossySerpentCursors/MouseEsWeCursor" />
+        <Property name="NWSESizingCursorImage" value="GlossySerpentCursors/MouseNwSeCursor" />
+        <Property name="NESWSizingCursorImage" value="GlossySerpentCursors/MouseNeSwCursor" />
         <Property name="AutoRenderingSurface" value="True" />
         <NamedArea name="ClientWithTitleWithFrame">
             <Area>
@@ -4272,7 +4272,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 </Dim>
             </Area>
             <Property name="AlwaysOnTop" value="True" />
-            <Property name="GlyphImage" value="set:GlossySerpent image:GlyphX" />
+            <Property name="GlyphImage" value="GlossySerpent/GlyphX" />
             <Property name="NonClient" value="True" />
         </Child>
         <ImagerySection name="withtitle_frame">
@@ -4661,7 +4661,7 @@ Last change:	$LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
                 <ColourProperty name="BarFillColour" />
                 <VertFormat type="Stretched" />
                 <HorzFormat type="Stretched" />
-                <HorzFormatProperty name="BarSegmentMode" />
+                <!-- HorzFormatProperty name="BarSegmentMode" / -->
                 <!-- the used image was initially designed to also support tiled mode, but looks nicer stretched -->
                 <!--<HorzFormat type="Tiled" />--> 
             </ImageryComponent>

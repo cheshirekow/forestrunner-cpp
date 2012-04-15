@@ -9,7 +9,7 @@
 #ifndef TRANSITION_H_
 #define TRANSITION_H_
 
-#include <CEGUI.h>
+#include <CEGUI/CEGUI.h>
 #include <sigc++/sigc++.h>
 
 class Transition :

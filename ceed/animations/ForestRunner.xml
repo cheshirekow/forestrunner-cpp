@@ -1,17 +1,21 @@
 <?xml version="1.0" ?>
 <Animations>
     <AnimationDefinition name="FlyIn" duration="0.5" replayMode="once">
+        <!-- 
         <Affector property="UnifiedYPosition" interpolator="UDim">
             <KeyFrame position="0" value="{0,-480}" />
             <KeyFrame position="0.5" value="{0,0}" progression="quadratic decelerating" />
         </Affector>
+         -->
     </AnimationDefinition>
     
     <AnimationDefinition name="FlyOut" duration="0.5" replayMode="once">
+        <!-- 
         <Affector property="UnifiedYPosition" interpolator="UDim">
             <KeyFrame position="0" value="{0,0}" />
             <KeyFrame position="0.5" value="{0,480}" progression="quadratic accelerating" />
         </Affector>
+         -->
     </AnimationDefinition>
     
     <AnimationDefinition name="FakeProgress" duration="1.0" replayMode="once">

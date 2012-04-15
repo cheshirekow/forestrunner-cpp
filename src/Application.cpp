@@ -9,6 +9,11 @@
 #include <sigc++/sigc++.h>
 
 #include <OgreMath.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
+#include <CEGUI/RendererModules/Ogre/ImageCodec.h>
+
+#define CEGUI_RTT false
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include <iPhone/macUtils.h>
@@ -193,17 +198,31 @@ void Application::createHUD(void)
 void Application::createCEGUI(void)
 {
     m_pLog->logMessage("createScene: About to bootstrap cegui");
-    try
+
+    if( CEGUI_RTT )
     {
-        mRenderer = &CEGUI::OgreRenderer::bootstrapSystem();
-        //mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(
-        //                    *m_hudTex->getBuffer()->getRenderTarget() );
-        //mRenderer->setFrameControlExecutionEnabled(false);
+        CEGUI::OgreRenderer& renderer   = CEGUI::OgreRenderer::create(*m_hudTex->getBuffer()->getRenderTarget());
+        CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(
+                static_cast<CEGUI::Renderer&>(renderer),
+                static_cast<CEGUI::ResourceProvider*>(&rp),
+                static_cast<CEGUI::XMLParser*>(0),
+                static_cast<CEGUI::ImageCodec*>(&ic) );
+        mRenderer = &renderer;
+        mRenderer->setFrameControlExecutionEnabled(false);
     }
-    catch( const CEGUI::Exception& e )
+    else
     {
-        m_pLog->logMessage(Ogre::String("Exception thrown while boostrapping CEGUI: ") + e.what() );
-        throw e;
+        CEGUI::OgreRenderer& renderer   = CEGUI::OgreRenderer::create();
+        CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(
+                static_cast<CEGUI::Renderer&>(renderer),
+                static_cast<CEGUI::ResourceProvider*>(&rp),
+                static_cast<CEGUI::XMLParser*>(0),
+                static_cast<CEGUI::ImageCodec*>(&ic) );
+        mRenderer = &renderer;
     }
 
     m_pLog->logMessage("createScene: setting cegui defaults");
@@ -223,7 +242,7 @@ void Application::createCEGUI(void)
     m_pLog->logMessage("createScene: setting default font and mouse");
 
     CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
-    //CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook", "MouseArrow");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
     m_pLog->logMessage("createScene: loading animations");
 
@@ -524,7 +543,19 @@ void Application::go(void)
     if (!setup())
         return;
 
-    mRoot->startRendering();
+    //mRoot->startRendering();
+
+    mRoot->getRenderSystem()->_initRenderTargets();
+    mRoot->clearEventTimes();
+
+    while(!mWindow->isClosed() && !mShutDown )
+    {
+        //Pump messages in all registered RenderWindow windows
+        Ogre::WindowEventUtilities::messagePump();
+        mRoot->renderOneFrame();
+        //CEGUI::System::getSingleton().renderAllGUIContexts();
+    }
+
 
     // clean up
     destroyScene();
@@ -608,18 +639,7 @@ bool Application::setup(void)
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     //return Application::frameRenderingQueued(evt);
-
     // apparently clears the viewport after its drawn, not before
-    /*
-    Ogre::RenderTexture *renderTexture =
-            m_hudTex->getBuffer()->getRenderTarget();
-    renderTexture->getViewport(0)->clear(
-            Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
-            Ogre::ColourValue::ZERO,
-            0.0);
-
-    CEGUI::System::getSingleton().renderAllGUIContexts();
-    */
 
     if(mWindow->isClosed())
         return false;
@@ -638,7 +658,19 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     m_game->update(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
+    CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
     CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
+
+    if( CEGUI_RTT )
+    {
+        Ogre::RenderTexture *renderTexture =
+            m_hudTex->getBuffer()->getRenderTarget();
+        renderTexture->getViewport(0)->clear(
+                Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
+                Ogre::ColourValue::ZERO,
+                0.0);
+        CEGUI::System::getSingleton().renderAllGUIContexts();
+    }
 
     // this is how we update the camera controller
     // (probably need to get rid of this)
