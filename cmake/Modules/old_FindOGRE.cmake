@@ -28,7 +28,7 @@
 #  Plugin_BSPSceneManager, Plugin_CgProgramManager,
 #  Plugin_OctreeSceneManager, Plugin_OctreeZone,
 #  Plugin_ParticleFX, Plugin_PCZSceneManager,
-#  RenderSystem_GL, RenderSystem_Direct3D9,
+#  RenderSystem_GL, RenderSystem_Direct3D9, RenderSystem_Direct3D10,
 #  Paging, Terrain
 #
 # For each of these components, the following variables are defined:
@@ -102,8 +102,8 @@ set(OGRE_PREFIX_BUILD ${OGRE_BUILD} ${ENV_OGRE_BUILD})
 set(OGRE_PREFIX_DEPENDENCIES_DIR ${OGRE_DEPENDENCIES_DIR} ${ENV_OGRE_DEPENDENCIES_DIR})
 if (OGRE_PREFIX_SOURCE AND OGRE_PREFIX_BUILD)
   foreach(dir ${OGRE_PREFIX_SOURCE})
-    set(OGRE_INC_SEARCH_PATH ${dir}/OgreMain/include ${dir}/Dependencies/include ${dir}/iOSDependencies/include ${OGRE_INC_SEARCH_PATH})
-    set(OGRE_LIB_SEARCH_PATH ${dir}/lib ${dir}/Dependencies/lib ${dir}/iOSDependencies/lib ${OGRE_LIB_SEARCH_PATH})
+    set(OGRE_INC_SEARCH_PATH ${dir}/OgreMain/include ${dir}/Dependencies/include ${dir}/iPhoneDependencies/include ${OGRE_INC_SEARCH_PATH})
+    set(OGRE_LIB_SEARCH_PATH ${dir}/lib ${dir}/Dependencies/lib ${dir}/iPhoneDependencies/lib ${OGRE_LIB_SEARCH_PATH})
     set(OGRE_BIN_SEARCH_PATH ${dir}/Samples/Common/bin ${OGRE_BIN_SEARCH_PATH})
   endforeach(dir)
   foreach(dir ${OGRE_PREFIX_BUILD})
@@ -127,7 +127,7 @@ endif ()
 set(OGRE_COMPONENTS Paging Terrain 
   Plugin_BSPSceneManager Plugin_CgProgramManager Plugin_OctreeSceneManager
   Plugin_OctreeZone Plugin_PCZSceneManager Plugin_ParticleFX
-  RenderSystem_Direct3D11 RenderSystem_Direct3D9 RenderSystem_GL RenderSystem_GLES RenderSystem_GLES2)
+  RenderSystem_Direct3D10 RenderSystem_Direct3D9 RenderSystem_GL RenderSystem_GLES)
 set(OGRE_RESET_VARS 
   OGRE_CONFIG_INCLUDE_DIR OGRE_INCLUDE_DIR 
   OGRE_LIBRARY_FWK OGRE_LIBRARY_REL OGRE_LIBRARY_DBG
@@ -203,9 +203,6 @@ find_library(OGRE_LIBRARY_REL NAMES ${OGRE_LIBRARY_NAMES} HINTS ${OGRE_LIB_SEARC
 find_library(OGRE_LIBRARY_DBG NAMES ${OGRE_LIBRARY_NAMES_DBG} HINTS ${OGRE_LIB_SEARCH_PATH} ${OGRE_PKGC_LIBRARY_DIRS} ${OGRE_FRAMEWORK_SEARCH_PATH} PATH_SUFFIXES "" "debug")
 make_library_set(OGRE_LIBRARY)
 
-if(APPLE)
-  set(OGRE_LIBRARY_DBG ${OGRE_LIB_SEARCH_PATH})
-endif()
 if (OGRE_INCOMPATIBLE)
   set(OGRE_LIBRARY "NOTFOUND")
 endif ()
@@ -228,6 +225,8 @@ endif ()
 
 # look for required Ogre dependencies in case of static build and/or threading
 if (OGRE_STATIC)
+  message(STATUS "Since ogre is static, looking for dependencies")
+
   set(OGRE_DEPS_FOUND TRUE)
   find_package(Cg QUIET)
   find_package(DirectX QUIET)
@@ -235,7 +234,6 @@ if (OGRE_STATIC)
   find_package(Freetype QUIET)
   find_package(OpenGL QUIET)
   find_package(OpenGLES QUIET)
-  find_package(OpenGLES2 QUIET)
   find_package(ZLIB QUIET)
   find_package(ZZip QUIET)
   if (UNIX AND NOT APPLE)
@@ -248,32 +246,34 @@ if (OGRE_STATIC)
   if (APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
     find_package(Cocoa QUIET)
     find_package(Carbon QUIET)
-    find_package(CoreVideo QUIET)
-    if (NOT Cocoa_FOUND OR NOT Carbon_FOUND OR NOT CoreVideo_FOUND)
+    if (NOT Cocoa_FOUND OR NOT Carbon_FOUND)
       set(OGRE_DEPS_FOUND FALSE)
     endif ()
   endif ()
   if (APPLE AND OGRE_BUILD_PLATFORM_APPLE_IOS)
-    find_package(iOSSDK QUIET)
-    if (NOT iOSSDK_FOUND)
+    find_package(iPhoneSDK QUIET)
+    if (NOT iPhoneSDK_FOUND)
       set(OGRE_DEPS_FOUND FALSE)
+      message(WARNING "    iOS SDK: not found")
     endif ()
   endif ()
 
-  set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${ZZip_LIBRARIES} ${ZLIB_LIBRARIES} ${FreeImage_LIBRARIES} ${FREETYPE_LIBRARIES} )
+  set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${OGRE_LIBRARY_FWK} ${ZZip_LIBRARIES} ${ZLIB_LIBRARIES} 
+    ${FreeImage_LIBRARIES} ${FREETYPE_LIBRARIES} 
+    ${X11_LIBRARIES} ${X11_Xt_LIBRARIES} ${XAW_LIBRARY} ${X11_Xrandr_LIB}
+    ${Cocoa_LIBRARIES} ${Carbon_LIBRARIES})
 
-  if (APPLE AND NOT OGRE_BUILD_PLATFORM_APPLE_IOS)
-    set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${X11_LIBRARIES} ${X11_Xt_LIBRARIES} ${XAW_LIBRARY} ${X11_Xrandr_LIB} ${Carbon_LIBRARIES} ${Cocoa_LIBRARIES})
-  endif()
-  
   if (NOT ZLIB_FOUND OR NOT ZZip_FOUND)
     set(OGRE_DEPS_FOUND FALSE)
+    message(WARNING "    ZLib or ZZip: not found")
   endif ()
   if (NOT FreeImage_FOUND AND NOT OGRE_CONFIG_FREEIMAGE)
     set(OGRE_DEPS_FOUND FALSE)
+    message(WARNING "    FreeImage: not found")
   endif ()
   if (NOT FREETYPE_FOUND)
     set(OGRE_DEPS_FOUND FALSE)
+    message(WARNING "    FreeType: not found")
   endif ()
   if (UNIX AND NOT APPLE)
 	if (NOT X11_FOUND)
@@ -286,6 +286,7 @@ if (OGRE_STATIC)
       find_package(Boost COMPONENTS thread QUIET)
       if (NOT Boost_THREAD_FOUND)
         set(OGRE_DEPS_FOUND FALSE)
+        message(WARNING "    Boost: not found")
       else ()
         set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${Boost_LIBRARIES})
         set(OGRE_INCLUDE_DIRS ${OGRE_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
@@ -474,8 +475,8 @@ ogre_find_plugin(Plugin_OctreeSceneManager OgreOctreeSceneManager.h PlugIns/Octr
 ogre_find_plugin(Plugin_ParticleFX OgreParticleFXPrerequisites.h PlugIns/ParticleFX/include)
 ogre_find_plugin(RenderSystem_GL OgreGLRenderSystem.h RenderSystems/GL/include)
 ogre_find_plugin(RenderSystem_GLES OgreGLESRenderSystem.h RenderSystems/GLES/include)
-ogre_find_plugin(RenderSystem_GLES2 OgreGLES2RenderSystem.h RenderSystems/GLES2/include)
 ogre_find_plugin(RenderSystem_Direct3D9 OgreD3D9RenderSystem.h RenderSystems/Direct3D9/include)
+ogre_find_plugin(RenderSystem_Direct3D10 OgreD3D10RenderSystem.h RenderSystems/Direct3D10/include)
 ogre_find_plugin(RenderSystem_Direct3D11 OgreD3D11RenderSystem.h RenderSystems/Direct3D11/include)
 
 if (OGRE_STATIC)
@@ -483,17 +484,17 @@ if (OGRE_STATIC)
   if (NOT DirectX_FOUND)
     set(OGRE_RenderSystem_Direct3D9_FOUND FALSE)
   endif ()
+  if (NOT DirectX_D3D10_FOUND)
+    set(OGRE_RenderSystem_Direct3D10_FOUND FALSE)
+  endif ()
   if (NOT DirectX_D3D11_FOUND)
     set(OGRE_RenderSystem_Direct3D11_FOUND FALSE)
   endif ()
   if (NOT OPENGL_FOUND)
     set(OGRE_RenderSystem_GL_FOUND FALSE)
   endif ()
-  if (NOT OPENGLES_FOUND)
+  if (NOT OPENGLES_FOUND AND NOT OPENGLES2_FOUND)
     set(OGRE_RenderSystem_GLES_FOUND FALSE)
-  endif ()
-  if (NOT OPENGLES2_FOUND)
-    set(OGRE_RenderSystem_GLES2_FOUND FALSE)
   endif ()
   if (NOT Cg_FOUND)
     set(OGRE_Plugin_CgProgramManager_FOUND FALSE)
@@ -502,7 +503,9 @@ if (OGRE_STATIC)
   set(OGRE_RenderSystem_Direct3D9_LIBRARIES ${OGRE_RenderSystem_Direct3D9_LIBRARIES}
     ${DirectX_LIBRARIES}
   )
-
+  set(OGRE_RenderSystem_Direct3D10_LIBRARIES ${OGRE_RenderSystem_Direct3D10_LIBRARIES}
+    ${DirectX_D3D10_LIBRARIES}
+  )
   set(OGRE_RenderSystem_Direct3D11_LIBRARIES ${OGRE_RenderSystem_Direct3D11_LIBRARIES}
     ${DirectX_D3D11_LIBRARIES}
   )
@@ -511,9 +514,6 @@ if (OGRE_STATIC)
   )
   set(OGRE_RenderSystem_GLES_LIBRARIES ${OGRE_RenderSystem_GLES_LIBRARIES}
     ${OPENGLES_LIBRARIES}
-  )
-  set(OGRE_RenderSystem_GLES2_LIBRARIES ${OGRE_RenderSystem_GLES2_LIBRARIES}
-    ${OPENGLES2_LIBRARIES}
   )
   set(OGRE_Plugin_CgProgramManager_LIBRARIES ${OGRE_Plugin_CgProgramManager_LIBRARIES}
     ${Cg_LIBRARIES}
