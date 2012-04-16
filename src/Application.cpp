@@ -15,8 +15,15 @@
 
 #include <CEGUI/RendererModules/OpenGL/Renderer.h>
 
+
+
 #define CEGUI_RTT 1
 //#define CEGUI_GL 1
+
+#ifdef CEGUI_GL
+#include <CEGUI/RendererModules/OpenGL/Renderer.h>
+#endif
+
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include <iOS/macUtils.h>
