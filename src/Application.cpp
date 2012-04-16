@@ -13,7 +13,10 @@
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
 #include <CEGUI/RendererModules/Ogre/ImageCodec.h>
 
+#include <CEGUI/RendererModules/OpenGL/Renderer.h>
+
 #define CEGUI_RTT true
+#define CEGUI_GL false
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include <iOS/macUtils.h>
@@ -61,7 +64,7 @@ Application::Application(void):
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
-#elif defined(OGRE_IS_IOS)
+#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
     m_ResourcePath = Ogre::macBundlePath() + "/";
 #else
     m_ResourcePath = "${CMAKE_INSTALL_PREFIX}/share/forestrunner/";
@@ -120,6 +123,7 @@ void Application::chooseSceneManager(void)
 {
     // Get the SceneManager, in this case a generic one
     mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
+    mSceneMgr->addRenderQueueListener(this);
 }
 
 
@@ -182,8 +186,8 @@ void Application::createHUD(void)
 
     m_hudContainer->setMetricsMode(Ogre::GMM_PIXELS);
     m_hudContainer->setPosition(0, 0);
-    m_hudContainer->setDimensions(  mWindow->getWidth(),
-                                    mWindow->getHeight() );
+    m_hudContainer->setDimensions(  mWindow->getWidth()/4,
+                                    mWindow->getHeight()/4 );
     // Give overlay a texture
     m_hudContainer->setMaterialName("hudMat");
 
@@ -202,28 +206,41 @@ void Application::createCEGUI(void)
 
     if( CEGUI_RTT )
     {
-        CEGUI::OgreRenderer& renderer   = CEGUI::OgreRenderer::create(*m_hudTex->getBuffer()->getRenderTarget());
+        CEGUI::Renderer* renderer;
+        if(CEGUI_GL)
+            renderer = &CEGUI::OpenGLRenderer::create();
+        else
+        {
+            mRenderer = &CEGUI::OgreRenderer::create(*m_hudTex->getBuffer()->getRenderTarget());
+            mRenderer->setFrameControlExecutionEnabled(false);
+            renderer = mRenderer;
+        }
+
         CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
         CEGUI::System::create(
-                static_cast<CEGUI::Renderer&>(renderer),
-                static_cast<CEGUI::ResourceProvider*>(&rp),
+                *renderer,
+                &rp,
                 static_cast<CEGUI::XMLParser*>(0),
-                static_cast<CEGUI::ImageCodec*>(&ic) );
-        mRenderer = &renderer;
-        mRenderer->setFrameControlExecutionEnabled(false);
+                &ic );
     }
     else
     {
-        CEGUI::OgreRenderer& renderer   = CEGUI::OgreRenderer::create();
+        CEGUI::Renderer* renderer;
+        if(CEGUI_GL)
+            renderer = &CEGUI::OpenGLRenderer::create();
+        else
+        {
+            mRenderer = &CEGUI::OgreRenderer::create();
+            renderer = mRenderer;
+        }
         CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
         CEGUI::System::create(
-                static_cast<CEGUI::Renderer&>(renderer),
-                static_cast<CEGUI::ResourceProvider*>(&rp),
+                *renderer,
+                &rp,
                 static_cast<CEGUI::XMLParser*>(0),
-                static_cast<CEGUI::ImageCodec*>(&ic) );
-        mRenderer = &renderer;
+                &ic );
     }
 
     m_pLog->logMessage("createScene: setting cegui defaults");
@@ -371,7 +388,7 @@ void Application::createFrameListener(void)
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
 
-#if defined(OGRE_IS_IOS) || (OGRE_PLATFORM == OGRE_PLATFORM_APPLE) || OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if (OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS) || (OGRE_PLATFORM == OGRE_PLATFORM_APPLE) || OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 
 #else
     pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
@@ -662,13 +679,20 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     if( CEGUI_RTT )
     {
-        Ogre::RenderTexture *renderTexture =
-            m_hudTex->getBuffer()->getRenderTarget();
-        renderTexture->getViewport(0)->clear(
-                Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
-                Ogre::ColourValue::ZERO,
-                0.0);
-        CEGUI::System::getSingleton().renderAllGUIContexts();
+        if( CEGUI_GL )
+        {
+
+        }
+        else
+        {
+            Ogre::RenderTexture *renderTexture =
+                m_hudTex->getBuffer()->getRenderTarget();
+            renderTexture->getViewport(0)->clear(
+                    Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
+                    Ogre::ColourValue::ZERO,
+                    0.0);
+            CEGUI::System::getSingleton().renderAllGUIContexts();
+        }
     }
 
     // this is how we update the camera controller
@@ -677,6 +701,21 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     //mCameraMan->frameRenderingQueued(evt);
 
     return true;
+}
+
+
+
+
+
+
+
+void Application::postRenderQueues()
+{
+    if( CEGUI_GL )
+    {
+        std::cerr << "all render queues processed, rendering gui" << std::endl;
+        CEGUI::System::getSingleton().renderAllGUIContexts();
+    }
 }
 
 

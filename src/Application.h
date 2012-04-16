@@ -69,6 +69,7 @@
 class Application :
     public Ogre::FrameListener,
     public Ogre::WindowEventListener,
+    public Ogre::RenderQueueListener,
     public OIS::KeyListener,
     public OIS::MouseListener,
     public OIS::MultiTouchListener
@@ -146,9 +147,11 @@ protected:
     virtual void createResourceListener(void);
     virtual void loadResources(void);
 
-
     // Ogre::FrameListener
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+
+    // Ogre::RenderQueueListener
+    virtual void postRenderQueues();
 
     // OIS::KeyListener
     virtual bool keyPressed( const OIS::KeyEvent &arg );
