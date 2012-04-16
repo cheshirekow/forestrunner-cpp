@@ -13,12 +13,12 @@
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
 #include <CEGUI/RendererModules/Ogre/ImageCodec.h>
 
-#define CEGUI_RTT false
+#define CEGUI_RTT true
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    #include <iPhone/macUtils.h>
-#elif defined(OGRE_IS_IOS)
-    #include <iPhone/macUtils.h>
+    #include <iOS/macUtils.h>
+#elif defined(OGRE_PLATFORM_APPLE_IOS)
+    #include <iOS/macUtils.h>
 #endif
 
 CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
@@ -190,7 +190,8 @@ void Application::createHUD(void)
 
     m_hudOverlay = Ogre::OverlayManager::getSingleton().create("HUD");
     m_hudOverlay->add2D(m_hudContainer);
-    m_hudOverlay->show();
+    //m_hudOverlay->show();
+    m_hudOverlay->hide();
 }
 
 
@@ -262,7 +263,7 @@ void Application::createScene(void)
     // Create an Entity
     //Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
     Ogre::Entity* aircraft =
-        mSceneMgr->createEntity("aircraft", "aircraft.mesh");
+        mSceneMgr->createEntity("aircraft", "aircraft.mesh","General");
 
     aircraft->setMaterialName("ForestRunner/Gray");
 
@@ -273,7 +274,7 @@ void Application::createScene(void)
     acNode->attachObject(aircraft);
 
     Ogre::Entity* aircraftWF =
-        mSceneMgr->createEntity("aircraftWF", "aircraft.mesh");
+        mSceneMgr->createEntity("aircraftWF", "aircraft.mesh","General");
 
     aircraftWF->setMaterialName("ForestRunner/BlackWireframe");
 
@@ -284,7 +285,7 @@ void Application::createScene(void)
     acwfNode->scale(1.05,1.05,1.05);
 
     Ogre::Entity* aircraftOL =
-        mSceneMgr->createEntity("aircraftOL", "aircraft_outline.mesh");
+        mSceneMgr->createEntity("aircraftOL", "aircraft_outline.mesh","General");
 
     aircraftOL->setMaterialName("ForestRunner/Black");
 
@@ -502,10 +503,8 @@ bool Application::ios_init()
     if (!setup())
         return false;
 
-#ifdef OGRE_IS_IOS
     m_iosTimer = OGRE_NEW Ogre::Timer();
     m_iosTimer->reset();
-#endif
 
     mRoot->clearEventTimes();
 
@@ -521,7 +520,6 @@ void Application::ios_cleanup()
 
 bool Application::ios_step()
 {
-    std::cerr << "Application::ios_step : here" << std::endl;
     /*
     std::cerr << "   viewport: [" 
                 << mViewport->getActualLeft() << ", "
@@ -530,6 +528,7 @@ bool Application::ios_step()
                 << mViewport->getActualHeight() << "]" << std::endl;
     */
     //mRenderer->setDefaultRootRenderTarget(*mWindow);
+    Ogre::WindowEventUtilities::messagePump();
     return mRoot->renderOneFrame();
 }
 

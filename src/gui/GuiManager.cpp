@@ -61,8 +61,6 @@ void GuiManager::requestChange(const std::string& pageKey)
         return;
     else
     {
-        CEGUI::Window* win_from, *win_to;
-
         std::cerr << "requested change to page " << pageKey << std::endl;
         assert( m_screenMap[pageKey] );
         m_activeTransition = new Transition(

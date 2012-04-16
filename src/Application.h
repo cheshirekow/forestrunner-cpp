@@ -3,7 +3,6 @@
 
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
-#include <CEGUI/RendererModules/OpenGL/Renderer.h>
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>
@@ -108,7 +107,6 @@ protected:
     OIS::MouseState     mTouchMouseState;
 
     CEGUI::OgreRenderer*    mRenderer;
-    CEGUI::OpenGLRenderer*  mOpenGLRenderer;
     GuiManager*          m_guiManager;
 
     Ogre::SceneNode*    m_patchRoot;
