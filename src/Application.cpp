@@ -17,7 +17,7 @@
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include <iOS/macUtils.h>
-#elif defined(OGRE_PLATFORM_APPLE_IOS)
+#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
     #include <iOS/macUtils.h>
 #endif
 
@@ -190,8 +190,8 @@ void Application::createHUD(void)
 
     m_hudOverlay = Ogre::OverlayManager::getSingleton().create("HUD");
     m_hudOverlay->add2D(m_hudContainer);
-    //m_hudOverlay->show();
-    m_hudOverlay->hide();
+    m_hudOverlay->show();
+    //m_hudOverlay->hide();
 }
 
 
