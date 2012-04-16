@@ -15,8 +15,8 @@
 
 #include <CEGUI/RendererModules/OpenGL/Renderer.h>
 
-#define CEGUI_RTT true
-#define CEGUI_GL false
+#define CEGUI_RTT 1
+//#define CEGUI_GL 1
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     #include <iOS/macUtils.h>
@@ -204,18 +204,15 @@ void Application::createCEGUI(void)
 {
     m_pLog->logMessage("createScene: About to bootstrap cegui");
 
-    if( CEGUI_RTT )
-    {
+#ifdef CEGUI_RTT
         CEGUI::Renderer* renderer;
-        if(CEGUI_GL)
+#    ifdef CEGUI_GL
             renderer = &CEGUI::OpenGLRenderer::create();
-        else
-        {
+#   else
             mRenderer = &CEGUI::OgreRenderer::create(*m_hudTex->getBuffer()->getRenderTarget());
             mRenderer->setFrameControlExecutionEnabled(false);
             renderer = mRenderer;
-        }
-
+#   endif
         CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
         CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
         CEGUI::System::create(
@@ -223,9 +220,7 @@ void Application::createCEGUI(void)
                 &rp,
                 static_cast<CEGUI::XMLParser*>(0),
                 &ic );
-    }
-    else
-    {
+#else
         CEGUI::Renderer* renderer;
         if(CEGUI_GL)
             renderer = &CEGUI::OpenGLRenderer::create();
@@ -241,7 +236,7 @@ void Application::createCEGUI(void)
                 &rp,
                 static_cast<CEGUI::XMLParser*>(0),
                 &ic );
-    }
+#endif
 
     m_pLog->logMessage("createScene: setting cegui defaults");
 
@@ -471,7 +466,7 @@ void Application::setupResources(void)
         {
             typeName = i->first;
             archName = i->second;
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || defined(OGRE_IS_IOS)
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
             // OS X does not set the working directory relative to the app,
             // In order to make things portable on OS X we need to provide
             // the loading with it's own bundle path location
@@ -647,7 +642,7 @@ bool Application::setup(void)
     m_pLog->logMessage("setup: Finished creating frame listener, returning");
 
     return true;
-};
+}
 
 
 
@@ -677,24 +672,17 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
     CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
 
-    if( CEGUI_RTT )
-    {
-        if( CEGUI_GL )
-        {
-
-        }
-        else
-        {
-            Ogre::RenderTexture *renderTexture =
-                m_hudTex->getBuffer()->getRenderTarget();
-            renderTexture->getViewport(0)->clear(
-                    Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
-                    Ogre::ColourValue::ZERO,
-                    0.0);
-            CEGUI::System::getSingleton().renderAllGUIContexts();
-        }
-    }
-
+#ifdef CEGUI_RTT
+#ifndef CEGUI_GL
+    Ogre::RenderTexture *renderTexture =
+        m_hudTex->getBuffer()->getRenderTarget();
+    renderTexture->getViewport(0)->clear(
+            Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
+            Ogre::ColourValue::ZERO,
+            0.0);
+    CEGUI::System::getSingleton().renderAllGUIContexts();
+#endif
+#endif
     // this is how we update the camera controller
     // (probably need to get rid of this)
     // once we fix the camera location
@@ -711,11 +699,10 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 void Application::postRenderQueues()
 {
-    if( CEGUI_GL )
-    {
-        std::cerr << "all render queues processed, rendering gui" << std::endl;
-        CEGUI::System::getSingleton().renderAllGUIContexts();
-    }
+#ifdef  CEGUI_GL
+    std::cerr << "all render queues processed, rendering gui" << std::endl;
+    CEGUI::System::getSingleton().renderAllGUIContexts();
+#endif
 }
 
 
