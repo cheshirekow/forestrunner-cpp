@@ -193,8 +193,8 @@ void Application::createHUD(void)
 
     m_hudContainer->setMetricsMode(Ogre::GMM_PIXELS);
     m_hudContainer->setPosition(0, 0);
-    m_hudContainer->setDimensions(  mWindow->getWidth()/4,
-                                    mWindow->getHeight()/4 );
+    m_hudContainer->setDimensions(  mWindow->getWidth(),
+                                    mWindow->getHeight() );
     // Give overlay a texture
     m_hudContainer->setMaterialName("hudMat");
 
