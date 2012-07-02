@@ -6,5 +6,5 @@ FSAA=4
 Full Screen=No
 RTT Preferred Mode=FBO
 VSync=No
-Video Mode=640x480
+Video Mode=960x640
 sRGB Gamma Conversion=No

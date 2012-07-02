@@ -1,6 +1,7 @@
 [General]
 FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/meshes
 FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/materials
+FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/gui/iphone
 FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/ceed/xml_schemas
 
 [Imagesets]
@@ -20,3 +21,8 @@ FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/ceed/layouts
 
 [Animations]
 FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/ceed/animations
+
+[Overlays]
+FileSystem=${CMAKE_INSTALL_PREFIX}/share/forestrunner/overlays
+
+

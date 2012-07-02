@@ -71,32 +71,83 @@ material ForestRunner/Orange
   
 material ForestRunner/BlackWireframe
 {
-    technique
+  technique
+  {
+    pass
     {
-      pass
+      ambient 0.0 0.0 0.0
+      diffuse 0.0 0.0 0.0
+      specular 0.0 0.0 0.0
+      polygon_mode wireframe
+    } 
+  }
+}
+  
+  
+material ForestRunner/HUD
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      scene_blend add
+      depth_write off
+      texture_unit
       {
-        ambient 0.0 0.0 0.0
-        diffuse 0.0 0.0 0.0
-        specular 0.0 0.0 0.0
-        polygon_mode wireframe
-      } 
+        
+      }
     }
   }
-  
-  
- material ForestRunner/HUD
+}
+ 
+ 
+ 
+ material ForestRunner/PanelMats/01_loading
  {
-   technique
-   {
-     pass
-     {
-       lighting off
-       scene_blend add
-       depth_write off
-       texture_unit
-       {
-         
-       }
-     }
-   }
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            depth_write off
+            texture_unit 
+            {
+                texture 01_loading.png
+            }
+        } 
+    }
+ }
+ 
+ 
+ material ForestRunner/PanelMats/01_loading/circle
+ {
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            depth_write off
+            texture_unit 
+            {
+                texture 01_circle.png
+            }
+        } 
+    }
+ }
+ 
+  material ForestRunner/PanelMats/02_agreement
+ {
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            depth_write off
+            texture_unit 
+            {
+                texture 02_agreement.png
+            }
+        } 
+    }
  }

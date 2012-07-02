@@ -1,0 +1,48 @@
+ForestRunner/01_loading
+{
+    zorder 100
+    
+    container Panel(ForestRunner/Panels/01_loading)
+    {
+        metrics_mode    pixels
+        horz_align      center
+        vert_align      center
+        left            -480
+        top             -640
+        width           960          
+        height          640
+        uv_coords       0 0 0.9375 0.625
+        material        ForestRunner/PanelMats/01_loading
+        
+        container Panel(ForestRunner/Panels/01_loading/circle)
+        {
+            metrics_mode    pixels
+            horz_align      left
+            vert_align      top
+            left            138
+            top             277
+            width           85          
+            height          85
+            uv_coords       0 0 0.6640625 0.6640625
+            material        ForestRunner/PanelMats/01_loading/circle
+        }
+    }
+}
+
+ForestRunner/02_agreement
+{
+    zorder 100
+    
+    container Panel(ForestRunner/Panels/02_agreement)
+    {
+        metrics_mode    pixels
+        horz_align      left
+        vert_align      top
+        left            0
+        top             0
+        width           960          
+        height          640
+        uv_coords       0 0 0.9375 0.625
+        material        ForestRunner/PanelMats/02_agreement
+    }
+}

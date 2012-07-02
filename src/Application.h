@@ -25,6 +25,9 @@
 #include "gui/GuiManager.h"
 #include "game/Game.h"
 
+#include "stategraph/Manager.h"
+#include "stategraph/states/Initialize.h"
+#include "stategraph/states/Agreement.h"
 
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
@@ -119,6 +122,11 @@ protected:
     Ogre::TexturePtr            m_hudTex;
     //Ogre::Rectangle2D*          m_miniScreen;
     //Ogre::SceneNode*            m_miniScreenNode;
+
+
+    stategraph::Manager                 m_stateGraph;
+    stategraph::states::Initialize      m_state_01_init;
+    stategraph::states::Agreement       m_state_02_agreement;
 
     Game*               m_game;
 

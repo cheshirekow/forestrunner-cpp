@@ -147,6 +147,7 @@ void Application::createHUD(void)
                     Ogre::PF_R8G8B8A8,
                     Ogre::TU_RENDERTARGET);
 
+
     Ogre::RenderTexture *renderTexture =
             m_hudTex->getBuffer()->getRenderTarget();
 
@@ -203,6 +204,17 @@ void Application::createHUD(void)
     m_hudOverlay->add2D(m_hudContainer);
     m_hudOverlay->show();
     //m_hudOverlay->hide();
+
+
+
+    // custom gui setup
+    m_state_01_init.setPanel(
+                        "ForestRunner/01_loading",
+                        "ForestRunner/Panels/01_loading");
+    m_state_02_agreement.setPanel(
+                        "ForestRunner/02_agreement",
+                        "ForestRunner/Panels/02_agreement");
+    m_state_01_init.activate(m_stateGraph);
 }
 
 
@@ -673,12 +685,14 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mTouch)
         mTouch->capture();
 
+    m_stateGraph.update(evt.timeSinceLastFrame);
     m_game->update(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
     CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
     CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
 
+    /*
 #ifdef CEGUI_RTT
 #ifndef CEGUI_GL
     Ogre::RenderTexture *renderTexture =
@@ -690,6 +704,8 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     CEGUI::System::getSingleton().renderAllGUIContexts();
 #endif
 #endif
+    */
+
     // this is how we update the camera controller
     // (probably need to get rid of this)
     // once we fix the camera location
