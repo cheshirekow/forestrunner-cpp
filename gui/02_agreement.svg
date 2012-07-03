@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="960"
-   height="640"
+   width="1024"
+   height="1024"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
@@ -87,7 +87,7 @@
        x2="381.5603"
        y2="530.79199"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-91.347524,-3.1453437e-5)" />
+       gradientTransform="translate(-91.347524,-384.00006)" />
     <filter
        id="filter3876"
        inkscape:label="Fancy blur"
@@ -103,7 +103,10 @@
          in2="result1"
          operator="arithmetic"
          k2="2"
-         in="result1" />
+         in="result1"
+         k1="0"
+         k3="0"
+         k4="0" />
     </filter>
     <linearGradient
        inkscape:collect="always"
@@ -113,13 +116,14 @@
        y1="500.68109"
        x2="179.38918"
        y2="573.30524"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-384.00003)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3856"
        id="linearGradient3958"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(288.65248,-6.1971015e-5)"
+       gradientTransform="translate(288.65248,-384.00009)"
        x1="381.13477"
        y1="600.39008"
        x2="381.5603"
@@ -133,7 +137,7 @@
        y1="500.68109"
        x2="179.38918"
        y2="573.30524"
-       gradientTransform="translate(380,-3.0517578e-5)" />
+       gradientTransform="translate(380,-384.00006)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3825"
@@ -142,7 +146,8 @@
        y1="437.32672"
        x2="464.91727"
        y2="1025.8846"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-384.00003)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -151,9 +156,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.93470678"
-     inkscape:cx="504.87546"
-     inkscape:cy="310.52338"
+     inkscape:zoom="0.6609375"
+     inkscape:cx="390.15721"
+     inkscape:cy="529.1853"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      showgrid="false"
@@ -178,33 +183,34 @@
      inkscape:label="Background"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-412.36218)">
+     transform="translate(0,-28.36218)">
     <rect
-       style="color:#000000;fill:url(#linearGradient3831);fill-opacity:1;stroke:#000000;stroke-width:3.09551095999999992;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:url(#linearGradient3831);fill-opacity:1;stroke:#000000;stroke-width:3.09551096;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect3801"
        width="916.90448"
        height="596.90448"
        x="21.547756"
-       y="433.90994"
+       y="49.909946"
        ry="48.823318" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer4"
-     inkscape:label="Disclaimer">
+     inkscape:label="Disclaimer"
+     transform="translate(0,384)">
     <rect
        style="color:#000000;fill:#6b6b6b;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect3848"
        width="849.21332"
        x="53.49271"
-       y="53.719879"
+       y="-330.28012"
        ry="0"
        height="445.05936" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3803"
        style="font-size:22px;font-style:normal;font-variant:normal;font-stretch:normal;text-align:start;line-height:139.99999762%;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:URW Gothic L;-inkscape-font-specification:URW Gothic L Book"
-       transform="translate(0,-2.1397084)"><flowRegion
+       transform="translate(0,-386.13974)"><flowRegion
          id="flowRegion3805"><rect
            id="rect3807"
            width="837.52167"
@@ -222,7 +228,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Buttons">
+     inkscape:label="Buttons"
+     transform="translate(0,384)">
     <g
        inkscape:groupmode="layer"
        id="layer3"
@@ -237,11 +244,11 @@
            width="293.1915"
            height="83.191467"
            x="147.3475"
-           y="519.3476"
+           y="135.34756"
            ry="17.920361" />
         <rect
            ry="17.920361"
-           y="519.3476"
+           y="135.34756"
            x="528.62408"
            height="83.191467"
            width="293.1915"
@@ -258,11 +265,11 @@
            width="300"
            height="90"
            x="140"
-           y="510.00003"
+           y="126"
            ry="17.920361" />
         <rect
            ry="17.920361"
-           y="510"
+           y="125.99997"
            x="520"
            height="90"
            width="300"
@@ -275,7 +282,7 @@
          inkscape:label="shade">
         <rect
            ry="17.920361"
-           y="510"
+           y="125.99997"
            x="140"
            height="90"
            width="300"
@@ -287,7 +294,7 @@
            width="300"
            height="90"
            x="520"
-           y="509.99997"
+           y="125.99994"
            ry="17.920361" />
       </g>
     </g>
@@ -299,23 +306,23 @@
          xml:space="preserve"
          style="font-size:40px;font-style:normal;font-variant:normal;font-stretch:normal;text-align:start;line-height:139.99999762%;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#868686;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:URW Gothic L;-inkscape-font-specification:URW Gothic L Book"
          x="230.73286"
-         y="562.83691"
+         y="178.83688"
          id="text3885"
          sodipodi:linespacing="140%"><tspan
            sodipodi:role="line"
            id="tspan3887"
            x="230.73286"
-           y="562.83691"
+           y="178.83688"
            style="fill:#ffffff;fill-opacity:1">agree</tspan></text>
       <text
          sodipodi:linespacing="140%"
          id="text3952"
-         y="563.59338"
+         y="179.59335"
          x="589.55078"
          style="font-size:40px;font-style:normal;font-variant:normal;font-stretch:normal;text-align:start;line-height:139.99999762%;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#868686;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:URW Gothic L;-inkscape-font-specification:URW Gothic L Book"
          xml:space="preserve"><tspan
            style="fill:#ffffff;fill-opacity:1"
-           y="563.59338"
+           y="179.59335"
            x="589.55078"
            id="tspan3954"
            sodipodi:role="line">disagree</tspan></text>
@@ -326,7 +333,7 @@
        inkscape:label="gloss">
       <path
          style="color:#000000;fill:url(#linearGradient3925);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-         d="M 157.90625,510 C 147.97837,510 140,517.97837 140,527.90625 l 0.28125,46.62773 c 150.87544,-14.2084 107.4922,-35.22532 299.34375,-50.19023 -0.002,-0.01 0.002,-0.0213 0,-0.0312 C 437.95946,516.13179 430.78064,510 422.09375,510 z"
+         d="m 157.90625,125.99997 c -9.92788,0 -17.90625,7.97837 -17.90625,17.90625 l 0.28125,46.62773 c 150.87544,-14.2084 107.4922,-35.22532 299.34375,-50.19023 -0.002,-0.01 0.002,-0.0213 0,-0.0312 -1.66554,-8.18076 -8.84436,-14.31255 -17.53125,-14.31255 z"
          id="rect3910"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="sccccss" />
@@ -334,7 +341,7 @@
          sodipodi:nodetypes="sccccss"
          inkscape:connector-curvature="0"
          id="path3956"
-         d="m 537.90625,509.99997 c -9.92788,0 -17.90625,7.97837 -17.90625,17.90625 l 0.28125,46.62773 c 150.87544,-14.2084 107.4922,-35.22532 299.34375,-50.19023 -0.002,-0.01 0.002,-0.0213 0,-0.0312 -1.66554,-8.18076 -8.84436,-14.31255 -17.53125,-14.31255 z"
+         d="m 537.90625,125.99994 c -9.92788,0 -17.90625,7.97837 -17.90625,17.90625 l 0.28125,46.62773 c 150.87544,-14.2084 107.4922,-35.22532 299.34375,-50.19023 -0.002,-0.01 0.002,-0.0213 0,-0.0312 -1.66554,-8.18076 -8.84436,-14.31255 -17.53125,-14.31255 z"
          style="color:#000000;fill:url(#linearGradient3960);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
   </g>

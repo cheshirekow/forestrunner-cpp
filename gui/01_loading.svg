@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.3218749"
-     inkscape:cx="352.15131"
-     inkscape:cy="672.22696"
+     inkscape:zoom="0.93470671"
+     inkscape:cx="334.48679"
+     inkscape:cy="725.70821"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -70,14 +70,6 @@
        id="path3779"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="csccscc" />
-    <rect
-       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.00704479;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect2985"
-       width="958.99298"
-       height="638.99298"
-       x="0.5035224"
-       y="28.865677"
-       ry="0" />
     <path
        sodipodi:type="arc"
        style="color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
@@ -86,7 +78,7 @@
        sodipodi:cy="321.10776"
        sodipodi:rx="43.133728"
        sodipodi:ry="43.133728"
-       d="m 210.04251,321.10776 a 43.133728,43.133728 0 1 1 -0.005,-0.65597"
+       d="m 210.04251,321.10776 c 0,23.8221 -19.31163,43.13373 -43.13373,43.13373 -23.8221,0 -43.13373,-19.31163 -43.13373,-43.13373 0,-23.8221 19.31163,-43.13373 43.13373,-43.13373 23.56632,0 42.77035,18.91417 43.12874,42.47776"
        transform="matrix(0.98530783,0,0,0.98530763,16.043469,31.472266)"
        sodipodi:start="0"
        sodipodi:end="6.267977"
