@@ -40,6 +40,14 @@ void AnimatedPanel::setPanel(const char* overlay, const char* panel)
 {
    m_overlay = Ogre::OverlayManager::getSingleton().getByName(overlay);
    m_panel   = m_overlay->getChild(panel);
+
+   float height = m_panel->getHeight() / s_viewport->getActualHeight();
+
+   std::cerr << "Screen height of " << panel << " is " << height << std::endl;
+
+   m_topTarget = -height/2.0;
+   m_topAbove  = -0.5-height;
+   m_topBelow  = 0.5;
 }
 
 void AnimatedPanel::update(float tpf, Manager& mgr)
@@ -49,7 +57,7 @@ void AnimatedPanel::update(float tpf, Manager& mgr)
         // first step is initialize the animation
         case 0:
         {
-            m_panel->_setTop( -1.5 );
+            m_panel->_setTop( m_topAbove );
             m_overlay->show();
             m_t = 0;
             m_step++;
@@ -63,15 +71,14 @@ void AnimatedPanel::update(float tpf, Manager& mgr)
             float x = m_t/ m_duration;
             if(x > 1)
             {
-                m_panel->_setTop(-0.5);
+                m_panel->_setTop(m_topTarget);
                 m_t = 0;
                 m_step++;
                 break;
             }
 
-            float y = 1.5 - x*x;
-            std::cerr << "Step 1, t: " << m_t  << " y: " << y << std::endl;
-            m_panel->_setTop(-y);
+            float y = x*x;
+            m_panel->_setTop( y * m_topTarget + (1-y)*m_topAbove );
             break;
         }
 
@@ -88,18 +95,16 @@ void AnimatedPanel::update(float tpf, Manager& mgr)
         {
             m_t += tpf;
             float x = m_t/ m_duration;
-            if(x < 0)
+            if(x > 1)
             {
-                m_panel->_setTop(0.5);
+                m_panel->_setTop(m_topBelow);
                 m_t = 0;
                 m_step++;
                 break;
             }
 
-            float y = x*x + 0.5;
-            m_panel->_setTop(-y );
-            break;
-
+            float y = x*x;
+            m_panel->_setTop( y * m_topBelow + (1-y)*m_topTarget );
             break;
         }
 

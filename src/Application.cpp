@@ -214,7 +214,13 @@ void Application::createHUD(void)
     m_state_02_agreement.setPanel(
                         "ForestRunner/02_agreement",
                         "ForestRunner/Panels/02_agreement");
+    m_state_03_nick.setPanel(
+                        "ForestRunner/03_nick",
+                        "ForestRunner/Panels/03_nick");
+
     m_state_01_init.activate(m_stateGraph);
+    m_state_01_init.sig_finished.connect(m_state_02_agreement.slot_activate());
+    m_state_02_agreement.sig_agree.connect(m_state_03_nick.slot_activate());
 }
 
 
@@ -419,14 +425,17 @@ void Application::createFrameListener(void)
     mTouch = static_cast<OIS::MultiTouch*>(
                 mInputManager->createInputObject(OIS::OISMultiTouch, true));
     mTouch->setEventCallback(this);
+    mTouch->setEventCallback(&m_stateGraph);
 #else
     mKeyboard = static_cast<OIS::Keyboard*>(
                 mInputManager->createInputObject( OIS::OISKeyboard, true ));
     mKeyboard->setEventCallback(this);
+    mKeyboard->setEventCallback(&m_stateGraph);
 
     mMouse = static_cast<OIS::Mouse*>(
                 mInputManager->createInputObject( OIS::OISMouse, true ));
     mMouse->setEventCallback(this);
+    mMouse->setEventCallback(&m_stateGraph);
 #endif
 
     //Set initial mouse clipping size
@@ -454,6 +463,11 @@ void Application::createViewports(void)
     // Create one viewport, entire window
     mViewport = mWindow->addViewport(mCamera);
     mViewport->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
+
+    // set a pointer to the viewport where states in the stategraph can
+    // get to it
+    stategraph::State::s_viewport = mViewport;
+    m_stateGraph.setViewport(mViewport);
 
     // Alter the camera aspect ratio to match the viewport
     mCamera->setAspectRatio(

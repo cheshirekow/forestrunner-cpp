@@ -56,9 +56,12 @@ add_library( forestrunner
                     gui/screens/HighScoreScreen.cpp
                     stategraph/Manager.cpp
                     stategraph/State.cpp
+                    stategraph/Button.cpp
+                    stategraph/TextEntry.cpp
                     stategraph/states/AnimatedPanel.cpp
                     stategraph/states/Initialize.cpp
                     stategraph/states/Agreement.cpp
+                    stategraph/states/PickNick.cpp
                     )
                     
 install(TARGETS forestrunner
@@ -91,10 +94,12 @@ install(TARGETS forestrunner_exe
 )
 
 install(DIRECTORY ../ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+install(DIRECTORY ../fonts        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
 install(DIRECTORY ../materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
 install(DIRECTORY ../meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
 install(DIRECTORY ../overlays     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
 install(DIRECTORY ../gui          DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+
 install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
                 ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
                 ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg

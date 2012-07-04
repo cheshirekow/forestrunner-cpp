@@ -13,6 +13,8 @@
 namespace   stategraph {
 
 
+Ogre::Viewport*  State::s_viewport = 0;
+
 void State::activate(Manager& mgr)
 {
     m_connections[&mgr] =

@@ -11,6 +11,7 @@
 #define FORESTRUNNER_STATEGRAPH_STATES_AGREEMENT_H
 
 #include "AnimatedPanel.h"
+#include "stategraph/Button.h"
 
 namespace   stategraph {
 namespace       states {
@@ -29,11 +30,24 @@ class Agreement :
         typedef Agreement       This_t;
         typedef AnimatedPanel   Base_t;
 
+        sigc::signal<void,Manager&>  sig_agree;
+
     private:
+        Button  m_btn_agree;
+        Button  m_btn_disagree;
+
+        void onAgree();
+        void onDisagree();
 
     public:
         Agreement();
         virtual ~Agreement(){}
+
+        /// overrides State::activate
+        virtual void activate(Manager&);
+
+        /// overrides State::deactivate
+        virtual void deactivate(Manager&);
 
         virtual void innerUpdate(float tpf);
 

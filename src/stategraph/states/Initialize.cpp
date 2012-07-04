@@ -32,6 +32,8 @@ void Initialize::innerUpdate(float tpf)
         {
             m_circle =
                 m_panel->getChild("ForestRunner/Panels/01_loading/circle");
+            m_rectangle =
+                m_panel->getChild("ForestRunner/Panels/01_loading/rectangle");
             m_step++;
             break;
         }
@@ -44,7 +46,16 @@ void Initialize::innerUpdate(float tpf)
 
         default:
             m_step++;
-            m_circle->_setLeft( (138 + (m_step/(float)s_lastStep)*600)/m_panel->getWidth() );
+
+            float w = m_circle->getWidth() / s_viewport->getActualWidth();
+            float p = (m_step/(float)s_lastStep);
+            float c = (1-p)*s_start + p*s_end;
+            float cn= c / s_viewport->getActualWidth();
+
+            float rw= p*600 / s_viewport->getActualWidth();
+
+            m_circle->_setLeft( cn - w/2 );
+            m_rectangle->_setWidth(rw);
             break;
     }
 }

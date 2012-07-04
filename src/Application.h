@@ -28,6 +28,7 @@
 #include "stategraph/Manager.h"
 #include "stategraph/states/Initialize.h"
 #include "stategraph/states/Agreement.h"
+#include "stategraph/states/PickNick.h"
 
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
@@ -127,6 +128,8 @@ protected:
     stategraph::Manager                 m_stateGraph;
     stategraph::states::Initialize      m_state_01_init;
     stategraph::states::Agreement       m_state_02_agreement;
+    stategraph::states::PickNick        m_state_03_nick;
+
 
     Game*               m_game;
 

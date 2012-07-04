@@ -36,6 +36,9 @@ class Initialize :
         int                     m_step;
         static const int        s_lastStep=100;
 
+        static const int        s_start = -300;
+        static const int        s_end   = 300;
+
         Ogre::OverlayElement*   m_circle;
         Ogre::OverlayElement*   m_rectangle;
 

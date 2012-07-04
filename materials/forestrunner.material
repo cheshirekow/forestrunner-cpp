@@ -103,6 +103,22 @@ material ForestRunner/HUD
  
  
  
+ material ForestRunner/GUI
+ {
+    technique
+    {
+        pass
+        {
+            scene_blend alpha_blend
+            depth_write off
+            texture_unit 
+            {
+                texture textures_960_640.png
+            }
+        } 
+    }
+ }
+ 
  material ForestRunner/PanelMats/01_loading
  {
     technique

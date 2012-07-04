@@ -15,6 +15,9 @@
 #include <map>
 #include <sigc++/sigc++.h>
 
+#include <OGRE/OgreViewport.h>
+
+
 namespace   stategraph {
 
 
@@ -28,6 +31,8 @@ class State
 {
     public:
         typedef State   This_t;
+
+        static Ogre::Viewport*  s_viewport;
 
     protected:
         std::map<Manager*,sigc::connection> m_connections;

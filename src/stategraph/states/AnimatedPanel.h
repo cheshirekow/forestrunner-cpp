@@ -44,6 +44,10 @@ class AnimatedPanel:
         float   m_m;
         float   m_duration;
 
+        float   m_topTarget;
+        float   m_topAbove;
+        float   m_topBelow;
+
     protected:
         void exit(ExitSignal_t* sig);
 
