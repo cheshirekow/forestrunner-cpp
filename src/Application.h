@@ -150,6 +150,7 @@ protected:
     virtual void createCamera(void);
     virtual void createFrameListener(void);
     virtual void createHUD(void);
+    virtual void createHUD2(void);
     virtual void createCEGUI(void);
     virtual void createScene(void);
     virtual void destroyScene(void);

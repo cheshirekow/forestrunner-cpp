@@ -204,8 +204,11 @@ void Application::createHUD(void)
     m_hudOverlay->show();
     //m_hudOverlay->hide();
 
+}
 
 
+void Application::createHUD2()
+{
     // custom gui setup
     m_state_01_init.setPanel(
                         "ForestRunner/01_loading",
@@ -355,8 +358,9 @@ void Application::createScene(void)
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
     // initialize CEGUI
-    createHUD();
-    createCEGUI();
+    //createHUD();
+    createHUD2();
+    //createCEGUI();
 
     m_pLog->logMessage("createScene: creating game");
 
@@ -365,7 +369,7 @@ void Application::createScene(void)
 
     m_pLog->logMessage("createScene: creating gui manager");
 
-    m_guiManager = new GuiManager(m_game);
+    //m_guiManager = new GuiManager(m_game);
 
 }
 
@@ -702,8 +706,8 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     m_game->update(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
-    CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
+    //CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
+    //CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
 
     /*
 #ifdef CEGUI_RTT
