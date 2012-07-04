@@ -13,7 +13,6 @@
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
 #include <CEGUI/RendererModules/Ogre/ImageCodec.h>
 
-#include <CEGUI/RendererModules/OpenGL/Renderer.h>
 
 
 
