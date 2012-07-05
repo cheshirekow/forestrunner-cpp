@@ -1,18 +1,8 @@
 
 
-HOME    :=/Users/josh
-DEVROOT :=$(HOME)/dev/root
-SRCROOT :=$(HOME)/Documents/dev/forestrunner
-BLDROOT :=$(HOME)/Documents/dev/forestrunner_ios
-APPROOT :=$(HOME)/Documents/dev/forestrunner_ios_dist
-DEVELOP :=/Applications/Xcode.app/Contents/Developer
-
-GCC_VERSION              := 4.2
+GCC_VERSION           := 4.2
 IOS_DEPLOYMENT_TARGET := 5.1
 OSX_DEPLOYMENT_TARGET := 10.7
-
-PLATFORM    := iPhoneSimulator
-ARCH        := i686
 
 PREFIX      := $(DEVROOT)/$(PLATFORM)/usr
 BIN_DIR     := $(DEVELOP)/Platforms/$(PLATFORM).platform/Developer/usr/bin
@@ -26,7 +16,6 @@ CFLAGS      += -Wmissing-prototypes
 CFLAGS      += -arch $(ARCH)
 CFLAGS      += -isysroot $(SDKROOT)
 CFLAGS      += -D__IPHONE_OS_VERSION_MIN_REQUIRED=40000
-CFLAGS      += -mmacosx-version-min=$(OSX_DEPLOYMENT_TARGET)
 
 CFLAGS      += -I$(PREFIX)/include
 CFLAGS      += -I$(SRCROOT)/src/
@@ -44,7 +33,6 @@ OBJCFLAGS   += -fobjc-legacy-dispatch
 
 LDFLAGS     += -arch $(ARCH)
 LDFLAGS     += -isysroot $(SDKROOT)
-LDFLAGS     += -mmacosx-version-min=$(OSX_DEPLOYMENT_TARGET)
 LDFLAGS     += -F$(SDKROOT)/System/Library/Frameworks
 LDFLAGS     += -L$(PREFIX)/lib
 
@@ -163,3 +151,15 @@ $(COPY_TGT) : $(APPNAME).app/%.cfg : $(SRCROOT)/src/ios/config/%.cfg
 $(APPNAME).app/Info.plist : $(SRCROOT)/src/ios/config/Info.plist
 	cp $< $@
 	plutil -convert binary1 $@
+
+	
+clean : FORCE
+	rm -rf $(OBJECTS)
+	rm -rf $(APP_TGT)
+	rm -rf $(COPY_TGT)
+	rm -rf $(APPNAME).app/Info.plist
+
+FORCE :
+	
+
+	
