@@ -50,6 +50,7 @@ DIRS := src/                          \
     src/gui/screens                   \
     src/game                          \
     $(APPNAME).app                    \
+    $(APPNAME).app/media              \
         
 
 LIB_NAMES := \
@@ -128,7 +129,18 @@ OBJCXX_OBJECTS := $(OBJCXX_SOURCES:.mm=.o)
 
 OBJECTS        := $(CXX_OBJECTS) $(OBJCXX_OBJECTS)
 
-all : $(DIRS) $(APP_TGT) copies
+
+RESOURCES      := \
+    fonts        \
+    gui          \
+    materials    \
+    meshes       \
+    overlays     \
+
+RESOURCE_TGT   := $(addprefix $(APPNAME).app/media/, $(RESOURCES) )
+
+
+all : $(DIRS) $(APP_TGT) copies $(RESOURCE_TGT)
 
 $(DIRS) :
 	mkdir -p $@
@@ -142,13 +154,15 @@ $(OBJCXX_OBJECTS) : %.o : $(SRCROOT)/%.mm
 $(APP_TGT) : $(OBJECTS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) $(FMKS)
 	
+$(RESOURCE_TGT) : $(APPNAME).app/media/% : $(SRCROOT)/%
+	cp -r $< $(APPNAME).app/media
 
 copies : $(COPY_TGT) $(APPNAME).app/Info.plist
 
 $(COPY_TGT) : $(APPNAME).app/%.cfg : $(SRCROOT)/src/ios/config/%.cfg
 	cp $< $@
 
-$(APPNAME).app/Info.plist : $(SRCROOT)/src/ios/config/Info.plist
+$(APPNAME).app/Info.plist : $(SRCROOT)/src/ios/config/$(PLATFORM).plist
 	cp $< $@
 	plutil -convert binary1 $@
 
