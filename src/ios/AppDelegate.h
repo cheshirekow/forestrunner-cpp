@@ -1,16 +1,40 @@
 #ifndef __AppDelegate_H__
 #define __AppDelegate_H__
 
-#include "Application.h"
+#include <OgreCamera.h>
+#include <OgreEntity.h>
+#include <OgreLogManager.h>
+#include <OgreOverlay.h>
+#include <OgreOverlayElement.h>
+#include <OgreOverlayManager.h>
+#include <OgreRoot.h>
+#include <OgreViewport.h>
+#include <OgreSceneManager.h>
+#include <OgreRenderWindow.h>
+#include <OgreConfigFile.h>
 
-#if !defined(OGRE_IS_IOS)
-#  error This header is for use with iOS only
+#include <OISEvents.h>
+#include <OISInputManager.h>
+#include <OISKeyboard.h>
+#include <OISMouse.h>
+
+
+#define OGRE_IS_IOS 1
+#undef OGRE_STATIC_CgProgramManager
+#undef OGRE_STATIC_GL
+#define OGRE_STATIC_GLES 1
+#ifdef OGRE_USE_GLES2
+#  define OGRE_STATIC_GLES2 1
+#  define USE_RTSHADER_SYSTEM
+#  undef OGRE_STATIC_GLES
 #endif
-
 #ifdef __OBJC__
-
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+#  import <UIKit/UIKit.h>
+#  import <QuartzCore/QuartzCore.h>
+#endif
+#include "OgreStaticPluginLoader.h"
+#include <OISMultiTouch.h>
+#include "IOSApplication.h"
 
 // To use CADisplayLink for smoother animation on iPhone comment out
 // the following line or define it to 1.  Use with caution, it can
@@ -21,7 +45,7 @@
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
     NSTimer *mTimer;
-    Application mApp;
+    IOSApplication mApp;
     
     // Use of the CADisplayLink class is the preferred method for controlling 
     // your animation timing. CADisplayLink will link to the main display and 
@@ -96,7 +120,8 @@
     {
         // this should be init functions, jusy copy app.setup up to the
         // part where the root starts rendering
-        mApp.ios_init();
+        mApp.init();
+        Ogre::Root::getSingleton().getRenderSystem()->_initRenderTargets();
     } 
     
     catch( Ogre::Exception& e ) 
@@ -116,12 +141,12 @@
         mLastFrameTime  = -[mDate timeIntervalSinceNow];
         
         mDisplayLink = [NSClassFromString(@"CADisplayLink") 
-                displayLinkWithTarget:self selector:@selector(renderOneFrame:)];
+                        displayLinkWithTarget:self selector:@selector(renderOneFrame:)];
         
         [mDisplayLink setFrameInterval:mLastFrameTime];
         
         [mDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] 
-                            forMode:NSDefaultRunLoopMode];
+                           forMode:NSDefaultRunLoopMode];
     }
     else
     {
@@ -147,7 +172,7 @@
     mLastFrameTime          = 1;
     mStartTime              = 0;
     mTimer                  = nil;
-
+    
     // A system version of 3.1 or greater is required to use CADisplayLink. 
     // The NSTimer class is used as fallback when it isn't available.
 #if USE_CADISPLAYLINK
@@ -157,7 +182,7 @@
                     options:NSNumericSearch] != NSOrderedAscending)
         mDisplayLinkSupported = TRUE;
 #endif
-
+    
     [self go];
 }
 
@@ -183,7 +208,7 @@
         mTimer = nil;
     }
     [[UIApplication sharedApplication] 
-        performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
+     performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
 
 
@@ -213,31 +238,31 @@
 {
     // push all of this stuff into app.step()
     /*
-    if( Ogre::Root::getSingletonPtr() && 
-            Ogre::Root::getSingleton().isInitialised())
-    {
-        
-		if(OgreFamework::getSingletonPtr()->m_pRenderWnd->isActive())
-		{
-			mStartTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU();
-            
-			OgreFramework::getSingletonPtr()->m_pMouse->capture();
-            
-			OgreFramework::getSingletonPtr()->updateOgre(mLastFrameTime);
-			OgreFramework::getSingletonPtr()->m_pRoot->renderOneFrame();
-            
-			mLastFrameTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU() - mStartTime;
-		}
-    }
+     if( Ogre::Root::getSingletonPtr() && 
+     Ogre::Root::getSingleton().isInitialised())
+     {
+     
+     if(OgreFamework::getSingletonPtr()->m_pRenderWnd->isActive())
+     {
+     mStartTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU();
+     
+     OgreFramework::getSingletonPtr()->m_pMouse->capture();
+     
+     OgreFramework::getSingletonPtr()->updateOgre(mLastFrameTime);
+     OgreFramework::getSingletonPtr()->m_pRoot->renderOneFrame();
+     
+     mLastFrameTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU() - mStartTime;
+     }
+     }
      */
     if( !mApp.step() )
     {
-        mApp.ios_cleanup();
+        mApp.cleanup();
 	    if (mDisplayLinkSupported)
 	    {
 	        [mDate release];
 	        mDate = nil;
-
+            
 	        [mDisplayLink invalidate];
 	        mDisplayLink = nil;
 	    }
@@ -247,9 +272,9 @@
 	        mTimer = nil;
 	    }
         [[UIApplication sharedApplication] 
-            performSelector:@selector(terminate:) 
-            withObject:nil 
-            afterDelay:0.0];
+         performSelector:@selector(terminate:) 
+         withObject:nil 
+         afterDelay:0.0];
     }
 }
 
@@ -267,7 +292,5 @@
 }
 
 @end
-
-#endif
 
 #endif

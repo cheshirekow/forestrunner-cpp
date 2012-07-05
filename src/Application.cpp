@@ -465,6 +465,11 @@ void Application::createViewports(void)
 {
     // Create one viewport, entire window
     mViewport = mWindow->addViewport(mCamera);
+
+#ifdef OGRE_IS_IOS
+    // bugfix for display offset by a quarter (weird bug)
+    mViewport->setDimensions(0.0,0.5,0.5,0.5);
+#endif
     mViewport->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
 
     // set a pointer to the viewport where states in the stategraph can

@@ -71,6 +71,16 @@ void Button::onTouchPress( const OIS::MultiTouchEvent& evt, Ogre::Viewport* view
     {
         sig_clicked.emit();
     }
+    else
+    {
+        std::cout
+        << "\n cx: " << cx
+        << "\n cy: " << cy
+        << "\n    " << evt.state.X.abs << " < " << m_min[0] + cx
+        << "\n || " << evt.state.X.abs << " > " << m_max[0] + cx
+        << "\n || " << evt.state.Y.abs << " < " << m_min[1] + cx
+        << "\n || " << evt.state.Y.abs << " > " << m_max[1] + cx << std::endl;
+    }
 }
 
 Button::MouseSlot_t Button::slot_mousePressed()
