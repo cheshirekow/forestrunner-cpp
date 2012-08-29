@@ -7,7 +7,7 @@
  */
 
 #include "IOSApplication.h"
-#include "Application.h"
+#include "app/Application.h"
 
 IOSApplication::IOSApplication()
 {
