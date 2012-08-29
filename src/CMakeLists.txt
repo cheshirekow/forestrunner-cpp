@@ -1,6 +1,20 @@
 find_package(OIS REQUIRED)
 find_package(SigC++ REQUIRED)
 
+if(FORESTRUNNER_LINUX)
+    add_definitions( -DFORESTRUNNER_LINUX )
+elseif(FORESTRUNNER_WINDOWS)
+    add_definitions( -DFORESTRUNNER_WINDOWS )
+elseif(FORESTRUNNER_OSX)
+    add_definitions( -DFORESTRUNNER_OSX )
+elseif(FORESTRUNNER_IOS)
+    add_definitions( -DFORESTRUNNER_IOS )
+elseif(FORESTRUNNER_ANDROID)
+    add_definitions( -DFORESTRUNNER_ANDROID )
+endif()
+      
+
+
 if(FORESTRUNNER_DESKTOP)
     message(status "Configuring for DESKTOP build\n------------------------\n")
     find_package(OGRE COMPONENTS RenderSystem_GL REQUIRED)
@@ -18,7 +32,6 @@ if(FORESTRUNNER_IOS)
 endif(FORESTRUNNER_IOS)
                                                                     
 include_directories( 
-    ${CMAKE_CURRENT_SOURCE_DIR}/TutorialFramework
     ${CMAKE_CURRENT_SOURCE_DIR}/
     ${OIS_INCLUDE_DIRS}
     ${OGRE_INCLUDE_DIRS} 
@@ -36,7 +49,8 @@ set(LIBS ${LIBS}
  
 add_library( forestrunner 
                     IOSApplication.cpp
-                    ${CMAKE_CURRENT_BINARY_DIR}/Application.cpp
+                    Application.cpp
+                    ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
                     MeshBuilder.cpp
                     game/Game.cpp
                     game/KeyboardGame.cpp
@@ -62,8 +76,9 @@ install(TARGETS forestrunner
   ARCHIVE DESTINATION lib
 )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/Application.cpp )
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/app/linux.cpp
+                ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp )
                     
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg.in 
                 ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg )

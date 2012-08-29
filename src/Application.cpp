@@ -4,6 +4,11 @@
 #include "game/ForestPatch.h"
 #include "game/CEGUIDummyLogger.h"
 
+#ifdef FORESTRUNNER_LINUX
+#include "app/linux.h"
+#endif
+
+
 #include <cassert>
 #include <cmath>
 #include <sigc++/sigc++.h>
@@ -73,8 +78,10 @@ Application::Application(void):
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
 #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
     m_ResourcePath = Ogre::macBundlePath() + "/";
+#elif FORESTRUNNER_LINUX
+    m_ResourcePath = std::string(g_installPrefix) + "/share/forestrunner/";
 #else
-    m_ResourcePath = "${CMAKE_INSTALL_PREFIX}/share/forestrunner/";
+#error "Don't know how to complile on this system"
 #endif
 }
 
