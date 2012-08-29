@@ -1,26 +1,11 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef FORESTRUNNER_APPLICATION_H
+#define FORESTRUNNER_APPLICATION_H
 
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 
-#include <OgreCamera.h>
-#include <OgreEntity.h>
-#include <OgreLogManager.h>
-#include <OgreRoot.h>
-#include <OgreViewport.h>
-#include <OgreSceneManager.h>
-#include <OgreRenderWindow.h>
-#include <OgreConfigFile.h>
+#include <Ogre.h>
 
-#include <OISEvents.h>
-#include <OISInputManager.h>
-#include <OISKeyboard.h>
-#include <OISMouse.h>
-#include <OISMultiTouch.h>
-
-#include <SdkTrays.h>
-#include <SdkCameraMan.h>
 
 #include "gui/GuiManager.h"
 #include "game/Game.h"
@@ -66,13 +51,13 @@
 #endif
 
 
+namespace forestrunner {
+
+
 class Application :
     public Ogre::FrameListener,
     public Ogre::WindowEventListener,
-    public Ogre::RenderQueueListener,
-    public OIS::KeyListener,
-    public OIS::MouseListener,
-    public OIS::MultiTouchListener
+    public Ogre::RenderQueueListener
 {
 
 public:
@@ -91,21 +76,8 @@ protected:
     Ogre::String            mResourcesCfg;
     Ogre::String            mPluginsCfg;
 
-    // OgreBites
-    OgreBites::SdkCameraMan*    mCameraMan;       // basic camera controller
-    OgreBites::ParamsPanel*     mDetailsPanel;    // sample details panel
-
     bool mCursorWasVisible;  // was cursor visible before dialog appeared
     bool mShutDown;
-
-    //OIS Input devices
-    OIS::InputManager*  mInputManager;
-    OIS::Mouse*         mMouse;
-    OIS::MultiTouch*    mTouch;
-    OIS::Keyboard*      mKeyboard;
-    
-    //OIS Fake Mouse for touch translation
-    OIS::MouseState     mTouchMouseState;
 
     CEGUI::OgreRenderer*    mRenderer;
     GuiManager*          m_guiManager;
@@ -153,21 +125,6 @@ protected:
     // Ogre::RenderQueueListener
     virtual void postRenderQueues();
 
-    // OIS::KeyListener
-    virtual bool keyPressed( const OIS::KeyEvent &arg );
-    virtual bool keyReleased( const OIS::KeyEvent &arg );
-
-    // OIS::MouseListener
-    virtual bool mouseMoved( const OIS::MouseEvent &arg );
-    virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-    virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-
-    // OIS::MultiTouchListener
-    virtual bool touchMoved( const OIS::MultiTouchEvent &arg );
-    virtual bool touchPressed( const OIS::MultiTouchEvent &arg );
-    virtual bool touchReleased( const OIS::MultiTouchEvent &arg );
-    virtual bool touchCancelled( const OIS::MultiTouchEvent &arg );
-
     // Ogre::WindowEventListener
 
     //Adjust mouse clipping area
@@ -176,5 +133,7 @@ protected:
     virtual void windowClosed(Ogre::RenderWindow* rw);
 };
 
+
+} // namespace forestrunner
 
 #endif

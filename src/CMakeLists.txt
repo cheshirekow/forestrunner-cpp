@@ -49,7 +49,8 @@ set(LIBS ${LIBS}
  
 add_library( forestrunner 
                     IOSApplication.cpp
-                    app/Application.cpp
+                    forestrunner/Application.cpp
+                    forestrunner/DesktopApplication.cpp
                     ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
                     MeshBuilder.cpp
                     game/Game.cpp

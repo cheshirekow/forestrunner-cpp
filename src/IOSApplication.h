@@ -9,12 +9,14 @@
 #ifndef IOSAPPLICATION_H_
 #define IOSAPPLICATION_H_
 
+namespace forestrunner {
 class Application;
+}
 
 class IOSApplication
 {
     private:
-        Application* m_impl;
+        forestrunner::Application* m_impl;
 
     public:
         IOSApplication();

@@ -36,23 +36,11 @@
     #include <iOS/macUtils.h>
 #endif
 
-CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
-{
-    switch (buttonID)
-    {
-    case OIS::MB_Left:
-        return CEGUI::LeftButton;
 
-    case OIS::MB_Right:
-        return CEGUI::RightButton;
+namespace forestrunner {
 
-    case OIS::MB_Middle:
-        return CEGUI::MiddleButton;
 
-    default:
-        return CEGUI::LeftButton;
-    }
-}
+
 
 
 //-------------------------------------------------------------------------------------
@@ -64,14 +52,8 @@ Application::Application(void):
     mViewport(0),
     mResourcesCfg(Ogre::StringUtil::BLANK),
     mPluginsCfg(Ogre::StringUtil::BLANK),
-    mCameraMan(0),
-    mDetailsPanel(0),
     mCursorWasVisible(false),
     mShutDown(false),
-    mInputManager(0),
-    mMouse(0),
-    mTouch(0),
-    mKeyboard(0),
     m_iosTimer(0)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
@@ -91,8 +73,6 @@ Application::Application(void):
 //-------------------------------------------------------------------------------------
 Application::~Application(void)
 {
-    if (mCameraMan) delete mCameraMan;
-
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
     windowClosed(mWindow);
@@ -376,7 +356,6 @@ void Application::createCamera(void)
     mCamera->setNearClipDistance(1);
     mCamera->setFarClipDistance(180);
 
-    //mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
 }
 
 
@@ -385,51 +364,11 @@ void Application::createCamera(void)
 //-------------------------------------------------------------------------------------
 void Application::createFrameListener(void)
 {
-    //Application::createFrameListener();
-
-    Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
-    OIS::ParamList pl;
-    size_t windowHnd = 0;
-    std::ostringstream windowHndStr;
-
-    mWindow->getCustomAttribute("WINDOW", &windowHnd);
-    windowHndStr << windowHnd;
-    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-
-#if (OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS) || (OGRE_PLATFORM == OGRE_PLATFORM_APPLE) || OGRE_PLATFORM == PLATFORM_WIN32 || OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-
-#else
-    pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
-    pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
-    pl.insert(std::make_pair(std::string("x11_keyboard_grab"), std::string("false")));
-    pl.insert(std::make_pair(std::string("XAutoRepeatOn"), std::string("true")));
-#endif
-
-
-    mInputManager = OIS::InputManager::createInputSystem( pl );
-
-
-#ifdef OGRE_IS_IOS
-    mTouch = static_cast<OIS::MultiTouch*>(
-                mInputManager->createInputObject(OIS::OISMultiTouch, true));
-    mTouch->setEventCallback(this);
-#else
-    mKeyboard = static_cast<OIS::Keyboard*>(
-                mInputManager->createInputObject( OIS::OISKeyboard, true ));
-    mKeyboard->setEventCallback(this);
-
-    mMouse = static_cast<OIS::Mouse*>(
-                mInputManager->createInputObject( OIS::OISMouse, true ));
-    mMouse->setEventCallback(this);
-#endif
-
     //Set initial mouse clipping size
     windowResized(mWindow);
 
     //Register as a Window listener
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
     mRoot->addFrameListener(this);
 }
 
@@ -672,14 +611,6 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
     
-    //Need to capture/update each device
-    if(mKeyboard)
-        mKeyboard->capture();
-    if(mMouse)
-        mMouse->capture();
-    if(mTouch)
-        mTouch->capture();
-
     m_game->update(evt.timeSinceLastFrame);
 
     //Need to inject timestamps to CEGUI System.
@@ -700,7 +631,6 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     // this is how we update the camera controller
     // (probably need to get rid of this)
     // once we fix the camera location
-    //mCameraMan->frameRenderingQueued(evt);
 
     return true;
 }
@@ -722,129 +652,6 @@ void Application::postRenderQueues()
 
 
 
-//-------------------------------------------------------------------------------------
-bool Application::keyPressed( const OIS::KeyEvent &arg )
-{
-    //return Application::keyReleased(arg);
-
-    CEGUI::GUIContext& sys =
-            CEGUI::System::getSingleton().getDefaultGUIContext();
-    sys.injectKeyDown( (CEGUI::Key::Scan)arg.key );
-    sys.injectChar(arg.text);
-    m_game->keyPressed(arg);
-
-    //mCameraMan->injectKeyDown(arg);
-    return true;
-}
-
-
-
-
-//-------------------------------------------------------------------------------------
-bool Application::keyReleased( const OIS::KeyEvent &arg )
-{
-    //return Application::keyReleased(arg);
-
-    CEGUI::GUIContext& sys =
-            CEGUI::System::getSingleton().getDefaultGUIContext();
-    sys.injectKeyUp( (CEGUI::Key::Scan)arg.key );
-    m_game->keyReleased(arg);
-    //mCameraMan->injectKeyUp(arg);
-
-    return true;
-}
-
-
-
-
-//-------------------------------------------------------------------------------------
-bool Application::mouseMoved( const OIS::MouseEvent &arg )
-{
-    //return Application::mouseMoved(arg);
-
-    CEGUI::GUIContext& sys =
-            CEGUI::System::getSingleton().getDefaultGUIContext();
-    sys.injectMouseMove(arg.state.X.rel, arg.state.Y.rel);
-    // Scroll wheel.
-    if (arg.state.Z.rel)
-        sys.injectMouseWheelChange(arg.state.Z.rel / 120.0f);
-    //mCameraMan->injectMouseMove(arg);
-    return true;
-}
-
-
-
-
-//-------------------------------------------------------------------------------------
-bool Application::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
-{
-    //return Application::mousePressed(arg, id);
-
-    CEGUI::GUIContext& sys =
-            CEGUI::System::getSingleton().getDefaultGUIContext();
-    sys.injectMouseButtonDown(convertButton(id));
-    //mCameraMan->injectMouseDown(arg,id);
-    return true;
-}
-
-
-
-
-//-------------------------------------------------------------------------------------
-bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
-{
-    //return Application::mouseReleased(arg, id);
-
-    CEGUI::GUIContext& sys =
-            CEGUI::System::getSingleton().getDefaultGUIContext();
-    sys.injectMouseButtonUp(convertButton(id));
-    //mCameraMan->injectMouseUp(arg,id);
-    return true;
-}
-
-
-
-bool Application::touchMoved( const OIS::MultiTouchEvent &arg )
-{
-    mTouchMouseState.X = arg.state.X;
-    mTouchMouseState.Y = arg.state.Y;
-    
-    OIS::MouseEvent evt(0,mTouchMouseState);
-    mouseMoved(evt );
-    return true;
-}
-
-
-bool Application::touchPressed( const OIS::MultiTouchEvent &arg )
-{
-    mTouchMouseState.buttons = 0x01;
-    mTouchMouseState.X       = arg.state.X;
-    mTouchMouseState.Y       = arg.state.Y;
-    
-    OIS::MouseEvent evt(0,mTouchMouseState);
-    mousePressed(evt, OIS::MB_Left);
-    return true;
-}
-
-
-
-bool Application::touchReleased( const OIS::MultiTouchEvent &arg )
-{
-    mTouchMouseState.buttons = 0x0;
-    mTouchMouseState.X       = arg.state.X;
-    mTouchMouseState.Y       = arg.state.Y;
-    
-    OIS::MouseEvent evt(0,mTouchMouseState);
-    mouseReleased(evt, OIS::MB_Left);
-    return true;
-}
-
-
-
-bool Application::touchCancelled( const OIS::MultiTouchEvent &arg )
-{
-    return true;
-}
 
 
 
@@ -852,10 +659,6 @@ bool Application::touchCancelled( const OIS::MultiTouchEvent &arg )
 //Adjust mouse clipping area
 void Application::windowResized(Ogre::RenderWindow* rw)
 {
-    unsigned int width, height, depth;
-    int left, top;
-    rw->getMetrics(width, height, depth, left, top);
-    
     if(mCamera && mViewport)
     {
         // Alter the camera aspect ratio to match the viewport
@@ -864,41 +667,17 @@ void Application::windowResized(Ogre::RenderWindow* rw)
             Ogre::Real(mViewport->getActualHeight()));
     }
 
-    if(mMouse)
-    {
-        const OIS::MouseState &ms = mMouse->getMouseState();
-        ms.width = width;
-        ms.height = height;
-    }
-    
-    mTouchMouseState.width   = width;
-    mTouchMouseState.height = height;
 }
 
 //Unattach OIS before window shutdown (very important under Linux)
 void Application::windowClosed(Ogre::RenderWindow* rw)
 {
-    //Only close for window that created OIS (the main window in these demos)
-    if( rw == mWindow )
-    {
-        if( mInputManager )
-        {
-            if(mMouse)
-                mInputManager->destroyInputObject( mMouse );
-            if(mKeyboard)
-                mInputManager->destroyInputObject( mKeyboard );
-            if(mTouch)
-                mInputManager->destroyInputObject( mTouch );
 
-            OIS::InputManager::destroyInputSystem(mInputManager);
-            mInputManager = 0;
-        }
-    }
 }
 
 
 
-
+} // namespace forestrunner
 
 
 

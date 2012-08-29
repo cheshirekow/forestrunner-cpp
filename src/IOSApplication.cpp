@@ -7,11 +7,11 @@
  */
 
 #include "IOSApplication.h"
-#include "app/Application.h"
+#include "forestrunner/Application.h"
 
 IOSApplication::IOSApplication()
 {
-    m_impl = new Application();
+    m_impl = new forestrunner::Application();
 }
 
 IOSApplication::~IOSApplication()
