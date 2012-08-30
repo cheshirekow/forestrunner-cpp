@@ -76,43 +76,6 @@ Application::~Application(void)
 
 
 
-bool Application::ios_init()
-{
-    // instantiate the dummy logger so that it gets set as the singleton
-    // for cegui
-    CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
-
-    if (!setup())
-        return false;
-
-    m_iosTimer = OGRE_NEW Ogre::Timer();
-    m_iosTimer->reset();
-
-    mRoot->clearEventTimes();
-
-    return true;
-}
-
-
-
-
-void Application::ios_cleanup()
-{
-    // clean up
-    destroyScene();
-}
-
-
-
-
-bool Application::ios_step()
-{
-    return step();
-}
-
-
-
-
 //------------------------------------------------------------------------------
 void Application::go(void)
 {
