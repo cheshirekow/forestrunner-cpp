@@ -47,9 +47,13 @@ AppInterface::~AppInterface()
 
 
 
-bool AppInterface::init()
+bool AppInterface::init(
+        void* uiView,
+        void* uiViewController,
+        unsigned int width,
+        unsigned int height )
 {
-    return m_impl->init();
+    return m_impl->init(uiView,uiViewController,width,height);
 }
 
 

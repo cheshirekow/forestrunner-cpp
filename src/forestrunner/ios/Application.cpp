@@ -49,11 +49,20 @@ Application::~Application()
 
 
 
-bool Application::init()
+bool Application::init(
+        void* uiView,
+        void* uiViewController,
+        unsigned int width,
+        unsigned int height )
 {
     // instantiate the dummy logger so that it gets set as the singleton
     // for cegui (note: we're not using cegui anymore)
     // CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
+
+    m_uiView            = uiView;
+    m_uiViewController  = uiViewController;
+    m_width             = width;
+    m_height            = height;
 
     if (!setup())
         return false;
@@ -62,6 +71,39 @@ bool Application::init()
     m_iosTimer->reset();
 
     mRoot->clearEventTimes();
+
+    return true;
+}
+
+
+
+
+bool Application::configure(void)
+{
+    m_pLog->logMessage(
+            "setup: Finished setting up resources about to show config");
+
+    std::stringstream strm;
+    Ogre::NameValuePairList params;
+    params["title"]                = "forestrunner";
+    params["colourDepth"]          = "32";
+    //m_params["externalGLControl"]    = "false";
+    //m_params["externalGLContext"]    = "0";
+    params["contentScalingFactor"] = 2.0;
+
+    strm.str("");
+    strm << (unsigned long)m_uiView;
+    params["externalViewHandle"]   = strm.str();
+
+    strm.str("");
+    strm << (unsigned long)m_uiViewController;
+    params["externalViewController"]  = strm.str();
+
+    // initialize, dont' create render window
+    mRoot->initialise(false, "Forest Runner");
+
+    // now create render window by attaching to the iOS UIView stuff
+    mRoot->createRenderWindow("ForestRunner",m_width,m_height,false,&params);
 
     return true;
 }

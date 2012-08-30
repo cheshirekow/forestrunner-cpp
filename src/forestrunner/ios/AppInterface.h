@@ -42,7 +42,10 @@ class AppInterface
         AppInterface();
         ~AppInterface();
 
-        bool init();
+        bool init(  void* uiView,
+                    void* uiViewController,
+                    unsigned int width,
+                    unsigned int height );
         bool step();
         void cleanup();
 };

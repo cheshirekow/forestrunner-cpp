@@ -38,17 +38,29 @@ class Application:
     protected:
         Ogre::Timer*        m_iosTimer;
 
+        void*               m_uiView;
+        void*               m_uiViewController;
+        unsigned int        m_width;
+        unsigned int        m_height;
+
     public:
         Application();
         virtual ~Application();
 
-        // calls setup and initializes the system
-        bool init();
+        /// calls setup and initializes the system
+        bool init(  void* uiView,
+                    void* uiViewController,
+                    unsigned int width,
+                    unsigned int height );
 
-        // performs one step of the render loop
+        /// overrides base class configure to pass handle to UIView and
+        /// UIViewController, instead of loading the configuration window,
+        bool configure();
+
+        /// performs one step of the render loop
         bool step();
 
-        // does cleanup
+        /// does cleanup
         void cleanup();
 };
 

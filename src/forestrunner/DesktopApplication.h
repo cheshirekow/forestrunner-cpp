@@ -82,29 +82,45 @@ class DesktopApplication:
         void go();
 
     protected:
+        // overrides for setup()
+        //----------------------------------------------------------------------
+        virtual bool configure();
+                void createHUD();
+                void createCEGUI();
+        /// overrides base class to add creation of the gui manager
+        virtual void createScene();
         virtual void createFrameListener();
 
-        void createHUD(void);
-        void createCEGUI(void);
 
-        /// overrides base class to add creation of the gui manager
-        virtual void createScene(void);
 
+        // Ogre::FrameListener
+        //----------------------------------------------------------------------
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+
+        // Ogre::RenderQueueListener
+        //----------------------------------------------------------------------
         virtual void postRenderQueues();
+
+        // Ogre::WindowEventListener
+        //----------------------------------------------------------------------
         virtual void windowResized(Ogre::RenderWindow* rw);
         virtual void windowClosed(Ogre::RenderWindow* rw);
 
         // OIS::KeyListener
+        //----------------------------------------------------------------------
         virtual bool keyPressed( const OIS::KeyEvent &arg );
         virtual bool keyReleased( const OIS::KeyEvent &arg );
 
         // OIS::MouseListener
+        //----------------------------------------------------------------------
         virtual bool mouseMoved( const OIS::MouseEvent &arg );
-        virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-        virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+        virtual bool mousePressed( const OIS::MouseEvent &arg,
+                                        OIS::MouseButtonID id );
+        virtual bool mouseReleased( const OIS::MouseEvent &arg,
+                                        OIS::MouseButtonID id );
 
         // OIS::MultiTouchListener
+        //----------------------------------------------------------------------
         virtual bool touchMoved( const OIS::MultiTouchEvent &arg );
         virtual bool touchPressed( const OIS::MultiTouchEvent &arg );
         virtual bool touchReleased( const OIS::MultiTouchEvent &arg );

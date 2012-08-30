@@ -52,7 +52,7 @@ namespace forestrunner {
 
 
 //------------------------------------------------------------------------------
-Application::Application(void):
+Application::Application():
     mRoot(0),
     mCamera(0),
     mSceneMgr(0),
@@ -78,7 +78,7 @@ Application::Application(void):
 
 
 //------------------------------------------------------------------------------
-Application::~Application(void)
+Application::~Application()
 {
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -99,7 +99,7 @@ Application::~Application(void)
 
 
 
-bool Application::step(void)
+bool Application::step()
 {
     /*
     std::cerr << "   viewport: ["
@@ -144,7 +144,7 @@ void Application::createRoot()
 
 
 //------------------------------------------------------------------------------
-void Application::setupResources(void)
+void Application::setupResources()
 {
     // Load resource paths from config file
     Ogre::ConfigFile cf;
@@ -180,35 +180,7 @@ void Application::setupResources(void)
 
 
 //------------------------------------------------------------------------------
-bool Application::configure(void)
-{
-    m_pLog->logMessage(
-            "setup: Finished setting up resources about to show config");
-
-    // Show the configuration dialog and initialise the system
-    // You can skip this and use root.restoreConfig() to load configuration
-    // settings if you were sure there are valid ones saved in ogre.cfg
-    if(mRoot->showConfigDialog())
-    {
-        // If returned true, user clicked OK so initialise
-        // Here we choose to let the system create a default rendering window
-        // by passing 'true'
-        std::cerr << "showConfigDialog() returned true" << std::endl;
-        mWindow = mRoot->initialise(true, "Forest Runner");
-
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-
-
-
-//------------------------------------------------------------------------------
-void Application::chooseSceneManager(void)
+void Application::chooseSceneManager()
 {
     // Get the SceneManager, in this case a generic one
     mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
@@ -219,7 +191,7 @@ void Application::chooseSceneManager(void)
 
 
 //------------------------------------------------------------------------------
-void Application::createCamera(void)
+void Application::createCamera()
 {
     // Create the camera
     mCamera = mSceneMgr->createCamera("PlayerCam");
@@ -238,7 +210,7 @@ void Application::createCamera(void)
 
 
 //------------------------------------------------------------------------------
-void Application::createViewports(void)
+void Application::createViewports()
 {
     // Create one viewport, entire window
     mViewport = mWindow->addViewport(mCamera);
@@ -254,7 +226,7 @@ void Application::createViewports(void)
 
 
 //------------------------------------------------------------------------------
-void Application::createResourceListener(void)
+void Application::createResourceListener()
 {
 
 }
@@ -263,7 +235,7 @@ void Application::createResourceListener(void)
 
 
 //------------------------------------------------------------------------------
-void Application::loadResources(void)
+void Application::loadResources()
 {
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
@@ -272,7 +244,7 @@ void Application::loadResources(void)
 
 
 //------------------------------------------------------------------------------
-void Application::createScene(void)
+void Application::createScene()
 {
 
     m_pLog->logMessage("createScene: loading aircraft");
@@ -348,7 +320,7 @@ void Application::createScene(void)
 
 
 //------------------------------------------------------------------------------
-void Application::createFrameListener(void)
+void Application::createFrameListener()
 {
     //Set initial mouse clipping size
     windowResized(mWindow);
@@ -362,7 +334,7 @@ void Application::createFrameListener(void)
 
 
 //------------------------------------------------------------------------------
-bool Application::setup(void)
+bool Application::setup()
 {
     mResourcesCfg   = "resources.cfg";
     mPluginsCfg     = "plugins.cfg";
@@ -408,7 +380,7 @@ bool Application::setup(void)
 
 
 //------------------------------------------------------------------------------
-void Application::destroyScene(void)
+void Application::destroyScene()
 {
 }
 
@@ -416,7 +388,7 @@ void Application::destroyScene(void)
 
 
 //------------------------------------------------------------------------------
-void Application::tearDown(void)
+void Application::tearDown()
 {
     destroyScene();
 }

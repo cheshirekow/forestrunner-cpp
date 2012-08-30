@@ -78,10 +78,10 @@ class Application :
 public:
     /// does nothing but initialize pointers to null and assigns the value of
     /// the resource path
-    Application(void);
+    Application();
 
     /// cleans up the window listener interface
-    virtual ~Application(void);
+    virtual ~Application();
 
     /// prcesses the message queue, then renders one frame
     virtual bool step();
@@ -112,24 +112,27 @@ protected:
 protected:
     // components of setup()
     //-------------------------------------------------------------------------
-    virtual void createRoot(void);
-    virtual void setupResources(void);
-    virtual bool configure(void);
-    virtual void chooseSceneManager(void);
-    virtual void createCamera(void);
-    virtual void createViewports(void);
-    virtual void createResourceListener(void);
-    virtual void loadResources(void);
-    virtual void createScene(void);
-    virtual void createFrameListener(void);
+    virtual void createRoot();
+    virtual void setupResources();
+
+    /// pure virtual, performs configuration loading and initializes the root
+    /// object
+    virtual bool configure() = 0;
+    virtual void chooseSceneManager();
+    virtual void createCamera();
+    virtual void createViewports();
+    virtual void createResourceListener();
+    virtual void loadResources();
+    virtual void createScene();
+    virtual void createFrameListener();
 
     virtual bool setup();
 
     // components of teardown()
     //-------------------------------------------------------------------------
-    virtual void destroyScene(void);
+    virtual void destroyScene();
 
-    virtual void tearDown(void);
+    virtual void tearDown();
 
 
 
@@ -144,9 +147,10 @@ protected:
 
     // Ogre::WindowEventListener
     //-------------------------------------------------------------------------
-    //Adjust mouse clipping area
+    /// Adjust mouse clipping area
     virtual void windowResized(Ogre::RenderWindow* rw);
-    //Unattach OIS before window shutdown (very important under Linux)
+
+    /// Detach OIS before window shutdown (very important under Linux)
     virtual void windowClosed(Ogre::RenderWindow* rw);
 };
 
