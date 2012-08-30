@@ -26,7 +26,12 @@
 
 #include "forestrunner/desktop/DataStore.h"
 
+#include <cstdlib>
+
+#ifdef FORESTRUNNER_OSX
 #include <pwd.h>
+#include <unistd.h>
+#endif
 
 namespace forestrunner {
 namespace      desktop {
@@ -42,18 +47,14 @@ DataStore::DataStore()
 #elif FORESTRUNNER_WINDOWS
     m_dataDir = getenv("APPDATA");
 #elif FORESTRUNNER_OSX
-
+    const struct passwd* pwd = getpwuid(getuid());
+    m_dataDir = pwd->pw_dir;
 #endif
 
 }
 
 
 
-
-DataStore::~DataStore()
-{
-
-}
 
 
 
