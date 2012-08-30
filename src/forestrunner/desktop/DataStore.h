@@ -39,9 +39,31 @@ class DataStore:
     public:
         typedef forestrunner::DataStore Base_t;
 
+    private:
+        std::string     m_dataDir;
+
     public:
+        /// simply assigns the value of m_dataDir
         DataStore();
-        virtual ~DataStore();
+
+        /// need to be virtual, does nothing
+        virtual ~DataStore(){}
+
+        /// if necessary, create, then connect to database and then read in
+        /// any entries from the opened database
+        virtual void init();
+
+        /// iterate over the map and write entries into the database
+        virtual void flush();
+
+        /// record a new score for the user, adding it to the database
+        virtual void write_score(double score);
+
+        /// read out updated list of best scores from database
+        virtual void sync_scores();
+
+        /// close connection to database
+        virtual void fini();
 };
 
 

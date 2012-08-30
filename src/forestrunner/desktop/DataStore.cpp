@@ -26,6 +26,8 @@
 
 #include "forestrunner/desktop/DataStore.h"
 
+#include <pwd.h>
+
 namespace forestrunner {
 namespace      desktop {
 
@@ -33,7 +35,15 @@ namespace      desktop {
 
 DataStore::DataStore()
 {
-    // TODO Auto-generated constructor stub
+
+
+#ifdef FORESTRUNNER_LINUX
+    m_dataDir = getenv("HOME");
+#elif FORESTRUNNER_WINDOWS
+    m_dataDir = getenv("APPDATA");
+#elif FORESTRUNNER_OSX
+
+#endif
 
 }
 
@@ -42,7 +52,7 @@ DataStore::DataStore()
 
 DataStore::~DataStore()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
 
