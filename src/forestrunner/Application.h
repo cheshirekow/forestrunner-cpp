@@ -56,9 +56,18 @@ class Application :
 {
 
 public:
+    /// does nothing but initialize pointers to null and assigns the value of
+    /// the resource path
     Application(void);
+
+    /// cleans up the window listener interface
     virtual ~Application(void);
+
+    /// performs setup(), then enters render loop
     virtual void go();
+
+    /// prcesses the message queue, then renders one frame
+    virtual bool step();
 
 protected:
     Ogre::Root*             mRoot;
@@ -91,26 +100,40 @@ public:
     bool ios_step();
 
 protected:
-    virtual bool setup();
+    // components of setup()
+    //-------------------------------------------------------------------------
+    virtual void createRoot(void);
+    virtual void setupResources(void);
     virtual bool configure(void);
     virtual void chooseSceneManager(void);
     virtual void createCamera(void);
-    virtual void createFrameListener(void);
-    virtual void createScene(void);
-    virtual void destroyScene(void);
     virtual void createViewports(void);
-    virtual void setupResources(void);
     virtual void createResourceListener(void);
     virtual void loadResources(void);
+    virtual void createScene(void);
+    virtual void createFrameListener(void);
+
+    virtual bool setup();
+
+    // components of teardown()
+    //-------------------------------------------------------------------------
+    virtual void destroyScene(void);
+
+    virtual void tearDown(void);
+
+
+
 
     // Ogre::FrameListener
+    //-------------------------------------------------------------------------
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
     // Ogre::RenderQueueListener
+    //-------------------------------------------------------------------------
     virtual void postRenderQueues();
 
     // Ogre::WindowEventListener
-
+    //-------------------------------------------------------------------------
     //Adjust mouse clipping area
     virtual void windowResized(Ogre::RenderWindow* rw);
     //Unattach OIS before window shutdown (very important under Linux)

@@ -32,8 +32,7 @@ namespace forestrunner {
 
 
 
-
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 Application::Application(void):
     mRoot(0),
     mCamera(0),
@@ -60,7 +59,7 @@ Application::Application(void):
 
 
 
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 Application::~Application(void)
 {
     //Remove ourself as a Window listener
@@ -77,16 +76,158 @@ Application::~Application(void)
 
 
 
-//-------------------------------------------------------------------------------------
+bool Application::ios_init()
+{
+    // instantiate the dummy logger so that it gets set as the singleton
+    // for cegui
+    CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
+
+    if (!setup())
+        return false;
+
+    m_iosTimer = OGRE_NEW Ogre::Timer();
+    m_iosTimer->reset();
+
+    mRoot->clearEventTimes();
+
+    return true;
+}
+
+
+
+
+void Application::ios_cleanup()
+{
+    // clean up
+    destroyScene();
+}
+
+
+
+
+bool Application::ios_step()
+{
+    return step();
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::go(void)
+{
+    if (!setup())
+        return;
+
+    //mRoot->startRendering();
+
+    mRoot->getRenderSystem()->_initRenderTargets();
+    mRoot->clearEventTimes();
+
+    while(!mWindow->isClosed() && !mShutDown )
+        mShutDown = !step();
+
+    // clean up
+    tearDown();
+}
+
+
+
+
+bool Application::step(void)
+{
+    /*
+    std::cerr << "   viewport: ["
+                << mViewport->getActualLeft() << ", "
+                << mViewport->getActualTop() << "] ["
+                << mViewport->getActualWidth() << ", "
+                << mViewport->getActualHeight() << "]" << std::endl;
+    */
+    //mRenderer->setDefaultRootRenderTarget(*mWindow);
+
+    //Pump messages in all registered RenderWindow windows
+    Ogre::WindowEventUtilities::messagePump();
+
+    return mRoot->renderOneFrame();
+}
+
+
+
+
+void Application::createRoot()
+{
+    new Ogre::LogManager();
+
+        m_pLog = Ogre::LogManager::getSingleton()
+                    .createLog("OgreLogfile.log", true, true, false);
+        m_pLog->setDebugOutputEnabled(true);
+
+        Ogre::String pluginsPath;
+        // only use plugins.cfg if not static
+    #ifndef OGRE_STATIC_LIB
+        pluginsPath = m_ResourcePath + mPluginsCfg;
+    #endif
+
+        mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
+
+    #ifdef OGRE_STATIC_LIB
+        m_StaticPluginLoader.load();
+    #endif
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::setupResources(void)
+{
+    // Load resource paths from config file
+    Ogre::ConfigFile cf;
+    cf.load(m_ResourcePath + mResourcesCfg);
+
+    // Go through all sections & settings in the file
+    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+
+    Ogre::String secName, typeName, archName;
+    while (seci.hasMoreElements())
+    {
+        secName = seci.peekNextKey();
+        Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
+        Ogre::ConfigFile::SettingsMultiMap::iterator i;
+        for (i = settings->begin(); i != settings->end(); ++i)
+        {
+            typeName = i->first;
+            archName = i->second;
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
+            // OS X does not set the working directory relative to the app,
+            // In order to make things portable on OS X we need to provide
+            // the loading with it's own bundle path location
+            if (!Ogre::StringUtil::startsWith(archName, "/", false)) // only adjust relative dirs
+                archName = Ogre::String(m_ResourcePath + archName);
+#endif
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+                archName, typeName, secName);
+        }
+    }
+}
+
+
+
+
+//------------------------------------------------------------------------------
 bool Application::configure(void)
 {
+    m_pLog->logMessage(
+            "setup: Finished setting up resources about to show config");
+
     // Show the configuration dialog and initialise the system
     // You can skip this and use root.restoreConfig() to load configuration
     // settings if you were sure there are valid ones saved in ogre.cfg
     if(mRoot->showConfigDialog())
     {
         // If returned true, user clicked OK so initialise
-        // Here we choose to let the system create a default rendering window by passing 'true'
+        // Here we choose to let the system create a default rendering window
+        // by passing 'true'
         std::cerr << "showConfigDialog() returned true" << std::endl;
         mWindow = mRoot->initialise(true, "Forest Runner");
 
@@ -101,8 +242,7 @@ bool Application::configure(void)
 
 
 
-
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void Application::chooseSceneManager(void)
 {
     // Get the SceneManager, in this case a generic one
@@ -113,7 +253,60 @@ void Application::chooseSceneManager(void)
 
 
 
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void Application::createCamera(void)
+{
+    // Create the camera
+    mCamera = mSceneMgr->createCamera("PlayerCam");
+
+    // Position it at 500 in Z direction
+    mCamera->setPosition(Ogre::Vector3(0,10,20));
+
+    // Look back along -Z
+    mCamera->lookAt(Ogre::Vector3(0,0,-10));
+    mCamera->setNearClipDistance(1);
+    mCamera->setFarClipDistance(180);
+
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::createViewports(void)
+{
+    // Create one viewport, entire window
+    mViewport = mWindow->addViewport(mCamera);
+    mViewport->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
+
+    // Alter the camera aspect ratio to match the viewport
+    mCamera->setAspectRatio(
+        Ogre::Real(mViewport->getActualWidth()) /
+            Ogre::Real(mViewport->getActualHeight()));
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::createResourceListener(void)
+{
+
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::loadResources(void)
+{
+    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+}
+
+
+
+
+//------------------------------------------------------------------------------
 void Application::createScene(void)
 {
 
@@ -189,26 +382,7 @@ void Application::createScene(void)
 
 
 
-//-------------------------------------------------------------------------------------
-void Application::createCamera(void)
-{
-    // Create the camera
-    mCamera = mSceneMgr->createCamera("PlayerCam");
-
-    // Position it at 500 in Z direction
-    mCamera->setPosition(Ogre::Vector3(0,10,20));
-
-    // Look back along -Z
-    mCamera->lookAt(Ogre::Vector3(0,0,-10));
-    mCamera->setNearClipDistance(1);
-    mCamera->setFarClipDistance(180);
-
-}
-
-
-
-
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void Application::createFrameListener(void)
 {
     //Set initial mouse clipping size
@@ -222,223 +396,44 @@ void Application::createFrameListener(void)
 
 
 
-//-------------------------------------------------------------------------------------
-void Application::destroyScene(void)
-{
-}
-
-
-
-//-------------------------------------------------------------------------------------
-void Application::createViewports(void)
-{
-    // Create one viewport, entire window
-    mViewport = mWindow->addViewport(mCamera);
-    mViewport->setBackgroundColour(Ogre::ColourValue(1.0,1.0,1.0));
-
-    // Alter the camera aspect ratio to match the viewport
-    mCamera->setAspectRatio(
-        Ogre::Real(mViewport->getActualWidth()) /
-            Ogre::Real(mViewport->getActualHeight()));
-}
-
-
-
-
-
-//-------------------------------------------------------------------------------------
-void Application::setupResources(void)
-{
-    // Load resource paths from config file
-    Ogre::ConfigFile cf;
-    cf.load(m_ResourcePath + mResourcesCfg);
-
-    // Go through all sections & settings in the file
-    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-
-    Ogre::String secName, typeName, archName;
-    while (seci.hasMoreElements())
-    {
-        secName = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
-        Ogre::ConfigFile::SettingsMultiMap::iterator i;
-        for (i = settings->begin(); i != settings->end(); ++i)
-        {
-            typeName = i->first;
-            archName = i->second;
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-            // OS X does not set the working directory relative to the app,
-            // In order to make things portable on OS X we need to provide
-            // the loading with it's own bundle path location
-            if (!Ogre::StringUtil::startsWith(archName, "/", false)) // only adjust relative dirs
-                archName = Ogre::String(m_ResourcePath + archName);
-#endif
-            Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-                archName, typeName, secName);
-        }
-    }
-}
-
-
-
-
-
-
-//-------------------------------------------------------------------------------------
-void Application::createResourceListener(void)
-{
-
-}
-
-
-
-
-
-
-//-------------------------------------------------------------------------------------
-void Application::loadResources(void)
-{
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-}
-
-
-
-bool Application::ios_init()
-{
-    mResourcesCfg   = "resources.cfg";
-    mPluginsCfg     = "plugins.cfg";
-
-    // instantiate the dummy logger so that it gets set as the singleton
-    // for cegui
-    CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
-
-    if (!setup())
-        return false;
-
-    m_iosTimer = OGRE_NEW Ogre::Timer();
-    m_iosTimer->reset();
-
-    mRoot->clearEventTimes();
-
-    return true;
-}
-
-void Application::ios_cleanup()
-{
-    // clean up
-    destroyScene();
-}
-
-
-bool Application::ios_step()
-{
-    /*
-    std::cerr << "   viewport: [" 
-                << mViewport->getActualLeft() << ", "
-                << mViewport->getActualTop() << "] ["
-                << mViewport->getActualWidth() << ", "
-                << mViewport->getActualHeight() << "]" << std::endl;
-    */
-    //mRenderer->setDefaultRootRenderTarget(*mWindow);
-    Ogre::WindowEventUtilities::messagePump();
-    return mRoot->renderOneFrame();
-}
-
-
-//-------------------------------------------------------------------------------------
-void Application::go(void)
-{
-    mResourcesCfg   = "resources.cfg";
-    mPluginsCfg     = "plugins.cfg";
-
-    if (!setup())
-        return;
-
-    //mRoot->startRendering();
-
-    mRoot->getRenderSystem()->_initRenderTargets();
-    mRoot->clearEventTimes();
-
-    while(!mWindow->isClosed() && !mShutDown )
-    {
-        //Pump messages in all registered RenderWindow windows
-        Ogre::WindowEventUtilities::messagePump();
-        mRoot->renderOneFrame();
-        //CEGUI::System::getSingleton().renderAllGUIContexts();
-    }
-
-
-    // clean up
-    destroyScene();
-}
-
-
-
-
-
-//-------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 bool Application::setup(void)
 {
-    new Ogre::LogManager();
+    mResourcesCfg   = "resources.cfg";
+    mPluginsCfg     = "plugins.cfg";
 
-    m_pLog = Ogre::LogManager::getSingleton().createLog("OgreLogfile.log", true, true, false);
-    m_pLog->setDebugOutputEnabled(true);
-
-    Ogre::String pluginsPath;
-    // only use plugins.cfg if not static
-#ifndef OGRE_STATIC_LIB
-    pluginsPath = m_ResourcePath + mPluginsCfg;
-#endif
-
-    mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
-
-#ifdef OGRE_STATIC_LIB
-    m_StaticPluginLoader.load();
-#endif
-
+    createRoot();
     setupResources();
 
-    m_pLog->logMessage("setup: Finished setting up resources about to show config");
-
-    bool carryOn = configure();
-    if (!carryOn) return false;
-
+    if(!configure()) return false;
     m_pLog->logMessage("setup: Finished showing config");
 
     chooseSceneManager();
-
     m_pLog->logMessage("setup: Finished setting up scene manager");
 
     createCamera();
-
     m_pLog->logMessage("setup: Finished setting up camera");
 
     createViewports();
-
     m_pLog->logMessage("setup: Finished setting up viewports");
 
     // Set default mipmap level (NB some APIs ignore this)
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-
     m_pLog->logMessage("setup: Finished setting default mip maps");
 
     // Create any resource listeners (for loading screens)
     createResourceListener();
-
     m_pLog->logMessage("setup: Finished setting up resource listeners");
 
     // Load resources
     loadResources();
-
     m_pLog->logMessage("setup: Finished loading resources");
 
     // Create the scene
     createScene();
-
     m_pLog->logMessage("setup: Finished creating the scene");
 
     createFrameListener();
-
     m_pLog->logMessage("setup: Finished creating frame listener, returning");
 
     return true;
@@ -446,7 +441,30 @@ bool Application::setup(void)
 
 
 
-//-------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+void Application::destroyScene(void)
+{
+}
+
+
+
+
+//------------------------------------------------------------------------------
+void Application::tearDown(void)
+{
+    destroyScene();
+}
+
+
+
+
+//------------------------------------------------------------------------------
+//                    Ogre::FrameListener
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     //return Application::frameRenderingQueued(evt);
@@ -470,9 +488,12 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 
 
+//------------------------------------------------------------------------------
+//                    Ogre::RenderQueueListener
+//------------------------------------------------------------------------------
 
 
-
+//------------------------------------------------------------------------------
 void Application::postRenderQueues()
 {
 
@@ -481,13 +502,15 @@ void Application::postRenderQueues()
 
 
 
+//------------------------------------------------------------------------------
+//                    Ogre::WindowEventListener
+//------------------------------------------------------------------------------
 
 
-
-
-//Adjust mouse clipping area
+//------------------------------------------------------------------------------
 void Application::windowResized(Ogre::RenderWindow* rw)
 {
+    //Adjust mouse clipping area
     if(mCamera && mViewport)
     {
         // Alter the camera aspect ratio to match the viewport
@@ -498,11 +521,15 @@ void Application::windowResized(Ogre::RenderWindow* rw)
 
 }
 
-//Unattach OIS before window shutdown (very important under Linux)
+
+
+
+//------------------------------------------------------------------------------
 void Application::windowClosed(Ogre::RenderWindow* rw)
 {
 
 }
+
 
 
 
