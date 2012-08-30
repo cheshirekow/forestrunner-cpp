@@ -78,12 +78,6 @@ protected:
     Ogre::SceneNode*    m_patchRotate;
     Ogre::Timer*        m_iosTimer;
 
-    Ogre::Overlay*              m_hudOverlay;
-    Ogre::OverlayContainer*     m_hudContainer;
-    Ogre::TexturePtr            m_hudTex;
-    //Ogre::Rectangle2D*          m_miniScreen;
-    //Ogre::SceneNode*            m_miniScreenNode;
-
     Game*               m_game;
 
 #ifdef OGRE_STATIC_LIB

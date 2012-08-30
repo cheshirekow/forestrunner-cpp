@@ -253,7 +253,7 @@ void DesktopApplication::createCEGUI(void)
 
     m_pLog->logMessage("createScene: setting default font and mouse");
 
-    CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
+    //CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
 
     m_pLog->logMessage("createScene: loading animations");
