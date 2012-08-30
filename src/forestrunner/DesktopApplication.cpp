@@ -26,6 +26,23 @@
 
 #include "forestrunner/DesktopApplication.h"
 
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
+#include <CEGUI/RendererModules/Ogre/ImageCodec.h>
+
+#include <CEGUI/RendererModules/OpenGL/Renderer.h>
+
+#define CEGUI_RTT 1
+//#define CEGUI_GL 1
+
+#ifdef CEGUI_GL
+#include <CEGUI/RendererModules/OpenGL/Renderer.h>
+#endif
+
+
+
+
+
 namespace forestrunner {
 
 
@@ -54,7 +71,8 @@ DesktopApplication::DesktopApplication():
     mInputManager(0),
     mMouse(0),
     mTouch(0),
-    mKeyboard(0)
+    mKeyboard(0),
+    m_guiManager(0)
 {
 
 }
@@ -106,8 +124,167 @@ void DesktopApplication::createFrameListener(void)
     Application::createFrameListener();
 }
 
+
+
+void DesktopApplication::createHUD(void)
+{
+    // create texture
+    m_hudTex = Ogre::TextureManager::getSingleton().createManual(
+                    "hudTex",
+                    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+                    Ogre::TEX_TYPE_2D,
+                    mWindow->getWidth(),
+                    mWindow->getHeight(),
+                    0,
+                    Ogre::PF_R8G8B8A8,
+                    Ogre::TU_RENDERTARGET);
+
+    Ogre::RenderTexture *renderTexture =
+            m_hudTex->getBuffer()->getRenderTarget();
+
+    renderTexture->addViewport(0);
+    renderTexture->getViewport(0)->setClearEveryFrame(true);
+    renderTexture->getViewport(0)->setBackgroundColour(
+                                    Ogre::ColourValue(1.0f,1.0f,1.0f,0.0f));
+    renderTexture->getViewport(0)->setOverlaysEnabled(false);
+    //renderTexture->setAutoUpdated(true);
+
+    // create billboard and scene nodes
+
+
+    //implement a miniscreen
+    /*
+    m_miniScreen = new Ogre::Rectangle2D(true);
+    m_miniScreen->setCorners(0.5, -0.5, 1.0, -1.0);
+    m_miniScreen->setBoundingBox(
+            Ogre::AxisAlignedBox(-100000.0 * Ogre::Vector3::UNIT_SCALE,
+                                    100000.0 * Ogre::Vector3::UNIT_SCALE));
+    m_miniScreenNode =
+            mSceneMgr->getRootSceneNode()->createChildSceneNode("MiniScreenNode");
+    m_miniScreenNode->attachObject(m_miniScreen);
+    */
+
+    // create material
+    Ogre::MaterialPtr renderMaterial =
+            Ogre::MaterialManager::getSingleton().create(
+                    "hudMat",
+                    Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+
+    Ogre::Technique* matTechnique = renderMaterial->createTechnique();
+    matTechnique->createPass();
+    renderMaterial->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+    renderMaterial->getTechnique(0)->getPass(0)->createTextureUnitState("hudTex");
+    renderMaterial->getTechnique(0)->getPass(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+
+    //m_miniScreen->setMaterial("hudMat");
+
+    // create an overlay
+    m_hudContainer = static_cast<Ogre::OverlayContainer*>(
+            Ogre::OverlayManager::getSingleton().createOverlayElement(
+                    "Panel","HudOverlayPanel"));
+
+    m_hudContainer->setMetricsMode(Ogre::GMM_PIXELS);
+    m_hudContainer->setPosition(0, 0);
+    m_hudContainer->setDimensions(  mWindow->getWidth(),
+                                    mWindow->getHeight() );
+    // Give overlay a texture
+    m_hudContainer->setMaterialName("hudMat");
+
+
+    m_hudOverlay = Ogre::OverlayManager::getSingleton().create("HUD");
+    m_hudOverlay->add2D(m_hudContainer);
+    m_hudOverlay->show();
+    //m_hudOverlay->hide();
+}
+
+
+
+void DesktopApplication::createCEGUI(void)
+{
+    m_pLog->logMessage("createScene: About to bootstrap cegui");
+
+#ifdef CEGUI_RTT
+        CEGUI::Renderer* renderer;
+#    ifdef CEGUI_GL
+            renderer = &CEGUI::OpenGLRenderer::create();
+#   else
+            mRenderer = &CEGUI::OgreRenderer::create(*m_hudTex->getBuffer()->getRenderTarget());
+            mRenderer->setFrameControlExecutionEnabled(false);
+            renderer = mRenderer;
+#   endif
+        CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(
+                *renderer,
+                static_cast<CEGUI::ResourceProvider*>(&rp),
+                static_cast<CEGUI::XMLParser*>(0),
+                static_cast<CEGUI::ImageCodec*>(&ic) );
+#else
+        CEGUI::Renderer* renderer;
+        if(CEGUI_GL)
+            renderer = &CEGUI::OpenGLRenderer::create();
+        else
+        {
+            mRenderer = &CEGUI::OgreRenderer::create();
+            renderer = mRenderer;
+        }
+        CEGUI::OgreResourceProvider& rp = CEGUI::OgreRenderer::createOgreResourceProvider();
+        CEGUI::OgreImageCodec& ic       = CEGUI::OgreRenderer::createOgreImageCodec();
+        CEGUI::System::create(
+                *renderer,
+                &rp,
+                static_cast<CEGUI::XMLParser*>(0),
+                &ic );
+#endif
+
+    m_pLog->logMessage("createScene: setting cegui defaults");
+
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+    CEGUI::Font::setDefaultResourceGroup("Fonts");
+    CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+    CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+    CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+    CEGUI::AnimationManager::setDefaultResourceGroup("Animations");
+
+    m_pLog->logMessage("createScene: creating schemes");
+
+    CEGUI::SchemeManager::getSingleton().createFromFile("GlossySerpent.scheme");
+    CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+
+    m_pLog->logMessage("createScene: setting default font and mouse");
+
+    CEGUI::System::getSingleton().setDefaultFont( "DejaVuSans-10" );
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
+
+    m_pLog->logMessage("createScene: loading animations");
+
+    CEGUI::AnimationManager::getSingleton().loadAnimationsFromXML("ForestRunner.xml");
+}
+
+
+
+
+
+//-------------------------------------------------------------------------------------
+void DesktopApplication::createScene(void)
+{
+    //call base class scene creation
+    Application::createScene();
+
+    // initialize CEGUI
+    createHUD();
+    createCEGUI();
+
+    m_guiManager = new GuiManager(m_game);
+}
+
+
 bool DesktopApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+    if(!Application::frameRenderingQueued(evt))
+        return false;
+
+
     // Fixme: move this stuff back into parent class
     if(mWindow->isClosed())
         return false;
@@ -123,10 +300,35 @@ bool DesktopApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mTouch)
         mTouch->capture();
 
-    return Application::frameRenderingQueued(evt);
+    // update cegui
+        //Need to inject timestamps to CEGUI System.
+    CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectTimePulse(evt.timeSinceLastFrame);
+
+
+#ifdef CEGUI_RTT
+#ifndef CEGUI_GL
+    Ogre::RenderTexture *renderTexture =
+        m_hudTex->getBuffer()->getRenderTarget();
+    renderTexture->getViewport(0)->clear(
+            Ogre::FBT_COLOUR| Ogre::FBT_DEPTH,
+            Ogre::ColourValue::ZERO,
+            0.0);
+    CEGUI::System::getSingleton().renderAllGUIContexts();
+#endif
+#endif
+
+    return true;
 }
 
 
+void DesktopApplication::postRenderQueues()
+{
+#ifdef  CEGUI_GL
+    std::cerr << "all render queues processed, rendering gui" << std::endl;
+    CEGUI::System::getSingleton().renderAllGUIContexts();
+#endif
+}
 
 
 

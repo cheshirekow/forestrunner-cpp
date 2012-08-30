@@ -29,11 +29,16 @@
 
 #include "forestrunner/Application.h"
 
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
+
 #include <OISEvents.h>
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OISMultiTouch.h>
+
+#include "gui/GuiManager.h"
 
 
 
@@ -60,6 +65,10 @@ class DesktopApplication:
         //OIS Fake Mouse for touch translation
         OIS::MouseState     mTouchMouseState;
 
+        //kind of abstracts away the process of dealing with CEGUI
+        CEGUI::OgreRenderer*    mRenderer;
+        GuiManager*             m_guiManager;
+
 
     public:
         DesktopApplication();
@@ -67,7 +76,15 @@ class DesktopApplication:
 
     protected:
         virtual void createFrameListener();
+
+        void createHUD(void);
+        void createCEGUI(void);
+
+        /// overrides base class to add creation of the gui manager
+        virtual void createScene(void);
+
         virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+        virtual void postRenderQueues();
         virtual void windowResized(Ogre::RenderWindow* rw);
         virtual void windowClosed(Ogre::RenderWindow* rw);
 

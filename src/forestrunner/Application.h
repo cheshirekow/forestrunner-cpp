@@ -1,13 +1,8 @@
 #ifndef FORESTRUNNER_APPLICATION_H
 #define FORESTRUNNER_APPLICATION_H
 
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/RendererModules/Ogre/Renderer.h>
-
 #include <Ogre.h>
 
-
-#include "gui/GuiManager.h"
 #include "game/Game.h"
 
 
@@ -79,9 +74,6 @@ protected:
     bool mCursorWasVisible;  // was cursor visible before dialog appeared
     bool mShutDown;
 
-    CEGUI::OgreRenderer*    mRenderer;
-    GuiManager*          m_guiManager;
-
     Ogre::SceneNode*    m_patchRoot;
     Ogre::SceneNode*    m_patchRotate;
     Ogre::Timer*        m_iosTimer;
@@ -110,8 +102,6 @@ protected:
     virtual void chooseSceneManager(void);
     virtual void createCamera(void);
     virtual void createFrameListener(void);
-    virtual void createHUD(void);
-    virtual void createCEGUI(void);
     virtual void createScene(void);
     virtual void destroyScene(void);
     virtual void createViewports(void);
