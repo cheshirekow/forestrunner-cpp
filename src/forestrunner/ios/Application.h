@@ -35,6 +35,9 @@ namespace          ios {
 class Application:
     forestrunner::Application
 {
+    protected:
+        Ogre::Timer*        m_iosTimer;
+
     public:
         Application();
         virtual ~Application();

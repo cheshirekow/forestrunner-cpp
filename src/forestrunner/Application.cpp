@@ -1,3 +1,22 @@
+/*
+ *  Copyright (C) 2012 Josh Bialkowski (jbialk@mit.edu)
+ *
+ *  This file is part of forestrunner.
+ *
+ *  forestrunner is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  forestrunner is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with forestrunner.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "Application.h"
 #include "MeshBuilder.h"
 #include "game/KeyboardGame.h"
@@ -42,8 +61,7 @@ Application::Application(void):
     mResourcesCfg(Ogre::StringUtil::BLANK),
     mPluginsCfg(Ogre::StringUtil::BLANK),
     mCursorWasVisible(false),
-    mShutDown(false),
-    m_iosTimer(0)
+    mShutDown(false)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
@@ -76,23 +94,7 @@ Application::~Application(void)
 
 
 
-//------------------------------------------------------------------------------
-void Application::go(void)
-{
-    if (!setup())
-        return;
 
-    //mRoot->startRendering();
-
-    mRoot->getRenderSystem()->_initRenderTargets();
-    mRoot->clearEventTimes();
-
-    while(!mWindow->isClosed() && !mShutDown )
-        mShutDown = !step();
-
-    // clean up
-    tearDown();
-}
 
 
 

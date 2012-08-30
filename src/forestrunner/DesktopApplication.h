@@ -79,6 +79,7 @@ class DesktopApplication:
     public:
         DesktopApplication();
         virtual ~DesktopApplication();
+        void go();
 
     protected:
         virtual void createFrameListener();

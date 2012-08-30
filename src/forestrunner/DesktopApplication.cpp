@@ -82,6 +82,25 @@ DesktopApplication::~DesktopApplication()
 }
 
 
+//------------------------------------------------------------------------------
+void DesktopApplication::go(void)
+{
+    if (!setup())
+        return;
+
+    //mRoot->startRendering();
+
+    mRoot->getRenderSystem()->_initRenderTargets();
+    mRoot->clearEventTimes();
+
+    while(!mWindow->isClosed() && !mShutDown )
+        mShutDown = !step();
+
+    // clean up
+    tearDown();
+}
+
+
 void DesktopApplication::createFrameListener(void)
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");

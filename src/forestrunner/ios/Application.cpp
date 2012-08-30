@@ -31,9 +31,10 @@ namespace          ios {
 
 
 
-Application::Application()
+Application::Application():
+    m_iosTimer(0)
 {
-    // TODO Auto-generated constructor stub
+
 
 }
 
@@ -42,7 +43,7 @@ Application::Application()
 
 Application::~Application()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
 
