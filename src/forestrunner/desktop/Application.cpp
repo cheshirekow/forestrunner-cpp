@@ -24,7 +24,7 @@
  *  \brief  
  */
 
-#include "forestrunner/DesktopApplication.h"
+#include "forestrunner/desktop/Application.h"
 
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
@@ -44,6 +44,7 @@
 
 
 namespace forestrunner {
+namespace      desktop {
 
 
 static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
@@ -67,7 +68,7 @@ static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 
 
 
-DesktopApplication::DesktopApplication():
+Application::Application():
     mInputManager(0),
     mMouse(0),
     mTouch(0),
@@ -77,13 +78,13 @@ DesktopApplication::DesktopApplication():
 
 }
 
-DesktopApplication::~DesktopApplication()
+Application::~Application()
 {
 }
 
 
 //------------------------------------------------------------------------------
-void DesktopApplication::go(void)
+void Application::go(void)
 {
     if (!setup())
         return;
@@ -101,7 +102,7 @@ void DesktopApplication::go(void)
 }
 
 
-void DesktopApplication::createFrameListener(void)
+void Application::createFrameListener(void)
 {
     Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
     OIS::ParamList pl;
@@ -140,14 +141,14 @@ void DesktopApplication::createFrameListener(void)
     #endif
 
     // call this after we setup OIS so that we get the callback below
-    Application::createFrameListener();
+    Base_t::createFrameListener();
 }
 
 
 
 
 //------------------------------------------------------------------------------
-bool DesktopApplication::configure()
+bool Application::configure()
 {
     m_pLog->logMessage(
             "setup: Finished setting up resources about to show config");
@@ -174,7 +175,7 @@ bool DesktopApplication::configure()
 
 
 
-void DesktopApplication::createHUD(void)
+void Application::createHUD(void)
 {
     // create texture
     m_hudTex = Ogre::TextureManager::getSingleton().createManual(
@@ -247,7 +248,7 @@ void DesktopApplication::createHUD(void)
 
 
 
-void DesktopApplication::createCEGUI(void)
+void Application::createCEGUI(void)
 {
     m_pLog->logMessage("createScene: About to bootstrap cegui");
 
@@ -314,10 +315,10 @@ void DesktopApplication::createCEGUI(void)
 
 
 //-------------------------------------------------------------------------------------
-void DesktopApplication::createScene(void)
+void Application::createScene(void)
 {
     //call base class scene creation
-    Application::createScene();
+    Base_t::createScene();
 
     // initialize CEGUI
     createHUD();
@@ -327,9 +328,9 @@ void DesktopApplication::createScene(void)
 }
 
 
-bool DesktopApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
+bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    if(!Application::frameRenderingQueued(evt))
+    if(!Base_t::frameRenderingQueued(evt))
         return false;
 
 
@@ -370,7 +371,7 @@ bool DesktopApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 }
 
 
-void DesktopApplication::postRenderQueues()
+void Application::postRenderQueues()
 {
 #ifdef  CEGUI_GL
     std::cerr << "all render queues processed, rendering gui" << std::endl;
@@ -384,9 +385,9 @@ void DesktopApplication::postRenderQueues()
 
 
 //-------------------------------------------------------------------------------------
-bool DesktopApplication::keyPressed( const OIS::KeyEvent &arg )
+bool Application::keyPressed( const OIS::KeyEvent &arg )
 {
-    //return Application::keyReleased(arg);
+    //return Base_t::keyReleased(arg);
 
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -402,9 +403,9 @@ bool DesktopApplication::keyPressed( const OIS::KeyEvent &arg )
 
 
 //-------------------------------------------------------------------------------------
-bool DesktopApplication::keyReleased( const OIS::KeyEvent &arg )
+bool Application::keyReleased( const OIS::KeyEvent &arg )
 {
-    //return Application::keyReleased(arg);
+    //return Base_t::keyReleased(arg);
 
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -419,9 +420,9 @@ bool DesktopApplication::keyReleased( const OIS::KeyEvent &arg )
 
 
 //-------------------------------------------------------------------------------------
-bool DesktopApplication::mouseMoved( const OIS::MouseEvent &arg )
+bool Application::mouseMoved( const OIS::MouseEvent &arg )
 {
-    //return Application::mouseMoved(arg);
+    //return Base_t::mouseMoved(arg);
 
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -437,9 +438,9 @@ bool DesktopApplication::mouseMoved( const OIS::MouseEvent &arg )
 
 
 //-------------------------------------------------------------------------------------
-bool DesktopApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+bool Application::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-    //return Application::mousePressed(arg, id);
+    //return Base_t::mousePressed(arg, id);
 
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -452,9 +453,9 @@ bool DesktopApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseBut
 
 
 //-------------------------------------------------------------------------------------
-bool DesktopApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+bool Application::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-    //return Application::mouseReleased(arg, id);
+    //return Base_t::mouseReleased(arg, id);
 
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
@@ -465,7 +466,7 @@ bool DesktopApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseBu
 
 
 
-bool DesktopApplication::touchMoved( const OIS::MultiTouchEvent &arg )
+bool Application::touchMoved( const OIS::MultiTouchEvent &arg )
 {
     mTouchMouseState.X = arg.state.X;
     mTouchMouseState.Y = arg.state.Y;
@@ -476,7 +477,7 @@ bool DesktopApplication::touchMoved( const OIS::MultiTouchEvent &arg )
 }
 
 
-bool DesktopApplication::touchPressed( const OIS::MultiTouchEvent &arg )
+bool Application::touchPressed( const OIS::MultiTouchEvent &arg )
 {
     mTouchMouseState.buttons = 0x01;
     mTouchMouseState.X       = arg.state.X;
@@ -489,7 +490,7 @@ bool DesktopApplication::touchPressed( const OIS::MultiTouchEvent &arg )
 
 
 
-bool DesktopApplication::touchReleased( const OIS::MultiTouchEvent &arg )
+bool Application::touchReleased( const OIS::MultiTouchEvent &arg )
 {
     mTouchMouseState.buttons = 0x0;
     mTouchMouseState.X       = arg.state.X;
@@ -502,7 +503,7 @@ bool DesktopApplication::touchReleased( const OIS::MultiTouchEvent &arg )
 
 
 
-bool DesktopApplication::touchCancelled( const OIS::MultiTouchEvent &arg )
+bool Application::touchCancelled( const OIS::MultiTouchEvent &arg )
 {
     return true;
 }
@@ -511,9 +512,9 @@ bool DesktopApplication::touchCancelled( const OIS::MultiTouchEvent &arg )
 
 
 //Adjust mouse clipping area
-void DesktopApplication::windowResized(Ogre::RenderWindow* rw)
+void Application::windowResized(Ogre::RenderWindow* rw)
 {
-    Application::windowResized(rw);
+    Base_t::windowResized(rw);
     unsigned int width, height, depth;
     int left, top;
     rw->getMetrics(width, height, depth, left, top);
@@ -530,9 +531,9 @@ void DesktopApplication::windowResized(Ogre::RenderWindow* rw)
 }
 
 //Unattach OIS before window shutdown (very important under Linux)
-void DesktopApplication::windowClosed(Ogre::RenderWindow* rw)
+void Application::windowClosed(Ogre::RenderWindow* rw)
 {
-    Application::windowClosed(rw);
+    Base_t::windowClosed(rw);
     //Only close for window that created OIS (the main window in these demos)
     if( rw == mWindow )
     {
@@ -553,4 +554,6 @@ void DesktopApplication::windowClosed(Ogre::RenderWindow* rw)
 
 
 
+
+} // namespace desktop
 } // namespace forestrunner 

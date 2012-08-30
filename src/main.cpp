@@ -6,13 +6,13 @@
  *  \brief  
  */
 
-#include "forestrunner/DesktopApplication.h"
+#include "forestrunner/desktop/Application.h"
 
 
 int main(int argc, char *argv[])
 {
     // Create application object
-    forestrunner::DesktopApplication app;
+    forestrunner::desktop::Application app;
 
     try
     {

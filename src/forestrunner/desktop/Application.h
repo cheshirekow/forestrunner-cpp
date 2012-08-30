@@ -43,18 +43,21 @@
 
 
 namespace forestrunner {
-
+namespace      desktop {
 
 
 
 
 /// extends application with input handler
-class DesktopApplication:
-    public Application,
+class Application:
+    public forestrunner::Application,
     public OIS::KeyListener,
     public OIS::MouseListener,
     public OIS::MultiTouchListener
 {
+    public:
+        typedef forestrunner::Application Base_t;
+
     protected:
         //OIS Input devices
         OIS::InputManager*  mInputManager;
@@ -77,8 +80,8 @@ class DesktopApplication:
 
 
     public:
-        DesktopApplication();
-        virtual ~DesktopApplication();
+        Application();
+        virtual ~Application();
         void go();
 
     protected:
@@ -127,6 +130,8 @@ class DesktopApplication:
         virtual bool touchCancelled( const OIS::MultiTouchEvent &arg );
 };
 
+
+} // nemspace desktop
 } // namespace forestrunner 
 
 #endif // APPLICATION_H_
