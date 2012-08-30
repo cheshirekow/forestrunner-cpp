@@ -99,11 +99,16 @@ if(FORESTRUNNER_BUILD_OK)
         )
      
     add_library( forestrunner 
-        forestrunner/Application.cpp
         forestrunner/DesktopApplication.cpp
+        forestrunner/desktop/DataStore.cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
+        forestrunner/Application.cpp
         forestrunner/ios/Application.cpp
         forestrunner/ios/AppInterface.cpp
-        ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
+        forestrunner/datastore/DataStore.cpp
+        forestrunner/datastore/Map.cpp
+        forestrunner/datastore/UserHighScoreRow.cpp
+        forestrunner/datastore/GlobalHighScoreRow.cpp
         MeshBuilder.cpp
         game/Game.cpp
         game/KeyboardGame.cpp
