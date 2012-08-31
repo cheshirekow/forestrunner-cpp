@@ -28,16 +28,17 @@
 #define FORESTRUNNER_DATASTORE_H_
 
 #include <cassert>
+#include <ostream>
 #include <map>
 #include <string>
+
 
 
 namespace forestrunner {
 namespace    datastore {
     enum EntryType
     {
-        FLOAT,
-        DOUBLE,
+        BOOL,
         INT,
         STRING,
         INVALID
@@ -82,6 +83,8 @@ namespace    datastore {
             assert( type() == asType<T>() );
             return static_cast< MapEntryT<T>* >(this)->value;
         }
+
+        virtual std::ostream& write(std::ostream& stream) const=0;
     };
 
     /// leaf class for map entry (basically a template union)
@@ -102,6 +105,11 @@ namespace    datastore {
 
         /// return EntryType indicating the kind of value that is stored
         EntryType   type() const { return asType<T>(); }
+
+        virtual std::ostream& write(std::ostream& stream) const
+        {
+            return stream << value;
+        }
     };
 
 
@@ -111,6 +119,9 @@ namespace    datastore {
 } // namespace forestrunner
 
 
+std::ostream& operator<<(
+        std::ostream& stream,
+        const forestrunner::datastore::MapEntry& entry );
 
 
 

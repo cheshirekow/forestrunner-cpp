@@ -41,8 +41,7 @@ namespace forestrunner{
  */
 class DataStore
 {
-    private:
-        int               m_fakeId; ///< if we can't connect to database
+    protected:
         datastore::Map_t  m_map;    ///< map of all the stuff we need
 
     public:

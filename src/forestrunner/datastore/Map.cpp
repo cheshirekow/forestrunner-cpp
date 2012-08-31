@@ -32,13 +32,21 @@ namespace forestrunner {
 namespace    datastore {
 
 // specializations
-template <> EntryType asType<float>         (){ return FLOAT; }
-template <> EntryType asType<double>        (){ return DOUBLE; }
-template <> EntryType asType<int>           () { return INT; }
+template <> EntryType asType<bool>          (){ return BOOL; }
+template <> EntryType asType<int>           (){ return INT; }
 template <> EntryType asType<std::string>   (){ return STRING; }
 
 } // namespace data store
 } // namespace forestrunner
+
+
+std::ostream& operator<<(
+        std::ostream& stream,
+        const forestrunner::datastore::MapEntry& entry )
+{
+    using namespace forestrunner::datastore;
+    return entry.write(stream);
+}
 
 
 

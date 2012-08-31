@@ -1,10 +1,7 @@
 find_package(OIS )
 find_package(SigC++ )
 find_package(Soci COMPONENTS sqlite3)
-
-
-    
-
+find_package(Boost COMPONENTS filesystem system)
 
 
 if(FORESTRUNNER_LINUX)
@@ -33,7 +30,7 @@ if(FORESTRUNNER_DESKTOP)
 
     include_directories( 
         ${OGRE_RenderSystem_GL_INCLUDE_DIR} 
-        ${SOCI_INCLUDE_DIRS}  
+        ${SOCI_INCLUDE_DIRS}
     )
     
     set(LIBS ${LIBS} 
@@ -48,6 +45,7 @@ if(FORESTRUNNER_DESKTOP)
             AND (CEGUI_FOUND)
             AND (SOCI_FOUND) 
             AND (SOCI_sqlite3_FOUND) 
+            AND (Boost_FOUND)
         )
         set(FORESTRUNNER_BUILD_OK "TRUE") 
     else()
@@ -70,6 +68,9 @@ if(FORESTRUNNER_IOS)
             AND (SIGC++_FOUND) 
             AND (OGRE_FOUND) 
             AND (OGRE_RenderSystem_GLES_FOUND) 
+            AND (SOCI_FOUND) 
+            AND (SOCI_sqlite3_FOUND) 
+            AND (Boost_FOUND)
         )
         set(FORESTRUNNER_BUILD_OK "TRUE") 
     else()
@@ -89,6 +90,9 @@ if(FORESTRUNNER_BUILD_OK)
         ${OGRE_INCLUDE_DIRS} 
         ${CEGUI_INCLUDE_DIR}
         ${SigC++_INCLUDE_DIRS}
+        ${Boost_INCLUDE_DIRS}
+        ${SOCI_INCLUDE_DIRS}
+        ${SOCI_sqlite3_INCLUDE_DIRS}
         )
     
     set(LIBS ${LIBS} 
@@ -96,6 +100,9 @@ if(FORESTRUNNER_BUILD_OK)
         ${OGRE_LIBRARIES}
         ${CEGUI_LIBRARY}
         ${SigC++_LIBRARIES} 
+        ${Boost_LIBRARIES}
+        ${SOCI_LIBRARIES}
+        ${SOCI_sqlite3_LIBRARIES}
         )
      
     add_library( forestrunner 
@@ -164,6 +171,7 @@ if(FORESTRUNNER_BUILD_OK)
     install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
                     ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
                     ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg
+                    ../resources/Initialize.sql
              DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
     
     endif(FORESTRUNNER_DESKTOP)

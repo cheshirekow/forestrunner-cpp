@@ -28,6 +28,7 @@
 #define FORESTRUNNER_DESKTOP_DATASTORE_H_
 
 #include "forestrunner/datastore/DataStore.h"
+#include <soci.h>
 
 namespace forestrunner {
 namespace      desktop {
@@ -40,7 +41,12 @@ class DataStore:
         typedef forestrunner::DataStore Base_t;
 
     private:
+        std::string     m_resourceDir;
         std::string     m_dataDir;
+        soci::session   m_soci;
+
+        void run_init_script();
+        void read_properties();
 
     public:
         /// simply assigns the value of m_dataDir

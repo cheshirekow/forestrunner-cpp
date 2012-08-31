@@ -52,10 +52,10 @@ DataStore::DataStore()
     m_map["adv:fogFilter"]      = new MapEntryT<bool>(false);
     m_map["adv:cartoon"]        = new MapEntryT<bool>(true);
     m_map["adv:lighting"]       = new MapEntryT<bool>(false);
-    m_map["adv:debugGrids"]     = new MapEntryT<bool>(false);
-    m_map["adv:mainGrid"]       = new MapEntryT<bool>(true);
+    m_map["adv:patchGrids"]     = new MapEntryT<bool>(false);
+    m_map["adv:maingGrid"]      = new MapEntryT<bool>(true);
     m_map["adv:gradientFloor"]  = new MapEntryT<bool>(false);
-    m_map["adv:verbose"]        = new MapEntryT<bool>(false);
+    m_map["adv:logging"]        = new MapEntryT<bool>(false);
     m_map["adv:worldRotate"]    = new MapEntryT<bool>(true);
 }
 
