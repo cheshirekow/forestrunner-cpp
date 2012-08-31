@@ -64,14 +64,14 @@ DataStore::DataStore()
     m_resourceDir   = std::string(g_installPrefix) + "/share/forestrunner";
 #elif FORESTRUNNER_WINDOWS
     m_dataDir = std::string(getenv("APPDATA")) + "/forestrunner";
-    m_ResourcePath = ""; // FIXME: need resource location for windows
+    m_resourceDir = ""; // FIXME: need resource location for windows
 #elif FORESTRUNNER_OSX
     const struct passwd* pwd = getpwuid(getuid());
     m_dataDir = std::string(pwd->pw_dir) + "/.forestrunner";
-    m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources";
+    m_resourceDir = Ogre::macBundlePath() + "/Contents/Resources";
 #elif FORESTRUNNER_IOS
     m_dataDir = Ogre::macBundlePath();
-    m_ResourcePath = Ogre::macBundlePath() + "/resources";
+    m_resourceDir = Ogre::macBundlePath() + "/resources";
 #endif
 
 }
