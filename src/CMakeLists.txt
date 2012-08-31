@@ -130,7 +130,6 @@ if(FORESTRUNNER_BUILD_OK)
         )
      
     add_library( forestrunner 
-        forestrunner/desktop/Application.cpp
         forestrunner/desktop/DataStore.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
         forestrunner/Application.cpp
@@ -180,6 +179,7 @@ if(FORESTRUNNER_BUILD_OK)
                     
     if(FORESTRUNNER_DESKTOP)
         add_executable( forestrunner_exe
+                        forestrunner/desktop/Application.cpp
                         main.cpp )
     
         target_link_libraries( forestrunner_exe forestrunner ${LIBS})
