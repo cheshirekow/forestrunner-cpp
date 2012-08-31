@@ -65,7 +65,7 @@ if(FORESTRUNNER_IOS)
     set(LIBS ${LIBS} ${OGRE_RenderSystem_GLES_LIBRARY} )
     
     if( (OIS_FOUND) 
-            AND (SIGC++_FOUND) 
+            AND (SigC++_FOUND) 
             AND (OGRE_FOUND) 
             AND (OGRE_RenderSystem_GLES_FOUND) 
             AND (SOCI_FOUND) 
@@ -74,8 +74,32 @@ if(FORESTRUNNER_IOS)
         )
         set(FORESTRUNNER_BUILD_OK "TRUE") 
     else()
+	set(MISSING, "")
+        if( NOT (OIS_FOUND) )
+            set(MISSING ${MISSING} "ois, ")
+        endif()
+        if( NOT (SigC++_FOUND) )
+            set(MISSING ${MISSING} "sigc++, ")
+        endif()
+        if( NOT (OGRE_FOUND) )
+            set(MISSING ${MISSING} "ogre, ")
+        endif()
+        if( NOT (OGRE_RenderSystem_GLES_FOUND) )
+            set(MISSING ${MISSING} "ogre_GLES, ")
+        endif()
+        if( NOT (SOCI_FOUND) )
+            set(MISSING ${MISSING} "soci, ")
+        endif()
+        if( NOT (SOCI_sqlite3_FOUND) )
+            set(MISSING ${MISSING} "soci_sqlite3, ")
+        endif()
+        if( NOT (Boost_FOUND) )
+            set(MISSING ${MISSING} "boost, ")
+        endif()
+
+
         message( WARNING 
-            "One or more packages missing, "
+            "One or more packages missing: ${MISSING}, "
             "disabling build of forestrunner IOS" )
     endif()
 
@@ -155,25 +179,24 @@ if(FORESTRUNNER_BUILD_OK)
                     ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg COPYONLY)
                     
     if(FORESTRUNNER_DESKTOP)
-    add_executable( forestrunner_exe
+        add_executable( forestrunner_exe
                         main.cpp )
     
-    target_link_libraries( forestrunner_exe forestrunner ${LIBS})
-    install(TARGETS forestrunner_exe
-      RUNTIME DESTINATION bin
-      LIBRARY DESTINATION lib
-      ARCHIVE DESTINATION lib
-    )
+        target_link_libraries( forestrunner_exe forestrunner ${LIBS})
+        install(TARGETS forestrunner_exe
+            RUNTIME DESTINATION bin
+            LIBRARY DESTINATION lib
+            ARCHIVE DESTINATION lib
+        )
     
-    install(DIRECTORY ../ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-    install(DIRECTORY ../materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-    install(DIRECTORY ../meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-    install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
-                    ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
-                    ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg
-                    ../resources/Initialize.sql
-             DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-    
+        install(DIRECTORY ../ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(DIRECTORY ../materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(DIRECTORY ../meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
+                        ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
+                        ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg
+                        ../resources/Initialize.sql
+                 DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
     endif(FORESTRUNNER_DESKTOP)
 
 endif(FORESTRUNNER_BUILD_OK)
