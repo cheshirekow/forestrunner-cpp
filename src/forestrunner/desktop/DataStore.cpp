@@ -70,7 +70,7 @@ DataStore::DataStore()
     m_dataDir = std::string(pwd->pw_dir) + "/.forestrunner";
     m_resourceDir = Ogre::macBundlePath() + "/Contents/Resources";
 #elif FORESTRUNNER_IOS
-    m_dataDir = Ogre::macBundlePath();
+    m_dataDir = Ogre::macBundlePath() + "/../Documents/";
     m_resourceDir = Ogre::macBundlePath() + "/resources";
 #endif
 
