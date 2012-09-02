@@ -94,7 +94,6 @@ bool Application::configure(void)
 
     std::stringstream strm;
     Ogre::NameValuePairList params;
-    params["title"]                = "forestrunner";
     params["colourDepth"]          = "32";
     //m_params["externalGLControl"]    = "false";
     //m_params["externalGLContext"]    = "0";
@@ -109,10 +108,10 @@ bool Application::configure(void)
     params["externalViewController"]  = strm.str();
     
     // initialize, dont' create render window
-    mRoot->initialise(false, "Forest Runner");
+    mRoot->initialise(false, "");
 
     // now create render window by attaching to the iOS UIView stuff
-    mRoot->createRenderWindow("ForestRunner",m_width,m_height,false,&params);
+    mWindow = mRoot->createRenderWindow("ForestRunnerOgreWindow",m_width,m_height,true,&params);
 
     return true;
 }
