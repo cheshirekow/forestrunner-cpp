@@ -311,9 +311,6 @@ void Application::createScene()
 
     m_game = new KeyboardGame();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
-
-    m_pLog->logMessage("createScene: creating gui manager");
-
 }
 
 

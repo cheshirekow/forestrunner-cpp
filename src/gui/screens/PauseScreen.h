@@ -23,6 +23,10 @@ class PauseScreen :
         PauseScreen();
         virtual ~PauseScreen();
 
+        /// read values from data store and set the sliders with those
+        /// values
+        virtual void exec();
+
         bool onSlider(const CEGUI::EventArgs &e);
         bool onResume(const CEGUI::EventArgs &e);
         bool onNewGame(const CEGUI::EventArgs &e);

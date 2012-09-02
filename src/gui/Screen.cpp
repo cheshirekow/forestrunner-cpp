@@ -13,7 +13,9 @@
 Screen::Screen():
     m_root(0),
     m_anim_exit("undefined"),
-    m_anim_enter("undefined")
+    m_anim_enter("undefined"),
+    m_game(0),
+    m_dataStore(0)
 {
 
 }
@@ -47,6 +49,11 @@ Screen::TransSignal_t& Screen::sig_transition()
 void Screen::set_game(Game* game)
 {
     m_game = game;
+}
+
+void Screen::set_store(forestrunner::DataStore* store)
+{
+    m_dataStore = store;
 }
 
 void Screen::exec()

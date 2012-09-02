@@ -241,7 +241,60 @@ void DataStore::init()
 
 }
 
-void DataStore::flush(){}
+void DataStore::flush()
+{
+    std::cout << "Writing properties to store:\n-----------------------\n";
+
+    typedef datastore::Map_t::iterator Iterator_t;
+    for( Iterator_t iPair = m_map.begin(); iPair != m_map.end(); iPair++)
+    {
+        switch( iPair->second->type() )
+        {
+            case datastore::BOOL:
+            {
+                int val = iPair->second->get<bool>() ? 1 : 0;
+                m_soci << "UPDATE booleans "
+                            "SET bool_value= " << val << " "
+                            "WHERE bool_key='"
+                            << iPair->first
+                            << "'";
+                break;
+            }
+
+            case datastore::INT:
+            {
+                int val = iPair->second->get<int>();
+                m_soci << "UPDATE integers "
+                            "SET int_value=" << val << " "
+                            "WHERE int_key='"
+                            << iPair->first
+                            << "'";
+                break;
+            }
+
+            case datastore::STRING:
+            {
+                std::string val = iPair->second->get<std::string>();
+                m_soci << "UPDATE strings "
+                            "SET string_value='" << val << "' "
+                            "WHERE string_key='"
+                            << iPair->first
+                            << "'";
+                break;
+            }
+
+            default:
+            {
+                std::cerr << "FIXME: unknown key type stored in property map"
+                          << std::endl;
+                break;
+            }
+        }
+
+        std::cout << "   " << iPair->first << " : " << *(iPair->second) << "\n";
+    }
+    std::cout << std::endl;
+}
 
 void DataStore::write_score(double score){}
 

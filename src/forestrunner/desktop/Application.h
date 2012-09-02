@@ -69,8 +69,9 @@ class Application:
         OIS::MouseState     mTouchMouseState;
 
         //kind of abstracts away the process of dealing with CEGUI
-        CEGUI::OgreRenderer*    mRenderer;
-        GuiManager*             m_guiManager;
+        CEGUI::OgreRenderer*        mRenderer;
+        GuiManager*                 m_guiManager;
+        forestrunner::DataStore*    m_dataStore;
 
         Ogre::Overlay*              m_hudOverlay;
         Ogre::OverlayContainer*     m_hudContainer;
@@ -93,6 +94,10 @@ class Application:
         /// overrides base class to add creation of the gui manager
         virtual void createScene();
         virtual void createFrameListener();
+
+        // overrides for teardown()
+        //----------------------------------------------------------------------
+        virtual void destroyScene();
 
 
 

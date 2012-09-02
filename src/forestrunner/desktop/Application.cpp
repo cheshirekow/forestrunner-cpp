@@ -25,6 +25,7 @@
  */
 
 #include "forestrunner/desktop/Application.h"
+#include "forestrunner/desktop/DataStore.h"
 
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <CEGUI/RendererModules/Ogre/ResourceProvider.h>
@@ -37,6 +38,7 @@
 
 #ifdef CEGUI_GL
 #include <CEGUI/RendererModules/OpenGL/Renderer.h>
+#include "forestrunner/desktop/DataStore.h"
 #endif
 
 
@@ -80,6 +82,7 @@ Application::Application():
 
 Application::~Application()
 {
+
 }
 
 
@@ -324,7 +327,14 @@ void Application::createScene(void)
     createHUD();
     createCEGUI();
 
-    m_guiManager = new GuiManager(m_game);
+    m_pLog->logMessage("createScene: creating data store");
+
+    m_dataStore  = new desktop::DataStore();
+    m_dataStore->init();
+
+    m_pLog->logMessage("createScene: creating gui manager");
+
+    m_guiManager = new GuiManager(m_game,m_dataStore);
 }
 
 
@@ -371,6 +381,8 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
 }
 
 
+
+
 void Application::postRenderQueues()
 {
 #ifdef  CEGUI_GL
@@ -378,6 +390,20 @@ void Application::postRenderQueues()
     CEGUI::System::getSingleton().renderAllGUIContexts();
 #endif
 }
+
+
+
+
+void Application::destroyScene()
+{
+    m_dataStore->fini();
+    delete m_guiManager;
+    delete m_dataStore;
+
+    m_guiManager = 0;
+    m_dataStore  = 0;
+}
+
 
 
 

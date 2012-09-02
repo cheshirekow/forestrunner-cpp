@@ -13,6 +13,8 @@
 #include <string>
 #include <CEGUI/CEGUI.h>
 
+#include "forestrunner/datastore/DataStore.h"
+
 class Game;
 
 class Screen
@@ -26,6 +28,7 @@ class Screen
         CEGUI::String   m_anim_exit;
         CEGUI::String   m_anim_enter;
         Game*           m_game;
+        forestrunner::DataStore* m_dataStore;
 
     public:
         Screen();
@@ -37,6 +40,7 @@ class Screen
         TransSignal_t&          sig_transition();
 
         virtual void            set_game(Game* game);
+        virtual void            set_store(forestrunner::DataStore* store);
         virtual void            exec();
 };
 

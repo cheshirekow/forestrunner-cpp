@@ -11,8 +11,12 @@
 
 #include "Transition.h"
 #include "Screen.h"
+#include "forestrunner/datastore/DataStore.h"
+
 #include <string>
 #include <map>
+
+
 
 class Game;
 
@@ -27,7 +31,7 @@ class GuiManager
         ScreenMap_t     m_screenMap;
 
     public:
-        GuiManager(Game* game);
+        GuiManager(Game* game, forestrunner::DataStore* store);
         virtual ~GuiManager();
 
         void requestChange(const std::string& pageKey);

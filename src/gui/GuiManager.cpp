@@ -20,7 +20,7 @@
 #include "screens/CrashScreen.h"
 #include "screens/HighScoreScreen.h"
 
-GuiManager::GuiManager(Game* game):
+GuiManager::GuiManager(Game* game, forestrunner::DataStore* store):
     m_activeTransition(0),
     m_activeScreen(0)
 {
@@ -44,6 +44,7 @@ GuiManager::GuiManager(Game* game):
         screen->sig_transition().connect(
                 sigc::mem_fun(*this,&GuiManager::requestChange) );
         screen->set_game(game);
+        screen->set_store(store);
     }
 
     // set the first screen and transition into it
