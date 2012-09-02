@@ -63,12 +63,12 @@ Application::Application():
     mCursorWasVisible(false),
     mShutDown(false)
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-    m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-    m_ResourcePath = Ogre::macBundlePath() + "/";
+#if FORESTRUNNER_OSX
+    m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources";
+#elif FORESTRUNNER_IOS
+    m_ResourcePath = Ogre::macBundlePath() + "/resources";
 #elif FORESTRUNNER_LINUX
-    m_ResourcePath = std::string(g_installPrefix) + "/share/forestrunner/";
+    m_ResourcePath = std::string(g_installPrefix) + "/share/forestrunner";
 #else
 #error "Don't know how to complile on this system"
 #endif
@@ -121,20 +121,25 @@ bool Application::step()
 
 void Application::createRoot()
 {
+    
     new Ogre::LogManager();
 
-        m_pLog = Ogre::LogManager::getSingleton()
+    m_pLog = Ogre::LogManager::getSingleton()
                     .createLog("OgreLogfile.log", true, true, false);
-        m_pLog->setDebugOutputEnabled(true);
+    m_pLog->setDebugOutputEnabled(true);
 
-        Ogre::String pluginsPath;
+    m_pLog->logMessage("Ogre Log Initialized");
+
+    Ogre::String pluginsPath;
         // only use plugins.cfg if not static
     #ifndef OGRE_STATIC_LIB
         pluginsPath = m_ResourcePath + mPluginsCfg;
     #endif
 
-        mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
+    m_pLog->logMessage("setup(): creating root");
+    mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
 
+    m_pLog->logMessage("setup(): loading plugins");
     #ifdef OGRE_STATIC_LIB
         m_StaticPluginLoader.load();
     #endif
@@ -146,9 +151,13 @@ void Application::createRoot()
 //------------------------------------------------------------------------------
 void Application::setupResources()
 {
+    std::cout << "setup() : Setting up resources" << std::endl;
+
     // Load resource paths from config file
     Ogre::ConfigFile cf;
     cf.load(m_ResourcePath + mResourcesCfg);
+    
+    std::cout << "setup() : loaded resource config file" << std::endl;
 
     // Go through all sections & settings in the file
     Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -333,8 +342,14 @@ void Application::createFrameListener()
 //------------------------------------------------------------------------------
 bool Application::setup()
 {
-    mResourcesCfg   = "resources.cfg";
-    mPluginsCfg     = "plugins.cfg";
+#ifdef FORESTRUNNER_IOS
+    mResourcesCfg   = "/config/ios/resources.cfg";
+    mPluginsCfg     = "/config/ios/plugins.cfg";
+
+#else
+    mResourcesCfg   = "/resources.cfg";
+    mPluginsCfg     = "/plugins.cfg";
+#endif
 
     createRoot();
     setupResources();

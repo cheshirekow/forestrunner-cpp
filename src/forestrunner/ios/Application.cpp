@@ -74,7 +74,7 @@ bool Application::init(
     if (!setup())
         return false;
         
-    std::cout << "ios::Application setup finished" std::endl;
+    std::cout << "ios::Application setup finished" << std::endl;
 
     m_iosTimer = OGRE_NEW Ogre::Timer();
     m_iosTimer->reset();
@@ -90,7 +90,7 @@ bool Application::init(
 bool Application::configure(void)
 {
     m_pLog->logMessage(
-            "setup: Finished setting up resources about to show config");
+            "setup: Finished setting up resources, configuring the root");
 
     std::stringstream strm;
     Ogre::NameValuePairList params;
@@ -107,7 +107,7 @@ bool Application::configure(void)
     strm.str("");
     strm << (unsigned long)m_uiViewController;
     params["externalViewController"]  = strm.str();
-
+    
     // initialize, dont' create render window
     mRoot->initialise(false, "Forest Runner");
 
