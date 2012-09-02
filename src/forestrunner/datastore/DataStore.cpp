@@ -48,6 +48,7 @@ DataStore::DataStore()
     m_map["stat:lastUserRowId"]     = new MapEntryT<int>(0);
     m_map["stat:lastGlobalRowId"]   = new MapEntryT<int>(0);
 
+    m_map["adv:participate"]    = new MapEntryT<bool>(true);
     m_map["adv:postProcess"]    = new MapEntryT<bool>(false);
     m_map["adv:fogFilter"]      = new MapEntryT<bool>(false);
     m_map["adv:cartoon"]        = new MapEntryT<bool>(true);
