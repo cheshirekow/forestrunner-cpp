@@ -34,10 +34,17 @@ namespace          ios {
 
 AppInterface::AppInterface()
 {
+
+try 
+{
     m_impl = new Application();
+} 
+catch (std::exception& e) 
+{
+    std::cerr << "Failed to create ios::Application: " << e.what() << std::endl; 
 }
 
-
+}
 
 
 AppInterface::~AppInterface()

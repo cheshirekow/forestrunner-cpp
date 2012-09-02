@@ -33,7 +33,7 @@ namespace forestrunner {
 namespace          ios {
 
 class Application:
-    forestrunner::Application
+    public forestrunner::Application
 {
     protected:
         Ogre::Timer*        m_iosTimer;
@@ -58,7 +58,7 @@ class Application:
         bool configure();
 
         /// performs one step of the render loop
-        bool step();
+        /// bool step();
 
         /// does cleanup
         void cleanup();

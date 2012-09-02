@@ -4,6 +4,11 @@ find_package(Soci COMPONENTS sqlite3)
 find_package(Boost COMPONENTS filesystem system)
 
 
+set( FORESTRUNNER_LIB_SOURCES
+
+)
+
+
 if(FORESTRUNNER_LINUX)
     add_definitions( -DFORESTRUNNER_LINUX )
     set( FORESTRUNNER_DESKTOP "TRUE" )
@@ -19,7 +24,7 @@ elseif(FORESTRUNNER_ANDROID)
     add_definitions( -DFORESTRUNNER_ANDROID )
 endif()
       
-      
+     
 set(FORESTRUNNER_BUILD_OK "FALSE")
 
 
@@ -60,9 +65,13 @@ endif(FORESTRUNNER_DESKTOP)
 if(FORESTRUNNER_IOS)
     message(status "Configuring for iOS build\n------------------------\n")
     
-    find_package(OGRE COMPONENTS RenderSystem_GLES REQUIRED)
-    include_directories( ${OGRE_RenderSystem_GLES_INCLUDE_DIR} )
-    set(LIBS ${LIBS} ${OGRE_RenderSystem_GLES_LIBRARY} )
+    find_package(OGRE COMPONENTS RenderSystem_GLES2 REQUIRED)
+    include_directories( 
+	${OGRE_RenderSystem_GLES2_INCLUDE_DIR}
+        ${OGRE_RenderSystem_GLES_INCLUDE_DIR} )
+    set(LIBS ${LIBS} 
+	${OGRE_RenderSystem_GLES_LIBRARY}
+        ${OGRE_RenderSystem_GLES2_LIBRARY} )
     
     if( (OIS_FOUND) 
             AND (SigC++_FOUND) 

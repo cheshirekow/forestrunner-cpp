@@ -63,9 +63,18 @@ bool Application::init(
     m_uiViewController  = uiViewController;
     m_width             = width;
     m_height            = height;
+    
+    std::cout << "Initializing ios::Application with \n----------------"
+        "\nuiView: " << (void*)uiView <<
+        "\n  uiVC: " << (void*)uiViewController <<
+        "\n     w: " << width <<
+        "\n     h: " << height <<
+        std::endl; 
 
     if (!setup())
         return false;
+        
+    std::cout << "ios::Application setup finished" std::endl;
 
     m_iosTimer = OGRE_NEW Ogre::Timer();
     m_iosTimer->reset();
@@ -115,6 +124,8 @@ void Application::cleanup()
 {
     tearDown();
 }
+
+
 
 
 
