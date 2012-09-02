@@ -28,7 +28,7 @@
 #define FORESTRUNNER_DESKTOP_DATASTORE_H_
 
 #include "forestrunner/datastore/DataStore.h"
-#include <soci.h>
+#include <soci/soci.h>
 
 namespace forestrunner {
 namespace      desktop {

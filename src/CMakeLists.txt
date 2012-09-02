@@ -199,4 +199,8 @@ if(FORESTRUNNER_BUILD_OK)
                  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
     endif(FORESTRUNNER_DESKTOP)
 
+    if(FORESTRUNNER_IOS)
+        
+    endif()
+
 endif(FORESTRUNNER_BUILD_OK)
