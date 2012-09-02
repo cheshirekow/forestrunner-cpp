@@ -56,7 +56,8 @@ INSERT INTO strings
  UNION  SELECT 'username'   , 'Anon';
 
 INSERT INTO booleans  
-        SELECT 'adv:postProcess'    , 0
+        SELECT 'adv:participate'    , 1
+ UNION  SELECT 'adv:postProcess'    , 0
  UNION  SELECT 'adv:fogFilter'      , 0 
  UNION  SELECT 'adv:cartoon'        , 1  
  UNION  SELECT 'adv:lighting'       , 0 
