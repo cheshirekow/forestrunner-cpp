@@ -155,7 +155,7 @@ void Application::setupResources()
 
     // Load resource paths from config file
     Ogre::ConfigFile cf;
-    cf.load(m_ResourcePath + mResourcesCfg);
+    cf.load(m_ResourcePath + "/" + mResourcesCfg);
     
     std::cout << "setup() : loaded resource config file" << std::endl;
 
@@ -177,7 +177,7 @@ void Application::setupResources()
             // In order to make things portable on OS X we need to provide
             // the loading with it's own bundle path location
             if (!Ogre::StringUtil::startsWith(archName, "/", false)) // only adjust relative dirs
-                archName = Ogre::String(m_ResourcePath + archName);
+                archName = Ogre::String(m_ResourcePath + "/" + archName);
 #endif
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
                 archName, typeName, secName);
@@ -343,12 +343,12 @@ void Application::createFrameListener()
 bool Application::setup()
 {
 #ifdef FORESTRUNNER_IOS
-    mResourcesCfg   = "/config/ios/resources.cfg";
-    mPluginsCfg     = "/config/ios/plugins.cfg";
+    mResourcesCfg   = "config/ios/resources.cfg";
+    mPluginsCfg     = "config/ios/plugins.cfg";
 
 #else
-    mResourcesCfg   = "/resources.cfg";
-    mPluginsCfg     = "/plugins.cfg";
+    mResourcesCfg   = "resources.cfg";
+    mPluginsCfg     = "plugins.cfg";
 #endif
 
     createRoot();
