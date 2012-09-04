@@ -10,6 +10,52 @@
                 <Property name="Text" value="Advanced Settings" />
                 <Property name="AlwaysOnTop" value="True" />
             </Window>
+            <Window name="StaticText" type="GlossySerpent/StaticText">
+                <Property name="Area" value="{{0,10},{0,20},{0,200},{0,100}}" />
+                <Property name="Text">If you wish to opt-out of the 
+data collection process, uncheck 
+the box labeled "participate"</Property>
+                <Property name="FrameEnabled" value="False" />
+                <Property name="BackgroundEnabled" value="False" />
+            </Window>
+            <Window name="chk_participate" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{0,10},{0,100},{0,300},{0,120}}" />
+                <Property name="Text" value="Participate" />
+            </Window>
+            <Window name="chk_postProcess" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,30},{1,-100},{0,50}}" />
+                <Property name="Text" value="Post Process" />
+            </Window>
+            <Window name="chk_cartoon" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,60},{1,-100},{0,80}}" />
+                <Property name="Text" value="Cartoon" />
+            </Window>
+            <Window name="chk_lighting" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,90},{1,-100},{0,110}}" />
+                <Property name="Text" value="Lighting" />
+            </Window>
+            <Window name="chk_patchGrids" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,120},{1,-100},{0,140}}" />
+                <Property name="Text" value="Patch Grids" />
+            </Window>
+            <Window name="chk_mainGrid" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,150},{1,-100},{0,170}}" />
+                <Property name="Text" value="Main Grid" />
+            </Window>
+            <Window name="chk_gradientFloor" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,180},{1,-100},{0,200}}" />
+                <Property name="Text" value="Main Grid" />
+            </Window>
+            <Window name="chk_worldRotate" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,210},{1,-100},{0,230}}" />
+                <Property name="Text" value="World Rotate" />
+            </Window>
+            <Window name="chk_logging" type="GlossySerpent/Checkbox">
+                <Property name="Area" value="{{1,-200},{0,240},{1,-100},{0,260}}" />
+                <Property name="Text" value="Logging" />
+            </Window>
+            
+            
             <Window name="btn_save" type="GlossySerpent/Button">
                 <Property name="Area" value="{{0,300},{0,300},{1,-135},{0,330}}" />
                 <Property name="Text" value="Save" />

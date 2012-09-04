@@ -42,7 +42,7 @@ Last change:    $LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
     <FalagardMapping windowType="GlossySerpent/Button32"                    targetType="CEGUI/PushButton"           renderer="Core/Button"              lookNFeel="GlossySerpent/Button32" />
     <FalagardMapping windowType="GlossySerpent/Button32_4C"                 targetType="CEGUI/PushButton"           renderer="Core/Button"              lookNFeel="GlossySerpent/Button32_4C" />
     <FalagardMapping windowType="GlossySerpent/Button"                      targetType="CEGUI/PushButton"           renderer="Core/Button"              lookNFeel="GlossySerpent/Button32" />
-    <FalagardMapping windowType="GlossySerpent/Checkbox"                    targetType="CEGUI/Checkbox"             renderer="Core/ToggleButton"        lookNFeel="GlossySerpent/Checkbox" />
+    <FalagardMapping windowType="GlossySerpent/Checkbox"                    targetType="CEGUI/ToggleButton"         renderer="Core/ToggleButton"        lookNFeel="GlossySerpent/Checkbox" />
     <FalagardMapping windowType="GlossySerpent/ImageButton"                 targetType="CEGUI/PushButton"           renderer="Core/Button"              lookNFeel="GlossySerpent/ImageButton" />
     <FalagardMapping windowType="GlossySerpent/RadioButton"                 targetType="CEGUI/RadioButton"          renderer="Core/ToggleButton"        lookNFeel="GlossySerpent/RadioButton" />
     <FalagardMapping windowType="GlossySerpent/FrameWindow"                 targetType="CEGUI/FrameWindow"          renderer="Core/FrameWindow"         lookNFeel="GlossySerpent/FrameWindow" />
