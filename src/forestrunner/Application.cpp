@@ -21,7 +21,6 @@
 #include "MeshBuilder.h"
 #include "game/KeyboardGame.h"
 #include "game/ForestPatch.h"
-#include "game/CEGUIDummyLogger.h"
 
 #ifdef FORESTRUNNER_LINUX
 #include "app/linux.h"
