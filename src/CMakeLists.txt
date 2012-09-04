@@ -198,9 +198,9 @@ if(FORESTRUNNER_BUILD_OK)
             ARCHIVE DESTINATION lib
         )
     
-        install(DIRECTORY ../ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-        install(DIRECTORY ../materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
-        install(DIRECTORY ../meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(DIRECTORY ../resources/ceed         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(DIRECTORY ../resources/materials    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
+        install(DIRECTORY ../resources/meshes       DESTINATION ${CMAKE_INSTALL_PREFIX}/share/forestrunner)
         install(FILES   ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg
                         ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg
                         ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg

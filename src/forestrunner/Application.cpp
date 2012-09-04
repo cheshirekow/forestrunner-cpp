@@ -133,11 +133,11 @@ void Application::createRoot()
     Ogre::String pluginsPath;
         // only use plugins.cfg if not static
     #ifndef OGRE_STATIC_LIB
-        pluginsPath = m_ResourcePath + mPluginsCfg;
+        pluginsPath = m_ResourcePath + "/" + mPluginsCfg;
     #endif
 
     m_pLog->logMessage("setup(): creating root");
-    mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "ogre.cfg");
+    mRoot = new Ogre::Root(pluginsPath, m_ResourcePath + "/ogre.cfg");
 
     m_pLog->logMessage("setup(): loading plugins");
     #ifdef OGRE_STATIC_LIB
