@@ -177,13 +177,13 @@ if(FORESTRUNNER_BUILD_OK)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/app/linux.cpp
                     ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp )
                         
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/plugins.cfg.in 
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../resources/config/desktop/plugins.cfg.in 
                     ${CMAKE_CURRENT_BINARY_DIR}/plugins.cfg )
     
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/resources.cfg.in 
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../resources/config/desktop/resources.cfg.in 
                     ${CMAKE_CURRENT_BINARY_DIR}/resources.cfg )
                     
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ogre.cfg.in 
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../resources/config/desktop/ogre.cfg.in 
                     ${CMAKE_CURRENT_BINARY_DIR}/ogre.cfg COPYONLY)
                     
     if(FORESTRUNNER_DESKTOP)
