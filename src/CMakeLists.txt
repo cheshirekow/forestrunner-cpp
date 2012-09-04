@@ -153,6 +153,7 @@ if(FORESTRUNNER_BUILD_OK)
         game/KeyboardGame.cpp
         game/ForestPatch.cpp
         game/InitCycle.cpp
+        game/StateGraph.cpp
         gui/GuiManager.cpp
         gui/Screen.cpp
         gui/Transition.cpp

@@ -253,21 +253,8 @@ bool Game::keyReleased( const OIS::KeyEvent &arg )
 
 
 
-
-
-
-void Game::update( Ogre::Real tpf )
+void Game::update_game( Ogre::Real tpf )
 {
-    
-    if(m_gameState == GS_INIT)
-        m_init.step();
-
-    //if(m_gameState != GS_RUNNING)
-    //    std::cerr << "Game::update : not running, update done" << std::endl;
-    
-    if(m_gameState != GS_RUNNING)
-        return;
-
     m_score += tpf;
     m_sig_scoreChanged.emit(m_score);
     updateSpeed(tpf);
@@ -381,8 +368,28 @@ void Game::update( Ogre::Real tpf )
     }
 
     if(collision)
+    {
         internal_setState(GS_CRASHED);
-    
+        sig_crashed.emit();
+    }
+
+    sig_score.emit(m_score);
+}
+
+
+void Game::update( Ogre::Real tpf )
+{
+
+    if(m_gameState == GS_INIT)
+        m_init.step();
+
+    //if(m_gameState != GS_RUNNING)
+    //    std::cerr << "Game::update : not running, update done" << std::endl;
+
+    if(m_gameState != GS_RUNNING)
+        return;
+
+    update_game(tpf);
 }
 
 

@@ -17,6 +17,9 @@
 #include <OgreSceneNode.h>
 #include <sstream>
 
+
+
+
 ForestPatch::ForestPatch(Ogre::SceneManager* sceneMgr,
                             Ogre::SceneNode* patchRoot,
                             int id,
@@ -34,10 +37,16 @@ ForestPatch::ForestPatch(Ogre::SceneManager* sceneMgr,
         m_cylinderNodes.push_back( sceneMgr->createSceneNode() );
 }
 
+
+
+
 ForestPatch::~ForestPatch()
 {
 
 }
+
+
+
 
 void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
                     Ogre::Entity* m_cylinderFrame,
@@ -67,6 +76,7 @@ void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
 
 
 
+
 void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 {
     m_patchNode->removeAllChildren();
@@ -91,6 +101,8 @@ void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 }
 
 
+
+
 void ForestPatch::generateLayout(float density)
 {
     m_patchNode->removeAllChildren();
@@ -107,10 +119,16 @@ void ForestPatch::generateLayout(float density)
     }
 }
 
+
+
+
 Ogre::SceneNode* ForestPatch::getRoot()
 {
     return m_patchNode;
 }
+
+
+
 
 bool ForestPatch::collision(float x, float y, float r)
 {
@@ -128,6 +146,9 @@ bool ForestPatch::collision(float x, float y, float r)
 
     return false;
 }
+
+
+
 
 int ForestPatch::getPoisson(float lambda)
 {

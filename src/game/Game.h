@@ -17,6 +17,7 @@
 #include "GameState.h"
 #include "InitCycle.h"
 #include "ForestPatch.h"
+#include "game/StateGraph.h"
 
 class Game
 {
@@ -45,6 +46,7 @@ class Game
         int     m_patchDimY;
 
         InitCycle   m_init;
+        forestrunner::game::StateGraph  m_dispatcher;
 
         ForestPatch** m_patches;
         std::vector<Ogre::MaterialPtr>  m_materials;
@@ -67,6 +69,9 @@ class Game
 
 
     public:
+        sigc::signal<void,float>    sig_score;
+        sigc::signal<void>          sig_crashed;
+
         Game();
         virtual ~Game();
 
@@ -102,6 +107,8 @@ class Game
         /// initialize a new run of the game
         void initRun();
 
+
+
         void createScene(Ogre::SceneManager* sceneMgr,
                             Ogre::SceneNode* patchRoot,
                             Ogre::SceneNode* patchRotate);
@@ -112,6 +119,7 @@ class Game
         virtual bool keyPressed( const OIS::KeyEvent &arg );
         virtual bool keyReleased( const OIS::KeyEvent &arg );
 
+        void update_game( Ogre::Real tpf );
         virtual void update( Ogre::Real tpf );
         virtual void updateSpeed( Ogre::Real tpf )=0;
 
