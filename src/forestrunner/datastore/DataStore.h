@@ -88,6 +88,17 @@ class DataStore
         /// close database connections, etc
         virtual void fini(){}
 
+        /// extracts a value into the specified variable and returns true if
+        /// the value has changed
+        template <typename T>
+        bool extract( T& out, const std::string& key)
+        {
+            bool result = ( out != get<T>(key) );
+            if(result)
+                out = get<T>(key);
+            return result;
+        }
+
 
 
 

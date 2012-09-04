@@ -37,6 +37,17 @@ Game::Game()
     m_patchDimX = 5;
     m_patchDimY = 8; //4;
 
+    m_prefRadius    = 0;
+    m_prefDensity   = 0;
+    m_prefSpeed     = 0;
+
+    m_advCartoon        = true;
+    m_advLighting       = true;
+    m_advPatchGrids     = false;
+    m_advMainGrid       = true;
+    m_advGradientFloor  = false;
+    m_advWorldRotate    = true;
+
     size_t nPatches = m_patchDimX*m_patchDimY;
     m_patches = new ForestPatch* [nPatches];
 
@@ -61,6 +72,26 @@ Game::Game()
 Game::~Game()
 {
     delete [] m_patches;
+}
+
+void Game::readSettings(forestrunner::DataStore* store,
+                            bool& needsInit,
+                            bool& needsNewGame)
+{
+    needsNewGame = (
+           store->extract(m_prefRadius, "pref:radius")
+        || store->extract(m_prefDensity,"pref:density")
+        || store->extract(m_prefSpeed,  "pref:velocity")
+    );
+
+    needsInit = (
+           store->extract(m_advCartoon,      "adv:cartoon")
+        || store->extract(m_advLighting,     "adv:lighting")
+        || store->extract(m_advPatchGrids,   "adv:patchGrids")
+        || store->extract(m_advMainGrid,     "adv:mainGrid")
+        || store->extract(m_advGradientFloor,"adv:gradientFloor")
+        || store->extract(m_advWorldRotate,  "adv:worldRotate")
+    );
 }
 
 
@@ -154,19 +185,29 @@ void Game::initPatch(int i)
 }
 
 
+void Game::calcSettings()
+{
+    m_ySpeed    = 20.0f + m_prefSpeed*5.0f;
+    m_density   = 3.0f  + m_prefDensity*2.0f;;
+    m_radius    = 0.5f  + m_prefRadius*0.3f;
+}
+
 void Game::setSpeed(int i)
 {
-    m_ySpeed    = 20.0f + i*5.0f;
+    m_prefSpeed = i;
+    calcSettings();
 }
 
 void Game::setDensity(int i)
 {
-    m_density   = 3.0f + i*2.0f;;
+    m_prefDensity = i;
+    calcSettings();
 }
 
 void Game::setRadius(int i)
 {
-    m_radius    = 0.5f + i*0.3f;
+    m_prefRadius = i;
+    calcSettings();
 }
 
 void Game::initRun()

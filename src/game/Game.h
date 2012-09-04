@@ -16,6 +16,7 @@
 
 #include "ForestPatch.h"
 #include "forestrunner/game/StateGraph.h"
+#include "forestrunner/datastore/DataStore.h"
 
 class Game
 {
@@ -41,6 +42,17 @@ class Game
         int     m_patchDimX;
         int     m_patchDimY;
 
+        int     m_prefRadius;
+        int     m_prefDensity;
+        int     m_prefSpeed;
+
+        bool    m_advCartoon;
+        bool    m_advLighting;
+        bool    m_advPatchGrids;
+        bool    m_advMainGrid;
+        bool    m_advGradientFloor;
+        bool    m_advWorldRotate;
+
         forestrunner::game::StateGraph  m_dispatcher;
 
         ForestPatch** m_patches;
@@ -65,6 +77,21 @@ class Game
 
         Game();
         virtual ~Game();
+
+        /// reads the settings from the data store, changes internal model if
+        /// necessary
+        /**
+         *  @param store        model for data storage
+         *  @param needsInit    set to true if rendering settings have changed
+         *  @param needsNewGame set to true if play settings haved changed
+         */
+        void readSettings(forestrunner::DataStore* store,
+                            bool& needsInit,
+                            bool& needsNewGame);
+
+        /// calculates values for speed density and radius given the preference
+        /// settings
+        void calcSettings();
 
         size_t getNumPatches();
 
