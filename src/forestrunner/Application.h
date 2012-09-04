@@ -24,7 +24,7 @@
 #include <Ogre.h>
 
 #include "game/Game.h"
-
+#include "forestrunner/datastore/DataStore.h"
 
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
@@ -104,6 +104,7 @@ protected:
     Ogre::SceneNode*    m_patchRotate;
 
     Game*               m_game;
+    DataStore*          m_dataStore;
 
 #ifdef OGRE_STATIC_LIB
     Ogre::StaticPluginLoader    m_StaticPluginLoader;

@@ -71,7 +71,6 @@ class Application:
         //kind of abstracts away the process of dealing with CEGUI
         CEGUI::OgreRenderer*        mRenderer;
         GuiManager*                 m_guiManager;
-        forestrunner::DataStore*    m_dataStore;
 
         Ogre::Overlay*              m_hudOverlay;
         Ogre::OverlayContainer*     m_hudContainer;
@@ -81,7 +80,7 @@ class Application:
 
 
     public:
-        Application();
+        Application(forestrunner::DataStore* dataStore);
         virtual ~Application();
         void go();
 

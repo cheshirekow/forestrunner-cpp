@@ -15,12 +15,13 @@ int main(int argc, char *argv[])
     forestrunner::desktop::DataStore store;
 
     // Create application object
-    forestrunner::desktop::Application app;
+    forestrunner::desktop::Application app(&store);
 
     try
     {
         store.init();
         app.go();
+        store.fini();
     } catch( Ogre::Exception& e ) {
         std::cerr << "An exception has occured: " <<
             e.getFullDescription().c_str() << std::endl;

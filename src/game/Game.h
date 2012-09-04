@@ -70,17 +70,36 @@ class Game
         Game();
         virtual ~Game();
 
+        /// removes all the cylinder meshes and their associated 'entities'
+        /// from the scene
         void destroyCylinderMeshes();
+
+        /// creates cylinder meshes and generates 'entities' (instances) for
+        /// the cylinders
         void createCylinderMeshes();
+
+        /// clears the i'th patch
         void clearPatch(int i);
+
+        /// initializes the i'th patch
         void initPatch(int i);
+
+        /// resets the init loop
         void initFinished();
+
+        /// simply emits a progress signal
         void initProgress(float progress);
 
+        /// set the game speed
         void setSpeed(int i);
+
+        /// set the game density
         void setDensity(int i);
+
+        /// set the game radius
         void setRadius(int i);
 
+        /// initialize a new run of the game
         void initRun();
 
         void createScene(Ogre::SceneManager* sceneMgr,
