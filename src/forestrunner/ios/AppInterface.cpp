@@ -32,12 +32,12 @@ namespace          ios {
 
 
 
-AppInterface::AppInterface()
+AppInterface::AppInterface(DataStore* store)
 {
 
 try 
 {
-    m_impl = new Application();
+    m_impl = new Application(store);
 } 
 catch (std::exception& e) 
 {

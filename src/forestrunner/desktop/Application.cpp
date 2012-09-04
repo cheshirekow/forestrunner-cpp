@@ -71,13 +71,14 @@ static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
 
 
 Application::Application(forestrunner::DataStore* datastore):
+    Base_t(datastore),
     mInputManager(0),
     mMouse(0),
     mTouch(0),
     mKeyboard(0),
     m_guiManager(0)
 {
-    m_dataStore = datastore;
+
 }
 
 Application::~Application()

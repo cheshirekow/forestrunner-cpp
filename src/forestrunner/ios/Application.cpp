@@ -31,7 +31,8 @@ namespace          ios {
 
 
 
-Application::Application():
+Application::Application(DataStore* store):
+    Base_t(store),
     m_iosTimer(0)
 {
 

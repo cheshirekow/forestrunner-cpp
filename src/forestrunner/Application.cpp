@@ -51,7 +51,7 @@ namespace forestrunner {
 
 
 //------------------------------------------------------------------------------
-Application::Application():
+Application::Application(DataStore* store):
     mRoot(0),
     mCamera(0),
     mSceneMgr(0),
@@ -60,7 +60,8 @@ Application::Application():
     mResourcesCfg(Ogre::StringUtil::BLANK),
     mPluginsCfg(Ogre::StringUtil::BLANK),
     mCursorWasVisible(false),
-    mShutDown(false)
+    mShutDown(false),
+    m_dataStore(store)
 {
 #if FORESTRUNNER_OSX
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources";

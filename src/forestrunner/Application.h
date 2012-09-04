@@ -78,7 +78,7 @@ class Application :
 public:
     /// does nothing but initialize pointers to null and assigns the value of
     /// the resource path
-    Application();
+    Application(DataStore* store);
 
     /// cleans up the window listener interface
     virtual ~Application();

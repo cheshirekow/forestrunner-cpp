@@ -26,6 +26,8 @@
 #ifndef FORESTRUNNER_IOS_APPINTERFACE_H_
 #define FORESTRUNNER_IOS_APPINTERFACE_H_
 
+#include "forestrunner/datastore/DataStore.h"
+
 namespace forestrunner {
 namespace          ios {
 
@@ -39,7 +41,7 @@ class AppInterface
         Application* m_impl;
 
     public:
-        AppInterface();
+        AppInterface(DataStore* store);
         ~AppInterface();
 
         bool init(  void* uiWindow,

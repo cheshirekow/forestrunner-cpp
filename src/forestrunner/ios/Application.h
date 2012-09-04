@@ -27,7 +27,7 @@
 #define FORESTRUNNER_IOS_APPLICATION_H_
 
 #include "forestrunner/Application.h"
-
+#include "forestrunner/datastore/DataStore.h"
 
 namespace forestrunner {
 namespace          ios {
@@ -35,6 +35,9 @@ namespace          ios {
 class Application:
     public forestrunner::Application
 {
+    public:
+        typedef forestrunner::Application Base_t;
+
     protected:
         Ogre::Timer*        m_iosTimer;
 
@@ -45,7 +48,7 @@ class Application:
         unsigned int        m_height;
 
     public:
-        Application();
+        Application(DataStore* store);
         virtual ~Application();
 
         /// calls setup and initializes the system
