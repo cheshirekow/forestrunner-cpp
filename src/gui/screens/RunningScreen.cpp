@@ -29,21 +29,39 @@ RunningScreen::~RunningScreen()
 void RunningScreen::set_game(Game* game)
 {
     Screen::set_game(game);
-    game->sig_stateChanged().connect(
-            sigc::mem_fun(*this,&RunningScreen::onGameStateChanged) );
-    game->sig_scoreChanged().connect(
+    game->sig_score.connect(
             sigc::mem_fun(*this,&RunningScreen::onScoreChanged) );
 }
 
-void RunningScreen::exec()
+void RunningScreen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
 {
-    m_game->setState(GS_RUNNING);
+    Screen::set_dispatcher(dispatcher);
+
+    dispatcher->sig_crashed.connect(
+            sigc::mem_fun(*this,&RunningScreen::crash) );
+    dispatcher->sig_paused.connect(
+            sigc::mem_fun(*this,&RunningScreen::pause) );
 }
 
-void RunningScreen::onGameStateChanged(GameState state)
+
+void RunningScreen::exec()
 {
-    if(state == GS_CRASHED)
-        m_sig_transition.emit("crash");
+    //m_game->setState(GS_RUNNING);
+    if( m_dispatcher->getState() == forestrunner::game::StateGraph::PAUSED )
+        m_dispatcher->resumeFromPaused();
+    else
+        m_dispatcher->startNewRun();
+}
+
+
+void RunningScreen::pause()
+{
+    m_sig_transition.emit("paused");
+}
+
+void RunningScreen::crash()
+{
+    m_sig_transition.emit("crash");
 }
 
 void RunningScreen::onScoreChanged(float score)

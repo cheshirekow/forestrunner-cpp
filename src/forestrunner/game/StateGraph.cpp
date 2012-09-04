@@ -24,7 +24,7 @@
  *  \brief  
  */
 
-#include "game/StateGraph.h"
+#include "forestrunner/game/StateGraph.h"
 
 namespace forestrunner {
 namespace         game {
@@ -32,8 +32,9 @@ namespace         game {
 
 InitCycle::InitCycle()
 {
-    m_step   = DONE;
-    m_iPatch = 0;
+    m_step      = DONE;
+    m_iPatch    = 0;
+    m_nPatches  = 1;
 }
 
 InitCycle::~InitCycle()
@@ -54,9 +55,6 @@ void InitCycle::reset()
 
 bool InitCycle::step()
 {
-    if(m_step >= DONE)
-        return false;
-
     switch(m_step)
     {
         case CLEAR_PATCHES:
@@ -91,20 +89,23 @@ bool InitCycle::step()
             break;
         }
 
+        case DONE:
+            sig_finished.emit();
+            return false;
+
         default:
             return false;
-            break;
     }
 
     sig_progress.emit( ( m_step + (m_iPatch / (float)m_nPatches) )
-                        / (float)NUM_STEPS );
+                        / (float)(NUM_STEPS-1) );
 
     return true;
 }
 
 StateGraph::StateGraph()
 {
-    m_state = INIT_CYCLE;
+    m_state = INVALID;
 }
 
 StateGraph::~StateGraph()
@@ -121,8 +122,12 @@ bool StateGraph::step(Ogre::Real tpf)
 
         case INIT_RUN:
             sig_initRun.emit();
-            m_state = SHOULD_RUN;
+            m_state = RUN_INITIALIZED;
+            sig_runInitialized.emit();
             return true;
+
+        case RUN_INITIALIZED:
+            return false;
 
         case SHOULD_RUN:
             sig_flushTimer.emit();
@@ -147,6 +152,7 @@ bool StateGraph::step(Ogre::Real tpf)
 void StateGraph::pause()
 {
     m_state = PAUSED;
+    sig_paused.emit();
 }
 
 void StateGraph::resumeFromPaused()
@@ -154,14 +160,27 @@ void StateGraph::resumeFromPaused()
     m_state = SHOULD_RUN;
 }
 
-void StateGraph::startNewRun()
+void StateGraph::initRun()
 {
     m_state = INIT_RUN;
+}
+
+
+void StateGraph::startNewRun()
+{
+    m_state = SHOULD_RUN;
+}
+
+void StateGraph::startInitCycle()
+{
+    m_state = INIT_CYCLE;
+    initCycle.reset();
 }
 
 void StateGraph::crash()
 {
     m_state = CRASHED;
+    sig_crashed.emit();
 }
 
 StateGraph::State StateGraph::getState()

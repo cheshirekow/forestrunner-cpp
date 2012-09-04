@@ -10,7 +10,6 @@
 #define RUNNINGSCREEN_H_
 
 #include "gui/Screen.h"
-#include "game/GameState.h"
 
 class RunningScreen :
     public Screen
@@ -24,10 +23,12 @@ class RunningScreen :
         virtual ~RunningScreen();
 
         virtual void set_game(Game* game);
+        virtual void set_dispatcher(forestrunner::game::StateGraph* dispatcher);
         virtual void exec();
 
-        void onGameStateChanged(GameState state);
         void onScoreChanged(float score);
+        void pause();
+        void crash();
 };
 
 #endif /* RUNNINGSCREEN_H_ */

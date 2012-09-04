@@ -20,7 +20,9 @@
 #include "screens/CrashScreen.h"
 #include "screens/HighScoreScreen.h"
 
-GuiManager::GuiManager(Game* game, forestrunner::DataStore* store):
+GuiManager::GuiManager(Game* game,
+        forestrunner::DataStore* store,
+        forestrunner::game::StateGraph* dispatcher):
     m_activeTransition(0),
     m_activeScreen(0)
 {
@@ -45,6 +47,7 @@ GuiManager::GuiManager(Game* game, forestrunner::DataStore* store):
                 sigc::mem_fun(*this,&GuiManager::requestChange) );
         screen->set_game(game);
         screen->set_store(store);
+        screen->set_dispatcher(dispatcher);
     }
 
     // set the first screen and transition into it

@@ -340,6 +340,37 @@ void Application::createFrameListener()
 
 
 //------------------------------------------------------------------------------
+void Application::setupDispatcher()
+{
+    m_dispatcher.initCycle.setNumPatches(m_game->getNumPatches());
+
+    m_dispatcher.sig_initRun.connect(
+                sigc::mem_fun(*m_game,&Game::initRun) );
+
+    m_dispatcher.sig_stepRun.connect(
+                sigc::mem_fun(*m_game,&Game::update_game) );
+
+    m_game->sig_crashed.connect(
+                sigc::mem_fun(m_dispatcher,&game::StateGraph::crash));
+
+    m_dispatcher.initCycle.sig_clearPatch.connect(
+                sigc::mem_fun(*m_game,&Game::clearPatch) );
+
+    m_dispatcher.initCycle.sig_freeMeshes.connect(
+                sigc::mem_fun(*m_game,&Game::destroyCylinderMeshes) );
+
+    m_dispatcher.initCycle.sig_createMeshes.connect(
+                sigc::mem_fun(*m_game,&Game::createCylinderMeshes) );
+
+    m_dispatcher.initCycle.sig_initPatch.connect(
+                sigc::mem_fun(*m_game,&Game::initPatch) );
+
+}
+
+
+
+
+//------------------------------------------------------------------------------
 bool Application::setup()
 {
 #ifdef FORESTRUNNER_IOS
@@ -385,6 +416,9 @@ bool Application::setup()
     createFrameListener();
     m_pLog->logMessage("setup: Finished creating frame listener, returning");
 
+    setupDispatcher();
+    m_pLog->logMessage("setup: Finished setting up dispatcher");
+
     return true;
 }
 
@@ -425,7 +459,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
     
-    m_game->update(evt.timeSinceLastFrame);
+    m_dispatcher.step(evt.timeSinceLastFrame);
 
     // this is how we update the camera controller
     // (probably need to get rid of this)

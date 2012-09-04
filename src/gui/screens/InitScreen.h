@@ -10,7 +10,6 @@
 #define INITSCREEN_H_
 
 #include "gui/Screen.h"
-#include "game/GameState.h"
 
 class InitScreen :
     public Screen,
@@ -25,13 +24,14 @@ class InitScreen :
         virtual ~InitScreen();
 
         virtual void set_game(Game* game);
+        virtual void set_dispatcher(forestrunner::game::StateGraph* dispatcher);
         virtual void exec();
         virtual void    fireEvent (const CEGUI::String &name,
                                     CEGUI::EventArgs &args,
                                     const CEGUI::String &eventNamespace="");
 
         void onProgress(float progress);
-        void onStateChanged(GameState state);
+        void finished();
 };
 
 #endif /* INITSCREEN_H_ */

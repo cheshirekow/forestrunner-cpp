@@ -35,8 +35,8 @@ bool KeyboardGame::keyPressed( const OIS::KeyEvent &arg )
     if( arg.key == OIS::KC_RIGHT || arg.key == OIS::KC_D )
         m_rightDown = true;
 
-    if( arg.key == OIS::KC_Q && m_gameState == GS_RUNNING )
-        internal_setState(GS_CRASHED);
+    if( arg.key == OIS::KC_Q );
+        sig_crashed.emit();
 
     return true;
 }

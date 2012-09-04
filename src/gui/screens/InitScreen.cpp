@@ -10,7 +10,6 @@
 #include "game/Game.h"
 #include <iostream>
 #include <cstring>
-#include "game/GameState.h"
 
 
 InitScreen::InitScreen()
@@ -33,11 +32,25 @@ void InitScreen::set_game(Game* game)
 {
     Screen::set_game(game);
 
-    game->sig_progressChanged().connect(
-            sigc::mem_fun(*this,&InitScreen::onProgress) );
-    game->sig_stateChanged().connect(
-            sigc::mem_fun(*this,&InitScreen::onStateChanged) );
+//    game->sig_progressChanged().connect(
+//            sigc::mem_fun(*this,&InitScreen::onProgress) );
+//    game->sig_stateChanged().connect(
+//            sigc::mem_fun(*this,&InitScreen::onStateChanged) );
 }
+
+
+
+void InitScreen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
+{
+    Screen::set_dispatcher(dispatcher);
+
+    dispatcher->initCycle.sig_progress.connect(
+                        sigc::mem_fun(*this,&InitScreen::onProgress) );
+    dispatcher->initCycle.sig_finished.connect(
+                        sigc::mem_fun(*this,&InitScreen::finished) );
+}
+
+
 
 void InitScreen::exec()
 {
@@ -49,7 +62,8 @@ void InitScreen::exec()
     anim->start();
     */
 
-    m_game->setState(GS_INIT);
+//    m_game->setState(GS_INIT);
+    m_dispatcher->startInitCycle();
 }
 
 void InitScreen::onProgress(float progress)
@@ -58,10 +72,10 @@ void InitScreen::onProgress(float progress)
     m_pb_progress->setProperty("CurrentProgress",m_cstr);
 }
 
-void InitScreen::onStateChanged(GameState state)
+
+void InitScreen::finished()
 {
-    if(state == GS_COUNTDOWN)
-        m_sig_transition.emit("countdown3");
+    m_sig_transition.emit("countdown3");
 }
 
 void InitScreen::fireEvent (const CEGUI::String &name,

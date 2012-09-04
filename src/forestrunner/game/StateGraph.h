@@ -56,6 +56,7 @@ class InitCycle
         sigc::signal<void>          sig_freeMeshes;
         sigc::signal<void>          sig_createMeshes;
         sigc::signal<void,int>      sig_initPatch;
+        sigc::signal<void>          sig_finished;
         sigc::signal<void,float>    sig_progress;
 
     public:
@@ -79,10 +80,12 @@ class StateGraph
         {
             INIT_CYCLE,
             INIT_RUN,
+            RUN_INITIALIZED,
             SHOULD_RUN,
             RUNNING,
             PAUSED,
             CRASHED,
+            INVALID
         };
 
     private:
@@ -92,6 +95,10 @@ class StateGraph
         sigc::signal<void>              sig_initRun;
         sigc::signal<void>              sig_flushTimer;
         sigc::signal<void,Ogre::Real>   sig_stepRun;
+
+        sigc::signal<void>              sig_runInitialized;
+        sigc::signal<void>              sig_crashed;
+        sigc::signal<void>              sig_paused;
 
         InitCycle   initCycle;
 
@@ -110,9 +117,13 @@ class StateGraph
         /// without changing the data store
         void resumeFromPaused();
 
+        void initRun();
+
         /// called from the UI thread when the user starts a new game after
         /// crashing or after initialization
         void startNewRun();
+
+        void startInitCycle();
 
         /// called from the game when the user crashes
         void crash();

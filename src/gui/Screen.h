@@ -14,6 +14,7 @@
 #include <CEGUI/CEGUI.h>
 
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/game/StateGraph.h"
 
 class Game;
 
@@ -28,7 +29,9 @@ class Screen
         CEGUI::String   m_anim_exit;
         CEGUI::String   m_anim_enter;
         Game*           m_game;
-        forestrunner::DataStore* m_dataStore;
+
+        forestrunner::DataStore*        m_dataStore;
+        forestrunner::game::StateGraph* m_dispatcher;
 
     public:
         Screen();
@@ -41,6 +44,7 @@ class Screen
 
         virtual void            set_game(Game* game);
         virtual void            set_store(forestrunner::DataStore* store);
+        virtual void            set_dispatcher(forestrunner::game::StateGraph* dispatcher);
         virtual void            exec();
 };
 

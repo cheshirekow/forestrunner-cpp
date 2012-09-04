@@ -15,6 +15,7 @@ class PauseScreen :
     public Screen
 {
     private:
+        CEGUI::Window* m_btn_resume;
         CEGUI::Window* m_sb_speed;
         CEGUI::Window* m_sb_radius;
         CEGUI::Window* m_sb_density;

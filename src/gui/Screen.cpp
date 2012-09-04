@@ -56,6 +56,11 @@ void Screen::set_store(forestrunner::DataStore* store)
     m_dataStore = store;
 }
 
+void Screen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
+{
+    m_dispatcher = dispatcher;
+}
+
 void Screen::exec()
 {
     std::cerr << "Screen::exec : doing nothing" << std::endl;

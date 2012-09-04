@@ -148,12 +148,11 @@ if(FORESTRUNNER_BUILD_OK)
         forestrunner/datastore/Map.cpp
         forestrunner/datastore/UserHighScoreRow.cpp
         forestrunner/datastore/GlobalHighScoreRow.cpp
+        forestrunner/game/StateGraph.cpp
         MeshBuilder.cpp
         game/Game.cpp
         game/KeyboardGame.cpp
         game/ForestPatch.cpp
-        game/InitCycle.cpp
-        game/StateGraph.cpp
         gui/GuiManager.cpp
         gui/Screen.cpp
         gui/Transition.cpp

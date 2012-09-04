@@ -19,8 +19,6 @@
 
 Game::Game()
 {
-    m_gameState = GS_CRASHED;
-
     m_xAccel    = 50.0f;
     m_xSpeedMax = 20.0f;
     m_xSpeed    = 0.0f;
@@ -41,26 +39,18 @@ Game::Game()
 
     size_t nPatches = m_patchDimX*m_patchDimY;
     m_patches = new ForestPatch* [nPatches];
-    m_init.setNumPatches(nPatches);
 
     m_acSide    = 0.3f;
     m_acRadius  = (m_acSide/2.0f) * (float)std::tan(M_PI/6.0);
     m_acTrans   = (float)( m_acSide*std::sin(M_PI/3) ) - m_acRadius;
 
-    m_init.sig_clearPatch.connect(
-            sigc::mem_fun(*this,&Game::clearPatch) );
-    m_init.sig_freeMeshes.connect(
-            sigc::mem_fun(*this,&Game::destroyCylinderMeshes) );
-    m_init.sig_createMeshes.connect(
-            sigc::mem_fun(*this,&Game::createCylinderMeshes) );
-    m_init.sig_initPatch.connect(
-            sigc::mem_fun(*this,&Game::initPatch) );
-    m_init.sig_initRun.connect(
-            sigc::mem_fun(*this,&Game::initRun ) );
-    m_init.sig_done.connect(
-            sigc::mem_fun(*this,&Game::initFinished) );
-    m_init.sig_progress.connect(
-            sigc::mem_fun(*this,&Game::initProgress) );
+
+    m_cylinderMesh.setNull();
+    m_cylinderFrame.setNull();
+    m_cylinderOutline.setNull();
+
+    m_cylinderFrameEntity   = 0;
+    m_cylinderOutlineEntity = 0;
 
 }
 
@@ -73,18 +63,40 @@ Game::~Game()
     delete [] m_patches;
 }
 
+
+size_t Game::getNumPatches()
+{
+    return m_patchDimX*m_patchDimY;
+}
+
+
 void Game::destroyCylinderMeshes()
 {
     std::cerr << "removing meshes" << std::endl;
     Ogre::MeshManager& meshMgr = Ogre::MeshManager::getSingleton();
-    meshMgr.remove("Cylinder");
-    meshMgr.remove("CylinderFrame");
-    meshMgr.remove("CylinderOutline");
+    if( !meshMgr.getByName("Cylinder").isNull() )
+        meshMgr.remove("Cylinder");
+
+    if( !meshMgr.getByName("CylinderFrame").isNull() )
+        meshMgr.remove("CylinderFrame");
+
+    if( !meshMgr.getByName("CylinderOutline").isNull() )
+        meshMgr.remove("CylinderOutline");
 
     for( int i=0; i < m_coloredEntities.size(); i++)
         m_sceneMgr->destroyEntity(m_coloredEntities[i]);
-    m_sceneMgr->destroyEntity(m_cylinderFrameEntity);
-    m_sceneMgr->destroyEntity(m_cylinderOutlineEntity);
+
+    if(m_cylinderFrameEntity)
+    {
+        m_sceneMgr->destroyEntity(m_cylinderFrameEntity);
+        m_cylinderFrameEntity = 0;
+    }
+
+    if(m_cylinderOutlineEntity)
+    {
+        m_sceneMgr->destroyEntity(m_cylinderOutlineEntity);
+        m_cylinderOutlineEntity = 0;
+    }
 
     m_coloredEntities.clear();
 }
@@ -141,16 +153,6 @@ void Game::initPatch(int i)
                         m_cylinderOutlineEntity);
 }
 
-void Game::initFinished()
-{
-    m_init.reset();
-    internal_setState(GS_COUNTDOWN);
-}
-
-void Game::initProgress(float progress)
-{
-    m_sig_progressChanged.emit(progress);
-}
 
 void Game::setSpeed(int i)
 {
@@ -216,20 +218,6 @@ void Game::createScene(Ogre::SceneManager* sceneMgr,
 
 
 
-GameState Game::getState()
-{
-    return m_gameState;
-}
-
-
-
-
-
-void Game::setState(GameState state)
-{
-    m_gameState = state;
-}
-
 
 
 
@@ -256,7 +244,6 @@ bool Game::keyReleased( const OIS::KeyEvent &arg )
 void Game::update_game( Ogre::Real tpf )
 {
     m_score += tpf;
-    m_sig_scoreChanged.emit(m_score);
     updateSpeed(tpf);
 
     m_yPos += m_ySpeed*tpf;
@@ -369,7 +356,6 @@ void Game::update_game( Ogre::Real tpf )
 
     if(collision)
     {
-        internal_setState(GS_CRASHED);
         sig_crashed.emit();
     }
 
@@ -377,55 +363,7 @@ void Game::update_game( Ogre::Real tpf )
 }
 
 
-void Game::update( Ogre::Real tpf )
-{
-
-    if(m_gameState == GS_INIT)
-        m_init.step();
-
-    //if(m_gameState != GS_RUNNING)
-    //    std::cerr << "Game::update : not running, update done" << std::endl;
-
-    if(m_gameState != GS_RUNNING)
-        return;
-
-    update_game(tpf);
-}
 
 
 
 
-
-
-sigc::signal<void,GameState>& Game::sig_stateChanged()
-{
-    return m_sig_stateChanged;
-}
-
-
-
-
-
-sigc::signal<void,float>& Game::sig_scoreChanged()
-{
-    return m_sig_scoreChanged;
-}
-
-
-
-
-
-sigc::signal<void,float>& Game::sig_progressChanged()
-{
-    return m_sig_progressChanged;
-}
-
-
-
-
-
-void Game::internal_setState(GameState state)
-{
-    m_gameState = state;
-    m_sig_stateChanged.emit(state);
-}

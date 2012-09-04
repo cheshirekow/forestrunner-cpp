@@ -332,7 +332,7 @@ void Application::createScene(void)
 
     m_pLog->logMessage("createScene: creating gui manager");
 
-    m_guiManager = new GuiManager(m_game,m_dataStore);
+    m_guiManager = new GuiManager(m_game,m_dataStore,&m_dispatcher);
 }
 
 

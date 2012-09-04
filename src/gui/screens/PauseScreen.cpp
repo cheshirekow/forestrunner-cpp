@@ -23,8 +23,8 @@ PauseScreen::PauseScreen()
                                 &PauseScreen::onNewGame,
                                 this) );
 
-    btn = m_root->getChild("Panel/btn_resume");
-    btn->subscribeEvent(CEGUI::PushButton::EventClicked,
+    m_btn_resume = m_root->getChild("Panel/btn_resume");
+    m_btn_resume->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &PauseScreen::onResume,
                                 this) );
@@ -64,10 +64,10 @@ PauseScreen::~PauseScreen()
 
 }
 
+
 void PauseScreen::exec()
 {
     CEGUI::Scrollbar* sb;
-
     sb = static_cast<CEGUI::Scrollbar*>(m_sb_speed);
     sb->setScrollPosition( m_dataStore->get<int>("pref:velocity") );
 
@@ -76,6 +76,9 @@ void PauseScreen::exec()
 
     sb = static_cast<CEGUI::Scrollbar*>(m_sb_density);
     sb->setScrollPosition( m_dataStore->get<int>("pref:density") );
+
+    m_btn_resume->setEnabled(   m_dispatcher->getState()
+                                == forestrunner::game::StateGraph::PAUSED );
 }
 
 bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
@@ -128,6 +131,7 @@ bool PauseScreen::onAdvanced(const CEGUI::EventArgs &e)
     m_sig_transition("advanced");
     return true;
 }
+
 
 
 

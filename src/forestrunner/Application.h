@@ -25,6 +25,7 @@
 
 #include "game/Game.h"
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/game/StateGraph.h"
 
 #ifdef OGRE_STATIC_LIB
 #  define OGRE_STATIC_GL
@@ -105,6 +106,7 @@ protected:
 
     Game*               m_game;
     DataStore*          m_dataStore;
+    game::StateGraph    m_dispatcher;
 
 #ifdef OGRE_STATIC_LIB
     Ogre::StaticPluginLoader    m_StaticPluginLoader;
@@ -126,6 +128,7 @@ protected:
     virtual void loadResources();
     virtual void createScene();
     virtual void createFrameListener();
+    virtual void setupDispatcher();
 
     virtual bool setup();
 
