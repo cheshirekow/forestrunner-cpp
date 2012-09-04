@@ -42,7 +42,8 @@ class AppInterface
         AppInterface();
         ~AppInterface();
 
-        bool init(  void* uiView,
+        bool init(  void* uiWindow,
+                    void* uiView,
                     void* uiViewController,
                     unsigned int width,
                     unsigned int height );

@@ -356,7 +356,7 @@ bool Application::setup()
 
     if(!configure()) return false;
     m_pLog->logMessage("setup: Finished showing config");
-
+   
     chooseSceneManager();
     m_pLog->logMessage("setup: Finished setting up scene manager");
 

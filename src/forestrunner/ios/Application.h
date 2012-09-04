@@ -38,6 +38,7 @@ class Application:
     protected:
         Ogre::Timer*        m_iosTimer;
 
+        void*               m_uiWindow;
         void*               m_uiView;
         void*               m_uiViewController;
         unsigned int        m_width;
@@ -48,7 +49,8 @@ class Application:
         virtual ~Application();
 
         /// calls setup and initializes the system
-        bool init(  void* uiView,
+        bool init(  void* uiWindow, 
+                    void* uiView,
                     void* uiViewController,
                     unsigned int width,
                     unsigned int height );

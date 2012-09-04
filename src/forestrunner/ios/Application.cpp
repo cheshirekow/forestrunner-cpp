@@ -50,6 +50,7 @@ Application::~Application()
 
 
 bool Application::init(
+        void* uiWindow, 
         void* uiView,
         void* uiViewController,
         unsigned int width,
@@ -59,12 +60,14 @@ bool Application::init(
     // for cegui (note: we're not using cegui anymore)
     // CEGUI::DummyLogger* guiLog = new CEGUI::DummyLogger();
 
+    m_uiWindow          = uiWindow;
     m_uiView            = uiView;
     m_uiViewController  = uiViewController;
     m_width             = width;
     m_height            = height;
     
     std::cout << "Initializing ios::Application with \n----------------"
+        "\nuiWind: " << (void*)uiWindow << 
         "\nuiView: " << (void*)uiView <<
         "\n  uiVC: " << (void*)uiViewController <<
         "\n     w: " << width <<
@@ -97,7 +100,11 @@ bool Application::configure(void)
     params["colourDepth"]          = "32";
     //m_params["externalGLControl"]    = "false";
     //m_params["externalGLContext"]    = "0";
-    params["contentScalingFactor"] = 2.0;
+    params["contentScalingFactor"] = "2.0";
+    
+    strm.str("");
+    strm << (unsigned long)m_uiWindow;
+    params["externalWindowHandle"] = strm.str();
 
     strm.str("");
     strm << (unsigned long)m_uiView;
@@ -106,6 +113,7 @@ bool Application::configure(void)
     strm.str("");
     strm << (unsigned long)m_uiViewController;
     params["externalViewController"]  = strm.str();
+    params["embeddedView"] = "true";
     
     // initialize, dont' create render window
     mRoot->initialise(false, "");
