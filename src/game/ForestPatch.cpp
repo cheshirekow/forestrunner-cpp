@@ -79,7 +79,7 @@ void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
 
 void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 {
-    m_patchNode->removeAllChildren();
+    // m_patchNode->removeAllChildren();
     m_nTrees = 0;
 
     for(int i=0; i < m_maxNodes; i++)
