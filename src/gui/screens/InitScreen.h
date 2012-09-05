@@ -19,6 +19,9 @@ class InitScreen :
         CEGUI::Window*  m_pb_progress;
         char            m_cstr[6];
 
+        bool    m_needsInitCycle;
+        bool    m_needsInitRun;
+
     public:
         InitScreen();
         virtual ~InitScreen();
@@ -26,12 +29,13 @@ class InitScreen :
         virtual void set_game(Game* game);
         virtual void set_dispatcher(forestrunner::game::StateGraph* dispatcher);
         virtual void exec();
-        virtual void    fireEvent (const CEGUI::String &name,
+        virtual void fireEvent (const CEGUI::String &name,
                                     CEGUI::EventArgs &args,
                                     const CEGUI::String &eventNamespace="");
 
         void onProgress(float progress);
-        void finished();
+        void initCycleFinished();
+        void initRunFinished();
 };
 
 #endif /* INITSCREEN_H_ */

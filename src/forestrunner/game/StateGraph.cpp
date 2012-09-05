@@ -90,8 +90,11 @@ bool InitCycle::step()
         }
 
         case DONE:
+        {
+            m_step++;
             sig_finished.emit();
             return false;
+        }
 
         default:
             return false;

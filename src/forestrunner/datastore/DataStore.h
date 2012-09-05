@@ -31,6 +31,8 @@
 #include "forestrunner/datastore/UserHighScoreRow.h"
 #include "forestrunner/datastore/GlobalHighScoreRow.h"
 
+#include <iostream>
+
 namespace forestrunner{
 
 
@@ -95,7 +97,10 @@ class DataStore
         {
             bool result = ( out != get<T>(key) );
             if(result)
+            {
+                std::cout << key << " has changed" << std::endl;
                 out = get<T>(key);
+            }
             return result;
         }
 

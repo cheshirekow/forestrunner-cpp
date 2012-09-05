@@ -83,6 +83,9 @@ void PauseScreen::exec()
 
 bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
 {
+    // disable the continue button since the preferences have changed
+    m_btn_resume->setEnabled( false );
+
     const CEGUI::WindowEventArgs& args =
             static_cast<const CEGUI::WindowEventArgs&>(e);
     CEGUI::Scrollbar* sb = static_cast<CEGUI::Scrollbar*>(args.window);
@@ -91,20 +94,11 @@ bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
     sb->setScrollPosition( (float)rounded );
 
     if(args.window == m_sb_speed)
-    {
         m_dataStore->get<int>("pref:velocity") = rounded;
-        m_game->setSpeed(rounded);
-    }
     if(args.window == m_sb_radius)
-    {
         m_dataStore->get<int>("pref:radius") = rounded;
-        m_game->setRadius(rounded);
-    }
     if(args.window == m_sb_density)
-    {
         m_dataStore->get<int>("pref:density") = rounded;
-        m_game->setDensity(rounded);
-    }
 
     return true;
 }

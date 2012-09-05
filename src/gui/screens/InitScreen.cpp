@@ -47,7 +47,9 @@ void InitScreen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
     dispatcher->initCycle.sig_progress.connect(
                         sigc::mem_fun(*this,&InitScreen::onProgress) );
     dispatcher->initCycle.sig_finished.connect(
-                        sigc::mem_fun(*this,&InitScreen::finished) );
+                        sigc::mem_fun(*this,&InitScreen::initCycleFinished) );
+    dispatcher->sig_runInitialized.connect(
+                        sigc::mem_fun(*this,&InitScreen::initRunFinished) );
 }
 
 
@@ -63,7 +65,16 @@ void InitScreen::exec()
     */
 
 //    m_game->setState(GS_INIT);
-    m_dispatcher->startInitCycle();
+    m_needsInitCycle = false;
+    m_needsInitRun   = false;
+    m_game->readSettings(m_dataStore,m_needsInitCycle,m_needsInitRun);
+
+    if(m_needsInitCycle)
+        m_dispatcher->startInitCycle();
+    else if(m_needsInitRun)
+        m_dispatcher->initRun();
+    else
+        m_sig_transition.emit("countdown3");
 }
 
 void InitScreen::onProgress(float progress)
@@ -73,8 +84,18 @@ void InitScreen::onProgress(float progress)
 }
 
 
-void InitScreen::finished()
+void InitScreen::initCycleFinished()
 {
+    std::cerr << "InitScreen: Init Cycle Finished" << std::endl;
+    if(m_needsInitRun)
+        m_dispatcher->initRun();
+    else
+        m_sig_transition.emit("countdown3");
+}
+
+void InitScreen::initRunFinished()
+{
+    std::cerr << "InitScreen: Init Run Finished" << std::endl;
     m_sig_transition.emit("countdown3");
 }
 

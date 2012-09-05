@@ -37,9 +37,9 @@ Game::Game()
     m_patchDimX = 5;
     m_patchDimY = 8; //4;
 
-    m_prefRadius    = 0;
-    m_prefDensity   = 0;
-    m_prefSpeed     = 0;
+    m_prefRadius    = -1;
+    m_prefDensity   = -1;
+    m_prefSpeed     = -1;
 
     m_advCartoon        = true;
     m_advLighting       = true;
@@ -80,18 +80,27 @@ void Game::readSettings(forestrunner::DataStore* store,
 {
     needsNewGame = (
            store->extract(m_prefRadius, "pref:radius")
-        || store->extract(m_prefDensity,"pref:density")
-        || store->extract(m_prefSpeed,  "pref:velocity")
+        | store->extract(m_prefDensity,"pref:density")
+        | store->extract(m_prefSpeed,  "pref:velocity")
     );
+
+    std::cerr << "ReadSettings: "
+                    "\n  radius: " << m_prefRadius <<
+                    "\n density: " << m_prefDensity <<
+                    "\n   speed: " << m_prefSpeed <<
+                    "\n runInit: " << (needsNewGame ? "true" : "false")
+                    << std::endl;
 
     needsInit = (
            store->extract(m_advCartoon,      "adv:cartoon")
-        || store->extract(m_advLighting,     "adv:lighting")
-        || store->extract(m_advPatchGrids,   "adv:patchGrids")
-        || store->extract(m_advMainGrid,     "adv:mainGrid")
-        || store->extract(m_advGradientFloor,"adv:gradientFloor")
-        || store->extract(m_advWorldRotate,  "adv:worldRotate")
+        | store->extract(m_advLighting,     "adv:lighting")
+        | store->extract(m_advPatchGrids,   "adv:patchGrids")
+        | store->extract(m_advMainGrid,     "adv:mainGrid")
+        | store->extract(m_advGradientFloor,"adv:gradientFloor")
+        | store->extract(m_advWorldRotate,  "adv:worldRotate")
     );
+
+    calcSettings();
 }
 
 
