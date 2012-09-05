@@ -30,6 +30,7 @@
 #include "forestrunner/datastore/Map.h"
 #include "forestrunner/datastore/UserHighScoreRow.h"
 #include "forestrunner/datastore/GlobalHighScoreRow.h"
+#include <sigc++/sigc++.h>
 
 #include <iostream>
 
@@ -45,6 +46,9 @@ class DataStore
 {
     protected:
         datastore::Map_t  m_map;    ///< map of all the stuff we need
+
+    public:
+        sigc::signal<void,Key_t,const datastore::MapEntry&> sig_valueChanged;
 
     public:
         /// initializes the map with some default data
@@ -75,6 +79,26 @@ class DataStore
             return entry->get<T>();
         }
 
+        /// return the value of the requested key
+        template <typename T>
+        T& get( const Key_t key )
+        {
+            assert( m_map.find(key) != m_map.end() );
+            assert( m_map[key]->type() == datastore::asType<T>() );
+            return m_map[key]->get<T>();
+        }
+
+        /// return the value of the requested key
+        template <typename T>
+        const T& get( const Key_t key ) const
+        {
+            assert( m_map.find(key) != m_map.end() );
+            const datastore::MapEntry* entry= m_map[key];
+
+            assert( entry->type() == datastore::asType<T>() );
+            return entry->get<T>();
+        }
+
         /// read data from the backend (database) and fill the map with
         /// entries that are found, also create datbase if it doesn't exist
         virtual void init(){}
@@ -91,6 +115,9 @@ class DataStore
 
         /// close database connections, etc
         virtual void fini(){}
+
+        /// send a signal that the value changed
+        void markChanged(Key_t key);
 
         /// extracts a value into the specified variable and returns true if
         /// the value has changed

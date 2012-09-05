@@ -83,7 +83,7 @@ namespace    datastore {
         const T& get() const
         {
             assert( type() == asType<T>() );
-            return static_cast< MapEntryT<T>* >(this)->value;
+            return static_cast< const MapEntryT<T>* >(this)->value;
         }
 
         virtual std::ostream& write(std::ostream& stream) const=0;

@@ -103,14 +103,33 @@ void Game::readSettings(forestrunner::DataStore* store,
     calcSettings();
 }
 
-void Game::sync(forestrunner::DataStore* store, forestrunner::Key_t key)
+void Game::valueChanged(forestrunner::Key_t key,
+                            const forestrunner::datastore::MapEntry& value)
 {
+    std::cerr << "Game is responding to change in value: "
+                << forestrunner::keystr(key) << std::endl;
+
     using namespace forestrunner::keys;
     switch(key)
     {
         case PREF_DENSITY:
+            m_prefDensity = value.get<int>();
+            break;
+
         case PREF_RADIUS:
+            m_prefRadius = value.get<int>();
+            break;
+
         case PREF_SPEED:
+            m_prefSpeed = value.get<int>();
+            break;
+
+        case ADV_CARTOON:
+            m_advCartoon = value.get<bool>();
+            break;
+
+        case ADV_LIGHTING:
+            m_advLighting = value.get<bool>();
             break;
 
         default:

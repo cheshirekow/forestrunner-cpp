@@ -83,6 +83,9 @@ void PauseScreen::exec()
 
 bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
 {
+    using namespace forestrunner;
+    using namespace forestrunner::keys;
+
     // disable the continue button since the preferences have changed
     m_btn_resume->setEnabled( false );
 
@@ -93,12 +96,22 @@ bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
     int rounded = (int)std::floor(sb->getScrollPosition() + 0.5);
     sb->setScrollPosition( (float)rounded );
 
+    Key_t key = INVALID;
+
     if(args.window == m_sb_speed)
-        m_dataStore->get<int>("pref:velocity") = rounded;
+        key = PREF_SPEED;
+
     if(args.window == m_sb_radius)
-        m_dataStore->get<int>("pref:radius") = rounded;
+        key = PREF_RADIUS;
+
     if(args.window == m_sb_density)
-        m_dataStore->get<int>("pref:density") = rounded;
+        key = PREF_DENSITY;
+
+    if( key != INVALID )
+    {
+        m_dataStore->get<int>(key) = rounded;
+        m_dataStore->markChanged(key);
+    }
 
     return true;
 }

@@ -94,8 +94,9 @@ class Game
                             bool& needsInit,
                             bool& needsNewGame);
 
-        /// read the specified value from the datastore
-        void sync(forestrunner::DataStore* store, forestrunner::Key_t key );
+        /// callback for when a setting changes in a datastore
+        void valueChanged(forestrunner::Key_t,
+                            const forestrunner::datastore::MapEntry& );
 
         /// calculates values for speed density and radius given the preference
         /// settings

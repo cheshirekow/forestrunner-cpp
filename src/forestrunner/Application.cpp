@@ -322,6 +322,9 @@ void Application::createScene()
 
     m_game = new KeyboardGame();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
+
+    m_dataStore->sig_valueChanged.connect(
+            sigc::mem_fun(*m_game,&Game::valueChanged) );
 }
 
 

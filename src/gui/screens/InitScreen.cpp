@@ -67,6 +67,11 @@ void InitScreen::exec()
     m_needsInitRun   = false;
     m_game->readSettings(m_dataStore,m_needsInitCycle,m_needsInitRun);
 
+    // FIXME: this is only to make sure that init happens, at some point
+    // move this to the front of the program
+    m_needsInitCycle = true;
+    m_needsInitRun   = true;
+
     if(m_needsInitCycle)
         m_dispatcher->startInitCycle();
     else if(m_needsInitRun)
