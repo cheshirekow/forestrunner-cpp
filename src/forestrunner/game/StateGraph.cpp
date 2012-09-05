@@ -121,16 +121,18 @@ bool StateGraph::step(Ogre::Real tpf)
     switch(m_state)
     {
         case INIT_CYCLE:
-            return initCycle.step();
+        {
+            if(!initCycle.step())
+                m_state = FINISH;
+            return true;
+        }
 
         case INIT_RUN:
+        {
             sig_initRun.emit();
-            m_state = RUN_INITIALIZED;
-            sig_runInitialized.emit();
+            m_state = FINISH;
             return true;
-
-        case RUN_INITIALIZED:
-            return false;
+        }
 
         case SHOULD_RUN:
             sig_flushTimer.emit();
@@ -147,6 +149,23 @@ bool StateGraph::step(Ogre::Real tpf)
         case CRASHED:
             return false;
 
+        case LIGHTING_START:
+        {
+            sig_setLighting.emit();
+            m_state = FINISH;
+            return true;
+        }
+
+        case FINISH:
+        {
+            // note, we have to set idle before emmitting the signal because
+            // in some cases the signal handler will change the state to
+            // something else
+            m_state = IDLE;
+            sig_cycleFinished.emit();
+            return true;
+        }
+
         default:
             return false;
     }
@@ -158,18 +177,19 @@ void StateGraph::pause()
     sig_paused.emit();
 }
 
-void StateGraph::resumeFromPaused()
+void StateGraph::crash()
 {
-    m_state = SHOULD_RUN;
+    m_state = CRASHED;
+    sig_crashed.emit();
 }
 
-void StateGraph::initRun()
+void StateGraph::startInitRun()
 {
     m_state = INIT_RUN;
 }
 
 
-void StateGraph::startNewRun()
+void StateGraph::play()
 {
     m_state = SHOULD_RUN;
 }
@@ -180,11 +200,7 @@ void StateGraph::startInitCycle()
     initCycle.reset();
 }
 
-void StateGraph::crash()
-{
-    m_state = CRASHED;
-    sig_crashed.emit();
-}
+
 
 StateGraph::State StateGraph::getState()
 {

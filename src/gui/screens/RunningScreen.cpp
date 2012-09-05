@@ -47,10 +47,7 @@ void RunningScreen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
 void RunningScreen::exec()
 {
     //m_game->setState(GS_RUNNING);
-    if( m_dispatcher->getState() == forestrunner::game::StateGraph::PAUSED )
-        m_dispatcher->resumeFromPaused();
-    else
-        m_dispatcher->startNewRun();
+    m_dispatcher->play();
 }
 
 

@@ -46,10 +46,8 @@ void InitScreen::set_dispatcher(forestrunner::game::StateGraph* dispatcher)
 
     dispatcher->initCycle.sig_progress.connect(
                         sigc::mem_fun(*this,&InitScreen::onProgress) );
-    dispatcher->initCycle.sig_finished.connect(
-                        sigc::mem_fun(*this,&InitScreen::initCycleFinished) );
-    dispatcher->sig_runInitialized.connect(
-                        sigc::mem_fun(*this,&InitScreen::initRunFinished) );
+    dispatcher->sig_cycleFinished.connect(
+                        sigc::mem_fun(*this,&InitScreen::cycleFinished) );
 }
 
 
@@ -72,7 +70,7 @@ void InitScreen::exec()
     if(m_needsInitCycle)
         m_dispatcher->startInitCycle();
     else if(m_needsInitRun)
-        m_dispatcher->initRun();
+        m_dispatcher->startInitRun();
     else
         m_sig_transition.emit("countdown3");
 }
@@ -84,20 +82,33 @@ void InitScreen::onProgress(float progress)
 }
 
 
-void InitScreen::initCycleFinished()
+void InitScreen::cycleFinished()
 {
-    std::cerr << "InitScreen: Init Cycle Finished" << std::endl;
-    if(m_needsInitRun)
-        m_dispatcher->initRun();
+    // if needsInitCycle is true then that is the cycle that
+    // just finished
+    if(m_needsInitCycle)
+    {
+        std::cerr << "Init Cycle Finished" << std::endl;
+        m_needsInitCycle = false;
+        if(m_needsInitRun)
+        {
+            std::cerr << "Dispatching init Run" << std::endl;
+            m_dispatcher->startInitRun();
+        }
+        else
+        {
+            std::cerr << "transitioning to countdown 3" << std::endl;
+            m_sig_transition.emit("countdown3");
+        }
+    }
+    // otherwise it's the init run cycle which is finished
     else
+    {
+        std::cerr << "Init Run Finished" << std::endl;
         m_sig_transition.emit("countdown3");
+    }
 }
 
-void InitScreen::initRunFinished()
-{
-    std::cerr << "InitScreen: Init Run Finished" << std::endl;
-    m_sig_transition.emit("countdown3");
-}
 
 void InitScreen::fireEvent (const CEGUI::String &name,
                                     CEGUI::EventArgs &args,

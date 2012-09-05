@@ -56,10 +56,10 @@ the box labeled "participate"</Property>
             </Window>
             
             
-            <Window name="btn_save" type="GlossySerpent/Button">
+            <!--Window name="btn_save" type="GlossySerpent/Button">
                 <Property name="Area" value="{{0,300},{0,300},{1,-135},{0,330}}" />
                 <Property name="Text" value="Save" />
-            </Window>
+            </Window-->
             <Window name="btn_back" type="GlossySerpent/Button">
                 <Property name="Area" value="{{0,405},{0,300},{1,-30},{0,330}}" />
                 <Property name="Text" value="Back" />

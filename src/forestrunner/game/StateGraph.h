@@ -80,11 +80,14 @@ class StateGraph
         {
             INIT_CYCLE,
             INIT_RUN,
-            RUN_INITIALIZED,
             SHOULD_RUN,
             RUNNING,
             PAUSED,
             CRASHED,
+            LIGHTING_START,
+            LIGHTING_FINISH,
+            FINISH,
+            IDLE,
             INVALID
         };
 
@@ -93,10 +96,11 @@ class StateGraph
 
     public:
         sigc::signal<void>              sig_initRun;
+        sigc::signal<void>              sig_setLighting;
         sigc::signal<void>              sig_flushTimer;
         sigc::signal<void,Ogre::Real>   sig_stepRun;
 
-        sigc::signal<void>              sig_runInitialized;
+        sigc::signal<void>              sig_cycleFinished;
         sigc::signal<void>              sig_crashed;
         sigc::signal<void>              sig_paused;
 
@@ -113,20 +117,18 @@ class StateGraph
         /// to paused
         void pause();
 
-        /// called from the UI thread when the user resumes from paused
-        /// without changing the data store
-        void resumeFromPaused();
-
-        void initRun();
-
-        /// called from the UI thread when the user starts a new game after
-        /// crashing or after initialization
-        void startNewRun();
-
-        void startInitCycle();
-
         /// called from the game when the user crashes
         void crash();
+
+        /// called from the UI thread when it is time to start running the
+        /// game
+        void play();
+
+        /// starts the init cycle which does all the initialization stuff
+        void startInitCycle();
+
+        /// starts the init-run cycle which initializes a new run
+        void startInitRun();
 
         /// return the current state (useful when step returns false and we
         /// want to know if the game crashed or was paused)

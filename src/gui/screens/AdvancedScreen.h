@@ -15,6 +15,8 @@ class AdvancedScreen :
     public Screen
 {
     private:
+        CEGUI::ButtonBase*   m_btn_done;
+
         CEGUI::ToggleButton* m_chk_postProcess;
         CEGUI::ToggleButton* m_chk_cartoon;
         CEGUI::ToggleButton* m_chk_lighting;
@@ -25,10 +27,16 @@ class AdvancedScreen :
         CEGUI::ToggleButton* m_chk_worldRotate;
         CEGUI::ToggleButton* m_chk_participate;
 
+        std::vector<CEGUI::Window*> m_allWindows;
+
+        void disableAll();
+        void enableAll();
+
     public:
         AdvancedScreen();
         virtual ~AdvancedScreen();
 
+        bool onLightingChanged(const CEGUI::EventArgs &e);
         bool onSave(const CEGUI::EventArgs &e);
         bool onBack(const CEGUI::EventArgs &e);
 

@@ -34,8 +34,7 @@ class InitScreen :
                                     const CEGUI::String &eventNamespace="");
 
         void onProgress(float progress);
-        void initCycleFinished();
-        void initRunFinished();
+        void cycleFinished();
 };
 
 #endif /* INITSCREEN_H_ */
