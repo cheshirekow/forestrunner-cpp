@@ -61,7 +61,7 @@ material ForestRunner/Orange
       {
         ambient 1.0 0.5 0.0
         diffuse 1.0 0.5 0.0
-        specular 1.01.0 1.0 0.0
+        specular 1.0 1.0 1.0 0.0
       } 
     }
   }
@@ -77,7 +77,7 @@ material ForestRunner/Red_Lighting
         shading gouraud
         ambient 1.0 0.0 0.0
         diffuse 1.0 0.0 0.0
-        specular 1.0 1.0 1.0 0.0
+        specular 1.0 1.0 1.0 1.0
       } 
     }
   }
@@ -92,7 +92,7 @@ material ForestRunner/Yellow_Lighting
         shading gouraud
         ambient 1.0 1.0 0.0
         diffuse 1.0 1.0 0.0
-        specular 1.0 1.0 1.0 0.0
+        specular 1.0 1.0 1.0 1.0
       } 
     }
   }
@@ -107,7 +107,7 @@ material ForestRunner/Orange_Lighting
         shading gouraud
         ambient 1.0 0.5 0.0
         diffuse 1.0 0.5 0.0
-        specular 1.01.0 1.0 0.0
+        specular 1.0 1.0 1.0 1.0
       } 
     }
   }

@@ -316,6 +316,8 @@ void Application::createScene()
     // Set the scene's ambient light
     mSceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 
+
+
     m_pLog->logMessage("createScene: creating game");
 
     m_game = new KeyboardGame();

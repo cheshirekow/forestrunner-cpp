@@ -174,7 +174,7 @@ void Game::createCylinderMeshes()
     {
         Ogre::Entity* entity =
             m_sceneMgr->createEntity("Cylinder");
-        entity->setMaterial(m_materials[i]);
+        entity->setMaterial(m_materials_lighting[i]);
         m_coloredEntities.push_back(entity);
     }
 }
@@ -265,6 +265,16 @@ void Game::createScene(Ogre::SceneManager* sceneMgr,
     for(int i=0; i < nPatches; i++)
         m_patches[i] = new ForestPatch(sceneMgr,patchRoot,i,
                                         m_patchWidth,m_patchHeight);
+
+    // if lighting is enabled
+    sceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+    sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+    m_light = sceneMgr->createLight("pointLight");
+    m_light->setType(Ogre::Light::LT_DIRECTIONAL);
+    m_light->setDirection(Ogre::Vector3(1,-0.5,-1));
+    m_light->setDiffuseColour(0.5,0.5,0.5);
+    //m_light->setSpecularColour(0.5,0.5,0.5);
 }
 
 

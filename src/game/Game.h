@@ -71,6 +71,8 @@ class Game
         Ogre::Entity*       m_cylinderFrameEntity;
         Ogre::Entity*       m_cylinderOutlineEntity;
 
+        Ogre::Light*        m_light;
+
 
     public:
         sigc::signal<void,float>    sig_score;
