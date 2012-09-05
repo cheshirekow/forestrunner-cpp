@@ -38,6 +38,7 @@ class AdvancedScreen :
         virtual ~AdvancedScreen();
 
         bool onLightingChanged(const CEGUI::EventArgs &e);
+        bool onCartoonChanged(const CEGUI::EventArgs &e);
         void onChangeCommitted();
         bool onBack(const CEGUI::EventArgs &e);
 

@@ -106,6 +106,55 @@ bool InitCycle::step()
     return true;
 }
 
+
+
+
+
+
+
+
+
+
+CartoonCycle::CartoonCycle()
+{
+    m_iPatch    = 0;
+    m_nPatches  = 1;
+}
+
+CartoonCycle::~CartoonCycle()
+{
+
+}
+
+void CartoonCycle::setNumPatches(int nPatches)
+{
+    m_nPatches = nPatches;
+}
+
+void CartoonCycle::reset()
+{
+    m_iPatch = 0;
+}
+
+bool CartoonCycle::step()
+{
+    if(m_iPatch >= m_nPatches)
+        return false;
+
+    sig_clearPatch.emit(m_iPatch);
+    sig_initPatch.emit(m_iPatch);
+    m_iPatch++;
+    return true;
+}
+
+
+
+
+
+
+
+
+
 StateGraph::StateGraph()
 {
     m_state = INVALID;
@@ -156,6 +205,13 @@ bool StateGraph::step(Ogre::Real tpf)
             return true;
         }
 
+        case CARTOON_CYCLE:
+        {
+            if(!cartoonCycle.step())
+                m_state = FINISH;
+            return true;
+        }
+
         case FINISH:
         {
             // note, we have to set idle before emmitting the signal because
@@ -203,6 +259,12 @@ void StateGraph::startInitCycle()
 void StateGraph::startLightingCycle()
 {
     m_state = LIGHTING_START;
+}
+
+void StateGraph::startCartoonCycle()
+{
+    m_state = CARTOON_CYCLE;
+    cartoonCycle.reset();
 }
 
 

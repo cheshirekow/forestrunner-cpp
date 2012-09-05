@@ -65,10 +65,26 @@ class InitCycle
         void setNumPatches(int nPatches);
         void reset();
         bool step();
+};
 
 
+class CartoonCycle
+{
+    private:
+        int m_nPatches;
+        int m_iPatch;
 
+    public:
+        sigc::signal<void,int>      sig_clearPatch;
+        sigc::signal<void,int>      sig_initPatch;
+        sigc::signal<void>          sig_finished;
 
+    public:
+        CartoonCycle();
+        ~CartoonCycle();
+        void setNumPatches(int nPatches);
+        void reset();
+        bool step();
 };
 
 /// dispatcher for update() events which passes the event to the appropriate
@@ -85,6 +101,7 @@ class StateGraph
             PAUSED,
             CRASHED,
             LIGHTING_START,
+            CARTOON_CYCLE,
             FINISH,
             IDLE,
             INVALID
@@ -103,7 +120,8 @@ class StateGraph
         sigc::signal<void>              sig_crashed;
         sigc::signal<void>              sig_paused;
 
-        InitCycle   initCycle;
+        InitCycle       initCycle;
+        CartoonCycle    cartoonCycle;
 
         StateGraph();
         ~StateGraph();
@@ -131,6 +149,9 @@ class StateGraph
 
         /// starts the lighting cycle
         void startLightingCycle();
+
+        /// starts cartoon cycle
+        void startCartoonCycle();
 
         /// return the current state (useful when step returns false and we
         /// want to know if the game crashed or was paused)

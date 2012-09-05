@@ -75,6 +75,14 @@ AdvancedScreen::AdvancedScreen()
                                 &AdvancedScreen::onLightingChanged,
                                 this
                         ) );
+
+    m_chk_cartoon->subscribeEvent(CEGUI::ToggleButton::EventSelectStateChanged,
+                        CEGUI::Event::Subscriber(
+                                &AdvancedScreen::onCartoonChanged,
+                                this
+                        ) );
+
+
 }
 
 AdvancedScreen::~AdvancedScreen()
@@ -107,14 +115,13 @@ void AdvancedScreen::enableAll()
 void AdvancedScreen::flushData()
 {
     m_dataStore->get<bool>("adv:postProcess"  ) = m_chk_postProcess  ->isSelected();
-    m_dataStore->get<bool>("adv:cartoon"      ) = m_chk_cartoon      ->isSelected();
-    m_dataStore->get<bool>("adv:lighting"     ) = m_chk_lighting     ->isSelected();
     m_dataStore->get<bool>("adv:patchGrids"   ) = m_chk_patchGrids   ->isSelected();
     m_dataStore->get<bool>("adv:mainGrid"     ) = m_chk_mainGrid     ->isSelected();
     m_dataStore->get<bool>("adv:gradientFloor") = m_chk_gradientFloor->isSelected();
     m_dataStore->get<bool>("adv:logging"      ) = m_chk_logging      ->isSelected();
     m_dataStore->get<bool>("adv:worldRotate"  ) = m_chk_worldRotate  ->isSelected();
     m_dataStore->get<bool>("adv:participate"  ) = m_chk_participate  ->isSelected();
+    m_dataStore->flush();
 }
 
 bool AdvancedScreen::onLightingChanged(const CEGUI::EventArgs &e)
@@ -132,6 +139,24 @@ bool AdvancedScreen::onLightingChanged(const CEGUI::EventArgs &e)
 
     // now call the dispatcher and put it in the "set lighting" loop
     m_dispatcher->startLightingCycle();
+    return true;
+}
+
+bool AdvancedScreen::onCartoonChanged(const CEGUI::EventArgs &e)
+{
+    using namespace forestrunner::keys;
+
+    std::cerr << "Advanced Screen: Cartoon changed" << std::endl;
+
+    // disable all input
+    disableAll();
+
+    // change the data store
+    m_dataStore->get<bool>(ADV_CARTOON) = m_chk_cartoon->isSelected();
+    m_dataStore->markChanged(ADV_CARTOON);
+
+    // now call the dispatcher and put it in the "set lighting" loop
+    m_dispatcher->startCartoonCycle();
     return true;
 }
 

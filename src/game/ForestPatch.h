@@ -20,6 +20,7 @@ class ForestPatch
         int     m_id;
         float   m_width;
         float   m_height;
+        bool    m_hasOutline;
 
         Ogre::SceneNode*                m_patchNode;
         std::vector<Ogre::SceneNode*>   m_cylinderNodes;

@@ -251,10 +251,14 @@ void Game::clearPatch(int i)
 
 void Game::initPatch(int i)
 {
-    std::cerr << "initializing patch " << i << std::endl;
+    std::cerr << "initializing patch " << i << " outline : "
+                << (m_advCartoon ? "true" : "false" ) << std::endl;
+
+    Ogre::Entity* outline = m_advCartoon ? m_cylinderOutlineEntity : 0;
+
     m_patches[i]->init(m_coloredEntities,
                         m_cylinderFrameEntity,
-                        m_cylinderOutlineEntity);
+                        outline);
 }
 
 

@@ -30,7 +30,8 @@ ForestPatch::ForestPatch(Ogre::SceneManager* sceneMgr,
     m_nTrees(0),
     m_id(id),
     m_width(width),
-    m_height(height)
+    m_height(height),
+    m_hasOutline(false)
 {
     m_patchNode = patchRoot->createChildSceneNode();
     for(int i=0; i < maxNodes; i++)
@@ -48,29 +49,34 @@ ForestPatch::~ForestPatch()
 
 
 
-void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
-                    Ogre::Entity* m_cylinderFrame,
-                    Ogre::Entity* m_cylinderOutline )
+void ForestPatch::init(std::vector<Ogre::Entity*>& cylinders,
+                    Ogre::Entity* cylinderFrame,
+                    Ogre::Entity* cylinderOutline )
 {
+    m_hasOutline = (cylinderOutline != 0);
+
     for(int i=0; i < m_maxNodes; i++)
     {
         std::stringstream sstream;
         sstream << "cylinder_" << m_id << "_" << i;
 
-        int j = std::rand() % m_cylinders.size();
+        int j = std::rand() % cylinders.size();
         m_cylinderNodes[i]->attachObject(
-                m_cylinders[j]->clone( sstream.str()) );
+                cylinders[j]->clone( sstream.str()) );
 
 
         sstream.str("");
         sstream << "cylinderFrame_" << m_id << "_" << i;
         m_cylinderNodes[i]->attachObject(
-                m_cylinderFrame->clone( sstream.str()) );
+                cylinderFrame->clone( sstream.str()) );
 
-        sstream.str("");
-        sstream << "cylinderOutline_" << m_id << "_" << i;
-        m_cylinderNodes[i]->attachObject(
-                m_cylinderOutline->clone( sstream.str()) );
+        if(m_hasOutline)
+        {
+            sstream.str("");
+            sstream << "cylinderOutline_" << m_id << "_" << i;
+            m_cylinderNodes[i]->attachObject(
+                    cylinderOutline->clone( sstream.str()) );
+        }
     }
 }
 
@@ -80,7 +86,7 @@ void ForestPatch::init(std::vector<Ogre::Entity*>& m_cylinders,
 void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
 {
     // m_patchNode->removeAllChildren();
-    m_nTrees = 0;
+    // m_nTrees = 0;
 
     for(int i=0; i < m_maxNodes; i++)
     {
@@ -94,9 +100,13 @@ void ForestPatch::clear(Ogre::SceneManager* sceneMgr)
         sstream << "cylinderFrame_" << m_id << "_" << i;
         sceneMgr->destroyEntity( sstream.str() );
 
-        sstream.str("");
-        sstream << "cylinderOutline_" << m_id << "_" << i;
-        sceneMgr->destroyEntity( sstream.str() );
+        if(m_hasOutline)
+        {
+
+            sstream.str("");
+            sstream << "cylinderOutline_" << m_id << "_" << i;
+            sceneMgr->destroyEntity( sstream.str() );
+        }
     }
 }
 

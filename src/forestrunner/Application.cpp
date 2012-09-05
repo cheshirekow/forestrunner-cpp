@@ -348,6 +348,7 @@ void Application::createFrameListener()
 void Application::setupDispatcher()
 {
     m_dispatcher.initCycle.setNumPatches(m_game->getNumPatches());
+    m_dispatcher.cartoonCycle.setNumPatches(m_game->getNumPatches());
 
     m_dispatcher.sig_initRun.connect(
                 sigc::mem_fun(*m_game,&Game::initRun) );
@@ -375,6 +376,12 @@ void Application::setupDispatcher()
 
     m_dispatcher.sig_setLighting.connect(
                 sigc::mem_fun(*m_game,&Game::setLighting) );
+
+    m_dispatcher.cartoonCycle.sig_clearPatch.connect(
+                sigc::mem_fun(*m_game,&Game::clearPatch) );
+
+    m_dispatcher.cartoonCycle.sig_initPatch.connect(
+                sigc::mem_fun(*m_game,&Game::initPatch) );
 
 }
 

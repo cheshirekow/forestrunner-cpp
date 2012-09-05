@@ -128,6 +128,7 @@ bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
 
 bool PauseScreen::onResume(const CEGUI::EventArgs &e)
 {
+    m_dataStore->flush();
     m_sig_transition("running");
     return true;
 }
@@ -135,6 +136,7 @@ bool PauseScreen::onResume(const CEGUI::EventArgs &e)
 
 bool PauseScreen::onNewGame(const CEGUI::EventArgs &e)
 {
+    m_dataStore->flush();
     m_initCnx = m_dispatcher->sig_cycleFinished.connect(
             sigc::mem_fun(*this,&PauseScreen::onNewGameInitialized) );
     m_dispatcher->startInitRun();
