@@ -147,7 +147,7 @@ void InitScreen::advance()
         m_cnx[i].disconnect();
 
     m_cnx.clear();
-    m_sig_transition.emit("countdown3");
+    m_sig_transition.emit("paused");
 
 }
 

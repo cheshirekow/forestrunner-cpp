@@ -20,6 +20,9 @@ class PauseScreen :
         CEGUI::Window* m_sb_radius;
         CEGUI::Window* m_sb_density;
 
+        bool             m_needsInit;
+        sigc::connection m_initCnx;
+
     public:
         PauseScreen();
         virtual ~PauseScreen();
@@ -28,10 +31,15 @@ class PauseScreen :
         /// values
         virtual void exec();
 
+        virtual void set_dispatcher( forestrunner::game::StateGraph* dispatcher);
+
         bool onSlider(const CEGUI::EventArgs &e);
         bool onResume(const CEGUI::EventArgs &e);
         bool onNewGame(const CEGUI::EventArgs &e);
         bool onAdvanced(const CEGUI::EventArgs &e);
+
+        void onCrash();
+        void onNewGameInitialized();
 };
 
 #endif /* PAUSESCREEN_H_ */

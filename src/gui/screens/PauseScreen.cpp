@@ -11,6 +11,8 @@
 
 PauseScreen::PauseScreen()
 {
+    m_needsInit = false;
+
     CEGUI::WindowManager &wmgr  = CEGUI::WindowManager::getSingleton();
     m_root = wmgr.loadLayoutFromFile("paused.layout");
     m_anim_enter = "FlyIn";
@@ -65,6 +67,14 @@ PauseScreen::~PauseScreen()
 }
 
 
+void PauseScreen::set_dispatcher( forestrunner::game::StateGraph* dispatcher)
+{
+    Screen::set_dispatcher(dispatcher);
+
+    m_dispatcher->sig_crashed.connect(
+            sigc::mem_fun(*this,&PauseScreen::onCrash) );
+}
+
 void PauseScreen::exec()
 {
     CEGUI::Scrollbar* sb;
@@ -77,8 +87,7 @@ void PauseScreen::exec()
     sb = static_cast<CEGUI::Scrollbar*>(m_sb_density);
     sb->setScrollPosition( m_dataStore->get<int>("pref:density") );
 
-    m_btn_resume->setEnabled(   m_dispatcher->getState()
-                                == forestrunner::game::StateGraph::PAUSED );
+    m_btn_resume->setEnabled( !m_needsInit );
 }
 
 bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
@@ -87,6 +96,7 @@ bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
     using namespace forestrunner::keys;
 
     // disable the continue button since the preferences have changed
+    m_needsInit = true;
     m_btn_resume->setEnabled( false );
 
     const CEGUI::WindowEventArgs& args =
@@ -118,7 +128,6 @@ bool PauseScreen::onSlider(const CEGUI::EventArgs& e)
 
 bool PauseScreen::onResume(const CEGUI::EventArgs &e)
 {
-    m_dataStore->flush();
     m_sig_transition("running");
     return true;
 }
@@ -126,8 +135,9 @@ bool PauseScreen::onResume(const CEGUI::EventArgs &e)
 
 bool PauseScreen::onNewGame(const CEGUI::EventArgs &e)
 {
-    m_dataStore->flush();
-    m_sig_transition("init");
+    m_initCnx = m_dispatcher->sig_cycleFinished.connect(
+            sigc::mem_fun(*this,&PauseScreen::onNewGameInitialized) );
+    m_dispatcher->startInitRun();
     return true;
 }
 
@@ -137,6 +147,18 @@ bool PauseScreen::onAdvanced(const CEGUI::EventArgs &e)
 {
     m_sig_transition("advanced");
     return true;
+}
+
+void PauseScreen::onCrash()
+{
+    m_needsInit = true;
+}
+
+void PauseScreen::onNewGameInitialized()
+{
+    m_needsInit = false;
+    m_initCnx.disconnect();
+    m_sig_transition("countdown3");
 }
 
 
