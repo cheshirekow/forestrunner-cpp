@@ -67,6 +67,52 @@ material ForestRunner/Orange
   }
   
   
+material ForestRunner/Red_Lighting
+  {
+    technique
+    {
+      pass
+      {
+        lighting on
+        shading gouraud
+        ambient 1.0 0.0 0.0
+        diffuse 1.0 0.0 0.0
+        specular 1.0 1.0 1.0 0.0
+      } 
+    }
+  }
+  
+material ForestRunner/Yellow_Lighting
+  {
+    technique
+    {
+      pass
+      {
+        lighting on
+        shading gouraud
+        ambient 1.0 1.0 0.0
+        diffuse 1.0 1.0 0.0
+        specular 1.0 1.0 1.0 0.0
+      } 
+    }
+  }
+  
+material ForestRunner/Orange_Lighting
+  {
+    technique
+    {
+      pass
+      {
+        lighting on
+        shading gouraud
+        ambient 1.0 0.5 0.0
+        diffuse 1.0 0.5 0.0
+        specular 1.01.0 1.0 0.0
+      } 
+    }
+  }
+  
+  
   
 material ForestRunner/BlackWireframe
 {

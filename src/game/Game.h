@@ -57,6 +57,7 @@ class Game
 
         ForestPatch** m_patches;
         std::vector<Ogre::MaterialPtr>  m_materials;
+        std::vector<Ogre::MaterialPtr>  m_materials_lighting;
         std::vector<Ogre::Entity*>      m_coloredEntities;
 
         Ogre::SceneNode*    m_patchRoot;

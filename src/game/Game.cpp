@@ -258,6 +258,9 @@ void Game::createScene(Ogre::SceneManager* sceneMgr,
     m_materials.push_back( mgr.getByName("ForestRunner/Red") );
     m_materials.push_back( mgr.getByName("ForestRunner/Yellow") );
 
+    m_materials_lighting.push_back( mgr.getByName("ForestRunner/Red_Lighting") );
+    m_materials_lighting.push_back( mgr.getByName("ForestRunner/Yellow_Lighting") );
+
     size_t nPatches = m_patchDimX*m_patchDimY;
     for(int i=0; i < nPatches; i++)
         m_patches[i] = new ForestPatch(sceneMgr,patchRoot,i,
