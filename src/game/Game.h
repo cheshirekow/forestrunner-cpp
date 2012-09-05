@@ -74,6 +74,7 @@ class Game
     public:
         sigc::signal<void,float>    sig_score;
         sigc::signal<void>          sig_crashed;
+        sigc::signal<void>          sig_paused;
 
         Game();
         virtual ~Game();

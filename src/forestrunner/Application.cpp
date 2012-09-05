@@ -353,6 +353,9 @@ void Application::setupDispatcher()
     m_game->sig_crashed.connect(
                 sigc::mem_fun(m_dispatcher,&game::StateGraph::crash));
 
+    m_game->sig_paused.connect(
+                sigc::mem_fun(m_dispatcher,&game::StateGraph::pause));
+
     m_dispatcher.initCycle.sig_clearPatch.connect(
                 sigc::mem_fun(*m_game,&Game::clearPatch) );
 

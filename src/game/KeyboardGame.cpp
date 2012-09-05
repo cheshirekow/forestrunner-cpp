@@ -38,6 +38,9 @@ bool KeyboardGame::keyPressed( const OIS::KeyEvent &arg )
     if( arg.key == OIS::KC_Q )
         sig_crashed.emit();
 
+    if( arg.key == OIS::KC_ESCAPE )
+        sig_paused.emit();
+
     return true;
 }
 
