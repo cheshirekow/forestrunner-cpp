@@ -36,28 +36,28 @@ namespace forestrunner {
 DataStore::DataStore()
 {
     using namespace datastore;
+    using namespace keys;
 
-    m_map["username"] = new MapEntryT<std::string>("Anon");
-    m_map["hash"]     = new MapEntryT<std::string>("0");
+    m_map[USERNAME] = new MapEntryT<std::string>("Anon");
+    m_map[HASH]     = new MapEntryT<std::string>("0");
 
-    m_map["pref:density"]  = new MapEntryT<int>(0);
-    m_map["pref:radius"]   = new MapEntryT<int>(0);
-    m_map["pref:velocity"] = new MapEntryT<int>(0);
+    m_map[PREF_DENSITY]  = new MapEntryT<int>(0);
+    m_map[PREF_RADIUS]   = new MapEntryT<int>(0);
+    m_map[PREF_SPEED]    = new MapEntryT<int>(0);
 
-    m_map["stat:version"]           = new MapEntryT<int>(5);
-    m_map["stat:lastUserRowId"]     = new MapEntryT<int>(0);
-    m_map["stat:lastGlobalRowId"]   = new MapEntryT<int>(0);
+    m_map[STAT_VERSION]           = new MapEntryT<int>(5);
+    m_map[STAT_LASTUSERROWID]     = new MapEntryT<int>(0);
+    m_map[STAT_LASTGLOBALROWID]   = new MapEntryT<int>(0);
 
-    m_map["adv:participate"]    = new MapEntryT<bool>(true);
-    m_map["adv:postProcess"]    = new MapEntryT<bool>(false);
-    m_map["adv:fogFilter"]      = new MapEntryT<bool>(false);
-    m_map["adv:cartoon"]        = new MapEntryT<bool>(true);
-    m_map["adv:lighting"]       = new MapEntryT<bool>(false);
-    m_map["adv:patchGrids"]     = new MapEntryT<bool>(false);
-    m_map["adv:mainGrid"]       = new MapEntryT<bool>(true);
-    m_map["adv:gradientFloor"]  = new MapEntryT<bool>(false);
-    m_map["adv:logging"]        = new MapEntryT<bool>(false);
-    m_map["adv:worldRotate"]    = new MapEntryT<bool>(true);
+    m_map[ADV_PARTICIPATE]    = new MapEntryT<bool>(true);
+    m_map[ADV_POSTPROCESS]    = new MapEntryT<bool>(false);
+    m_map[ADV_CARTOON]        = new MapEntryT<bool>(true);
+    m_map[ADV_LIGHTING]       = new MapEntryT<bool>(false);
+    m_map[ADV_PATCHGRIDS]     = new MapEntryT<bool>(false);
+    m_map[ADV_MAINGRID]       = new MapEntryT<bool>(true);
+    m_map[ADV_GRADIENTFLOOR]  = new MapEntryT<bool>(false);
+    m_map[ADV_LOGGING]        = new MapEntryT<bool>(false);
+    m_map[ADV_WORLDROTATE]    = new MapEntryT<bool>(true);
 }
 
 

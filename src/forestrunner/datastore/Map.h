@@ -27,6 +27,8 @@
 #ifndef FORESTRUNNER_DATASTORE_H_
 #define FORESTRUNNER_DATASTORE_H_
 
+#include "forestrunner/keys.h"
+
 #include <cassert>
 #include <ostream>
 #include <map>
@@ -113,7 +115,7 @@ namespace    datastore {
     };
 
 
-    typedef std::map< std::string, MapEntry* > Map_t;
+    typedef std::map<Key_t, MapEntry* > Map_t;
 
 } // namespace data store
 } // namespace forestrunner

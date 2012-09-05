@@ -139,6 +139,7 @@ if(FORESTRUNNER_BUILD_OK)
         )
      
     add_library( forestrunner 
+        forestrunner/keys.cpp
         forestrunner/desktop/DataStore.cpp
         ${CMAKE_CURRENT_BINARY_DIR}/app/linux.cpp
         forestrunner/Application.cpp

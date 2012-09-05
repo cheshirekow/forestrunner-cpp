@@ -57,17 +57,19 @@ class DataStore
         template <typename T>
         T& get( const std::string& key )
         {
-            assert( m_map.find(key) != m_map.end() );
-            assert( m_map[key]->type() == datastore::asType<T>() );
-            return m_map[key]->get<T>();
+            Key_t kKey = strkey(key);
+            assert( m_map.find(kKey) != m_map.end() );
+            assert( m_map[kKey]->type() == datastore::asType<T>() );
+            return m_map[kKey]->get<T>();
         }
 
         /// return the value of the requested key
         template <typename T>
         const T& get( const std::string& key ) const
         {
-            assert( m_map.find(key) != m_map.end() );
-            const datastore::MapEntry* entry= m_map[key];
+            Key_t kKey = strkey(key);
+            assert( m_map.find(kKey) != m_map.end() );
+            const datastore::MapEntry* entry= m_map[kKey];
 
             assert( entry->type() == datastore::asType<T>() );
             return entry->get<T>();

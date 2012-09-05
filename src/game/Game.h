@@ -15,6 +15,7 @@
 #include <sigc++/sigc++.h>
 
 #include "ForestPatch.h"
+#include "forestrunner/keys.h"
 #include "forestrunner/game/StateGraph.h"
 #include "forestrunner/datastore/DataStore.h"
 
@@ -93,11 +94,18 @@ class Game
                             bool& needsInit,
                             bool& needsNewGame);
 
+        /// read the specified value from the datastore
+        void sync(forestrunner::DataStore* store, forestrunner::Key_t key );
+
         /// calculates values for speed density and radius given the preference
         /// settings
         void calcSettings();
 
+        /// return the number of patches (for use in init loop)
         size_t getNumPatches();
+
+        /// makes necessary changes to whether materials have lighting or not
+        void setLighting();
 
         /// removes all the cylinder meshes and their associated 'entities'
         /// from the scene

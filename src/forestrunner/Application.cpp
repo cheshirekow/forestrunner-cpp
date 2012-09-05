@@ -370,6 +370,9 @@ void Application::setupDispatcher()
     m_dispatcher.initCycle.sig_initPatch.connect(
                 sigc::mem_fun(*m_game,&Game::initPatch) );
 
+    m_dispatcher.sig_setLighting.connect(
+                sigc::mem_fun(*m_game,&Game::setLighting) );
+
 }
 
 

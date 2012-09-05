@@ -175,7 +175,7 @@ void DataStore::read_properties()
                 m_soci << "SELECT bool_value "
                             "FROM booleans "
                                 "WHERE bool_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'",
                             soci::into(val);
                 iPair->second->get<bool>() = val;
@@ -187,7 +187,7 @@ void DataStore::read_properties()
                 m_soci << "SELECT int_value "
                             "FROM integers "
                                 "WHERE int_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'",
                             soci::into(iPair->second->get<int>());
                 break;
@@ -199,7 +199,7 @@ void DataStore::read_properties()
                 m_soci << "SELECT string_value "
                             "FROM strings "
                                 "WHERE string_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'",
                             soci::into(val);
                 iPair->second->get<std::string>() = val;
@@ -214,7 +214,7 @@ void DataStore::read_properties()
             }
         }
 
-        std::cout << "   " << iPair->first << " : " << *(iPair->second) << "\n";
+        std::cout << "   " << keystr(iPair->first) << " : " << *(iPair->second) << "\n";
     }
     std::cout << std::endl;
 }
@@ -256,7 +256,7 @@ void DataStore::flush()
                 m_soci << "UPDATE booleans "
                             "SET bool_value= " << val << " "
                             "WHERE bool_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'";
                 break;
             }
@@ -267,7 +267,7 @@ void DataStore::flush()
                 m_soci << "UPDATE integers "
                             "SET int_value=" << val << " "
                             "WHERE int_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'";
                 break;
             }
@@ -278,7 +278,7 @@ void DataStore::flush()
                 m_soci << "UPDATE strings "
                             "SET string_value='" << val << "' "
                             "WHERE string_key='"
-                            << iPair->first
+                            << keystr(iPair->first)
                             << "'";
                 break;
             }
@@ -291,7 +291,7 @@ void DataStore::flush()
             }
         }
 
-        std::cout << "   " << iPair->first << " : " << *(iPair->second) << "\n";
+        std::cout << "   " << keystr(iPair->first) << " : " << *(iPair->second) << "\n";
     }
     std::cout << std::endl;
 }

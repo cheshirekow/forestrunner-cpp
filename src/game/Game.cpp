@@ -103,10 +103,53 @@ void Game::readSettings(forestrunner::DataStore* store,
     calcSettings();
 }
 
+void Game::sync(forestrunner::DataStore* store, forestrunner::Key_t key)
+{
+    using namespace forestrunner::keys;
+    switch(key)
+    {
+        case PREF_DENSITY:
+        case PREF_RADIUS:
+        case PREF_SPEED:
+            break;
+
+        default:
+            break;
+    }
+}
+
 
 size_t Game::getNumPatches()
 {
     return m_patchDimX*m_patchDimY;
+}
+
+
+void Game::setLighting()
+{
+    if(m_advLighting)
+    {
+        // if lighting is enabled
+        m_sceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+        m_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+        if(!m_light)
+            m_light = m_sceneMgr->createLight("pointLight");
+        m_light->setType(Ogre::Light::LT_DIRECTIONAL);
+        m_light->setDirection(Ogre::Vector3(1,-0.5,-1));
+        m_light->setDiffuseColour(0.5,0.5,0.5);
+        //m_light->setSpecularColour(0.5,0.5,0.5);
+    }
+    else
+    {
+        // if lighting is enabled
+        m_sceneMgr->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
+        m_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
+
+        if(m_light)
+            m_sceneMgr->destroyAllLights();
+        m_light = 0;
+    }
 }
 
 
