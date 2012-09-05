@@ -85,7 +85,6 @@ class StateGraph
             PAUSED,
             CRASHED,
             LIGHTING_START,
-            LIGHTING_FINISH,
             FINISH,
             IDLE,
             INVALID
@@ -129,6 +128,9 @@ class StateGraph
 
         /// starts the init-run cycle which initializes a new run
         void startInitRun();
+
+        /// starts the lighting cycle
+        void startLightingCycle();
 
         /// return the current state (useful when step returns false and we
         /// want to know if the game crashed or was paused)

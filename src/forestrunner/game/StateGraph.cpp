@@ -200,6 +200,10 @@ void StateGraph::startInitCycle()
     initCycle.reset();
 }
 
+void StateGraph::startLightingCycle()
+{
+    m_state = LIGHTING_START;
+}
 
 
 StateGraph::State StateGraph::getState()

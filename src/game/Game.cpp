@@ -63,6 +63,8 @@ Game::Game()
     m_cylinderFrameEntity   = 0;
     m_cylinderOutlineEntity = 0;
 
+    m_light = 0;
+
 }
 
 

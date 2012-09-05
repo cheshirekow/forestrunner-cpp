@@ -28,6 +28,7 @@ class AdvancedScreen :
         CEGUI::ToggleButton* m_chk_participate;
 
         std::vector<CEGUI::Window*> m_allWindows;
+        sigc::connection    m_cnx;
 
         void disableAll();
         void enableAll();
@@ -37,7 +38,7 @@ class AdvancedScreen :
         virtual ~AdvancedScreen();
 
         bool onLightingChanged(const CEGUI::EventArgs &e);
-        bool onSave(const CEGUI::EventArgs &e);
+        void onChangeCommitted();
         bool onBack(const CEGUI::EventArgs &e);
 
         void flushData();

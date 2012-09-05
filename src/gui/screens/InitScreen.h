@@ -22,6 +22,8 @@ class InitScreen :
         bool    m_needsInitCycle;
         bool    m_needsInitRun;
 
+        std::vector<sigc::connection> m_cnx;
+
     public:
         InitScreen();
         virtual ~InitScreen();
@@ -35,6 +37,7 @@ class InitScreen :
 
         void onProgress(float progress);
         void cycleFinished();
+        void advance();
 };
 
 #endif /* INITSCREEN_H_ */

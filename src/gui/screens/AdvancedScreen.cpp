@@ -46,17 +46,6 @@ AdvancedScreen::AdvancedScreen()
     m_allWindows.push_back(btn);
     m_chk_lighting      = static_cast<CEGUI::ToggleButton*>(btn);
 
-    btn->subscribeEvent(CEGUI::ToggleButton::EventActivated,
-                        CEGUI::Event::Subscriber(
-                                &AdvancedScreen::onLightingChanged,
-                                this
-                        ) );
-    btn->subscribeEvent(CEGUI::ToggleButton::EventDeactivated,
-                        CEGUI::Event::Subscriber(
-                                &AdvancedScreen::onLightingChanged,
-                                this
-                        ) );
-
     btn = m_root->getChild("Panel/chk_patchGrids");
     m_allWindows.push_back(btn);
     m_chk_patchGrids    = static_cast<CEGUI::ToggleButton*>(btn);
@@ -80,12 +69,20 @@ AdvancedScreen::AdvancedScreen()
     btn = m_root->getChild("Panel/chk_participate");
     m_allWindows.push_back(btn);
     m_chk_participate   = static_cast<CEGUI::ToggleButton*>(btn);
+
+    m_chk_lighting->subscribeEvent(CEGUI::ToggleButton::EventSelectStateChanged,
+                        CEGUI::Event::Subscriber(
+                                &AdvancedScreen::onLightingChanged,
+                                this
+                        ) );
 }
 
 AdvancedScreen::~AdvancedScreen()
 {
 
 }
+
+
 
 void AdvancedScreen::disableAll()
 {
@@ -103,6 +100,8 @@ void AdvancedScreen::enableAll()
     {
         (*ipWindow)->setEnabled(true);
     }
+
+
 }
 
 void AdvancedScreen::flushData()
@@ -120,27 +119,43 @@ void AdvancedScreen::flushData()
 
 bool AdvancedScreen::onLightingChanged(const CEGUI::EventArgs &e)
 {
+    using namespace forestrunner::keys;
+
+    std::cerr << "Advanced Screen: Lighting changed" << std::endl;
+
+    // disable all input
     disableAll();
+
+    // change the data store
+    m_dataStore->get<bool>(ADV_LIGHTING) = m_chk_lighting->isSelected();
+    m_dataStore->markChanged(ADV_LIGHTING);
+
     // now call the dispatcher and put it in the "set lighting" loop
+    m_dispatcher->startLightingCycle();
     return true;
 }
 
-bool AdvancedScreen::onSave(const CEGUI::EventArgs &e)
+void AdvancedScreen::onChangeCommitted()
 {
-    flushData();
-    return true;
+    std::cerr << "Advanced Screen: Changes committed" << std::endl;
+    enableAll();
 }
 
 
 bool AdvancedScreen::onBack(const CEGUI::EventArgs &e)
 {
     flushData();
+    m_cnx.disconnect();
     m_sig_transition.emit("paused");
     return true;
 }
 
 void AdvancedScreen::exec()
 {
+    enableAll();
+    m_cnx = m_dispatcher->sig_cycleFinished.connect(
+                sigc::mem_fun(*this,&AdvancedScreen::onChangeCommitted) );
+
     m_chk_postProcess  ->setSelected(m_dataStore->get<bool>("adv:postProcess"  ));
     m_chk_cartoon      ->setSelected(m_dataStore->get<bool>("adv:cartoon"      ));
     m_chk_lighting     ->setSelected(m_dataStore->get<bool>("adv:lighting"     ));
