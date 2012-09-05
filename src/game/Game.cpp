@@ -19,8 +19,6 @@
 
 Game::Game()
 {
-    m_xAccel    = 50.0f;
-    m_xSpeedMax = 20.0f;
     m_xSpeed    = 0.0f;
     m_ySpeed    = 20.0f;
     m_density   = 5.0f;
@@ -75,6 +73,18 @@ Game::~Game()
 {
     delete [] m_patches;
 }
+
+
+void Game::setXSpeed(float xspeed)
+{
+    m_xSpeed = xspeed;
+}
+
+void Game::setRotation(Ogre::Quaternion& q)
+{
+    m_patchRotate->setOrientation(q);
+}
+
 
 void Game::readSettings(forestrunner::DataStore* store,
                             bool& needsInit,
@@ -375,7 +385,6 @@ bool Game::keyReleased( const OIS::KeyEvent &arg )
 void Game::update_game( Ogre::Real tpf )
 {
     m_score += tpf;
-    updateSpeed(tpf);
 
     m_yPos += m_ySpeed*tpf;
     m_xPos -= m_xSpeed*tpf;

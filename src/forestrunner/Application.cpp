@@ -320,7 +320,7 @@ void Application::createScene()
 
     m_pLog->logMessage("createScene: creating game");
 
-    m_game = new KeyboardGame();
+    m_game = new Game();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
 
     m_dataStore->sig_valueChanged.connect(

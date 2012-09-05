@@ -78,6 +78,8 @@ class Application:
         //Ogre::Rectangle2D*          m_miniScreen;
         //Ogre::SceneNode*            m_miniScreenNode;
 
+        KeyboardGame                m_inputHandler;
+
 
     public:
         Application(forestrunner::DataStore* dataStore);
@@ -93,6 +95,7 @@ class Application:
         /// overrides base class to add creation of the gui manager
         virtual void createScene();
         virtual void createFrameListener();
+        virtual void setupDispatcher();
 
         // overrides for teardown()
         //----------------------------------------------------------------------

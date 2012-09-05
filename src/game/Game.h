@@ -23,8 +23,6 @@ class Game
 {
     protected:
         float   m_density;
-        float   m_xAccel;
-        float   m_xSpeedMax;
         float   m_xSpeed;
         float   m_ySpeed;
 
@@ -132,7 +130,12 @@ class Game
         void setRadius(int i);
 
         /// initialize a new run of the game
-        void initRun();
+        virtual void initRun();
+
+        /// set the value of the horizontal speed
+        void setXSpeed(float xSpeed);
+
+        void setRotation(Ogre::Quaternion& q);
 
 
         void createScene(Ogre::SceneManager* sceneMgr,
@@ -143,7 +146,6 @@ class Game
         virtual bool keyReleased( const OIS::KeyEvent &arg );
 
         void update_game( Ogre::Real tpf );
-        virtual void updateSpeed( Ogre::Real tpf )=0;
 
 };
 

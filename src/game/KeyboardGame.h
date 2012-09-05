@@ -11,16 +11,23 @@
 
 #include "Game.h"
 
-class KeyboardGame :
-    public Game
+class KeyboardGame
 {
     private:
+        Game*   m_game;
+
+        float   m_xAccel;
+        float   m_xSpeedMax;
+        float   m_xSpeed2;
         bool m_leftDown;
         bool m_rightDown;
 
     public:
         KeyboardGame();
         virtual ~KeyboardGame();
+
+        virtual void setGame(Game* game);
+        virtual void initRun();
 
         virtual bool keyPressed( const OIS::KeyEvent &arg );
         virtual bool keyReleased( const OIS::KeyEvent &arg );

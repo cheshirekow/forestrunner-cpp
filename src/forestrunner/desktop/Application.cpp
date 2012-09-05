@@ -150,6 +150,20 @@ void Application::createFrameListener(void)
 
 
 
+void Application::setupDispatcher()
+{
+    Base_t::setupDispatcher();
+
+    m_dispatcher.sig_initRun.connect(
+            sigc::mem_fun(m_inputHandler,&KeyboardGame::initRun) );
+    m_dispatcher.sig_stepRun.connect(
+            sigc::mem_fun(m_inputHandler,&KeyboardGame::updateSpeed) );
+
+    m_inputHandler.setGame(m_game);
+}
+
+
+
 
 //------------------------------------------------------------------------------
 bool Application::configure()
@@ -414,7 +428,7 @@ bool Application::keyPressed( const OIS::KeyEvent &arg )
             CEGUI::System::getSingleton().getDefaultGUIContext();
     sys.injectKeyDown( (CEGUI::Key::Scan)arg.key );
     sys.injectChar(arg.text);
-    m_game->keyPressed(arg);
+    m_inputHandler.keyPressed(arg);
 
     //mCameraMan->injectKeyDown(arg);
     return true;
@@ -431,7 +445,7 @@ bool Application::keyReleased( const OIS::KeyEvent &arg )
     CEGUI::GUIContext& sys =
             CEGUI::System::getSingleton().getDefaultGUIContext();
     sys.injectKeyUp( (CEGUI::Key::Scan)arg.key );
-    m_game->keyReleased(arg);
+    m_inputHandler.keyReleased(arg);
     //mCameraMan->injectKeyUp(arg);
 
     return true;

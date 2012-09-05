@@ -16,7 +16,11 @@
 
 KeyboardGame::KeyboardGame()
 {
-    m_leftDown = false;
+    m_game      = 0;
+    m_xSpeed2   = 0.0f;
+    m_xAccel    = 50.0f;
+    m_xSpeedMax = 20.0f;
+    m_leftDown  = false;
     m_rightDown = false;
 
 }
@@ -25,6 +29,16 @@ KeyboardGame::~KeyboardGame()
 {
 
 
+}
+
+void KeyboardGame::setGame(Game* game)
+{
+    m_game = game;
+}
+
+void KeyboardGame::initRun()
+{
+    m_xSpeed2 = 0.0f;
 }
 
 bool KeyboardGame::keyPressed( const OIS::KeyEvent &arg )
@@ -36,10 +50,10 @@ bool KeyboardGame::keyPressed( const OIS::KeyEvent &arg )
         m_rightDown = true;
 
     if( arg.key == OIS::KC_Q )
-        sig_crashed.emit();
+        m_game->sig_crashed.emit();
 
     if( arg.key == OIS::KC_ESCAPE )
-        sig_paused.emit();
+        m_game->sig_paused.emit();
 
     return true;
 }
@@ -62,29 +76,31 @@ void KeyboardGame::updateSpeed( Ogre::Real tpf )
     if(m_leftDown || m_rightDown)
     {
         if(m_leftDown)
-            m_xSpeed -= m_xAccel*tpf;
+            m_xSpeed2 -= m_xAccel*tpf;
         if(m_rightDown)
-            m_xSpeed += m_xAccel*tpf;
+            m_xSpeed2 += m_xAccel*tpf;
     }
     else
     {
-        float sign  = m_xSpeed >= 0 ? 1 : -1;
-        m_xSpeed -= sign*m_xAccel*tpf;
-        float sign2 = m_xSpeed >= 0 ? 1 : -1;
+        float sign  = m_xSpeed2 >= 0 ? 1 : -1;
+        m_xSpeed2 -= sign*m_xAccel*tpf;
+        float sign2 = m_xSpeed2 >= 0 ? 1 : -1;
 
         // avoid overshoot
         if( sign != sign2 )
-            m_xSpeed = 0;
+            m_xSpeed2 = 0;
     }
 
-    m_xSpeed = std::min(m_xSpeed, m_xSpeedMax);
-    m_xSpeed = std::max(m_xSpeed, -m_xSpeedMax);
+    m_xSpeed2 = std::min(m_xSpeed2, m_xSpeedMax);
+    m_xSpeed2 = std::max(m_xSpeed2, -m_xSpeedMax);
+
+    m_game->setXSpeed(m_xSpeed2);
 
     // on a PC, we rotate the scene according to xspeed
     // on android, we do the opposite
-    Ogre::Real   aReal = (float)(M_PI / 9.0f) * m_xSpeed / m_xSpeedMax;
+    Ogre::Real   aReal = (float)(M_PI / 9.0f) * m_xSpeed2 / m_xSpeedMax;
     Ogre::Radian angle(aReal);
     Ogre::Quaternion q(angle, Ogre::Vector3(0.0f,0.0f,1.0f) );
 
-    m_patchRotate->setOrientation(q);
+    m_game->setRotation(q);
 }
