@@ -228,7 +228,7 @@ for($i=1; $i <= $maxParams; $i++)
         print $output_hpp ", T$j p$j";
     }
     print $output_hpp ")\n{\n";
-    print $output_hpp "    size_t result = snprintf(m_buf,m_size,fmt,p1";
+    print $output_hpp "    size_t result = snprintf(m_buf,m_size-1,fmt,p1";
     for($j=2; $j<=$i; $j++)
     {
         print $output_hpp ",  p$j";
@@ -242,7 +242,7 @@ for($i=1; $i <= $maxParams; $i++)
         m_buf = new char[m_size];
 HERE
 
-    print $output_hpp "        snprintf(m_buf,m_size,fmt,p1";
+    print $output_hpp "        snprintf(m_buf,m_size-1,fmt,p1";
     
     for($j=2; $j<=$i; $j++)
     {

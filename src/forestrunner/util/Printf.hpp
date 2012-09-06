@@ -39,13 +39,13 @@ namespace         util {
 template <typename T1>
 const char* Printf::operator()(const char* fmt, T1 p1)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1);
+        snprintf(m_buf,m_size-1,fmt,p1);
     }
     
     return m_buf;
@@ -58,13 +58,13 @@ template <typename T1,
           typename T2>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2);
     }
     
     return m_buf;
@@ -78,13 +78,13 @@ template <typename T1,
           typename T3>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3);
     }
     
     return m_buf;
@@ -99,13 +99,13 @@ template <typename T1,
           typename T4>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4);
     }
     
     return m_buf;
@@ -121,13 +121,13 @@ template <typename T1,
           typename T5>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5);
     }
     
     return m_buf;
@@ -144,13 +144,13 @@ template <typename T1,
           typename T6>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6);
     }
     
     return m_buf;
@@ -168,13 +168,13 @@ template <typename T1,
           typename T7>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7);
     }
     
     return m_buf;
@@ -193,13 +193,13 @@ template <typename T1,
           typename T8>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8);
     }
     
     return m_buf;
@@ -219,13 +219,13 @@ template <typename T1,
           typename T9>
 const char* Printf::operator()(const char* fmt, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8, T9 p9)
 {
-    size_t result = snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  p9);
+    size_t result = snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  p9);
     if( result >= m_size )
     {
         delete [] m_buf;
         m_size = result+1;
         m_buf = new char[m_size];
-        snprintf(m_buf,m_size,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  p9);
+        snprintf(m_buf,m_size-1,fmt,p1,  p2,  p3,  p4,  p5,  p6,  p7,  p8,  p9);
     }
     
     return m_buf;

@@ -62,14 +62,20 @@ bool HighScoreScreen::onAgain(const CEGUI::EventArgs &e)
 
 bool HighScoreScreen::onChange(const CEGUI::EventArgs &e)
 {
+    disableAll();
     m_sig_transition.emit("paused");
     return true;
+}
+
+void HighScoreScreen::exec()
+{
+    m_dataStore->write_score(m_game->get_score());
+    enableAll();
 }
 
 
 void HighScoreScreen::onInitFinished()
 {
-    enableAll();
     m_cnx.disconnect();
     m_sig_transition.emit("countdown3");
 }

@@ -30,6 +30,8 @@ class HighScoreScreen :
         bool onAgain(const CEGUI::EventArgs &e);
         bool onChange(const CEGUI::EventArgs &e);
 
+        virtual void exec();
+
         void onInitFinished();
 };
 

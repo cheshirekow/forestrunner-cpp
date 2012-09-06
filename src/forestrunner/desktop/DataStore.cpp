@@ -31,6 +31,7 @@
 #include <boost/filesystem.hpp>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 #include <Ogre.h>
 #include <soci/sqlite3/soci-sqlite3.h>
 
@@ -299,64 +300,38 @@ void DataStore::flush()
 
 void DataStore::write_score(double score)
 {
+    using namespace keys;
 
-/**
- * String fmt = "INSERT INTO %s " +
-                     "    (date, velocity, density, radius, score) " +
-                     "VALUES" +
-                     "    (%d, %d, %d, %d, %.30f)";
+    const char* fmt =
+        "INSERT INTO user_data "
+        "    (date, velocity, density, radius, score) "
+        "VALUES"
+        "    (%d, %d, %d, %d, %.30f)";
 
-        String globalFmt = "INSERT INTO %s " +
-                "    (date, velocity, density, radius, score, global_id) " +
-                "VALUES" +
-                "    (%d, %d, %d, %d, %.30f, %d)";
+    try
+    {
+        m_soci << m_printf(fmt,
+                    time(NULL),
+                    get<int>(PREF_SPEED),
+                    get<int>(PREF_DENSITY),
+                    get<int>(PREF_RADIUS),
+                    score );
+    }
+    catch( std::exception& e )
+    {
+        std::cerr << "Failed to write score to db: " << e.what()
+                  << "\nquery: " << m_printf(fmt,
+                    time(NULL),
+                    get<int>(PREF_SPEED),
+                    get<int>(PREF_DENSITY),
+                    get<int>(PREF_RADIUS),
+                    score ) << std::endl;
+    }
 
-        try
-        {
-            m_sqlite.exec(String.format(fmt,
-                        "user_data",
-                        (int) unixTime,
-                        getInteger("velocity"),
-                        getInteger("density"),
-                        getInteger("radius"),
-                        score
-                    ));
-
-            System.out.println(String.format(msgFmt,
-                        getInteger("velocity"),
-                        getInteger("density"),
-                        getInteger("radius"),
-                        score));
-
-            m_intMap.put("lastUserRowId", (int)m_sqlite.getLastInsertId());
-
-            m_sqlite.exec(String.format(fmt,
-                    "unsent_score",
-                    (int) unixTime,
-                    getInteger("velocity"),
-                    getInteger("density"),
-                    getInteger("radius"),
-                    score
-                ));
-
-            SQLiteStatement st =
-                    m_sqlite.prepare("SELECT MIN(global_id) FROM global_data");
-            st.step();
-            int newId = Math.min(0, st.columnInt(0))-1;
-
-            m_sqlite.exec(String.format(globalFmt,
-                    "global_data",
-                    (int) unixTime,
-                    getInteger("velocity"),
-                    getInteger("density"),
-                    getInteger("radius"),
-                    score,
-                    newId
-                ));
-
-            m_intMap.put("lastGlobalRowId", (int)m_sqlite.getLastInsertId());
-        }
- */
+    get<int>(STAT_LASTUSERROWID) =
+        sqlite3_last_insert_rowid(
+            static_cast<soci::sqlite3_session_backend*>
+            (m_soci.get_backend())->conn_ );
 
 
 }
