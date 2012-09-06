@@ -79,10 +79,6 @@ DataStore::~DataStore()
 }
 
 
-void DataStore::markChanged(Key_t key)
-{
-    sig_valueChanged.emit(key,*m_map[key]);
-}
 
 const DataStore::UserVec_t& DataStore::userScores()
 {

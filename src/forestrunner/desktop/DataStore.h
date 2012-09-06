@@ -27,7 +27,7 @@
 #ifndef FORESTRUNNER_DESKTOP_DATASTORE_H_
 #define FORESTRUNNER_DESKTOP_DATASTORE_H_
 
-#include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/datastore/BaseStore.h"
 #include "forestrunner/util/Printf.h"
 #include <soci/soci.h>
 
@@ -36,10 +36,10 @@ namespace      desktop {
 
 
 class DataStore:
-    public forestrunner::DataStore
+    public forestrunner::datastore::BaseStore
 {
     public:
-        typedef forestrunner::DataStore Base_t;
+        typedef forestrunner::datastore::BaseStore Base_t;
 
     private:
         std::string     m_resourceDir;

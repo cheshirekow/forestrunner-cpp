@@ -30,7 +30,6 @@
 #include "forestrunner/datastore/Map.h"
 #include "forestrunner/datastore/UserHighScoreRow.h"
 #include "forestrunner/datastore/GlobalHighScoreRow.h"
-#include <sigc++/sigc++.h>
 
 #include <iostream>
 #include <vector>
@@ -57,9 +56,6 @@ class DataStore
 
         UserVec_t    m_userScores;
         GlobalVec_t  m_globalScores;
-
-    public:
-        sigc::signal<void,Key_t,const datastore::MapEntry&> sig_valueChanged;
 
     public:
         /// initializes the map with some default data
@@ -128,7 +124,7 @@ class DataStore
         virtual void fini(){}
 
         /// send a signal that the value changed
-        void markChanged(Key_t key);
+        virtual void markChanged(Key_t key)=0;
 
         /// extracts a value into the specified variable and returns true if
         /// the value has changed

@@ -146,6 +146,7 @@ if(FORESTRUNNER_BUILD_OK)
         forestrunner/ios/Application.cpp
         forestrunner/ios/AppInterface.cpp
         forestrunner/datastore/DataStore.cpp
+        forestrunner/datastore/BaseStore.cpp
         forestrunner/datastore/Map.cpp
         forestrunner/datastore/UserHighScoreRow.cpp
         forestrunner/datastore/GlobalHighScoreRow.cpp

@@ -21,6 +21,7 @@
 #include "MeshBuilder.h"
 #include "game/KeyboardGame.h"
 #include "game/ForestPatch.h"
+#include "forestrunner/datastore/BaseStore.h"
 
 #ifdef FORESTRUNNER_LINUX
 #include "app/linux.h"
@@ -323,7 +324,8 @@ void Application::createScene()
     m_game = new Game();
     m_game->createScene(mSceneMgr,m_patchRoot,m_patchRotate);
 
-    m_dataStore->sig_valueChanged.connect(
+    static_cast<forestrunner::datastore::BaseStore*>(m_dataStore)
+        ->sig_valueChanged.connect(
             sigc::mem_fun(*m_game,&Game::valueChanged) );
 }
 
