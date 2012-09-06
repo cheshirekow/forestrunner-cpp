@@ -26,7 +26,10 @@
     
 }
 
+@property (retain, nonatomic) UIViewController* presenter;
+
 - (void) setDataStore: (forestrunner::DataStore*) store;
+- (void) setApplication: (forestrunner::ios::AppInterface*) app;
 - (void) setScore: (float)score;
 
 

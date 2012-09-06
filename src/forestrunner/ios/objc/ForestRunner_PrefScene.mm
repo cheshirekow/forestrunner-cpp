@@ -107,6 +107,9 @@
 
 - (void) viewWillAppear: (BOOL)animated
 {
+    m_app = [self.ogreVC getApplication];
+    m_dispatcher = m_app->getDispatcher();
+    self.needsInit = m_dispatcher->isCrashed();
     [self enableAll];
     [self.btn_Continue setEnabled: !self.needsInit];
 }
@@ -153,8 +156,15 @@
 
 - (IBAction)valueChanged:(id)sender 
 {
-    float speed   = [speedSlider value];
+    using namespace forestrunner::keys;
+
+    float speed   = [speedSlider   value];
     float density = [densitySlider value];
+    
+    m_dataStore->get<int>(PREF_SPEED)   = floor(speed);
+    m_dataStore->get<int>(PREF_DENSITY) = floor(density);
+    m_dataStore->markChanged(PREF_SPEED);
+    m_dataStore->markChanged(PREF_DENSITY);
     
     [self markNeedsInit];
     [self setLabels:floor(speed) density:floor(density)];

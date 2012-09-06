@@ -21,6 +21,7 @@
 @synthesize gameView;
 @synthesize mainView;
 @synthesize prefScene;
+@synthesize scoreTable;
 @synthesize accelerometer;
 
 
@@ -63,8 +64,16 @@
     {
         if(m_dispatcher->isPaused())
             [self.prefScene dismissViewControllerAnimated: YES completion: nil];
-        //else
-            // transition here to high score screen
+        else
+        {
+            self.scoreTable.modalTransitionStyle = 
+                        UIModalTransitionStyleCoverVertical;
+            self.scoreTable.presenter            = self;
+            [self presentViewController: self.scoreTable
+                    animated:YES 
+                    completion:nil
+            ];
+        }
     }
 }
 
@@ -96,7 +105,8 @@
 {
     NSLog(@"PlayScene: viewWillAppear");
     m_dispatcher = m_app->getDispatcher();
-    m_dispatcher->play();
+    if(!m_dispatcher->isCrashed())
+        m_dispatcher->play();
     
     self.accelerometer.updateInterval = 0.1;
     self.accelerometer.delegate = self;
@@ -111,7 +121,10 @@
 - (void)viewDidAppear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewDidAppear");
-    [self stepGame];
+    if(m_dispatcher->isCrashed())
+        [self.prefScene dismissViewControllerAnimated: YES completion: nil];
+    else
+        [self stepGame];
 }
 
 - (void)viewDidUnload

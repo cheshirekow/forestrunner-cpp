@@ -7,19 +7,33 @@
 //
 
 #import "ForestRunner_ScoreTable.h"
+#import "ForestRunner_PlayScene.h"
 #import "ForestRunner_ScoreCell.h"
+#import "ForestRunner_NavCell.h"
 #include <ctime>
 #include <forestrunner/util/Printf.hpp>
 
 @interface ForestRunner_ScoreTable ()
 
+- (IBAction)onPlayAgain:(id)sender;
+- (IBAction)onChangeSettings:(id)sender;
+
 @end
 
 @implementation ForestRunner_ScoreTable
 
+
+
+@synthesize presenter;
+
 - (void) setDataStore:(forestrunner::DataStore *)store
 {
     m_dataStore = store;
+}
+
+- (void) setApplication:(forestrunner::ios::AppInterface*)app
+{
+    m_app = app;
 }
 
 - (void) setScore:(float)score
@@ -39,6 +53,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    m_score = 0.1;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,7 +83,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (UIInterfaceOrientationIsLandscape(interfaceOrientation));
 }
 
 
@@ -77,7 +93,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -90,6 +106,9 @@
         case 1:
             return m_dataStore->globalScores().size();
             
+        case 2:
+            return 1;
+            
         default:
             return 0;
     }
@@ -101,15 +120,7 @@
     using namespace forestrunner::datastore;
     using namespace forestrunner::keys;
 
-    static NSString *CellIdentifier = @"scoreCell";
-    ForestRunner_ScoreCell *cell = [tableView 
-                            dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) 
-    {
-        cell = [[ForestRunner_ScoreCell alloc]
-          initWithStyle:UITableViewCellStyleDefault 
-          reuseIdentifier:CellIdentifier];
-    }
+    
     
     int section = [indexPath section];
     int row     = [indexPath row    ];
@@ -117,6 +128,15 @@
     {
         case 0:
         {
+            ForestRunner_ScoreCell *cell = [tableView 
+                            dequeueReusableCellWithIdentifier:@"scoreCell"];
+            if (cell == nil) 
+            {
+                cell = [[ForestRunner_ScoreCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault 
+                        reuseIdentifier:@"scoreCell"];
+            }
+        
             const UserHighScoreRow& dRow 
                 = m_dataStore->userScores()[row];
             strftime(m_dateBuf,63,"%m/%d %H:%M",localtime(&dRow.date));
@@ -127,11 +147,20 @@
                         m_dateBuf ];
             cell.label_score.text = [NSString stringWithUTF8String: 
                         m_scoreBuf("%0.2f",dRow.score) ];
-            break;
+            return cell;
         }
             
         case 1:
         {
+            ForestRunner_ScoreCell *cell = [tableView 
+                            dequeueReusableCellWithIdentifier:@"scoreCell"];
+            if (cell == nil) 
+            {
+                cell = [[ForestRunner_ScoreCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault 
+                        reuseIdentifier:@"scoreCell"];
+            }
+        
             const GlobalHighScoreRow& dRow 
                 = m_dataStore->globalScores()[row];
             strftime(m_dateBuf,63,"%m/%d %H:%M",localtime(&dRow.date));
@@ -142,19 +171,60 @@
                         m_dateBuf ];
             cell.label_score.text = [NSString stringWithUTF8String: 
                         m_scoreBuf("%0.2f",dRow.score) ];
-            break;
+            return cell;
+        }
+        
+        case 2:
+        {
+            ForestRunner_NavCell *cell = [tableView 
+                            dequeueReusableCellWithIdentifier:@"navCell"];
+            if (cell == nil) 
+            {
+                cell = [[ForestRunner_NavCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault 
+                        reuseIdentifier:@"navCell"];
+            }
+
+            return cell;
         }
         
         default:
-            break;
+            return nil;
     }
-
-    
-    
-    
-    
-    return cell;
+   
 }
+
+
+
+- (void) stepInit
+{
+    m_app->step();
+    if(m_app->needsWork())
+    {
+        [NSTimer scheduledTimerWithTimeInterval:0.01
+                 target:self 
+                 selector:@selector(stepInit) 
+                 userInfo:nil 
+                 repeats:NO];
+    }
+    else
+    {
+        [self.presenter dismissViewControllerAnimated: YES completion: nil];
+    }
+}
+
+- (IBAction)onPlayAgain:(id)sender 
+{
+    m_dispatcher = m_app->getDispatcher();
+    m_dispatcher->startInitRun();
+    [self stepInit];
+}
+
+- (IBAction)onChangeSettings:(id)sender 
+{
+    [self.presenter dismissViewControllerAnimated: YES completion: nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -207,6 +277,10 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+}
+
+- (void)dealloc {
+    [super dealloc];
 }
 
 @end

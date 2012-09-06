@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <OGRE/RenderSystems/GLES/APPLE/OgreEAGLViewController.h>
+#import "ForestRunner_ScoreTable.h"
+
 #include <forestrunner/datastore/DataStore.h>
 #include <forestrunner/ios/AppInterface.h>
 #include <forestrunner/game/Dispatcher.h>
@@ -20,7 +22,8 @@
     forestrunner::game::Dispatcher*  m_dispatcher;
 }
 
-@property (retain, nonatomic) UIViewController* prefScene;
+@property (retain, nonatomic) UIViewController*         prefScene;
+@property (retain, nonatomic) ForestRunner_ScoreTable*  scoreTable;
 
 - (void) setDataStore: (forestrunner::DataStore*) store;
 - (forestrunner::ios::AppInterface*) getApplication;

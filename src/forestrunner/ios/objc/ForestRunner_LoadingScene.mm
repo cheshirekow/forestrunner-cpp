@@ -130,6 +130,8 @@
             self.scoreVC = [self.storyboard 
                 instantiateViewControllerWithIdentifier:@"ScoreView"];
             [self.scoreVC setDataStore: m_dataStore];
+            [self.ogreVC setScoreTable: self.scoreVC];
+            [self.scoreVC setApplication: [self.ogreVC getApplication]];
             break;
         }
             
