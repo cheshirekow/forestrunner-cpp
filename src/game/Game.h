@@ -144,6 +144,10 @@ class Game
 
         void update_game( Ogre::Real tpf );
 
+        /// return the current score, useful after the game has crashed and we
+        /// want to find out what the final score was
+        float get_score();
+
 };
 
 #endif /* GAME_H_ */

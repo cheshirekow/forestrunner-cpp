@@ -22,12 +22,14 @@ HighScoreScreen::HighScoreScreen()
                         CEGUI::Event::Subscriber(
                                 &HighScoreScreen::onAgain,
                                 this) );
+    m_btn_again = btn;
 
     btn = m_root->getChild("Panel/btn_difficulty");
     btn->subscribeEvent(CEGUI::PushButton::EventClicked,
                         CEGUI::Event::Subscriber(
                                 &HighScoreScreen::onChange,
                                 this) );
+    m_btn_difficulty = btn;
 }
 
 HighScoreScreen::~HighScoreScreen()
@@ -35,10 +37,25 @@ HighScoreScreen::~HighScoreScreen()
 
 }
 
+void HighScoreScreen::disableAll()
+{
+    m_btn_again     ->setEnabled(false);
+    m_btn_difficulty->setEnabled(false);
+
+}
+
+void HighScoreScreen::enableAll()
+{
+    m_btn_again     ->setEnabled(true);
+    m_btn_difficulty->setEnabled(true);
+}
+
 bool HighScoreScreen::onAgain(const CEGUI::EventArgs &e)
 {
-    m_game->initRun();
-    m_sig_transition.emit("countdown3");
+    disableAll();
+    m_cnx = m_dispatcher->sig_cycleFinished.connect(
+            sigc::mem_fun(*this,&HighScoreScreen::onInitFinished) );
+    m_dispatcher->startInitRun();
     return true;
 }
 
@@ -49,3 +66,10 @@ bool HighScoreScreen::onChange(const CEGUI::EventArgs &e)
     return true;
 }
 
+
+void HighScoreScreen::onInitFinished()
+{
+    enableAll();
+    m_cnx.disconnect();
+    m_sig_transition.emit("countdown3");
+}

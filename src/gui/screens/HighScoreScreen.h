@@ -14,12 +14,23 @@
 class HighScoreScreen :
     public Screen
 {
+    private:
+        sigc::connection m_cnx;
+
+        CEGUI::Window* m_btn_again;
+        CEGUI::Window* m_btn_difficulty;
+
+        void disableAll();
+        void enableAll();
+
     public:
         HighScoreScreen();
         virtual ~HighScoreScreen();
 
         bool onAgain(const CEGUI::EventArgs &e);
         bool onChange(const CEGUI::EventArgs &e);
+
+        void onInitFinished();
 };
 
 #endif /* HIGHSCORESCREEN_H_ */

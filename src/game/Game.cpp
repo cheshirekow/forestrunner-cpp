@@ -482,7 +482,10 @@ void Game::update_game( Ogre::Real tpf )
     sig_score.emit(m_score);
 }
 
-
+float Game::get_score()
+{
+    return m_score;
+}
 
 
 
