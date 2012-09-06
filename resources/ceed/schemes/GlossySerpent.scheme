@@ -30,11 +30,13 @@ Last change:    $LastChangedDate: 2012-03-13 22:19:17 +0100 (Ma, 13 mar. 2012) $
   <Imageset name="ForestRunner" filename="ForestRunner.imageset" />
   
   <!-- redefine both DejaVuSans*, DejaVuSerif* to DejaVuSans-HD*, DejaVuSerif-HD* -->
-    <Font name="DejaVuSans-HD-10" filename="DejaVuSans-HD-10.font" />
-    <Font name="DejaVuSerif-HD-8" filename="DejaVuSerif-HD-8.font" />
+    <Font name="DejaVuSans-HD-10"  filename="DejaVuSans-HD-10.font" />
+    <Font name="DejaVuSerif-HD-8"  filename="DejaVuSerif-HD-8.font" />
     <Font name="DejaVuSerif-HD-10" filename="DejaVuSerif-HD-10.font" />
     <Font name="DejaVuSerif-HD-12" filename="DejaVuSerif-HD-12.font" />
     <Font name="DejaVuSerif-HD-16" filename="DejaVuSerif-HD-16.font" />
+    <Font name="FreeMono-10"       filename="FreeMono-10.font" />
+    <Font name="FreeMono-12"       filename="FreeMono-12.font" />
   
     <LookNFeel filename="GlossySerpent.looknfeel" />
     <WindowRendererSet filename="CEGUICoreWindowRendererSet" />

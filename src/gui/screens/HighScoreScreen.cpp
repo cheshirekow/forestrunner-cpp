@@ -83,20 +83,25 @@ void HighScoreScreen::exec()
     m_dataStore->write_score(m_game->get_score());
     m_dataStore->sync_scores();
 
-    const char* titleFmt = "%-20s %20s";
+    const char* titleFmt = "%-20s %10s";
     const char* itemFmt  = "%-20s %10.2f";
     const char* dateFmt  = "%m/%d %H:%M";
     char  dateStr[64];
 
-    m_lb_userScores->addItem(
-            new CEGUI::ListboxTextItem(
-                    m_printf(titleFmt,"Date","Score"),
-                    -2,0,true,true) );
+    CEGUI::ListboxTextItem* item;
 
-    m_lb_userScores->addItem(
-            new CEGUI::ListboxTextItem(
-                    m_printf(titleFmt,"------------------","--------"),
-                    -1,0,true,true) );
+    item = new CEGUI::ListboxTextItem(
+                        m_printf(titleFmt,"Date","Score"),
+                        -2,0,true,true) ;
+    item->setFont("FreeMono-12");
+    m_lb_userScores->addItem( item );
+
+
+    item = new CEGUI::ListboxTextItem(
+                        m_printf(titleFmt,"------------------","--------"),
+                        -1,0,true,true) ;
+    item->setFont("FreeMono-12");
+    m_lb_userScores->addItem(item);
 
     forestrunner::DataStore::UserVec_t::const_iterator iUserRow;
     for( iUserRow = m_dataStore->userScores().begin();
@@ -110,10 +115,11 @@ void HighScoreScreen::exec()
 
         CEGUI::ListboxTextItem* item = new
             CEGUI::ListboxTextItem(rowStr,iUserRow->id,0,false,true);
-        item->setSelectionColours(CEGUI::Colour(1.0f,0.0f,0.0f,1.0f));
+        item->setSelectionColours(CEGUI::Colour(1.0f,0.5f,0.5f,1.0f));
         item->setSelected(iUserRow->isCurrent);
+        item->setFont("FreeMono-12");
         if(iUserRow->isCurrent)
-            item->setTextColours(CEGUI::Colour(1.0f,0.0f,0.0f,1.0f));
+            item->setTextColours(CEGUI::Colour(1.0f,0.5f,0.5f,1.0f));
         m_lb_userScores->addItem(item);
     }
 
