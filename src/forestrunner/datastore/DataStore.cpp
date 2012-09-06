@@ -31,6 +31,8 @@
 namespace forestrunner {
 
 
+size_t DataStore::sm_numRows = 10;
+
 
 
 DataStore::DataStore()
@@ -58,6 +60,9 @@ DataStore::DataStore()
     m_map[ADV_GRADIENTFLOOR]  = new MapEntryT<bool>(false);
     m_map[ADV_LOGGING]        = new MapEntryT<bool>(false);
     m_map[ADV_WORLDROTATE]    = new MapEntryT<bool>(true);
+
+    m_userScores.reserve(sm_numRows);
+    m_globalScores.reserve(sm_numRows);
 }
 
 

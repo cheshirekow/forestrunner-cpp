@@ -28,6 +28,7 @@
 #define FORESTRUNNER_DESKTOP_DATASTORE_H_
 
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/util/Printf.h"
 #include <soci/soci.h>
 
 namespace forestrunner {
@@ -44,6 +45,7 @@ class DataStore:
         std::string     m_resourceDir;
         std::string     m_dataDir;
         soci::session   m_soci;
+        util::Printf    m_printf;
 
         void run_init_script();
         void read_properties();

@@ -33,6 +33,7 @@
 #include <sigc++/sigc++.h>
 
 #include <iostream>
+#include <vector>
 
 namespace forestrunner{
 
@@ -45,7 +46,12 @@ namespace forestrunner{
 class DataStore
 {
     protected:
+        static size_t sm_numRows;
+
+    protected:
         datastore::Map_t  m_map;    ///< map of all the stuff we need
+        std::vector<datastore::UserHighScoreRow>    m_userScores;
+        std::vector<datastore::GlobalHighScoreRow>  m_globalScores;
 
     public:
         sigc::signal<void,Key_t,const datastore::MapEntry&> sig_valueChanged;

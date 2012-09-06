@@ -150,6 +150,7 @@ if(FORESTRUNNER_BUILD_OK)
         forestrunner/datastore/UserHighScoreRow.cpp
         forestrunner/datastore/GlobalHighScoreRow.cpp
         forestrunner/game/StateGraph.cpp
+        forestrunner/util/Printf.cpp
         MeshBuilder.cpp
         game/Game.cpp
         game/KeyboardGame.cpp

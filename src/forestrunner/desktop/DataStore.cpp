@@ -25,6 +25,7 @@
  */
 
 #include "forestrunner/desktop/DataStore.h"
+#include "forestrunner/util/Printf.hpp"
 #include "app/linux.h"
 
 #include <boost/filesystem.hpp>
@@ -296,9 +297,75 @@ void DataStore::flush()
     std::cout << std::endl;
 }
 
-void DataStore::write_score(double score){}
+void DataStore::write_score(double score)
+{
 
-void DataStore::sync_scores(){}
+/**
+ * String fmt = "INSERT INTO %s " +
+                     "    (date, velocity, density, radius, score) " +
+                     "VALUES" +
+                     "    (%d, %d, %d, %d, %.30f)";
+
+        String globalFmt = "INSERT INTO %s " +
+                "    (date, velocity, density, radius, score, global_id) " +
+                "VALUES" +
+                "    (%d, %d, %d, %d, %.30f, %d)";
+
+        try
+        {
+            m_sqlite.exec(String.format(fmt,
+                        "user_data",
+                        (int) unixTime,
+                        getInteger("velocity"),
+                        getInteger("density"),
+                        getInteger("radius"),
+                        score
+                    ));
+
+            System.out.println(String.format(msgFmt,
+                        getInteger("velocity"),
+                        getInteger("density"),
+                        getInteger("radius"),
+                        score));
+
+            m_intMap.put("lastUserRowId", (int)m_sqlite.getLastInsertId());
+
+            m_sqlite.exec(String.format(fmt,
+                    "unsent_score",
+                    (int) unixTime,
+                    getInteger("velocity"),
+                    getInteger("density"),
+                    getInteger("radius"),
+                    score
+                ));
+
+            SQLiteStatement st =
+                    m_sqlite.prepare("SELECT MIN(global_id) FROM global_data");
+            st.step();
+            int newId = Math.min(0, st.columnInt(0))-1;
+
+            m_sqlite.exec(String.format(globalFmt,
+                    "global_data",
+                    (int) unixTime,
+                    getInteger("velocity"),
+                    getInteger("density"),
+                    getInteger("radius"),
+                    score,
+                    newId
+                ));
+
+            m_intMap.put("lastGlobalRowId", (int)m_sqlite.getLastInsertId());
+        }
+ */
+
+
+}
+
+void DataStore::sync_scores()
+{
+    m_userScores.clear();
+    m_globalScores.clear();
+}
 
 void DataStore::fini()
 {
