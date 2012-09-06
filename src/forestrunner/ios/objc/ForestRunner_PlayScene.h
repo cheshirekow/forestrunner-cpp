@@ -13,6 +13,7 @@
 #include <forestrunner/datastore/DataStore.h>
 #include <forestrunner/ios/AppInterface.h>
 #include <forestrunner/game/Dispatcher.h>
+#include <forestrunner/util/Printf.h>
 
 @interface ForestRunner_PlayScene : EAGLViewController
     <UIAccelerometerDelegate>
@@ -20,6 +21,7 @@
     forestrunner::DataStore*         m_dataStore;
     forestrunner::ios::AppInterface* m_app;
     forestrunner::game::Dispatcher*  m_dispatcher;
+    forestrunner::util::Printf       m_scoreBuf;
 }
 
 @property (retain, nonatomic) UIViewController*         prefScene;

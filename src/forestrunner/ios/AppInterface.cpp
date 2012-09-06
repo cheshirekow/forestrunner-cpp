@@ -96,6 +96,11 @@ float AppInterface::getProgress()
     return m_impl->getProgress();
 }
 
+float AppInterface::getScore()
+{
+    return m_impl->getScore();
+}
+
 
 } // namespace ios 
 } // namespace forestrunner 

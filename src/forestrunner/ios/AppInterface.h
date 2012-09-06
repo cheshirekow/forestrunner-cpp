@@ -56,6 +56,7 @@ class AppInterface
 
         game::Dispatcher* getDispatcher();
         float getProgress();
+        float getScore();
 };
 
 } // namespace ios 

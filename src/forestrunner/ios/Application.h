@@ -82,6 +82,8 @@ class Application:
         float getProgress();
         
         virtual void setupDispatcher();
+        
+        float getScore();
 };
 
 } // namespace ios 

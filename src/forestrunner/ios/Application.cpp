@@ -162,6 +162,11 @@ void Application::setupDispatcher()
     
 }
 
+float Application::getScore()
+{
+    return m_game->get_score();
+}
+
 
 } // namespace ios 
 } // namespace forestrunner 

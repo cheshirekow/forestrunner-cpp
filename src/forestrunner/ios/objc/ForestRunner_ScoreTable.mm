@@ -38,6 +38,7 @@
 
 - (void) setScore:(float)score
 {
+    NSLog(@"Saving score %0.2f",score);
     m_score = score;
 }
 
@@ -53,8 +54,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    m_score = 0.1;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -65,6 +64,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    NSLog(@"Writing score %0.2f",m_score);
     m_dataStore->write_score(m_score);
     m_dataStore->sync_scores();
 }
@@ -88,7 +88,56 @@
 
 
 
+- (void) stepInit
+{
+    m_app->step();
+    if(m_app->needsWork())
+    {
+        [NSTimer scheduledTimerWithTimeInterval:0.01
+                 target:self 
+                 selector:@selector(stepInit) 
+                 userInfo:nil 
+                 repeats:NO];
+    }
+    else
+    {
+        [self.presenter dismissViewControllerAnimated: YES completion: nil];
+    }
+}
+
+- (IBAction)onPlayAgain:(id)sender 
+{
+    m_dispatcher = m_app->getDispatcher();
+    m_dispatcher->startInitRun();
+    [self stepInit];
+}
+
+- (IBAction)onChangeSettings:(id)sender 
+{
+    [self.presenter dismissViewControllerAnimated: YES completion: nil];
+}
+
+
 #pragma mark - Table view data source
+
+- (NSString *)tableView:(UITableView *)tableView 
+    titleForHeaderInSection:(NSInteger)section 
+{
+    switch(section)
+    {
+        case 0:
+            return @"User High Scores";
+            
+        case 1:
+            return @"Global High Scores";
+            
+        case 2:
+            return @"Navigation";
+            
+        default:
+            return @"Unknown";
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -194,36 +243,6 @@
    
 }
 
-
-
-- (void) stepInit
-{
-    m_app->step();
-    if(m_app->needsWork())
-    {
-        [NSTimer scheduledTimerWithTimeInterval:0.01
-                 target:self 
-                 selector:@selector(stepInit) 
-                 userInfo:nil 
-                 repeats:NO];
-    }
-    else
-    {
-        [self.presenter dismissViewControllerAnimated: YES completion: nil];
-    }
-}
-
-- (IBAction)onPlayAgain:(id)sender 
-{
-    m_dispatcher = m_app->getDispatcher();
-    m_dispatcher->startInitRun();
-    [self stepInit];
-}
-
-- (IBAction)onChangeSettings:(id)sender 
-{
-    [self.presenter dismissViewControllerAnimated: YES completion: nil];
-}
 
 
 /*

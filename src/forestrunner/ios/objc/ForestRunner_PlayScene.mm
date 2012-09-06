@@ -8,11 +8,15 @@
 
 #import "ForestRunner_PlayScene.h"
 #import "ForestRunner_PrefScene.h"
+#include <forestrunner/util/Printf.hpp>
 
 @interface ForestRunner_PlayScene ()
-@property (retain, nonatomic) IBOutlet UIView *gameView;
-@property (retain, nonatomic) IBOutlet UIView *mainView;
-@property (retain, nonatomic) UIAccelerometer *accelerometer;
+@property (retain, nonatomic) IBOutlet UIView  *gameView;
+@property (retain, nonatomic) IBOutlet UIView  *mainView;
+@property (retain, nonatomic) IBOutlet UILabel *label_Score;
+@property (retain, nonatomic) UIAccelerometer  *accelerometer; 
+
+
 - (IBAction)gotoPause:(id)sender;
 
 @end
@@ -20,6 +24,7 @@
 @implementation ForestRunner_PlayScene
 @synthesize gameView;
 @synthesize mainView;
+@synthesize label_Score;
 @synthesize prefScene;
 @synthesize scoreTable;
 @synthesize accelerometer;
@@ -52,6 +57,8 @@
 - (void) stepGame
 {
     m_app->step();
+    self.label_Score.text = [NSString stringWithUTF8String: 
+                                m_scoreBuf("%0.2f",m_app->getScore()) ];
     if(m_app->needsWork())
     {
         [NSTimer scheduledTimerWithTimeInterval:0.01
@@ -69,6 +76,7 @@
             self.scoreTable.modalTransitionStyle = 
                         UIModalTransitionStyleCoverVertical;
             self.scoreTable.presenter            = self;
+            [self.scoreTable setScore: m_app->getScore()];
             [self presentViewController: self.scoreTable
                     animated:YES 
                     completion:nil
@@ -152,6 +160,7 @@
 - (void)dealloc {
     [gameView release];
     [mainView release];
+    [label_Score release];
     [super dealloc];
 }
 
