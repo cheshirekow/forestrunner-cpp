@@ -138,7 +138,10 @@ bool Application::needsWork()
     return m_dispatchResult;
 }
 
-
+game::Dispatcher* Application::getDispatcher()
+{
+    return &m_dispatcher;
+}
 
 
 

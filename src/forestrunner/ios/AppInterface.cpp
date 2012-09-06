@@ -86,6 +86,12 @@ bool AppInterface::needsWork()
 }
 
 
+game::Dispatcher* AppInterface::getDispatcher()
+{
+    return m_impl->getDispatcher();
+}
+
+
 
 
 } // namespace ios 

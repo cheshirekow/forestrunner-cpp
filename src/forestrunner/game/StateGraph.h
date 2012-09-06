@@ -27,8 +27,11 @@
 #ifndef FORESTRUNNER_GAME_STATEGRAPH_H_
 #define FORESTRUNNER_GAME_STATEGRAPH_H_
 
+#include "forestrunner/game/Dispatcher.h"
+
 #include <sigc++/sigc++.h>
 #include <OgreMath.h>
+
 
 namespace forestrunner {
 namespace         game {
@@ -89,7 +92,8 @@ class CartoonCycle
 
 /// dispatcher for update() events which passes the event to the appropriate
 /// method of the game
-class StateGraph
+class StateGraph:
+    public Dispatcher
 {
     public:
         enum State
@@ -124,7 +128,7 @@ class StateGraph
         CartoonCycle    cartoonCycle;
 
         StateGraph();
-        ~StateGraph();
+        virtual ~StateGraph();
 
         /// performs one step of the current action, returns true if more
         /// work needs to be done
@@ -142,20 +146,23 @@ class StateGraph
         void play();
 
         /// starts the init cycle which does all the initialization stuff
-        void startInitCycle();
+        virtual void startInitCycle();
 
         /// starts the init-run cycle which initializes a new run
-        void startInitRun();
+        virtual void startInitRun();
 
         /// starts the lighting cycle
-        void startLightingCycle();
+        virtual void startLightingCycle();
 
         /// starts cartoon cycle
-        void startCartoonCycle();
+        virtual void startCartoonCycle();
 
         /// return the current state (useful when step returns false and we
         /// want to know if the game crashed or was paused)
         State getState();
+
+        virtual bool isPaused();
+        virtual bool isCrashed();
 
 };
 

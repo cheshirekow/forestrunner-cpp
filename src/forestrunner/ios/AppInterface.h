@@ -27,6 +27,7 @@
 #define FORESTRUNNER_IOS_APPINTERFACE_H_
 
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/game/Dispatcher.h"
 
 namespace forestrunner {
 namespace          ios {
@@ -52,6 +53,8 @@ class AppInterface
         bool step();
         void cleanup();
         bool needsWork();
+
+        game::Dispatcher* getDispatcher();
 };
 
 } // namespace ios 

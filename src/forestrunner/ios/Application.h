@@ -70,6 +70,9 @@ class Application:
 
         /// returns true if the current cycle is still working
         bool needsWork();
+
+        /// return dispatcher interface
+        game::Dispatcher* getDispatcher();
 };
 
 } // namespace ios 

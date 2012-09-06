@@ -274,7 +274,15 @@ StateGraph::State StateGraph::getState()
 }
 
 
+bool StateGraph::isPaused()
+{
+    return m_state == PAUSED;
+}
 
+bool StateGraph::isCrashed()
+{
+    return m_state == CRASHED;
+}
 
 
 } // namespace game 
