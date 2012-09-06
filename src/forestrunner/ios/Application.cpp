@@ -101,7 +101,7 @@ bool Application::configure(void)
     params["colourDepth"]          = "32";
     //m_params["externalGLControl"]    = "false";
     //m_params["externalGLContext"]    = "0";
-    params["contentScalingFactor"] = "2.0";
+    params["contentScalingFactor"] = "1.0";
     
     strm.str("");
     strm << (unsigned long)m_uiWindow;
