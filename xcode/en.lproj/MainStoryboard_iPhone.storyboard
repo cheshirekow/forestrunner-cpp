@@ -329,6 +329,7 @@ You must agree to these terms to play to the game.
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
+                        <outlet property="btn_Back" destination="sKL-iA-t4s" id="pIc-xv-fCu"/>
                         <outlet property="cartoonSwitch" destination="3YJ-jf-Ea0" id="mAO-gt-8vW"/>
                         <outlet property="gradientSwitch" destination="9EQ-4h-zS7" id="n7g-zC-alU"/>
                         <outlet property="lightingSwitch" destination="lAw-aQ-IiJ" id="9Fj-06-5EQ"/>
@@ -470,6 +471,10 @@ try not to hit stuff</string>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="btn_Advanced" destination="heP-kC-wyv" id="5Ms-Kr-UpC"/>
+                        <outlet property="btn_Continue" destination="6Wx-iI-Raj" id="4MA-XI-DDp"/>
+                        <outlet property="btn_NewGame" destination="eUF-zq-lsd" id="3xY-V9-UpN"/>
+                        <outlet property="btn_Random" destination="miH-nX-VLg" id="BnD-US-xpf"/>
                         <outlet property="densityLabel" destination="AWj-iz-zVC" id="aew-Zo-hdk"/>
                         <outlet property="densitySlider" destination="17s-Mi-FyE" id="dXc-wb-Sm6"/>
                         <outlet property="speedLabel" destination="EqO-Nm-ewj" id="9Tm-xm-oJB"/>
@@ -527,40 +532,40 @@ try not to hit stuff</string>
             </objects>
             <point key="canvasLocation" x="237" y="-45"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Forest Runner Score Table-->
         <scene sceneID="bXS-kn-Afp">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dS3-T9-gbL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="kVV-9A-VkV" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hNL-lT-c1S">
+                <tableViewController storyboardIdentifier="ScoreView" id="kVV-9A-VkV" customClass="ForestRunner_ScoreTable" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" id="hNL-lT-c1S">
                         <rect key="frame" x="0.0" y="20" width="480" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="weK-kH-Re1">
-                                <rect key="frame" x="0.0" y="22" width="480" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="scoreCell" rowHeight="33" id="weK-kH-Re1" customClass="ForestRunner_ScoreCell">
+                                <rect key="frame" x="0.0" y="22" width="480" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="480" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="32"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="nickname " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="RPg-nj-kSH">
-                                            <rect key="frame" x="13" y="11" width="114" height="21"/>
+                                            <rect key="frame" x="13" y="5" width="164" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="score " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5do-iV-uJz">
-                                            <rect key="frame" x="135" y="11" width="114" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="score " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5do-iV-uJz">
+                                            <rect key="frame" x="336" y="5" width="136" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ZR9-ym-xEo">
-                                            <rect key="frame" x="325" y="11" width="114" height="21"/>
+                                            <rect key="frame" x="185" y="5" width="123" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -569,6 +574,56 @@ try not to hit stuff</string>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="label_date" destination="ZR9-ym-xEo" id="zr5-j5-q5B"/>
+                                    <outlet property="label_nick" destination="RPg-nj-kSH" id="x6c-FQ-B7S"/>
+                                    <outlet property="label_score" destination="5do-iV-uJz" id="yLM-Nz-Svp"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="navCell" rowHeight="45" id="4lN-kY-r3r" customClass="ForestRunner_NavCell">
+                                <rect key="frame" x="0.0" y="55" width="480" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ecg-OD-L6h">
+                                            <rect key="frame" x="20" y="4" width="107" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Play Again">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onPlayAgain:" destination="kVV-9A-VkV" eventType="touchUpInside" id="Ssh-ZM-tma"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iux-vY-sQX">
+                                            <rect key="frame" x="317" y="4" width="143" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Change Settings">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onChangeSettings:" destination="kVV-9A-VkV" eventType="touchUpInside" id="CqL-ns-Md7"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="btn_again" destination="Ecg-OD-L6h" id="A2e-PC-1N7"/>
+                                    <outlet property="btn_pref" destination="Iux-vY-sQX" id="Bel-LZ-QfG"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -576,12 +631,9 @@ try not to hit stuff</string>
                             <outlet property="delegate" destination="kVV-9A-VkV" id="3SS-Bq-YCP"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="h35-xq-ZPx" kind="modal" identifier="SegueLeaderToSetup" id="ebb-6e-iKO"/>
-                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1222" y="-45"/>
+            <point key="canvasLocation" x="856" y="-45"/>
         </scene>
     </scenes>
     <resources>
@@ -592,7 +644,4 @@ try not to hit stuff</string>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="ebb-6e-iKO"/>
-    </inferredMetricsTieBreakers>
 </document>
