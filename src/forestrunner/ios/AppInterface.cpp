@@ -91,7 +91,10 @@ game::Dispatcher* AppInterface::getDispatcher()
     return m_impl->getDispatcher();
 }
 
-
+float AppInterface::getProgress()
+{
+    return m_impl->getProgress();
+}
 
 
 } // namespace ios 

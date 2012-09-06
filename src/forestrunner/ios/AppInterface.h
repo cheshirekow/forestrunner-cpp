@@ -55,6 +55,7 @@ class AppInterface
         bool needsWork();
 
         game::Dispatcher* getDispatcher();
+        float getProgress();
 };
 
 } // namespace ios 
