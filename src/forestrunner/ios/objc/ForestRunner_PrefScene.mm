@@ -202,25 +202,18 @@
 
 - (IBAction)gotoNewGame:(id)sender 
 {
-    if( self.needsInit )
-    {
-        self.needsInit = NO;
-        m_app = [self.ogreVC getApplication];
-        m_dispatcher = m_app->getDispatcher();
-        m_dispatcher->startInitRun();
+    self.needsInit = NO;
+    m_app = [self.ogreVC getApplication];
+    m_dispatcher = m_app->getDispatcher();
+    m_dispatcher->startInitRun();
    
-        [self disableAll];
-        [self stepInit];
-    }
-    else
-        [self advanceToPlayScreen];
-    
-    
-    
+    [self disableAll];
+    [self stepInit];
 }
 
 - (IBAction)gotoContinueGame:(id)sender 
 {
+    [self advanceToPlayScreen];
 }
 
 

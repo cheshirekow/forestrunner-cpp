@@ -48,6 +48,26 @@
     
 }
 
+- (void) stepGame
+{
+    m_app->step();
+    if(m_app->needsWork())
+    {
+        [NSTimer scheduledTimerWithTimeInterval:0.01
+                 target:self 
+                 selector:@selector(stepGame) 
+                 userInfo:nil 
+                 repeats:NO];
+    }
+    else
+    {
+        if(m_dispatcher->isPaused())
+            [self.prefScene dismissViewControllerAnimated: YES completion: nil];
+        //else
+            // transition here to high score screen
+    }
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -75,17 +95,23 @@
 - (void)viewWillAppear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewWillAppear");
-    m_app->step();
+    m_dispatcher = m_app->getDispatcher();
+    m_dispatcher->play();
+    
+    self.accelerometer.updateInterval = 0.1;
+    self.accelerometer.delegate = self;
 }
 
 - (void)viewWillDisappear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewWillDisappear");
+    self.accelerometer.updateInterval = 0.1;
 }
 
-- (void)viewDidAppear
+- (void)viewDidAppear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewDidAppear");
+    [self stepGame];
 }
 
 - (void)viewDidUnload
@@ -118,6 +144,16 @@
 
 - (IBAction)gotoPause:(id)sender 
 {
-    [self.prefScene dismissViewControllerAnimated: YES completion: nil];
+    m_dispatcher->pause();
 }
+
+- (void)accelerometer:(UIAccelerometer *)accelerometer 
+        didAccelerate:(UIAcceleration*)acceleration
+{
+    // how to get data:
+    // double x = acceleration.x
+    // double y = acceleration.y
+    // double z = acceleration.z
+}
+
 @end

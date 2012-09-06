@@ -9,17 +9,20 @@
 #import "ForestRunner_LoadingScene.h"
 #import "ForestRunner_NickScene.h"
 #import "ForestRunner_PlayScene.h"
+#import "ForestRunner_ScoreTable.h"
 
 
 @interface ForestRunner_LoadingScene ()
 @property (retain, nonatomic) IBOutlet UIProgressView *progress;
-@property (retain, nonatomic) ForestRunner_PlayScene* ogreVC;
+@property (retain, nonatomic) ForestRunner_PlayScene*  ogreVC;
+@property (retain, nonatomic) ForestRunner_ScoreTable* scoreVC;
 
 @end
 
 @implementation ForestRunner_LoadingScene
 @synthesize progress;
 @synthesize ogreVC;
+@synthesize scoreVC;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -64,7 +67,6 @@
 - (void)makeMyProgressBarMoving 
 {
     float cycleProgress = 0;
-    float mainProgress  = 0;
 
     switch(m_step)
     {
@@ -119,6 +121,15 @@
                 m_app->step();
                 m_step--;
             }
+            break;
+        }
+        
+        case 7:
+        {
+            // create the game view controller 
+            self.scoreVC = [self.storyboard 
+                instantiateViewControllerWithIdentifier:@"ScoreView"];
+            [self.scoreVC setDataStore: m_dataStore];
             break;
         }
             
