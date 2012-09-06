@@ -143,6 +143,24 @@ game::Dispatcher* Application::getDispatcher()
     return &m_dispatcher;
 }
 
+void Application::onProgress(float progress)
+{
+    m_cycleProgress = progress;
+}
+
+float Application::getProgress()
+{
+    return m_cycleProgress;
+}
+
+void Application::setupDispatcher()
+{
+    Base_t::setupDispatcher();
+    
+    m_dispatcher.initCycle.sig_progress.connect(
+            sigc::mem_fun(*this,&Application::onProgress) );
+    
+}
 
 
 } // namespace ios 

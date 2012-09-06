@@ -46,6 +46,9 @@ class Application:
         void*               m_uiViewController;
         unsigned int        m_width;
         unsigned int        m_height;
+        
+        /// iOS can't use the sigc++ callbacks so we'll store the info here
+        float               m_cycleProgress;
 
     public:
         Application(DataStore* store);
@@ -73,6 +76,12 @@ class Application:
 
         /// return dispatcher interface
         game::Dispatcher* getDispatcher();
+        
+        void onProgress(float progress);
+        
+        float getProgress();
+        
+        virtual void setupDispatcher();
 };
 
 } // namespace ios 
