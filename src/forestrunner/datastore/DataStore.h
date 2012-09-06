@@ -45,13 +45,18 @@ namespace forestrunner{
  */
 class DataStore
 {
+    public:
+        typedef std::vector<datastore::UserHighScoreRow>    UserVec_t;
+        typedef std::vector<datastore::GlobalHighScoreRow>  GlobalVec_t;
+
     protected:
         static size_t sm_numRows;
 
     protected:
         datastore::Map_t  m_map;    ///< map of all the stuff we need
-        std::vector<datastore::UserHighScoreRow>    m_userScores;
-        std::vector<datastore::GlobalHighScoreRow>  m_globalScores;
+
+        UserVec_t    m_userScores;
+        GlobalVec_t  m_globalScores;
 
     public:
         sigc::signal<void,Key_t,const datastore::MapEntry&> sig_valueChanged;
@@ -139,7 +144,8 @@ class DataStore
             return result;
         }
 
-
+        const UserVec_t& userScores();
+        const GlobalVec_t& globalScores();
 
 
 

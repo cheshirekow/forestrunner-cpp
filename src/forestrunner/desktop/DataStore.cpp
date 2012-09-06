@@ -338,8 +338,52 @@ void DataStore::write_score(double score)
 
 void DataStore::sync_scores()
 {
+    using namespace keys;
+
     m_userScores.clear();
     m_globalScores.clear();
+
+/*
+ *  String fmt =
+            "SELECT * FROM user_data WHERE" +
+            "     velocity=%d  " +
+            "     AND density=%d   " +
+            "     AND radius=%d    " +
+            " ORDER BY score DESC";
+
+        String delFmt =
+                "DELETE FROM user_data WHERE" +
+                "     velocity=%d  " +
+                "     AND density=%d   " +
+                "     AND radius=%d" +
+                "     AND score<%f";
+ */
+
+    const char* selectFmt =
+            "SELECT * FROM user_data WHERE"
+            "     velocity=%d  "
+            "     AND density=%d   "
+            "     AND radius=%d    "
+            " ORDER BY score DESC "
+            " LIMIT 10 ";
+
+    soci::rowset<soci::row> rs =
+            (m_soci.prepare << m_printf(selectFmt,
+                get<int>(PREF_SPEED),
+                get<int>(PREF_DENSITY),
+                get<int>(PREF_RADIUS) ) );
+
+    for( soci::rowset<soci::row>::const_iterator it = rs.begin();
+            it != rs.end(); ++it )
+    {
+        soci::row const& dbRow = *it;
+        datastore::UserHighScoreRow localRow;
+        localRow.id    = dbRow.get<int>(0);
+        localRow.date  = dbRow.get<int>(1);
+        localRow.score = dbRow.get<double>(5);
+        localRow.isCurrent = (localRow.id == get<int>(STAT_LASTUSERROWID));
+        m_userScores.push_back(localRow);
+    }
 }
 
 void DataStore::fini()
