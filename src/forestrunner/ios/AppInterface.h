@@ -51,6 +51,7 @@ class AppInterface
                     unsigned int height );
         bool step();
         void cleanup();
+        bool needsWork();
 };
 
 } // namespace ios 

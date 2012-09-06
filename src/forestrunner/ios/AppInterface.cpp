@@ -49,7 +49,7 @@ catch (std::exception& e)
 
 AppInterface::~AppInterface()
 {
-    // TODO Auto-generated destructor stub
+    delete m_impl;
 }
 
 
@@ -78,6 +78,11 @@ bool AppInterface::step()
 void AppInterface::cleanup()
 {
     m_impl->cleanup();
+}
+
+bool AppInterface::needsWork()
+{
+    return m_impl->needsWork();
 }
 
 

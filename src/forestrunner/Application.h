@@ -100,6 +100,7 @@ protected:
 
     bool mCursorWasVisible;  // was cursor visible before dialog appeared
     bool mShutDown;
+    bool m_dispatchResult;
 
     Ogre::SceneNode*    m_patchRoot;
     Ogre::SceneNode*    m_patchRotate;

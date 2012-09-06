@@ -64,6 +64,8 @@ Application::Application(DataStore* store):
     mShutDown(false),
     m_dataStore(store)
 {
+    m_dispatchResult = false;
+
 #if FORESTRUNNER_OSX
     m_ResourcePath = Ogre::macBundlePath() + "/Contents/Resources";
 #elif FORESTRUNNER_IOS
@@ -479,7 +481,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
     
-    m_dispatcher.step(evt.timeSinceLastFrame);
+    m_dispatchResult = m_dispatcher.step(evt.timeSinceLastFrame);
 
     // this is how we update the camera controller
     // (probably need to get rid of this)

@@ -133,6 +133,11 @@ void Application::cleanup()
     tearDown();
 }
 
+bool Application::needsWork()
+{
+    return m_dispatchResult;
+}
+
 
 
 

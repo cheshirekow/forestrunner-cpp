@@ -67,6 +67,9 @@ class Application:
 
         /// does cleanup
         void cleanup();
+
+        /// returns true if the current cycle is still working
+        bool needsWork();
 };
 
 } // namespace ios 
