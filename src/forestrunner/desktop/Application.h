@@ -28,6 +28,7 @@
 #define FORESTRUNNER_DESKTOP_APPLICATION_H_
 
 #include "forestrunner/Application.h"
+#include "game/KeyboardGame.h"
 
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
