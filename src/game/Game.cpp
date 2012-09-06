@@ -362,26 +362,6 @@ void Game::createScene(Ogre::SceneManager* sceneMgr,
 
 
 
-
-bool Game::keyPressed( const OIS::KeyEvent &arg )
-{
-    return true;
-}
-
-
-
-
-
-bool Game::keyReleased( const OIS::KeyEvent &arg )
-{
-    return true;
-}
-
-
-
-
-
-
 void Game::update_game( Ogre::Real tpf )
 {
     m_score += tpf;

@@ -79,7 +79,7 @@ class Game
         sigc::signal<void>          sig_paused;
 
         Game();
-        virtual ~Game();
+        ~Game();
 
         /// reads the settings from the data store, changes internal model if
         /// necessary
@@ -130,7 +130,7 @@ class Game
         void setRadius(int i);
 
         /// initialize a new run of the game
-        virtual void initRun();
+        void initRun();
 
         /// set the value of the horizontal speed
         void setXSpeed(float xSpeed);
@@ -141,9 +141,6 @@ class Game
         void createScene(Ogre::SceneManager* sceneMgr,
                             Ogre::SceneNode* patchRoot,
                             Ogre::SceneNode* patchRotate);
-
-        virtual bool keyPressed( const OIS::KeyEvent &arg );
-        virtual bool keyReleased( const OIS::KeyEvent &arg );
 
         void update_game( Ogre::Real tpf );
 
