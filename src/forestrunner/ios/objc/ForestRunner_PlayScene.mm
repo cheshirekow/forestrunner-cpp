@@ -12,6 +12,7 @@
 @interface ForestRunner_PlayScene ()
 @property (retain, nonatomic) IBOutlet UIView *gameView;
 @property (retain, nonatomic) IBOutlet UIView *mainView;
+@property (retain, nonatomic) UIAccelerometer *accelerometer;
 - (IBAction)gotoPause:(id)sender;
 
 @end
@@ -20,11 +21,18 @@
 @synthesize gameView;
 @synthesize mainView;
 @synthesize prefScene;
+@synthesize accelerometer;
 
 
 - (void) setDataStore:( forestrunner::DataStore* )store
 {
     m_dataStore = store;
+    m_app = new forestrunner::ios::AppInterface(store);
+}
+
+- (forestrunner::ios::AppInterface*) getApplication
+{
+    return m_app;
 }
 
 - (void) initOgre: (UIWindow*)window
@@ -36,7 +44,7 @@
     unsigned int width  = gView.frame.size.width;
     unsigned int height = gView.frame.size.height;
     
-    m_app.init(gWin,gView,gVC,width,height);
+    m_app->init(gWin,gView,gVC,width,height);
     
 }
 
@@ -59,12 +67,15 @@
     // being released automatically
     self.mainView = self.view;
     [self.mainView retain];
+    
+    // grab a reference to the accelerometer
+    self.accelerometer = [UIAccelerometer sharedAccelerometer];
 }
 
 - (void)viewWillAppear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewWillAppear");
-    m_app.step();
+    m_app->step();
 }
 
 - (void)viewWillDisappear: (BOOL)animated

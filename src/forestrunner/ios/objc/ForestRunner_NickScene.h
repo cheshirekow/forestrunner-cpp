@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ForestRunner_PlayScene.h"
-#include <forestrunner/desktop/DataStore.h>
+#include <forestrunner/datastore/DataStore.h>
 
 @interface ForestRunner_NickScene : UIViewController
 <UITextFieldDelegate>

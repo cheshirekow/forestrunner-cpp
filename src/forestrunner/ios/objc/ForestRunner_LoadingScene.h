@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#include <forestrunner/desktop/DataStore.h>
+#include <forestrunner/datastore/DataStore.h>
+#include <forestrunner/ios/AppInterface.h>
+#include <forestrunner/game/Dispatcher.h>
 
 @interface ForestRunner_LoadingScene : UIViewController
 {
-    forestrunner::DataStore* m_dataStore;
+    forestrunner::DataStore*          m_dataStore;
+    forestrunner::ios::AppInterface*  m_app;
+    forestrunner::game::Dispatcher*   m_dispatcher;
     int     m_step;
 }
 

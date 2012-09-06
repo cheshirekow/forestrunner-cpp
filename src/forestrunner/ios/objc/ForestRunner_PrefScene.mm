@@ -12,8 +12,15 @@
 @interface ForestRunner_PrefScene ()
 @property (retain, nonatomic) IBOutlet UISlider *speedSlider;
 @property (retain, nonatomic) IBOutlet UISlider *densitySlider;
-@property (retain, nonatomic) IBOutlet UILabel *speedLabel;
-@property (retain, nonatomic) IBOutlet UILabel *densityLabel;
+@property (retain, nonatomic) IBOutlet UILabel  *speedLabel;
+@property (retain, nonatomic) IBOutlet UILabel  *densityLabel;
+
+@property (retain, nonatomic) IBOutlet UIButton *btn_NewGame;
+@property (retain, nonatomic) IBOutlet UIButton *btn_Continue;
+@property (retain, nonatomic) IBOutlet UIButton *btn_Advanced;
+@property (retain, nonatomic) IBOutlet UIButton *btn_Random;
+
+
 - (IBAction)assignRandom:(id)sender;
 - (IBAction)valueChanged:(id)sender;
 
@@ -27,8 +34,33 @@
 @synthesize densitySlider;
 @synthesize speedLabel;
 @synthesize densityLabel;
+@synthesize btn_NewGame;
+@synthesize btn_Continue;
+@synthesize btn_Advanced;
+@synthesize btn_Random;
 @synthesize ogreVC;
+@synthesize needsInit;
 
+
+- (void) disableAll
+{
+    [speedSlider   setEnabled:NO];
+    [densitySlider setEnabled:NO];
+    [btn_Advanced  setEnabled:NO];
+    [btn_Random    setEnabled:NO];
+    [btn_NewGame   setEnabled:NO];
+    [btn_Continue  setEnabled:NO];
+}
+
+- (void) enableAll
+{
+    [speedSlider   setEnabled:YES];
+    [densitySlider setEnabled:YES];
+    [btn_Advanced  setEnabled:YES];
+    [btn_Random    setEnabled:YES];
+    [btn_NewGame   setEnabled:YES];
+    [btn_Continue  setEnabled:YES];
+}
 
 - (void) setDataStore:( forestrunner::DataStore* )store
 {
@@ -52,8 +84,9 @@
     int speed   = m_dataStore->get<int>("pref:velocity");
     int density = m_dataStore->get<int>("pref:density");
     
-    [speedSlider setValue:speed];
+    [speedSlider   setValue:speed];
     [densitySlider setValue:density];
+    self.needsInit = YES;
     
 }
 
@@ -64,10 +97,19 @@
 
     [self setSpeedLabel:nil];
     [self setDensityLabel:nil];
+    [self setBtn_NewGame:nil];
+    [self setBtn_Continue:nil];
+    [self setBtn_Advanced:nil];
+    [self setBtn_Random:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
+- (void) viewWillAppear: (BOOL)animated
+{
+    [self enableAll];
+    [self.btn_Continue setEnabled: !self.needsInit];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -84,12 +126,18 @@
         
     NSString *densityText = [
         [NSString alloc] 
-        initWithFormat:@"[%d]: %2.2f m/s", 
+        initWithFormat:@"[%d]: %2.2f /m^2", 
         density, 
         density*1.2 ];
         
     [speedLabel   setText:speedText];
     [densityLabel setText:densityText];
+}
+
+- (void) markNeedsInit
+{
+    self.needsInit = YES;
+    [self.btn_Continue setEnabled: NO];
 }
 
 - (IBAction)assignRandom:(id)sender 
@@ -100,7 +148,7 @@
     [densitySlider setValue: density];
     
     [self setLabels:floor(speed) density:floor(density)];
-    
+    [self markNeedsInit];
 }
 
 - (IBAction)valueChanged:(id)sender 
@@ -108,6 +156,7 @@
     float speed   = [speedSlider value];
     float density = [densitySlider value];
     
+    [self markNeedsInit];
     [self setLabels:floor(speed) density:floor(density)];
        
 }
@@ -125,7 +174,7 @@
     m_dataStore->flush();
 }
 
-- (IBAction)gotoNewGame:(id)sender 
+- (void) advanceToPlayScreen
 {
     [self flushData];
     self.ogreVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -134,6 +183,40 @@
             animated:YES 
             completion:nil
     ];
+}
+
+- (void) stepInit
+{
+    m_app->step();
+    if(m_app->needsWork())
+    {
+        [NSTimer scheduledTimerWithTimeInterval:0.01
+                 target:self 
+                 selector:@selector(stepInit) 
+                 userInfo:nil 
+                 repeats:NO];
+    }
+    else
+        [self advanceToPlayScreen];
+}
+
+- (IBAction)gotoNewGame:(id)sender 
+{
+    if( self.needsInit )
+    {
+        self.needsInit = NO;
+        m_app = [self.ogreVC getApplication];
+        m_dispatcher = m_app->getDispatcher();
+        m_dispatcher->startInitRun();
+   
+        [self disableAll];
+        [self stepInit];
+    }
+    else
+        [self advanceToPlayScreen];
+    
+    
+    
 }
 
 - (IBAction)gotoContinueGame:(id)sender 
@@ -156,4 +239,11 @@
 }
 
 
+- (void)dealloc {
+    [btn_NewGame release];
+    [btn_Continue release];
+    [btn_Advanced release];
+    [btn_Random release];
+    [super dealloc];
+}
 @end

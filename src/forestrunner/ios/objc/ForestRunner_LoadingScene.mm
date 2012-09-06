@@ -63,11 +63,15 @@
 
 - (void)makeMyProgressBarMoving 
 {
+    float cycleProgress = 0;
+    float mainProgress  = 0;
+
     switch(m_step)
     {
         case 0:
             // create the data store and synchronize data with database
-            m_dataStore = new forestrunner::desktop::DataStore();
+            m_dataStore = forestrunner::DataStore::create( 
+                                forestrunner::datastore::backend::SOCI );
             m_dataStore->init();
             break;
             
@@ -86,28 +90,55 @@
         }
             
         case 3:
+        {
             // instanciate the game application and initialize it
             [self.ogreVC initOgre: self.view.window];
             break;
+        }
             
         case 4:
+        {
             [self.view.window setRootViewController: self];
             break;
+        }
+            
+        case 5:
+        {
+            m_app         = [self.ogreVC getApplication];
+            m_dispatcher = m_app->getDispatcher();
+            m_dispatcher->startInitCycle();
+            m_app->step();
+            break;
+        }
+            
+        case 6:
+        {
+            cycleProgress = m_app->getProgress();
+            if(m_app->needsWork())
+            {
+                m_app->step();
+                m_step--;
+            }
+            break;
+        }
+            
         
-        case 20:
+        case 8:
+        {
             // segue to the next scene (nickname)
             [self performSegueWithIdentifier: @"SegueLoadToNick" sender: self];
             break;
+        }
         
         default: 
             break;
     }
 
-    if (m_step < 20) 
+    if (m_step < 8) 
     {
         m_step++;
-        progress.progress = m_step / 20.0;
-        [NSTimer scheduledTimerWithTimeInterval:0.05
+        progress.progress = (m_step + cycleProgress) / 8.0;
+        [NSTimer scheduledTimerWithTimeInterval:0.01
                     target:self 
                     selector:@selector(makeMyProgressBarMoving) 
                     userInfo:nil 

@@ -8,18 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <OGRE/RenderSystems/GLES/APPLE/OgreEAGLViewController.h>
-#include <forestrunner/desktop/DataStore.h>
+#include <forestrunner/datastore/DataStore.h>
 #include <forestrunner/ios/AppInterface.h>
 
 @interface ForestRunner_PlayScene : EAGLViewController
 {
     forestrunner::DataStore* m_dataStore;
-    forestrunner::ios::AppInterface m_app;
+    forestrunner::ios::AppInterface* m_app;
 }
 
 @property (retain, nonatomic) UIViewController* prefScene;
 
-- (void) setDataStore:( forestrunner::DataStore* )store;
+- (void) setDataStore: (forestrunner::DataStore*) store;
+- (forestrunner::ios::AppInterface*) getApplication;
 - (void) initOgre:(UIWindow* )window;
 
 @end
