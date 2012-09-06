@@ -25,6 +25,7 @@
  */
 
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/desktop/DataStore.h"
 
 
 
@@ -88,6 +89,18 @@ const DataStore::UserVec_t& DataStore::userScores()
 const DataStore::GlobalVec_t& DataStore::globalScores()
 {
     return m_globalScores;
+}
+
+DataStore* DataStore::create( datastore::Backend_t backend)
+{
+    using namespace datastore::backend;
+    switch(backend)
+    {
+        case SOCI:
+            return new desktop::DataStore();
+    }
+    
+    return 0;
 }
 
 

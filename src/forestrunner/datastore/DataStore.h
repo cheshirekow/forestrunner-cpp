@@ -34,8 +34,20 @@
 #include <iostream>
 #include <vector>
 
-namespace forestrunner{
+namespace forestrunner {
 
+namespace    datastore {
+namespace      backend {
+
+    enum Backend
+    {
+        SOCI
+    };
+}
+
+typedef backend::Backend Backend_t;
+
+}
 
 
 /// base class and interface for data storage (preferences, user scores)
@@ -142,6 +154,8 @@ class DataStore
 
         const UserVec_t& userScores();
         const GlobalVec_t& globalScores();
+        
+        static DataStore* create(datastore::Backend_t);
 
 
 
