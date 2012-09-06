@@ -136,14 +136,14 @@ class StateGraph:
 
         /// called from the UI when the user pauses the game, changes state
         /// to paused
-        void pause();
+        virtual void pause();
 
         /// called from the game when the user crashes
         void crash();
 
         /// called from the UI thread when it is time to start running the
         /// game
-        void play();
+        virtual void play();
 
         /// starts the init cycle which does all the initialization stuff
         virtual void startInitCycle();

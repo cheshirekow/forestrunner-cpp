@@ -40,7 +40,10 @@ class Dispatcher
         virtual void startInitRun()      =0;
         virtual void startLightingCycle()=0;
         virtual void startCartoonCycle() =0;
-
+        
+        virtual void play()              =0;
+        virtual void pause()             =0;
+        
         virtual bool isPaused() =0;
         virtual bool isCrashed()=0;
 
