@@ -80,9 +80,6 @@ void HighScoreScreen::exec()
     m_lb_userScores->resetList();
     m_lb_globalScores->resetList();
 
-    m_lb_userScores->setMultiselectEnabled(true);
-    m_lb_globalScores->setMultiselectEnabled(true);
-
     m_dataStore->write_score(m_game->get_score());
     m_dataStore->sync_scores();
 
@@ -111,9 +108,12 @@ void HighScoreScreen::exec()
                                     dateStr,
                                     iUserRow->score );
 
-        CEGUI::ListboxItem* item = new
+        CEGUI::ListboxTextItem* item = new
             CEGUI::ListboxTextItem(rowStr,iUserRow->id,0,false,true);
+        item->setSelectionColours(CEGUI::Colour(1.0f,0.0f,0.0f,1.0f));
         item->setSelected(iUserRow->isCurrent);
+        if(iUserRow->isCurrent)
+            item->setTextColours(CEGUI::Colour(1.0f,0.0f,0.0f,1.0f));
         m_lb_userScores->addItem(item);
     }
 
