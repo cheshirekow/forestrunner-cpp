@@ -28,6 +28,7 @@
 
 #include "forestrunner/Application.h"
 #include "forestrunner/datastore/DataStore.h"
+#include "forestrunner/ios/InputHandler.h"
 
 namespace forestrunner {
 namespace          ios {
@@ -49,6 +50,8 @@ class Application:
         
         /// iOS can't use the sigc++ callbacks so we'll store the info here
         float               m_cycleProgress;
+
+        InputHandler        m_inputHandler;
 
     public:
         Application(DataStore* store);
@@ -84,6 +87,8 @@ class Application:
         virtual void setupDispatcher();
         
         float getScore();
+
+        void setAcceleration( double acc[3]);
 };
 
 } // namespace ios 

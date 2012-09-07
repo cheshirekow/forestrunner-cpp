@@ -40,6 +40,7 @@ class AppInterface
 {
     private:
         Application* m_impl;
+        double       m_acc[3]; ///< storage for acceleration vector
 
     public:
         AppInterface(DataStore* store);
@@ -57,6 +58,8 @@ class AppInterface
         game::Dispatcher* getDispatcher();
         float getProgress();
         float getScore();
+
+        void setAcceleration( double x, double y, double z );
 };
 
 } // namespace ios 

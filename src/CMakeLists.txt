@@ -145,6 +145,7 @@ if(FORESTRUNNER_BUILD_OK)
         forestrunner/Application.cpp
         forestrunner/ios/Application.cpp
         forestrunner/ios/AppInterface.cpp
+        forestrunner/ios/InputHandler.cpp
         forestrunner/datastore/DataStore.cpp
         forestrunner/datastore/BaseStore.cpp
         forestrunner/datastore/Map.cpp

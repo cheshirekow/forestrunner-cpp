@@ -160,11 +160,18 @@ void Application::setupDispatcher()
     m_dispatcher.initCycle.sig_progress.connect(
             sigc::mem_fun(*this,&Application::onProgress) );
     
+    m_inputHandler.setGame(m_game);
 }
+
 
 float Application::getScore()
 {
     return m_game->get_score();
+}
+
+void Application::setAcceleration(double acc[3])
+{
+    m_inputHandler.setAcceleration(acc);
 }
 
 
