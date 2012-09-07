@@ -110,6 +110,11 @@ void AppInterface::setAcceleration( double x, double y, double z )
     m_impl->setAcceleration(m_acc);
 }
 
+void AppInterface::setRoll( double roll )
+{
+    m_impl->setRoll(roll);
+}
+
 
 } // namespace ios 
 } // namespace forestrunner 

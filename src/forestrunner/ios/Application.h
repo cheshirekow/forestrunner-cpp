@@ -89,6 +89,7 @@ class Application:
         float getScore();
 
         void setAcceleration( double acc[3]);
+        void setRoll( double roll );
 };
 
 } // namespace ios 

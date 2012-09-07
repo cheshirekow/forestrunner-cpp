@@ -60,6 +60,7 @@ class AppInterface
         float getScore();
 
         void setAcceleration( double x, double y, double z );
+        void setRoll( double roll );
 };
 
 } // namespace ios 

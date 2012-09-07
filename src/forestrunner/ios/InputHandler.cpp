@@ -100,5 +100,27 @@ void InputHandler::setAcceleration( double acc[3] )
 }
 
 
+
+void InputHandler::setRoll( double roll )
+{
+    m_angle = roll;
+
+    if( m_angle < -sm_maxAngle )
+        m_angle = -sm_maxAngle;
+    if( m_angle > sm_maxAngle )
+        m_angle = sm_maxAngle;
+
+    m_game->setXSpeed( (m_angle / sm_maxAngle)*m_xSpeedMax );
+
+    // on a PC, we rotate the scene according to xspeed
+    // on android, we do the opposite
+    Ogre::Radian angle(m_angle);
+    Ogre::Quaternion q(angle, Ogre::Vector3(0.0f,0.0f,1.0f) );
+
+    m_game->setRotation(q);
+}
+
+
+
 }
 }

@@ -40,6 +40,7 @@ class InputHandler
         void setGame(Game* game);
         void initRun();
         void setAcceleration( double acc[3] );
+        void setRoll( double roll );
 };
 
 }

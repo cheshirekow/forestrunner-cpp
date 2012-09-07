@@ -174,6 +174,10 @@ void Application::setAcceleration(double acc[3])
     m_inputHandler.setAcceleration(acc);
 }
 
+void Application::setRoll( double roll )
+{
+    m_inputHandler.setRoll(roll);
+}
 
 } // namespace ios 
 } // namespace forestrunner 
