@@ -377,6 +377,9 @@ You must agree to these terms to play to the game.
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="gotoNewGame:" destination="fZK-Rc-bLY" eventType="touchUpInside" id="gko-1s-Vmn"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MJJ-ER-pxH">
                                 <rect key="frame" x="357" y="243" width="103" height="37"/>
@@ -389,6 +392,9 @@ You must agree to these terms to play to the game.
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="gotoContinueGame:" destination="fZK-Rc-bLY" eventType="touchUpInside" id="hys-VD-f3A"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="9" id="7e2-fi-Ahi">
                                 <rect key="frame" x="245" y="84" width="217" height="23"/>
@@ -464,39 +470,51 @@ try not to hit stuff</string>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="btn_Continue" destination="MJJ-ER-pxH" id="jAv-at-tlI"/>
+                        <outlet property="btn_NewGame" destination="2cr-Hm-Cta" id="5kv-Es-3Lw"/>
                         <outlet property="densityLabel" destination="wdz-62-pLt" id="fPD-Jq-c3w"/>
                         <outlet property="densitySlider" destination="yHw-jc-qcp" id="GRA-mT-Xnn"/>
                         <outlet property="speedLabel" destination="rio-r4-Cot" id="rZd-Yo-mi2"/>
                         <outlet property="speedSlider" destination="7e2-fi-Ahi" id="q1C-vC-Kul"/>
-                        <segue destination="4pZ-MJ-Vn9" kind="modal" identifier="SegueSetupToGame" id="1Sv-qA-qno"/>
+                        <outlet property="view" destination="y3K-Cf-w5I" id="45L-ur-YgY"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="683" y="83"/>
         </scene>
         <!--Forest Runner Play Scene-->
-        <scene sceneID="Ahf-SG-Sxn">
+        <scene sceneID="r6R-dz-lQX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="80p-vV-5Ob" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="GameView" id="4pZ-MJ-Vn9" customClass="ForestRunner_PlayScene" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5W5-EC-sFi">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cPk-Wi-sID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="GameView" id="cnM-M3-cR7" customClass="ForestRunner_PlayScene" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B8h-8B-nk0">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hXf-Rn-KUO">
-                                <rect key="frame" x="6" y="271" width="59" height="22"/>
+                            <view contentMode="scaleToFill" id="fXl-Mx-f1y" customClass="ForestRunner_EAGLView">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="pause">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rXl-4z-vZz">
-                                <rect key="frame" x="395" y="5" width="78" height="21"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IPV-ER-a55">
+                                        <rect key="frame" x="7" y="720" width="59" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="pause">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="gotoPause:" destination="cnM-M3-cR7" eventType="touchUpInside" id="BcW-YI-u3L"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="V0k-eC-kAT">
+                                <rect key="frame" x="908" y="6" width="78" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -509,45 +527,116 @@ try not to hit stuff</string>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <segue destination="6Jd-Yg-bvm" kind="modal" identifier="SegueGameToLeader" id="dAf-Fz-gIm"/>
+                        <outlet property="gameView" destination="fXl-Mx-f1y" id="Ncb-Qg-TCv"/>
+                        <outlet property="label_Score" destination="V0k-eC-kAT" id="bhP-ye-las"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2061" y="109"/>
+            <point key="canvasLocation" x="2117" y="83"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="yIf-3c-Bnb">
+        <!--Forest Runner Score Table-->
+        <scene sceneID="XP2-2c-n0S">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OpF-Vh-suY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="6Jd-Yg-bvm" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gJW-cx-vq8">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Non-FL-F6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="ScoreView" id="7e8-iv-HUh" customClass="ForestRunner_ScoreTable" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" id="NhB-nM-jRz">
                         <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="SNx-nE-6gO">
-                                <rect key="frame" x="0.0" y="22" width="1024" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="scoreCell" rowHeight="33" id="J0k-3T-4Oj" customClass="ForestRunner_ScoreCell">
+                                <rect key="frame" x="0.0" y="22" width="1024" height="33"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="32"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="nickname " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dNx-1o-BEZ">
+                                            <rect key="frame" x="13" y="5" width="164" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="score " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TEb-fu-7hm">
+                                            <rect key="frame" x="336" y="5" width="136" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="date " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8d1-5p-qqq">
+                                            <rect key="frame" x="185" y="5" width="123" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="label_date" destination="8d1-5p-qqq" id="Ff3-PS-wDQ"/>
+                                    <outlet property="label_nick" destination="dNx-1o-BEZ" id="THI-of-bEU"/>
+                                    <outlet property="label_score" destination="TEb-fu-7hm" id="800-dR-4T7"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="navCell" rowHeight="45" id="ud4-Y9-IxG" customClass="ForestRunner_NavCell">
+                                <rect key="frame" x="0.0" y="55" width="1024" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wbV-5W-oAh">
+                                            <rect key="frame" x="20" y="4" width="107" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Play Again">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onPlayAgain:" destination="7e8-iv-HUh" eventType="touchUpInside" id="dtd-Kg-v9P"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Z2V-om-HRZ">
+                                            <rect key="frame" x="317" y="4" width="143" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Change Settings">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onChangeSettings:" destination="7e8-iv-HUh" eventType="touchUpInside" id="2fz-nc-YFT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="btn_again" destination="wbV-5W-oAh" id="yBD-wx-m6v"/>
+                                    <outlet property="btn_pref" destination="Z2V-om-HRZ" id="cJ7-rI-pld"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="6Jd-Yg-bvm" id="EzE-iQ-aWD"/>
-                            <outlet property="delegate" destination="6Jd-Yg-bvm" id="05a-iP-r1j"/>
+                            <outlet property="dataSource" destination="7e8-iv-HUh" id="FpJ-a7-Oen"/>
+                            <outlet property="delegate" destination="7e8-iv-HUh" id="1TS-ys-Atc"/>
                         </connections>
                     </tableView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
-                    <connections>
-                        <segue destination="fZK-Rc-bLY" kind="modal" identifier="SegueLeaderToSetup" id="fEv-vS-0EV"/>
-                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="3454" y="83"/>
+            <point key="canvasLocation" x="3304" y="67"/>
         </scene>
     </scenes>
     <resources>
@@ -556,6 +645,9 @@ try not to hit stuff</string>
     <classes>
         <class className="ForestRunner_AdvScene" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_AdvScene.h"/>
+        </class>
+        <class className="ForestRunner_EAGLView" superclassName="EAGLView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_EAGLView.h"/>
         </class>
         <class className="ForestRunner_InitScene" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_InitScene.h"/>
@@ -566,14 +658,32 @@ try not to hit stuff</string>
         <class className="ForestRunner_LoadingScene" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_LoadingScene.h"/>
         </class>
+        <class className="ForestRunner_NavCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_NavCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="btn_again" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btn_pref" candidateClass="UIButton"/>
+            </relationships>
+        </class>
         <class className="ForestRunner_NickScene" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_NickScene.h"/>
         </class>
-        <class className="ForestRunner_PlayScene" superclassName="UIViewController">
+        <class className="ForestRunner_PlayScene" superclassName="EAGLViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_PlayScene.h"/>
         </class>
         <class className="ForestRunner_PrefScene" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_PrefScene.h"/>
+        </class>
+        <class className="ForestRunner_ScoreCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_ScoreCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label_date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="label_nick" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="label_score" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ForestRunner_ScoreTable" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_ScoreTable.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -581,7 +691,4 @@ try not to hit stuff</string>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="iTY-18-8Pk"/>
-    </inferredMetricsTieBreakers>
 </document>

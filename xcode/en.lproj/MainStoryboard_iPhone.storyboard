@@ -527,6 +527,7 @@ try not to hit stuff</string>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="gameView" destination="hrr-14-1oX" id="kXs-oZ-fgC"/>
+                        <outlet property="label_Score" destination="kvZ-xS-Y1M" id="6LS-KG-bg0"/>
                     </connections>
                 </viewController>
             </objects>
@@ -639,6 +640,50 @@ try not to hit stuff</string>
     <resources>
         <image name="resources/icon.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="ForestRunner_AdvScene" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_AdvScene.h"/>
+        </class>
+        <class className="ForestRunner_EAGLView" superclassName="EAGLView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_EAGLView.h"/>
+        </class>
+        <class className="ForestRunner_InitScene" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_InitScene.h"/>
+            <relationships>
+                <relationship kind="action" name="exitDisagree:"/>
+            </relationships>
+        </class>
+        <class className="ForestRunner_LoadingScene" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_LoadingScene.h"/>
+        </class>
+        <class className="ForestRunner_NavCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_NavCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="btn_again" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btn_pref" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ForestRunner_NickScene" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_NickScene.h"/>
+        </class>
+        <class className="ForestRunner_PlayScene" superclassName="EAGLViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_PlayScene.h"/>
+        </class>
+        <class className="ForestRunner_PrefScene" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_PrefScene.h"/>
+        </class>
+        <class className="ForestRunner_ScoreCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_ScoreCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label_date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="label_nick" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="label_score" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ForestRunner_ScoreTable" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ForestRunner_ScoreTable.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

@@ -103,8 +103,8 @@ float AppInterface::getScore()
 
 void AppInterface::setAcceleration( double x, double y, double z )
 {
-    m_acc[0] = x;
-    m_acc[1] = y;
+    m_acc[0] = y;
+    m_acc[1] = -x;
     m_acc[2] = z;
 
     m_impl->setAcceleration(m_acc);

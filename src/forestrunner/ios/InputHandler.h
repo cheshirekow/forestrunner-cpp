@@ -19,7 +19,7 @@ class InputHandler
     private:
         static const int   sm_recalcInterval = 10;
         static const int   sm_nAverage       = 3;
-        static const float sm_maxAngle       = M_PI/4.0;
+        static const float sm_maxAngle;
 
     private:
         Game*   m_game;

@@ -15,6 +15,8 @@
 
 @interface ForestRunner_ScoreTable ()
 
+@property (retain, nonatomic) UITableView* tableView;
+
 - (IBAction)onPlayAgain:(id)sender;
 - (IBAction)onChangeSettings:(id)sender;
 
@@ -22,8 +24,7 @@
 
 @implementation ForestRunner_ScoreTable
 
-
-
+@synthesize tableView;
 @synthesize presenter;
 
 - (void) setDataStore:(forestrunner::DataStore *)store
@@ -54,6 +55,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView = nil;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,6 +70,9 @@
     NSLog(@"Writing score %0.2f",m_score);
     m_dataStore->write_score(m_score);
     m_dataStore->sync_scores();
+    
+    if(self.tableView != nil)
+        [self.tableView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -141,6 +147,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    self.tableView = tableView;
+
     // Return the number of sections.
     return 3;
 }

@@ -18,6 +18,8 @@ namespace forestrunner {
 namespace          ios {
 
 
+const float  InputHandler::sm_maxAngle  = M_PI/4.0;
+
 
 InputHandler::InputHandler()
 {

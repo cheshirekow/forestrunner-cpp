@@ -172,10 +172,7 @@
 - (void)accelerometer:(UIAccelerometer *)accelerometer 
         didAccelerate:(UIAcceleration*)acceleration
 {
-    // how to get data:
-    // double x = acceleration.x
-    // double y = acceleration.y
-    // double z = acceleration.z
+    m_app->setAcceleration( acceleration.x, acceleration.y, acceleration.z );
 }
 
 @end
