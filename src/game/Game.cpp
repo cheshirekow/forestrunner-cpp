@@ -126,14 +126,17 @@ void Game::valueChanged(forestrunner::Key_t key,
     {
         case PREF_DENSITY:
             m_prefDensity = value.get<int>();
+            calcSettings();
             break;
 
         case PREF_RADIUS:
             m_prefRadius = value.get<int>();
+            calcSettings();
             break;
 
         case PREF_SPEED:
             m_prefSpeed = value.get<int>();
+            calcSettings();
             break;
 
         case ADV_CARTOON:

@@ -16,6 +16,7 @@
 @property (retain, nonatomic) IBOutlet UIProgressView *progress;
 @property (retain, nonatomic) ForestRunner_PlayScene*  ogreVC;
 @property (retain, nonatomic) ForestRunner_ScoreTable* scoreVC;
+@property (retain, nonatomic) CMMotionManager* motionMgr;
 
 @end
 
@@ -23,6 +24,7 @@
 @synthesize progress;
 @synthesize ogreVC;
 @synthesize scoreVC;
+@synthesize motionMgr;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -75,6 +77,16 @@
             m_dataStore = forestrunner::DataStore::create( 
                                 forestrunner::datastore::backend::SOCI );
             m_dataStore->init();
+            
+            // create the motion manager
+            self.motionMgr = [[[CMMotionManager alloc] init] retain];
+            self.motionMgr.deviceMotionUpdateInterval = 0.02; // 50 Hz
+            
+            if(self.motionMgr.isDeviceMotionAvailable)
+                NSLog(@"Device Motion Available");
+            else
+                NSLog(@"Device Motion Unavailable");
+            
             break;
             
         case 1:
@@ -82,6 +94,7 @@
             self.ogreVC = [self.storyboard 
                 instantiateViewControllerWithIdentifier:@"GameView"];
             [self.ogreVC setDataStore: m_dataStore];
+            self.ogreVC.motionMgr = self.motionMgr;
             break;
             
         case 2:

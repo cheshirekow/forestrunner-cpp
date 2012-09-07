@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
 #import <OGRE/RenderSystems/GLES/APPLE/OgreEAGLViewController.h>
 #import "ForestRunner_ScoreTable.h"
 
@@ -16,16 +17,17 @@
 #include <forestrunner/util/Printf.h>
 
 @interface ForestRunner_PlayScene : EAGLViewController
-    <UIAccelerometerDelegate>
 {
     forestrunner::DataStore*         m_dataStore;
     forestrunner::ios::AppInterface* m_app;
     forestrunner::game::Dispatcher*  m_dispatcher;
     forestrunner::util::Printf       m_scoreBuf;
+    int     m_iLabelStep;
 }
 
 @property (retain, nonatomic) UIViewController*         prefScene;
 @property (retain, nonatomic) ForestRunner_ScoreTable*  scoreTable;
+@property (retain, nonatomic) CMMotionManager* motionMgr;
 
 - (void) setDataStore: (forestrunner::DataStore*) store;
 - (forestrunner::ios::AppInterface*) getApplication;

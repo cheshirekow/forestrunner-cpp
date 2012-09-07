@@ -8,14 +8,14 @@
 
 #import "ForestRunner_PlayScene.h"
 #import "ForestRunner_PrefScene.h"
+
 #include <forestrunner/util/Printf.hpp>
+#include <cmath>
 
 @interface ForestRunner_PlayScene ()
 @property (retain, nonatomic) IBOutlet UIView  *gameView;
 @property (retain, nonatomic) IBOutlet UIView  *mainView;
 @property (retain, nonatomic) IBOutlet UILabel *label_Score;
-@property (retain, nonatomic) UIAccelerometer  *accelerometer; 
-
 
 - (IBAction)gotoPause:(id)sender;
 
@@ -27,7 +27,7 @@
 @synthesize label_Score;
 @synthesize prefScene;
 @synthesize scoreTable;
-@synthesize accelerometer;
+@synthesize motionMgr;
 
 
 - (void) setDataStore:( forestrunner::DataStore* )store
@@ -56,12 +56,21 @@
 
 - (void) stepGame
 {
+    CMAttitude   *currentAttitude = self.motionMgr.deviceMotion.attitude;
+    double       roll             = -[currentAttitude pitch];
+    m_app->setRoll(roll);
+    
     m_app->step();
-    self.label_Score.text = [NSString stringWithUTF8String: 
+    if(++m_iLabelStep > 10)
+    {
+        self.label_Score.text = [NSString stringWithUTF8String: 
                                 m_scoreBuf("%0.2f",m_app->getScore()) ];
+        m_iLabelStep = 0;
+    }
+    
     if(m_app->needsWork())
     {
-        [NSTimer scheduledTimerWithTimeInterval:0.01
+        [NSTimer scheduledTimerWithTimeInterval:0.00
                  target:self 
                  selector:@selector(stepGame) 
                  userInfo:nil 
@@ -105,8 +114,7 @@
     self.mainView = self.view;
     [self.mainView retain];
     
-    // grab a reference to the accelerometer
-    self.accelerometer = [UIAccelerometer sharedAccelerometer];
+    
 }
 
 - (void)viewWillAppear: (BOOL)animated
@@ -115,15 +123,22 @@
     m_dispatcher = m_app->getDispatcher();
     if(!m_dispatcher->isCrashed())
         m_dispatcher->play();
+        
+    if(self.motionMgr.isDeviceMotionAvailable)
+        [self.motionMgr startDeviceMotionUpdates];
+    else
+        NSLog(@"Motion Manager device motion is not available");
+        
+    m_iLabelStep = 0;
     
-    self.accelerometer.updateInterval = 0.1;
-    self.accelerometer.delegate = self;
 }
 
 - (void)viewWillDisappear: (BOOL)animated
 {
     NSLog(@"PlayScene: viewWillDisappear");
-    self.accelerometer.updateInterval = 0.1;
+    
+    if (self.motionMgr.isDeviceMotionActive)
+        [self.motionMgr stopDeviceMotionUpdates];
 }
 
 - (void)viewDidAppear: (BOOL)animated
@@ -141,6 +156,9 @@
     [self setGameView:nil];
     [self setMainView:nil];
     [super viewDidUnload];
+    
+    [self.motionMgr release];
+    self.motionMgr = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,9 +175,10 @@
     return (UIInterfaceOrientationIsLandscape(interfaceOrientation));
 }
 
-- (void)dealloc {
-    [gameView release];
-    [mainView release];
+- (void)dealloc 
+{
+    [gameView    release];
+    [mainView    release];
     [label_Score release];
     [super dealloc];
 }
@@ -169,10 +188,6 @@
     m_dispatcher->pause();
 }
 
-- (void)accelerometer:(UIAccelerometer *)accelerometer 
-        didAccelerate:(UIAcceleration*)acceleration
-{
-    m_app->setAcceleration( acceleration.x, acceleration.y, acceleration.z );
-}
+
 
 @end

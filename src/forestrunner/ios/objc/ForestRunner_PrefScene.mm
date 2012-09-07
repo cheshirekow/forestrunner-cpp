@@ -125,13 +125,13 @@
         [NSString alloc] 
         initWithFormat:@"[%d]: %2.2f m/s", 
         speed, 
-        speed*3.1 ];
+        20.0f + speed*5.0f ];
         
     NSString *densityText = [
         [NSString alloc] 
         initWithFormat:@"[%d]: %2.2f /m^2", 
         density, 
-        density*1.2 ];
+        3.0f + density*2.0f ];
         
     [speedLabel   setText:speedText];
     [densityLabel setText:densityText];
@@ -171,22 +171,11 @@
        
 }
 
--(void) flushData
-{
-    float speedf   = [speedSlider value];
-    float densityf = [densitySlider value];
-    
-    int   speed    = floor(speedf);
-    int   density  = floor(densityf);
-    
-    m_dataStore->get<int>("pref:velocity")=speed;
-    m_dataStore->get<int>("pref:density")=density;
-    m_dataStore->flush();
-}
+
 
 - (void) advanceToPlayScreen
 {
-    [self flushData];
+    m_dataStore->flush();
     self.ogreVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     self.ogreVC.prefScene = self;
     [self presentViewController: self.ogreVC 
@@ -231,8 +220,8 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // first, write out the updated values to the database
-    [self flushData];
-    
+    m_dataStore->flush();
+   
     if ([[segue identifier] isEqualToString:@"SeguePrefToAdv"])
     {
         ForestRunner_AdvScene *dest = segue.destinationViewController;

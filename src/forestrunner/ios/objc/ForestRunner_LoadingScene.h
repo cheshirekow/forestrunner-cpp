@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
 #include <forestrunner/datastore/DataStore.h>
 #include <forestrunner/ios/AppInterface.h>
 #include <forestrunner/game/Dispatcher.h>
@@ -18,5 +19,7 @@
     forestrunner::game::Dispatcher*   m_dispatcher;
     int     m_step;
 }
+
+
 
 @end
